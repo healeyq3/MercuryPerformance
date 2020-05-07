@@ -1,5 +1,6 @@
 import React from 'react'
 import './Navbar.css'
+import {Navbar, Nav, NavBrand, NavLink} from 'react-navbar';
 import { Container } from 'react-bootstrap';
 const navbar = props => (
     <Container fluid>
@@ -19,8 +20,9 @@ const navbar = props => (
                 <a href ="https://www.google.com/" >Settings</a>
             </div>
         </div>
-    </nav>
-</header></Container>
+    </nav> 
     
+        </header>
+    <Container/>
 );
 export default navbar;
