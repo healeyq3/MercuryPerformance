@@ -4,6 +4,7 @@ import { app } from 'firebase'
 import fire from '../Fire'
 //eslint-disable-next-line
 import {withRouter, Router} from 'react-router';
+//eslint-disable-next-line
 import  { Card, Badge, Container, Button } from 'react-bootstrap'
 import {TeamSelectCard} from './TeamSelectCard';
 import AddNewTeam from './AddNewTeam';
