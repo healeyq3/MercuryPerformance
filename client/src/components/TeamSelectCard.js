@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
+// eslint-disable-next-line
 import { Card, Badge, Button } from 'react-bootstrap';
+// eslint-disable-next-line
 import { Link } from 'react-router-dom';
 
 export class TeamSelectCard extends Component {
+    // eslint-disable-next-line
     constructor(props){
         super(props);
     }

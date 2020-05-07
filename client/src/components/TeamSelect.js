@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 //eslint-disable-next-line
 import { app } from 'firebase'
-import fire from '../Config/Fire'
+import fire from '../Fire'
 //eslint-disable-next-line
 import {withRouter, Router} from 'react-router';
 // eslint-disable-next-line
