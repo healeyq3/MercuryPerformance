@@ -26,7 +26,7 @@ export class login extends Component {
         fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then(async (u) => {
             const idToken = await u.user.getIdToken(false);
 
-            await fetch('/login', {
+            fetch('/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -35,6 +35,7 @@ export class login extends Component {
                     idToken: idToken
                 })
             });
+
         }).catch((error) => {
             console.log(error);
         })
