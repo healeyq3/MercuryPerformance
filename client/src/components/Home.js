@@ -32,7 +32,8 @@ export class Home extends Component {
         return(
             <Container fluid>
                 <NavBar></NavBar>
-                <h1 className = "MercuryLogin">Mercury</h1>
+        {//<h1 className = "MercuryLogin">Mercury</h1>
+    }
                 <h2 id = "teamNameHome">Team Name</h2>
                 <AddRunner addRunner = {this.addRunner}></AddRunner>
                 <Runners runners = {this.state.runners} delRunner = {this.delRunner}></Runners>

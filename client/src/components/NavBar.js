@@ -1,28 +1,23 @@
 import React from 'react'
 import './Navbar.css'
-import {Navbar, Nav, NavBrand, NavLink} from 'react-navbar';
 import { Container } from 'react-bootstrap';
+import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap'
 const navbar = props => (
     <Container fluid>
     <header className = "navBar">
-    <nav className = "navBarNav">
-        <div className = "navBarItems">
-            <div className = "navBarHome">
-                <a href = "/">Home</a>
-            </div>
-            <div className = "navBarCal">
-                <a href = "https://www.google.com/">Calendar</a>
-            </div>
-            <div className = "navBarWorkOut">
-                <a href ="https://www.google.com/" >Build Workout</a>
-            </div>
-            <div className = "navBarSettings">
-                <a href ="https://www.google.com/" >Settings</a>
-            </div>
-        </div>
-    </nav> 
+    <Navbar className = "navBarNav" bg="light" expand="lg">
+    <Navbar.Brand href="/Home" >Mercury</Navbar.Brand>
+    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+    <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className = "navBarItems">
+        <Nav.Link href="/Home">Home</Nav.Link>
+        <Nav.Link href="/">Calendar</Nav.Link>
+        <Nav.Link href="/">Workouts</Nav.Link>
+        <Nav.Link href="/">Settings</Nav.Link>
+        </Nav>
+        </Navbar.Collapse>
+    </Navbar> 
     
         </header>
-    <Container/>
-);
-export default navbar;
+        </Container>
+);export default navbar;
