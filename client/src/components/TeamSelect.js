@@ -1,18 +1,9 @@
 import React, { Component } from 'react'
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 9c055b70693f2b254b72fbe02ff13254f6aca7f0
 //eslint-disable-next-line
 import { app } from 'firebase'
 import fire from '../Fire'
 //eslint-disable-next-line
-<<<<<<< HEAD
-=======
 import fire from '../Fire'
->>>>>>> fbb32cb42e71dcc12a2e5a8e30ff4106f98a68b2
-=======
->>>>>>> 9c055b70693f2b254b72fbe02ff13254f6aca7f0
 import {withRouter, Router} from 'react-router';
 //eslint-disable-next-line
 import  { Card, Badge, Container, Button } from 'react-bootstrap'
