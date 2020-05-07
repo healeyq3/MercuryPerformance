@@ -4,6 +4,7 @@ import Home from './components/Home'
 import CreateAccount from './components/CreateAccount';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import fire from './Fire';
+// eslint-disable-next-line
 import {withRouter, Switch} from 'react-router-dom';
 import TeamSelect from './components/TeamSelect';
 
