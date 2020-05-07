@@ -4,14 +4,9 @@ import { app } from 'firebase'
 import fire from '../Fire'
 //eslint-disable-next-line
 import {withRouter, Router} from 'react-router';
-// eslint-disable-next-line
 import  { Card, Badge, Container, Button } from 'react-bootstrap'
-//eslint-disable-next-line
-import { Link } from 'react-router-dom';
 import {TeamSelectCard} from './TeamSelectCard';
 import AddNewTeam from './AddNewTeam';
-
-
 
 export class TeamSelect extends Component {
     constructor(props) {
