@@ -1,7 +1,17 @@
 import React, { Component } from 'react'
-import fire from '../Fire'
+//eslint-disable-next-line
+import { app } from 'firebase'
+import fire from '../Config/Fire'
+//eslint-disable-next-line
 import {withRouter, Router} from 'react-router';
-import  { Container, Button } from 'react-bootstrap'
+// eslint-disable-next-line
+import  { Card, Badge, Container, Button } from 'react-bootstrap'
+//eslint-disable-next-line
+import { Link } from 'react-router-dom';
+import {TeamSelectCard} from './TeamSelectCard';
+import AddNewTeam from './AddNewTeam';
+
+
 
 export class TeamSelect extends Component {
     constructor(props) {
@@ -18,21 +28,12 @@ export class TeamSelect extends Component {
                 <Container fluid>
                     <header className = "MercuryHome">
                         <h1 className ="teamSelect">Team Select</h1>
-                    </header>
-                    <Button className = "addTeam" type = "button" variant = "dark">
-                    Add Team
-                    </Button>
-                    <Button className = "signOut" variant = "light" onClick = {this.logout}>
+                        <Button className = "signOut" variant = "light" onClick = {this.logout}>
                         Sign Out
                     </Button>
-                    
-                        
-                        <ul className = "teams" id = "teams">
-                        <li className = "team" style = {{fontSize: 20, margin : 2}}>
-                            <a href = "./Home">Team Name</a>
-                            </li>
-                    </ul>
-                   
+                    </header>
+                    <TeamSelectCard />
+                    <AddNewTeam />
                  
                 </Container>
 
