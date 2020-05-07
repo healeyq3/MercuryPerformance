@@ -23,7 +23,19 @@ export class login extends Component {
 
     login(e) {
         e.preventDefault();
-        fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then((u) => {
+        fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then(async (u) => {
+            const idToken = await u.user.getIdToken(false);
+
+            fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    idToken: idToken
+                })
+            });
+
         }).catch((error) => {
             console.log(error);
         })
