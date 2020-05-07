@@ -5,6 +5,7 @@ import  { Container, Button } from 'react-bootstrap'
 import { Runners } from './Runners';
 import {AddRunner} from './AddRunner';
 import uuid from 'react-uuid';
+import NavBar from './NavBar'
 
 export class Home extends Component {
     state = {
@@ -30,6 +31,7 @@ export class Home extends Component {
     render(){
         return(
             <Container fluid>
+                <NavBar></NavBar>
                 <h1 className = "MercuryLogin">Mercury</h1>
                 <h2 id = "teamNameHome">Team Name</h2>
                 <AddRunner addRunner = {this.addRunner}></AddRunner>
