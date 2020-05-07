@@ -1,0 +1,15 @@
+{
+  "name": "react-express-research",
+  "version": "1.0.0",
+  "description": "Research for Mercury",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "John",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
