@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Card, Badge, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 
 export class TeamSelectCard extends Component {
     constructor(props){
