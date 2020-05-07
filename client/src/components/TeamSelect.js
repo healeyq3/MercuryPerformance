@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import { app } from 'firebase'
 import fire from '../Fire'
 //eslint-disable-next-line
-import fire from '../Fire'
 import {withRouter, Router} from 'react-router';
 //eslint-disable-next-line
 import  { Card, Badge, Container, Button } from 'react-bootstrap'
