@@ -5,11 +5,7 @@ import  { Container, Button } from 'react-bootstrap'
 import { Runners } from './Runners';
 import {AddRunner} from './AddRunner';
 import uuid from 'react-uuid';
-<<<<<<< HEAD
-import { NavBar} from './NavBar'
-=======
-import NavBar from './NavBar'
->>>>>>> 79caf173ae3beef5536e1547c2533b7d203d2551
+import NavBar from './NavBar';
 
 export class Home extends Component {
     state = {
@@ -35,14 +31,9 @@ export class Home extends Component {
     render(){
         return(
             <Container fluid>
-<<<<<<< HEAD
-                <NavBar />
-                <h1 className = "MercuryLogin">Mercury</h1>
-=======
                 <NavBar></NavBar>
         {//<h1 className = "MercuryLogin">Mercury</h1>
     }
->>>>>>> 79caf173ae3beef5536e1547c2533b7d203d2551
                 <h2 id = "teamNameHome">Team Name</h2>
                 <AddRunner addRunner = {this.addRunner}></AddRunner>
                 <Runners runners = {this.state.runners} delRunner = {this.delRunner}></Runners>

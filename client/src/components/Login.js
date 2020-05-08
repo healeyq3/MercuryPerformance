@@ -76,7 +76,7 @@ export class login extends Component {
                         type = "password"
                         value = {this.state.password}
                         onChange = {this.handleChange}
-                        placeHolder = "Enter Password"
+                        placeholder = "Enter Password"
                         name = "password"
                         />
                     </Form.Group>

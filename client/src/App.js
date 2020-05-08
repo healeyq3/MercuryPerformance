@@ -7,6 +7,8 @@ import fire from './Fire';
 // eslint-disable-next-line
 import {withRouter, Switch} from 'react-router-dom';
 import TeamSelect from './components/TeamSelect';
+import CreateTeam from './components/CreateTeam';
+import WorkoutInventory from './components/WorkoutInventory';
 
 
 class App extends Component {
@@ -50,6 +52,12 @@ class App extends Component {
                 <Home/>
             )}
             />
+            <Route path = "/CreateTeam" render = {props => (
+                <CreateTeam/>
+            )} />
+            <Route path = "/WorkoutInventory" render = {props => (
+              <WorkoutInventory />
+            )} />
           </div>
 
         </Router>
