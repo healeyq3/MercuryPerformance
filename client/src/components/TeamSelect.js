@@ -20,13 +20,17 @@ export class TeamSelect extends Component {
         }
     }
 
+    componentDidMount(){
+        this.show = true;
+    }
+
     logout(){
         fire.auth().signOut();
     }
 
     setShow = () => {
         console.log(this.show)
-        this.setState({show: true})
+        this.show = false;
         console.log('hello')
         console.log(this.show)
     }
