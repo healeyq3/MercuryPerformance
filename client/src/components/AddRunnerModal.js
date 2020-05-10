@@ -1,16 +1,15 @@
 import React, { Component } from 'react'
 import { Modal } from 'react-bootstrap';
 import {Form} from "react-bootstrap"
-
+import {useState} from 'react'
 export class AddRunnerModal extends Component {
     constructor(props){
         super(props);
     }
     
-    
     render() {
         return (
-            <Modal.Dialog hidden = {this.props.setShow} scrollable = {true}>
+            <Modal.Dialog hidden = {this.props.setShow} scrollable = {true} >
                 <Modal.Header>Add Runner</Modal.Header>
                 <Modal.Body>
                 <Form>

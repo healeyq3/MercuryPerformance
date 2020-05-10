@@ -6,9 +6,11 @@ import PropTypes from 'prop-types';
 import AddRunnerModal from "./AddRunnerModal"
 
 export class AddRunner extends Component {
+    
     state = {
         title : ""
     }
+    
     onSubmit = (e) => {
         e.preventDefault();
         this.props.AddRunner(this.state.title);
