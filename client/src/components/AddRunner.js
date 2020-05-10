@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import {withRouter} from 'react-router';
 // eslint-disable-next-line
-import  { Container, Button, Navbar, Form } from 'react-bootstrap'
+import  { Container, Button, Navbar, Form, Modal } from 'react-bootstrap'
 import PropTypes from 'prop-types';
+import AddRunnerModal from "./AddRunnerModal"
 
 export class AddRunner extends Component {
     state = {
@@ -13,38 +14,24 @@ export class AddRunner extends Component {
         this.props.AddRunner(this.state.title);
         this.setState = ({title : ''})
     }
+    setShow = () => {
+        console.log(this.show)
+        this.show = false;
+        console.log('hello')
+        console.log(this.show)
+    }
     onChange = (e) => this.setState({[e.target.name] : e.target.value});
     render(){
     return (
         <Container fluid>
             <Form>
-                     <Form.Group controlId = "controlInput2" onSubmit = {this.onSubmit}>
-                        <Form.Label>Full Name</Form.Label>
-                        <Form.Control
-                            type = "text"
-                            name = "title"
-                            placeholder = "John O'Brien"
-                            value = {this.state.title}
-                            onChange = {this.onChange}
-                        />
-                    </Form.Group>
-                    <Form.Group controlId = "controlInput1">
-                        <Form.Label>Class</Form.Label>
-                        <Form.Control 
-                            type = "text"
-                            placeholder = "Freshman"
-                        />
-                    </Form.Group>
-                    <Form.Group controlId = "controlInput3">
-                        <Form.Label>Workout Pace</Form.Label>
-                        <Form.Control
-                            type = "text"
-                            placeholder = "00:00"
-                        />
-                    </Form.Group>
                      <Form.Group controlId = "enter">
-                         <Button type = "submit">Add Runner</Button>
+                         <Button type = "submit" onClick = {this.setShow}>Add Runner
+            
+                         </Button>
                      </Form.Group>
+                     <AddRunnerModal setShow = {this.show}/>
+                     
                     </Form>
         </Container>
     )

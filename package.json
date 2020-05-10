@@ -14,6 +14,7 @@
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "http-errors": "^1.7.3",
+    "modal": "^1.2.0",
     "morgan": "^1.10.0"
   }
 }
