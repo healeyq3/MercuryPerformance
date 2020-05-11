@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Modal } from 'react-bootstrap';
-import {Form} from "react-bootstrap"
+import { Modal, ModalFooter } from 'react-bootstrap';
+import {Form, Button} from "react-bootstrap"
 import {useState} from 'react'
 export class AddRunnerModal extends Component {
     constructor(props){
@@ -40,6 +40,15 @@ export class AddRunnerModal extends Component {
                     </Form.Group>
                     </Form>
                 </Modal.Body>
+                <ModalFooter>
+                <Form>
+                     <Form.Group controlId = "enter">
+                         <Button type = "submit" onClick = {this.setShow}>Add Runner
+            
+                         </Button>
+                     </Form.Group>
+                     </Form>
+                </ModalFooter>
             </Modal.Dialog>
             </Modal>
         )
