@@ -10,6 +10,8 @@ import TeamSelect from './components/TeamSelect';
 import CreateTeam from './components/CreateTeam';
 import WorkoutInventory from './components/WorkoutInventory';
 import CalendarHome from './components/CalendarHome';
+// eslint-disable-next-line
+import TestCalendar from './components/TestCalendar';
 
 
 class App extends Component {

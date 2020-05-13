@@ -3,6 +3,8 @@ import { Container } from 'react-bootstrap'
 import {Calendar} from 'react-calendar'
 import {withRouter} from 'react-router';
 import NavBar from './NavBar';
+// eslint-disable-next-line
+import TestCalendar from './TestCalendar'
 import 'react-calendar/dist/Calendar.css';
 
 export class CalendarHome extends Component {
@@ -18,8 +20,6 @@ export class CalendarHome extends Component {
                 value={this.state.date}
                 style={{locale : 'en-US', calendarType : 'US'}}
                 </Calendar>
-                
-
             </Container> 
             
         )
