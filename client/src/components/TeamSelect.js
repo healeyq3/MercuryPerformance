@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { app } from 'firebase'
+import {app, auth} from 'firebase'
 import fire from '../Fire'
 import {withRouter, Router} from 'react-router';
 import  { Card, Badge, Container, Button, Row, Col } from 'react-bootstrap'
@@ -12,7 +12,6 @@ import { Modal } from 'react-bootstrap';
 import ModalHeader from 'react-bootstrap/ModalHeader';
 import CreateTeamModal from './CreateTeamModal';
 
-
 export class TeamSelect extends Component {
     constructor(props) {
         super(props);
@@ -22,7 +21,28 @@ export class TeamSelect extends Component {
         }
     }
 
- 
+    async getTeams(){
+        const currUser = fire.auth().currentUser;
+        if(!currUser)
+            return null;
+
+        currUser.getIdToken(false).then(async (idToken) => {
+            await fetch('/teams', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    idToken: idToken,
+                    user: currUser
+                })
+            }).then(function(res){
+                return res.text();
+            }).then(function(data){
+                console.log(data)
+            });
+        });
+    }
 
     logout(){
         fire.auth().signOut().then();
@@ -33,8 +53,9 @@ export class TeamSelect extends Component {
             show: !this.state.show
         })
     }
-    
+
     render() {
+        this.getTeams();
         return (
                 <Container fluid = "true">
                     <header className = "MercuryHome">

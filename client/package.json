@@ -23,10 +23,10 @@
     "uuid": "^8.0.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "server": "cd .. && node server.js",
+    "client": "npm start",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "react-scripts start"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -43,5 +43,8 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000/"
+  "proxy": "http://localhost:5000/",
+  "devDependencies": {
+    "concurrently": "^5.2.0"
+  }
 }

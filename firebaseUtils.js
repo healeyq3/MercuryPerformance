@@ -52,7 +52,25 @@ async function addTeamToUser(user, teamUid, role){
     });
 }
 
+async function getUserTeams(user){
+    const teamsRef = database.ref("users/"+user.uid);
+    let teams = {};
+    await teamsRef.orderByChild("teams").once("value", function (snapshot) {
+        snapshot.forEach(async function (childSnapshot) {
+            console.log("Snapshot iteration");
+            // const value = childSnapshot.key;
+            // database.ref("teams/" + value).on("value", snapshot => {
+            //     console.log("Adding team " + value.blue);
+            //     teams[value] = snapshot.val();
+            // });
+        });
+    });
+
+    console.log("Teams \n" + JSON.stringify(teams));
+}
+
 module.exports.createUser = createUser;
 module.exports.createTeam = createTeam;
 module.exports.addTeamToUser = addTeamToUser;
+module.exports.getUserTeams = getUserTeams;
 module.exports.authenticateToken = authenticateToken;

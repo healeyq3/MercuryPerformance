@@ -25,7 +25,7 @@ export class login extends Component {
         fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then(async (u) => {
             const idToken = await u.user.getIdToken(false);
 
-            fetch('/login', {
+            await fetch('/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -74,7 +74,7 @@ export class login extends Component {
                     </Form.Group>
                     <Row className = "justify-content-left">
                         <Col>
-                            <Button type = 'submit' variant = "dark" onClick = {this.login}>Login</Button>
+                            <Button onClick = {this.login} type = 'submit' variant = "dark" >Login</Button>
                             <Button variant = "light">
                                 <Link to = "./CreateAccount">Create Account</Link>
                             </Button>
