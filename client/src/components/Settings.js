@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Container, Button } from 'react-bootstrap'
 import fire from '../Fire'
+import NavBar from './NavBar';
 import {withRouter} from 'react-router';
 
 export class Settings extends Component {
@@ -14,6 +15,7 @@ export class Settings extends Component {
     render() {
         return (
             <Container fluid>
+                <NavBar></NavBar>
                 <h1>Settings</h1>
                 <Button className = "signOut" variant = "light" onClick = {this.logout}>Sign Out</Button>
             </Container>
