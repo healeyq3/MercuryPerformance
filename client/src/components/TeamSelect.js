@@ -1,15 +1,11 @@
 import React, { Component } from 'react'
 import {app, auth} from 'firebase'
 import fire from '../Fire'
-import {withRouter, Router} from 'react-router';
-import  { Card, Badge, Container, Button, Row, Col } from 'react-bootstrap'
+import {withRouter} from 'react-router';
+import  { Container, Button, Row, Col } from 'react-bootstrap'
 import {TeamSelectCard} from './TeamSelectCard';
 import AddNewTeam from './AddNewTeam';
-import Popup from "reactjs-popup";
-import { CreateTeam } from './CreateTeam';
 import '../css/PopupStyle.css';
-import { Modal } from 'react-bootstrap';
-import ModalHeader from 'react-bootstrap/ModalHeader';
 import CreateTeamModal from './CreateTeamModal';
 
 export class TeamSelect extends Component {
@@ -68,7 +64,7 @@ export class TeamSelect extends Component {
                             </Col>
                         </Row>
                     </header>
-                    <TeamSelectCard />
+                    <TeamSelectCard onClick = {this.setShow}/>
                     <AddNewTeam onClick = {this.setShow}/>
                     <CreateTeamModal setShow = {this.setShow} show = {this.state.show} />
                 </Container>

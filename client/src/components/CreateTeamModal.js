@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Modal } from 'react-bootstrap';
 import CreateTeam from './CreateTeam';
 
@@ -14,7 +14,7 @@ export class CreateTeamModal extends React.Component {
             <Modal.Dialog>
                 <Modal.Header closeButton>Create New Team</Modal.Header>
                 <Modal.Body>
-                    <CreateTeam />
+                    <CreateTeam setShow = {this.props.setShow}/>
                 </Modal.Body>
             </Modal.Dialog>
             </Modal>

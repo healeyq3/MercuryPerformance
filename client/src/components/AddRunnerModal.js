@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { Modal, ModalFooter } from 'react-bootstrap';
 import {Form, Button} from "react-bootstrap"
-import {useState} from 'react'
+
 export class AddRunnerModal extends Component {
+    // eslint-disable-next-line
     constructor(props){
         super(props);
     }

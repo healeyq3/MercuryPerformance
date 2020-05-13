@@ -9,6 +9,10 @@ import {withRouter, Switch} from 'react-router-dom';
 import TeamSelect from './components/TeamSelect';
 import CreateTeam from './components/CreateTeam';
 import WorkoutInventory from './components/WorkoutInventory';
+import CalendarHome from './components/CalendarHome';
+import Settings from "./components/Settings"
+// eslint-disable-next-line
+import TestCalendar from './components/TestCalendar';
 
 
 class App extends Component {
@@ -24,6 +28,7 @@ class App extends Component {
     fire.auth().onAuthStateChanged((user) => {
       if(user) {
         this.setState({user});
+        console.log("Got here 2")
       } else {
         this.setState({ user: null});
       }
@@ -32,6 +37,7 @@ class App extends Component {
 
   componentDidMount(){
     this.authListener();
+    console.log("Got here")
   }
 
   render(){
@@ -41,6 +47,7 @@ class App extends Component {
 
             <Route exact path = "/" render = {props => (
                 <div>
+                  {console.log(this.state.user)}
                   {this.state.user ? (<TeamSelect />): (<Login />)}
                 </div>
             )} />
@@ -60,6 +67,16 @@ class App extends Component {
             <Route path = "/WorkoutInventory" render = {props => (
               <Fragment>
                 {this.state.user ? (<WorkoutInventory/>) : (<Login />)}
+              </Fragment>
+            )} />
+            <Route path = "/CalendarHome" render = {props => (
+              <Fragment>
+                {this.state.user ? (<CalendarHome/>) : (<Login />)}
+              </Fragment>
+            )} />
+            <Route path = "/Settings" render = {props => (
+              <Fragment>
+                {this.state.user ? (<Settings/>) : (<Login />)}
               </Fragment>
             )} />
           </div>
