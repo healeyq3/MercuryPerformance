@@ -18,7 +18,7 @@ export class CreateTeam extends React.Component {
         this.createTeam = this.createTeam.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
-    
+
     createTeam(){
         const teamName = this.state.teamName;
         const teamYear = this.state.teamYear;
@@ -78,7 +78,7 @@ export class CreateTeam extends React.Component {
                         <Form.Text>Other:</Form.Text>
                         <Form.Control type = "text" />
                     </Form.Group>
-                    <Button variant = "primary" onClick = {this.createTeam} >Add Team</Button>
+                    <Button variant = "primary" onClick = {this.createTeam && this.props.setShow}>Add Team</Button>
                 </Form>
             </Container>
         )
