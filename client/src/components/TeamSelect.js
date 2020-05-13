@@ -11,28 +11,27 @@ import '../css/PopupStyle.css';
 import { Modal } from 'react-bootstrap';
 import ModalHeader from 'react-bootstrap/ModalHeader';
 import CreateTeamModal from './CreateTeamModal';
+
+
 export class TeamSelect extends Component {
     constructor(props) {
         super(props);
         this.logout = this.logout.bind(this);
         this.state = {
-            show: true,
+            show: false,
         }
     }
 
-    componentDidMount(){
-        this.show = true;
-    }
+ 
 
     logout(){
-        fire.auth().signOut();
+        fire.auth().signOut().then();
     }
 
-    setShow = () => {
-        console.log(this.show)
-        this.show = false;
-        console.log('hello')
-        console.log(this.show)
+    setShow = e => {
+        this.setState({
+            show: !this.state.show
+        })
     }
     
     render() {
@@ -50,7 +49,7 @@ export class TeamSelect extends Component {
                     </header>
                     <TeamSelectCard />
                     <AddNewTeam onClick = {this.setShow}/>
-                    <CreateTeamModal setShow = {this.show}/>
+                    <CreateTeamModal setShow = {this.setShow} show = {this.state.show} />
                 </Container>
 
         )
