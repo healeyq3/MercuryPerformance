@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import {app, auth} from 'firebase'
 import fire from '../Fire'
 import {withRouter} from 'react-router';
 import  { Container, Button, Row, Col } from 'react-bootstrap'
-import {TeamSelectCard} from './TeamSelectCard';
+
 import AddNewTeam from './AddNewTeam';
 import '../css/PopupStyle.css';
 import CreateTeamModal from './CreateTeamModal';

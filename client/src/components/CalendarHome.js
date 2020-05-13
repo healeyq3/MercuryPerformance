@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Container } from 'react-bootstrap'
-import {Calendar} from 'react-calendar'
+
 import {withRouter} from 'react-router';
 import NavBar from './NavBar';
 // eslint-disable-next-line
