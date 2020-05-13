@@ -12,12 +12,11 @@ export class TeamSelectCard extends Component {
     
     render() {
         return (
-            <Card style = {{width: '18%', height: '18%'}}>
+        <Card style = {{width: '18%', height: '18%'}}>
             <Card.Body>
-                <Card.Link href = './Home'>Boys XC</Card.Link>
-                <Card.Subtitle>Fall 2020</Card.Subtitle>
-                
-                <Card.Link href = "#">Edit</Card.Link>
+                <Card.Title>{this.props.team.teamName}</Card.Title>
+                <Card.Subtitle>{this.props.team.teamDate}</Card.Subtitle>
+                <Card.Link href = './Home'>Select Team</Card.Link>
             </Card.Body>
         </Card>
         )
