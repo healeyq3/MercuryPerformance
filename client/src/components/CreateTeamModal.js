@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Modal } from 'react-bootstrap';
 import CreateTeam from './CreateTeam';
 
-export class CreateTeamModal extends Component {
+export class CreateTeamModal extends React.Component {
     constructor(props, ref){
         super(props);
     }

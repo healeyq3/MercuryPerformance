@@ -9,9 +9,9 @@ export class AddRunnerModal extends Component {
     
     render() {
         return (
-            <Modal isOpen = {this.state.modelIsOpen}>
+            <Modal show = {this.state.modelIsOpen} onHide = {this.props.setShow}>
             <Modal.Dialog hidden = {this.props.setShow} scrollable = {true} >
-                <Modal.Header toggle = {this.toggleModal.bind(this)}>Add Runner</Modal.Header>
+                <Modal.Header toggle = {this.toggleModal.bind(this)} closeButton>Add Runner</Modal.Header>
                 <Modal.Body>
                 <Form>
                      <Form.Group controlId = "controlInput2" onSubmit = {this.onSubmit}>

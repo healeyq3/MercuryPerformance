@@ -14,7 +14,7 @@ export class AddRunner extends React.Component {
     
     showModal = e => {
         this.setState({
-          show: true
+          show: !this.state.show
         });
       };
     render(){
@@ -25,9 +25,9 @@ export class AddRunner extends React.Component {
                          <Button onClick={e => {this.showModal();}}>Add Runner</Button>
                      </Form.Group>
             </Form>
-            <Modal show = {this.state.show}>
+            <Modal show = {this.state.show} onHide = {this.showModal}>
             <Modal.Dialog  >
-                <Modal.Header>Add Runner</Modal.Header>
+                <Modal.Header closeButton>Add Runner</Modal.Header>
                     <Modal.Body>
                     <Form>
                         <Form.Group controlId = "controlInput2" onSubmit = {this.onSubmit}>

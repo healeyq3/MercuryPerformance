@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import Login from './components/Login';
 import Home from './components/Home'
 import CreateAccount from './components/CreateAccount';
@@ -49,14 +49,18 @@ class App extends Component {
             )}
             />
             <Route path = "/Home" render = {props => (
-                <Home/>
+                <Fragment>
+                  {this.state.user ? (<Home/>) : (<Login />)}
+                </Fragment>
             )}
             />
             <Route path = "/CreateTeam" render = {props => (
                 <CreateTeam/>
             )} />
             <Route path = "/WorkoutInventory" render = {props => (
-              <WorkoutInventory />
+              <Fragment>
+                {this.state.user ? (<WorkoutInventory/>) : (<Login />)}
+              </Fragment>
             )} />
           </div>
 
