@@ -7,18 +7,18 @@ const expressSession = require("express-session");
 const app = express();
 const port = process.env.PORT || 5000;
 
+const firebase = require("./firebaseUtils");
+const authentication = require("./authentication");
+
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(expressSession({secret: "2515b895-3840-400a-9049-d5a4a4cb44f5", saveUninitialized: false, resave: false}));
+app.use("/login", authentication);
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
-
-app.post('/login', (req, res) => {
-    req.session.idToken = req.body.idToken;
-});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -33,8 +33,7 @@ app.use(function(err, req, res, next) {
 
     // render the error page
     res.status(err.status || 500);
-    res.render("error");
+    // res.json({error : err});
 });
-
 
 module.exports = app;
