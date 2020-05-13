@@ -53,20 +53,18 @@ async function addTeamToUser(user, teamUid, role){
 }
 
 async function getUserTeams(user){
-    const teamsRef = database.ref("users/"+user.uid);
+    const teamsRef = database.ref("users/"+user.uid+"/teams");
     let teams = {};
-    await teamsRef.orderByChild("teams").once("value", function (snapshot) {
-        snapshot.forEach(async function (childSnapshot) {
-            console.log("Snapshot iteration");
-            // const value = childSnapshot.key;
-            // database.ref("teams/" + value).on("value", snapshot => {
-            //     console.log("Adding team " + value.blue);
-            //     teams[value] = snapshot.val();
-            // });
+    await teamsRef.once("value", function (snapshot) {
+        snapshot.forEach(function(child) {
+            const value = child.key;
+            database.ref("teams/" + value).on("value", teamSnapshot => {
+                teams[value] = teamSnapshot.val();
+            });
         });
     });
 
-    console.log("Teams \n" + JSON.stringify(teams));
+    return teams;
 }
 
 module.exports.createUser = createUser;
