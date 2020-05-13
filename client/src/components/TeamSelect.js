@@ -42,7 +42,7 @@ export class TeamSelect extends Component {
                             </Col>
                         </Row>
                     </header>
-                    <TeamSelectCard />
+                    <TeamSelectCard onClick = {this.setShow}/>
                     <AddNewTeam onClick = {this.setShow}/>
                     <CreateTeamModal setShow = {this.setShow} show = {this.state.show} />
                 </Container>
