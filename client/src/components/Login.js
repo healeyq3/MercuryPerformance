@@ -7,6 +7,7 @@ import {Button, Container, Row, Badge} from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import '../css/topOfScreen.css';
+import {TeamSelect} from "./TeamSelect";
 
 export class login extends Component {
     
@@ -34,6 +35,8 @@ export class login extends Component {
                     idToken: idToken
                 })
             });
+
+            await TeamSelect.getTeams();
 
         }).catch((error) => {
             console.log(error);

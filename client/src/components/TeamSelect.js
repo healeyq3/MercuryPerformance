@@ -11,6 +11,7 @@ export class TeamSelect extends Component {
     constructor(props) {
         super(props);
         this.logout = this.logout.bind(this);
+        this.getTeams = this.getTeams.bind(this);
         this.state = {
             show: false,
             teams: {}
@@ -37,15 +38,16 @@ export class TeamSelect extends Component {
             }).then(function(data){
                 if(data.length>2){
                     const teams = JSON.parse(data);
-                    for(const key in teams){
-                        if (!teams.hasOwnProperty(key)) continue;
-                        console.log(teams[key].teamName);
-                        //key is the unique ID for each team
-                        //teams[key] is the team object
-                        //ex:
-                        //  teams[key].teamName
-                        //  teams[key].year
-                    }
+                    this.state.teams = teams;
+                    // for(const key in teams){
+                    //     if (!teams.hasOwnProperty(key)) continue;
+                    //     console.log(teams[key].teamName);
+                    //     //key is the unique ID for each team
+                    //     //teams[key] is the team object
+                    //     //ex:
+                    //     //  teams[key].teamName
+                    //     //  teams[key].year
+                    // }
                 }
             });
         });

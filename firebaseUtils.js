@@ -26,6 +26,7 @@ async function createUser(uID, name, email){
 }
 
 async function createTeam(user, teamName, teamYear, teamLevel, teamFormula){
+    console.log("Creating team".red);
     database.ref("teams").push({
         teamName: teamName,
         coach: user.uid,
