@@ -11,6 +11,7 @@
     "firebase": "^7.14.2",
     "http-errors": "^1.7.3",
     "modal": "^1.2.0",
+    "node-sass": "^4.14.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-big-calendar": "^0.24.6",
