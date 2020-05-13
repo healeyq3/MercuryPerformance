@@ -52,6 +52,13 @@ export class TeamSelect extends Component {
 
     render() {
         this.getTeams();
+       /* let teamCards = this.state.teams.map(team => {
+            return (
+                <Col sm = "4">
+                    <TeamSelectCard team = {team} />
+                </Col>
+            )
+        }) */
         return (
                 <Container fluid = "true">
                     <header className = "MercuryHome">
@@ -64,8 +71,10 @@ export class TeamSelect extends Component {
                             </Col>
                         </Row>
                     </header>
-                    <TeamSelectCard onClick = {this.setShow}/>
-                    <AddNewTeam onClick = {this.setShow}/>
+                    <Row>
+                        {/*teamCards*/}
+                        <AddNewTeam onClick = {this.setShow}/>
+                    </Row>
                     <CreateTeamModal setShow = {this.setShow} show = {this.state.show} />
                 </Container>
 
