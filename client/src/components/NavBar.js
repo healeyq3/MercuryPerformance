@@ -1,7 +1,8 @@
 import React from 'react'
 import './Navbar.css'
 import { Container } from 'react-bootstrap';
-import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap'
+// eslint-disable-next-line
+import {Navbar, Nav} from 'react-bootstrap'
 const navbar = props => (
     <Container fluid>
     <header className = "navBar">
@@ -11,7 +12,7 @@ const navbar = props => (
     <Navbar.Collapse id="basic-navbar-nav">
         <Nav className = "navBarItems">
         <Nav.Link href="/Home">Home</Nav.Link>
-        <Nav.Link href="/">Calendar</Nav.Link>
+        <Nav.Link href="/CalendarHome">Calendar</Nav.Link>
         <Nav.Link href="./WorkoutInventory">Workouts</Nav.Link>
         <Nav.Link href="/">Select Team</Nav.Link>
         <Nav.Link href="/">Settings</Nav.Link>
