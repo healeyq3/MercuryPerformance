@@ -25,7 +25,7 @@ export class TeamSelect extends Component {
  
 
     logout(){
-        fire.auth().signOut();
+        fire.auth().signOut().then();
     }
 
     setShow = e => {
