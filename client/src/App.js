@@ -28,7 +28,6 @@ class App extends Component {
     fire.auth().onAuthStateChanged((user) => {
       if(user) {
         this.setState({user});
-        console.log("Got here 2")
       } else {
         this.setState({ user: null});
       }
@@ -37,7 +36,6 @@ class App extends Component {
 
   componentDidMount(){
     this.authListener();
-    console.log("Got here")
   }
 
   render(){
@@ -47,7 +45,6 @@ class App extends Component {
 
             <Route exact path = "/" render = {props => (
                 <div>
-                  {console.log(this.state.user)}
                   {this.state.user ? (<TeamSelect />): (<Login />)}
                 </div>
             )} />
