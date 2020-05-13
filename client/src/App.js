@@ -9,6 +9,7 @@ import {withRouter, Switch} from 'react-router-dom';
 import TeamSelect from './components/TeamSelect';
 import CreateTeam from './components/CreateTeam';
 import WorkoutInventory from './components/WorkoutInventory';
+import CalendarHome from './components/CalendarHome';
 
 
 class App extends Component {
@@ -60,6 +61,11 @@ class App extends Component {
             <Route path = "/WorkoutInventory" render = {props => (
               <Fragment>
                 {this.state.user ? (<WorkoutInventory/>) : (<Login />)}
+              </Fragment>
+            )} />
+            <Route path = "/CalendarHome" render = {props => (
+              <Fragment>
+                {this.state.user ? (<CalendarHome/>) : (<Login />)}
               </Fragment>
             )} />
           </div>
