@@ -7,7 +7,7 @@ const expressSession = require("express-session");
 const app = express();
 const port = process.env.PORT || 5000;
 
-const firebase = require("./firebaseUtils");
+const firebaseUtils = require("./firebaseUtils");
 const authentication = require("./authentication");
 
 app.use(logger("dev"));
@@ -19,6 +19,13 @@ app.use(expressSession({secret: "2515b895-3840-400a-9049-d5a4a4cb44f5", saveUnin
 app.use("/login", authentication);
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
+
+//move to team router eventually
+app.post('/createTeam', (req, res) => {
+    const data = req.body;
+    firebaseUtils.createTeam(data.user, data.teamName, data.teamYear, data.teamLevel, data.teamWorkoutFormula);
+    res.end();
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

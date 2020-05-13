@@ -6,16 +6,17 @@ admin.initializeApp({
     databaseURL: "https://mercury-1875e.firebaseio.com"
 });
 
+const database = admin.database();
+
 async function authenticateToken(idToken){
     return await admin.auth().verifyIdToken(idToken);
 }
 
 async function createUser(uID, name, email){
-    const database = admin.database();
-
     await database.ref("users").child(uID.toString()).set({
         name: name,
-        email: email
+        email: email,
+        teams: []
     }).then(() => {
         console.log("Successfully created user with email ".red + email.blue);
     }).catch((err) => {
@@ -24,5 +25,34 @@ async function createUser(uID, name, email){
     });
 }
 
+async function createTeam(user, teamName, teamYear, teamLevel, teamFormula){
+    database.ref("teams").push({
+        teamName: teamName,
+        coach: user.uid,
+        year: teamYear,
+        level: teamLevel,
+        formula: teamFormula
+    }).then((snapshot) => {
+        console.log("Successfully created team ".red + teamName.blue);
+        addTeamToUser(user, snapshot.key, "coach");
+    }).catch((err) => {
+        console.log("Unable to create team ".red + teamName.blue);
+        console.log(err.toString());
+    });
+}
+
+async function addTeamToUser(user, teamUid, role){
+    await database.ref("users/" + user.uid.toString() + "/teams").child(teamUid).set({
+        role : role
+    }).then(() => {
+        console.log("Successfully added team ".red + teamUid.red +" to ".red + user.uid.toString().blue);
+    }).catch((err) => {
+        console.log("Unable to add team ".red + teamUid.red +" to ".red + user.uid.toString().blue);
+        console.log(err);
+    });
+}
+
 module.exports.createUser = createUser;
+module.exports.createTeam = createTeam;
+module.exports.addTeamToUser = addTeamToUser;
 module.exports.authenticateToken = authenticateToken;
