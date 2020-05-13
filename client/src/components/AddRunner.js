@@ -37,7 +37,6 @@ export class AddRunner extends React.Component {
                                 name = "title"
                                 placeholder = "John O'Brien"
                                 
-                                onChange = {this.onChange}
                             />
                         </Form.Group>
                         <Form.Group controlId = "controlInput1">
