@@ -22,8 +22,18 @@ app.listen(port, () => console.log(`Listening on port ${port}`));
 
 //move to team router eventually
 app.post('/createTeam', (req, res) => {
+    if(req.idToken == null || !firebaseUtils.authenticateToken(req.idToken)){
+        console.log("user tried to create account without authentication");
+        res.json({
+            success: false,
+            redirectUrl: "/login"
+        })
+        res.end();
+        return;
+    }
     const data = req.body;
     firebaseUtils.createTeam(data.user, data.teamName, data.teamYear, data.teamLevel, data.teamWorkoutFormula);
+    res.render();
     res.end();
 });
 

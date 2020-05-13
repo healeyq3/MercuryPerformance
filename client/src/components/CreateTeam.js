@@ -12,7 +12,7 @@ export class CreateTeam extends React.Component {
             teamName: '',
             teamYear: '',
             teamLevel: '',
-            teamWorkoutFormula: '',
+            teamWorkoutFormula: ''
         }
 
         this.createTeam = this.createTeam.bind(this);
@@ -20,7 +20,6 @@ export class CreateTeam extends React.Component {
     }
     
     createTeam(){
-        console.log("Creating team...");
         const teamName = this.state.teamName;
         const teamYear = this.state.teamYear;
         const teamLevel = this.state.teamLevel;
@@ -38,7 +37,7 @@ export class CreateTeam extends React.Component {
                 teamLevel: teamLevel,
                 teamWorkoutFormula: teamWorkoutFormula
             })
-        });
+        })
     }
 
     handleChange(e){
@@ -86,4 +85,4 @@ export class CreateTeam extends React.Component {
     }
 }
 
-export default CreateTeam
+export default CreateTeam;
