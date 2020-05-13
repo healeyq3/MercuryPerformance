@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { Container } from 'react-bootstrap'
-import {Calendar, locale} from 'react-calendar'
+import {Calendar} from 'react-calendar'
 import {withRouter} from 'react-router';
-import moment from 'moment';
 import NavBar from './NavBar';
 import 'react-calendar/dist/Calendar.css';
 

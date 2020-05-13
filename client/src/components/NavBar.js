@@ -1,7 +1,8 @@
 import React from 'react'
 import './Navbar.css'
 import { Container } from 'react-bootstrap';
-import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap'
+// eslint-disable-next-line
+import {Navbar, Nav} from 'react-bootstrap'
 const navbar = props => (
     <Container fluid>
     <header className = "navBar">

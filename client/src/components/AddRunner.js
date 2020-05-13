@@ -1,9 +1,8 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {withRouter} from 'react-router';
 // eslint-disable-next-line
-import  { Container, Button, Navbar, Form, Modal } from 'react-bootstrap'
+import  { Container, Button, Form, Modal } from 'react-bootstrap'
 import PropTypes from 'prop-types';
-import AddRunnerModal from "./AddRunnerModal"
 
 export class AddRunner extends React.Component {
     

@@ -1,7 +1,5 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Form, Container, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import {findDOMNode} from "react-dom";
 import fire from '../Fire';
 
 export class CreateTeam extends React.Component {

@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import {Card, Button} from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import Popup from "reactjs-popup";
-import { CreateTeam } from './CreateTeam';
+
 
 export class AddNewTeam extends Component {
+    // eslint-disable-next-line
     constructor(props){
         super(props);
     }
