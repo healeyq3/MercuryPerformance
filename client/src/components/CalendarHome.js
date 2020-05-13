@@ -15,12 +15,7 @@ export class CalendarHome extends Component {
         return (
             <Container fluid>
                 <NavBar></NavBar>
-               
-                <Calendar>
-                date={this.state.date}
-                value={this.state.date}
-                style={{locale : 'en-US', calendarType : 'US'}}
-                </Calendar>
+               <TestCalendar></TestCalendar>
             </Container> 
             
         )
