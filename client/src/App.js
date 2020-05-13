@@ -10,6 +10,7 @@ import TeamSelect from './components/TeamSelect';
 import CreateTeam from './components/CreateTeam';
 import WorkoutInventory from './components/WorkoutInventory';
 import CalendarHome from './components/CalendarHome';
+import Settings from "./components/Settings"
 // eslint-disable-next-line
 import TestCalendar from './components/TestCalendar';
 
@@ -68,6 +69,11 @@ class App extends Component {
             <Route path = "/CalendarHome" render = {props => (
               <Fragment>
                 {this.state.user ? (<CalendarHome/>) : (<Login />)}
+              </Fragment>
+            )} />
+            <Route path = "/Settings" render = {props => (
+              <Fragment>
+                {this.state.user ? (<Settings/>) : (<Login />)}
               </Fragment>
             )} />
           </div>

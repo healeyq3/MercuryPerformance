@@ -15,7 +15,7 @@ const navbar = props => (
         <Nav.Link href="/CalendarHome">Calendar</Nav.Link>
         <Nav.Link href="./WorkoutInventory">Workouts</Nav.Link>
         <Nav.Link href="/">Select Team</Nav.Link>
-        <Nav.Link href="/">Settings</Nav.Link>
+        <Nav.Link href="/Settings">Settings</Nav.Link>
         </Nav>
         </Navbar.Collapse>
     </Navbar> 
