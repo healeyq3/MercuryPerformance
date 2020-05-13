@@ -14,6 +14,7 @@ export class TeamSelect extends Component {
         this.logout = this.logout.bind(this);
         this.state = {
             show: false,
+            teams: {}
         }
     }
 
@@ -32,10 +33,21 @@ export class TeamSelect extends Component {
                     idToken: idToken,
                     user: currUser
                 })
-            }).then(function(res){
-                return res.text();
+            }).then(async function(res){
+                return await res.text();
             }).then(function(data){
-                console.log(data)
+                if(data.length>2){
+                    const teams = JSON.parse(data);
+                    for(const key in teams){
+                        if (!teams.hasOwnProperty(key)) continue;
+                        console.log(teams[key].teamName);
+                        //key is the unique ID for each team
+                        //teams[key] is the team object
+                        //ex:
+                        //  teams[key].teamName
+                        //  teams[key].year
+                    }
+                }
             });
         });
     }

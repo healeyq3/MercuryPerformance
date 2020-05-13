@@ -39,7 +39,7 @@ app.post('/teams', async (req, res) => {
         const teams = await firebaseUtils.getUserTeams(req.body.user);
 
         res.setHeader('Content-Type', 'application/json');
-        res.end(teams);
+        res.end(JSON.stringify(teams));
     } else {
         console.log("Request denied".red);
         res.end();

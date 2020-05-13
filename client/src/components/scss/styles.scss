@@ -2,7 +2,7 @@
 @import './reset';
 $blue: #3174ad;
 $pink: #ad3173;
-$icon-font-path: '~bootstrap-sass/assets/fonts/bootstrap/' !default;
+$icon-font-path: '/client/node_modules/bootstrap-sass/assets/fonts/bootstrap' !default;
 @import '/client/node_modules/bootstrap-sass/assets/stylesheets/bootstrap'
 
 scss;.rbc-calendar {

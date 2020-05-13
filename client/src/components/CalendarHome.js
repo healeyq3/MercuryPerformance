@@ -15,7 +15,7 @@ export class CalendarHome extends Component {
         return (
             <Container fluid>
                 <NavBar></NavBar>
-               <TestCalendar></TestCalendar>
+                <TestCalendar></TestCalendar>
             </Container> 
             
         )
