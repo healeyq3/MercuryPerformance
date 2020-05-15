@@ -11,10 +11,17 @@ const firebaseUtils = require("./firebaseUtils");
 const authentication = require("./authentication");
 
 app.use(logger("dev"));
+
+//Body Parser Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+
 app.use(cookieParser());
+
+// Making the public folder static (can write filename.ext into url and load up file)
 app.use(express.static(path.join(__dirname, "public")));
+
 app.use(expressSession({secret: "2515b895-3840-400a-9049-d5a4a4cb44f5", saveUninitialized: false, resave: false}));
 app.use("/login", authentication);
 

@@ -38,7 +38,9 @@ export class TeamSelect extends Component {
             }).then(function(data){
                 if(data.length>2){
                     const teams = JSON.parse(data);
-                    this.state.teams = teams;
+                    // this.setState({
+                    //     teams: teams
+                    // });
                     // for(const key in teams){
                     //     if (!teams.hasOwnProperty(key)) continue;
                     //     console.log(teams[key].teamName);

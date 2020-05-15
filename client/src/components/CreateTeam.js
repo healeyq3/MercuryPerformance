@@ -17,7 +17,9 @@ export class CreateTeam extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    createTeam(){
+    createTeam(e){
+        e.preventDefault();
+        
         const teamName = this.state.teamName;
         const teamYear = this.state.teamYear;
         const teamLevel = this.state.teamLevel;
