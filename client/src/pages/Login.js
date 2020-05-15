@@ -1,28 +1,36 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import fire from '../Fire';
 import {withRouter} from 'react-router';
-// eslint-disable-next-line
-import {Button, Container, Row, Badge} from 'react-bootstrap';
-import Form from 'react-bootstrap/Form';
-import Col from 'react-bootstrap/Col';
-import '../css/topOfScreen.css';
-import {TeamSelect} from "./TeamSelect";
 
-export class login extends Component {
-    
-    constructor(props) {
+//Bootstrap
+import {Button, Container, Row, Form, Col} from 'react-bootstrap';
+
+class Login extends Component {
+    constructor(props){
         super(props);
         this.login = this.login.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            loading: false,
+            errors: {}
         }
     }
 
-    login(e) {
+    handleChange = (e) => {
+        this.setState({
+           [e.target.name]: e.target.value
+        });
+    }
+
+    login = (e) => {
         e.preventDefault();
+        this.setState({
+            loading: true
+        })
         fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then(async (u) => {
             const idToken = await u.user.getIdToken(false);
 
@@ -36,19 +44,19 @@ export class login extends Component {
                 })
             });
 
-            await TeamSelect.getTeams();
-
+             await this.props.history.push('teamselect') ;
+             
         }).catch((error) => {
-            console.log(error);
+            this.setState({
+                error: error.response.data,
+                loading: false
+            })
         });
     }
 
-    handleChange(e){
-        this.setState({ [e.target.name] : e.target.value});
-    }
-    
-    
     render() {
+        const {classes} = this.props;
+        const {errors, loading} = this.state;
         return (
             <Container fluid>
                 <header className = "MercuryLogin">
@@ -77,7 +85,10 @@ export class login extends Component {
                     </Form.Group>
                     <Row className = "justify-content-left">
                         <Col>
-                            <Button onClick = {this.login} type = 'submit' variant = "dark" >Login</Button>
+                            <Button 
+                            onClick = {this.login} 
+                            type = 'submit' 
+                            variant = "dark" >Login</Button>
                             <Button variant = "light">
                                 <Link to = "./CreateAccount">Create Account</Link>
                             </Button>
@@ -90,6 +101,8 @@ export class login extends Component {
     }
 }
 
-export default withRouter(login);
+Login.propTypes = {
+    classes: PropTypes.object.isRequired
+}
 
-
+export default withRouter(Login)
