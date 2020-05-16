@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import fire from '../Fire';
-import {withRouter} from 'react-router';
+import cookie from 'react-cookies'
 
 //Bootstrap
 import {Button, Container, Row, Form, Col} from 'react-bootstrap';
@@ -14,9 +13,7 @@ class Login extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.state = {
             email: '',
-            password: '',
-            loading: false,
-            errors: {}
+            password: ''
         }
     }
 
@@ -26,37 +23,36 @@ class Login extends Component {
         });
     }
 
-    login = (e) => {
+    login = async (e) => {
         e.preventDefault();
         this.setState({
             loading: true
         })
-        fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then(async (u) => {
+        await fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then(async (u) => {
             const idToken = await u.user.getIdToken(false);
 
+            cookie.save('idToken', idToken, { path: "/" });
+            
             await fetch('/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    idToken: idToken
+                    idToken: idToken,
+                    bitch: fire.auth().currentUser
                 })
             });
-
-             await this.props.history.push('teamselect') ;
-             
         }).catch((error) => {
-            this.setState({
-                error: error.response.data,
-                loading: false
-            })
+            console.log(error);
         });
+
+        console.log("logged in");
+
+        await this.props.history.push('teamselect') ;
     }
 
     render() {
-        const {classes} = this.props;
-        const {errors, loading} = this.state;
         return (
             <Container fluid>
                 <header className = "MercuryLogin">
@@ -101,8 +97,5 @@ class Login extends Component {
     }
 }
 
-Login.propTypes = {
-    classes: PropTypes.object.isRequired
-}
 
-export default withRouter(Login)
+export default Login

@@ -38,15 +38,16 @@ app.post('/createTeam', (req, res) => {
     res.end();
 });
 
-app.post('/teams', async (req, res) => {
-    console.log("Received request");
-    if(req.body.user && req.body.idToken === req.session.idToken){
-        console.log("Request for teams from " + req.body.user.email.blue + " granted".green);
-
-        const teams = await firebaseUtils.getUserTeams(req.body.user);
-
-        res.setHeader('Content-Type', 'application/json');
-        res.end(JSON.stringify(teams));
+app.post('/teams', (req, res) => {
+    console.log("uid" + req.body.bitch);
+    if(req.body.idToken === req.session.idToken){
+        firebaseUtils.getUserTeams(req.body.user).then((teams) => {
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify(teams));
+        }).catch((error) => {
+            console.log(error);
+            res.end();
+        });
     } else {
         console.log("Request denied".red);
         res.end();
