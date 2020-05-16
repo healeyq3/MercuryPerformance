@@ -5,19 +5,21 @@ const {createUser} = require("./firebaseUtils");
 
 router.post('/', (req, res) => {
     req.session.idToken = req.body.idToken;
+    req.session.user = req.body.user;
     res.end();
 
-    console.log("User logged in with token ".cyan + req.session.idToken.blue);
+    console.log(req.session.user.email.blue + " logged in with token ".cyan + req.session.idToken.blue);
 });
 
 router.post('/new', (req, res) => {
     req.session.idToken = req.body.idToken;
+    req.session.user = req.body.user;
 
     const name = req.body.name;
-    const email = req.body.email;
-    const uID = req.body.uID;
+    const email = req.session.user.email;
+    const uid = req.session.user.uid;
 
-    createUser(uID, name, email).then(() => res.end());
+    createUser(uid, name, email).then(() => res.end());
 
     console.log("Created account with token ".yellow + req.session.idToken.blue);
 });

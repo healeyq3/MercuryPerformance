@@ -8,35 +8,36 @@ class TeamSelect extends Component {
         this.props.getTeams();
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps, _) {
         if (nextProps.newTeam) {
             this.props.teams.unshift(nextProps.newTeam);
         }
     }
 
     render() {
-        const teamItems = this.props.teams.map(team => (
-            <p>{team.teamName}</p>
-          ));
-          return (
-            <div>
-              <h1>Teams</h1>
-              {teamItems}
-            </div>
-          );
+      console.log("Team props: "+this.props.teams);
+      const teamItems = this.props.teams.map(team => (
+        <p>{team.teamName}</p>
+      ));
+      return (
+        <div>
+          <h1>Teams</h1>
+          {teamItems}
+        </div>
+      );
     }
 }
 
 TeamSelect.propTypes = {
-    getTeams: PropTypes.func.isRequired,
-    teams: PropTypes.array.isRequired,
-    newTeam: PropTypes.object
-  };
-  
-  const mapStateToProps = (state) => ({
-    teams: state.teams.items,
-    newTeam: state.teams.item,
-  });
-  
-  export default connect(mapStateToProps, { getTeams })(TeamSelect);
+  getTeams: PropTypes.func.isRequired,
+  teams: PropTypes.array.isRequired,
+  newTeam: PropTypes.object
+};
+
+const mapStateToProps = (state) => ({
+  teams: state.teams.items,
+  newTeam: state.teams.item,
+});
+
+export default connect(mapStateToProps, { getTeams })(TeamSelect);
   

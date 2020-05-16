@@ -32,7 +32,8 @@ class Login extends Component {
             const idToken = await u.user.getIdToken(false);
 
             cookie.save('idToken', idToken, { path: "/" });
-            
+            cookie.save('user', u.user, { path: "/" });
+
             await fetch('/login', {
                 method: 'POST',
                 headers: {
@@ -40,14 +41,12 @@ class Login extends Component {
                 },
                 body: JSON.stringify({
                     idToken: idToken,
-                    bitch: fire.auth().currentUser
+                    user: u.user
                 })
             });
         }).catch((error) => {
             console.log(error);
         });
-
-        console.log("logged in");
 
         await this.props.history.push('teamselect') ;
     }

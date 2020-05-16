@@ -39,9 +39,8 @@ app.post('/createTeam', (req, res) => {
 });
 
 app.post('/teams', (req, res) => {
-    console.log("uid" + req.body.bitch);
     if(req.body.idToken === req.session.idToken){
-        firebaseUtils.getUserTeams(req.body.user).then((teams) => {
+        firebaseUtils.getUserTeams(req.session.user).then((teams) => {
             res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify(teams));
         }).catch((error) => {
