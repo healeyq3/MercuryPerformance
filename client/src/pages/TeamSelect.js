@@ -10,15 +10,20 @@ class TeamSelect extends Component {
 
     componentWillReceiveProps(nextProps, _) {
         if (nextProps.newTeam) {
-            this.props.teams.unshift(nextProps.newTeam);
+          this.props.teams.unshift(nextProps.newTeam);
         }
     }
 
     render() {
       console.log("Team props: "+this.props.teams);
-      const teamItems = this.props.teams.map(team => (
-        <p>{team.teamName}</p>
-      ));
+      const teamItems = [];
+      for (const teamuid in this.props.teams) {
+        if (this.props.teams.hasOwnProperty(teamuid)) {
+          //to get the team object, do this.props.teams[teamuid]
+
+          teamItems.push(this.props.teams[teamuid].teamName + "\n | ");
+        }
+      }
       return (
         <div>
           <h1>Teams</h1>
@@ -30,14 +35,17 @@ class TeamSelect extends Component {
 
 TeamSelect.propTypes = {
   getTeams: PropTypes.func.isRequired,
-  teams: PropTypes.array.isRequired,
+  teams: PropTypes.object.isRequired,
   newTeam: PropTypes.object
 };
 
-const mapStateToProps = (state) => ({
-  teams: state.teams.items,
-  newTeam: state.teams.item,
-});
+const mapStateToProps = function(state){
+  console.log(state.teams);
+  return {
+    teams: state.teams.teams,
+    newTeam: state.teams.team,
+  }
+}
 
 export default connect(mapStateToProps, { getTeams })(TeamSelect);
   

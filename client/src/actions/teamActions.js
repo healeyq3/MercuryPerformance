@@ -20,7 +20,7 @@ export function getTeams() {
         })
       );
   }
-};
+}
 
 export const newTeam = teamData => dispatch => {
   fetch('/createTeam', {
