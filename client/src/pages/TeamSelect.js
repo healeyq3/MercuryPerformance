@@ -2,9 +2,11 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getTeams } from '../actions/teamActions';
+import ExistingTeamCard from '../components/ExistingTeamCard';
 
 class TeamSelect extends Component {
-    componentWillMount() {
+ 
+  componentWillMount() {
         this.props.getTeams();
     }
 
@@ -16,17 +18,24 @@ class TeamSelect extends Component {
 
     render() {
       const teamItems = [];
+      let cardItems = [];
       for (const teamuid in this.props.teams) {
         if (this.props.teams.hasOwnProperty(teamuid)) {
           //to get the team object, do this.props.teams[teamuid]
-
+          cardItems.push(
+          <div key = {teamuid}>
+          <ExistingTeamCard team = {this.props.teams[teamuid]} />
+          </div>
+          )
           teamItems.push(this.props.teams[teamuid].teamName + "\n | ");
         }
       }
+      console.log(this.teamItems);
       return (
         <div>
           <h1>Teams</h1>
-          {teamItems}
+          {this.teamItems}
+          {cardItems}
         </div>
       );
     }
