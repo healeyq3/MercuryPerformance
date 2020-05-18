@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
+import cookie from 'react-cookies'
 
 //Bootstrap
 import { Container } from 'react-bootstrap';
-import { Navbar, Nav } from 'react-bootstrap';
+import { Navbar, Nav, Button } from 'react-bootstrap';
 
 class NavigationBar extends Component {
+    
+    logout = () => {
+        cookie.remove('idToken', { path: "/" });
+        cookie.remove('user', { path: "/" });
+        console.log(cookie.load('idToken'));
+    }
+    
     render() {
         return (
             <Container fluid>
@@ -22,6 +30,7 @@ class NavigationBar extends Component {
                         <Nav.Link href="/login">Login</Nav.Link>
                         <Nav.Link href="/signup">Create Account</Nav.Link>
                         </Nav>
+                        <Button type = "submit" onClick = {this.logout}>Logout</Button>
                         </Navbar.Collapse>
                     </Navbar> 
                 </header>
