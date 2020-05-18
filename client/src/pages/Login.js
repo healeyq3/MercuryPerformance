@@ -25,9 +25,6 @@ class Login extends Component {
 
     login = async (e) => {
         e.preventDefault();
-        this.setState({
-            loading: true
-        })
         await fire.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then(async (u) => {
             const idToken = await u.user.getIdToken(false);
 
@@ -48,7 +45,7 @@ class Login extends Component {
             console.log(error);
         });
 
-        await this.props.history.push('teamselect') ;
+        await this.props.history.push('teamselect');
     }
 
     render() {

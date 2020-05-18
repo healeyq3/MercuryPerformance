@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import cookie from 'react-cookies'
+import fire from '../Fire'
 
 //Bootstrap
 import { Container } from 'react-bootstrap';
@@ -10,7 +11,7 @@ class NavigationBar extends Component {
     logout = () => {
         cookie.remove('idToken', { path: "/" });
         cookie.remove('user', { path: "/" });
-        console.log(cookie.load('idToken'));
+        fire.auth().signOut().then();
     }
     
     render() {
