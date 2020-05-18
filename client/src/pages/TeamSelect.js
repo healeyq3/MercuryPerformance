@@ -15,7 +15,6 @@ class TeamSelect extends Component {
     }
 
     render() {
-      console.log("Team props: "+this.props.teams);
       const teamItems = [];
       for (const teamuid in this.props.teams) {
         if (this.props.teams.hasOwnProperty(teamuid)) {
@@ -40,7 +39,6 @@ TeamSelect.propTypes = {
 };
 
 const mapStateToProps = function(state){
-  console.log(state.teams);
   return {
     teams: state.teams.teams,
     newTeam: state.teams.team,
