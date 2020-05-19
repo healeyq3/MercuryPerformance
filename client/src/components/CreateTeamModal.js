@@ -2,6 +2,7 @@ import React from 'react'
 import { Modal, Form, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { newTeam } from '../actions/teamActions';
+import fire from '../Fire';
 
 export class CreateTeamModal extends React.Component {
     constructor(props){
@@ -20,8 +21,9 @@ export class CreateTeamModal extends React.Component {
         this.setState({ [e.target.name] : e.target.value});
     }
 
-    handleCreateTeam = (e) => {
+    handleCreateTeam = () => {
         const teamData = {
+            user: fire.auth().currentUser,
             teamName: this.state.teamName,
             teamYear: this.state.teamYear,
             teamLevel: this.state.teamLevel,
@@ -68,7 +70,7 @@ export class CreateTeamModal extends React.Component {
                             <Form.Text>Other:</Form.Text>
                             <Form.Control type = "text" />
                         </Form.Group>
-                        <Button variant = "primary" onClick = {this.handleCreateTeam && this.props.setShow}>Add Team</Button>
+                        <Button variant = "primary" onClick = {this.handleCreateTeam /*&& this.props.setShow*/}>Add Team</Button>
                     </Form>
                 </Modal.Body>
             </Modal.Dialog>

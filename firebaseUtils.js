@@ -35,11 +35,12 @@ async function createTeam(user, teamName, teamYear, teamLevel, teamFormula){
         formula: teamFormula
     }).then((snapshot) => {
         console.log("Successfully created team ".red + teamName.blue);
-        addTeamToUser(user, snapshot.key, "coach");
+        const toReturn = addTeamToUser(user, snapshot.key, "coach");
     }).catch((err) => {
         console.log("Unable to create team ".red + teamName.blue);
         console.log(err.toString());
     });
+    return toReturn;
 }
 
 async function addTeamToUser(user, teamUid, role){
@@ -51,6 +52,7 @@ async function addTeamToUser(user, teamUid, role){
         console.log("Unable to add team ".red + teamUid.red +" to ".red + user.uid.toString().blue);
         console.log(err);
     });
+    return getUserTeams(user);
 }
 
 async function getUserTeams(user){

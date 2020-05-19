@@ -29,18 +29,20 @@ app.listen(port, () => console.log(`Listening on port ${port}`));
 
 //move to team router eventually
 app.post('/createTeam', (req, res) => {
+    console.log("Asking for authentication");
     if(req.idToken == null || !firebaseUtils.authenticateToken(req.idToken)){
         res.end();
         return;
     }
+    console.log("Got through user authentication");
     const data = req.body;
+    console.log("Got to before firebase call");
     firebaseUtils.createTeam(data.user, data.teamName, data.teamYear, data.teamLevel, data.teamWorkoutFormula);
     res.end();
 });
 
 app.post('/teams', (req, res) => {
     if(req.body.idToken === req.session.idToken){
-        console.log("Got to before firebase call");
         firebaseUtils.getUserTeams(req.session.user).then((teams) => {
             res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify(teams));
