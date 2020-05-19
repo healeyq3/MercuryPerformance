@@ -46,7 +46,7 @@ class Login extends Component {
         });
 
         await this.props.history.push('teamselect');
-        window.location.href="./";
+        window.location.href="./teamselect";
     }
 
     render() {
