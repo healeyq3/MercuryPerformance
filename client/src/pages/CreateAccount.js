@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
+import fire from '../Fire';
 
 import { Container, Form, Button } from 'react-bootstrap';
+import cookieParser from 'cookie-parser';
+import cookie from 'react-cookies';
 
 class CreateAccount extends Component {
     constructor(props) {
@@ -12,10 +15,39 @@ class CreateAccount extends Component {
             password: ''
         }
         this.handleChange = this.handleChange.bind(this);
+        this.createAccount = this.createAccount.bind(this);
     }
 
     handleChange(e){
         this.setState({ [e.target.name] : e.target.value});
+    }
+
+    async createAccount(e){
+        e.preventDefault();
+        await fire.auth().createUserWithEmailAndPassword(this.state.email, this.state.password).then(async(u) => {
+            const idToken = await u.user.getIdToken(false);
+
+            cookie.save('idToken', idToken, { path: '/' });
+            cookie.save('user', u.user, { path: '/' });
+
+
+            fetch('/login/new', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    idToken: idToken,
+                    name: this.state.name,
+                    email: this.state.email,
+                    uID: u.user.uid
+                })
+            });
+
+            document.getElementById("createAccountForm").submit();
+        }).catch((error) => {
+            console.log(error);
+        });
     }
     
     
