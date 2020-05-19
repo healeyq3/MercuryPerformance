@@ -27,7 +27,8 @@ async function createUser(uID, name, email){
 
 async function createTeam(user, teamName, teamYear, teamLevel, teamFormula){
     console.log("Creating team".red);
-    database.ref("teams").push({
+    console.log(database.ref("teams"));
+    await database.ref("teams").push().set({
         teamName: teamName,
         coach: user.uid,
         year: teamYear,
@@ -40,6 +41,10 @@ async function createTeam(user, teamName, teamYear, teamLevel, teamFormula){
         console.log("Unable to create team ".red + teamName.blue);
         console.log(err.toString());
     });
+    // const toReturn2 = {
+    //     teamName: "fuck this",
+    //     year: "2032"
+    // }
     return toReturn;
 }
 

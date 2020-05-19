@@ -2,6 +2,7 @@ import React from 'react'
 import { Modal, Form, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { newTeam } from '../actions/teamActions';
+import cookie from 'react-cookies';
 import fire from '../Fire';
 
 export class CreateTeamModal extends React.Component {
@@ -23,14 +24,13 @@ export class CreateTeamModal extends React.Component {
 
     handleCreateTeam = () => {
         const teamData = {
-            user: fire.auth().currentUser,
+            user: cookie.load('user'),
             teamName: this.state.teamName,
             teamYear: this.state.teamYear,
             teamLevel: this.state.teamLevel,
             teamWorkoutFormula: this.state.teamWorkoutFormula
         }
-        console.log("Team handled");
-        this.props.newTeam(teamData)
+        this.props.newTeam(teamData);
     }
     
     render() {

@@ -24,7 +24,8 @@ export function getTeams() {
 
 export function newTeam(teamData){
   return function(dispatch) {
-    console.log("team action newTeam called");
+    console.log(teamData);
+    console.log(teamData.user);
     fetch('/createTeam', {
       method: 'POST',
       headers: {
@@ -41,6 +42,8 @@ export function newTeam(teamData){
           type: GET_TEAMS,
           payload: teams
         })
-      );
+      ).catch((error) => {
+        console.log(error);
+      })
   }
 }
