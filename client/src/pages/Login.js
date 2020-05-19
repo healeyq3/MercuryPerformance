@@ -46,6 +46,7 @@ class Login extends Component {
         });
 
         await this.props.history.push('teamselect');
+        window.location.href="./teamselect";
     }
 
     render() {
@@ -77,6 +78,7 @@ class Login extends Component {
                     </Form.Group>
                     <Row className = "justify-content-left">
                         <Col>
+                        
                             <Button 
                             onClick = {this.login} 
                             type = 'submit' 
