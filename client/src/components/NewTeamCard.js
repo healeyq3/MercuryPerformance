@@ -3,6 +3,7 @@ import {Card, Button} from 'react-bootstrap';
 
 
 export class AddNewTeam extends Component {
+    // eslint-disable-next-line
     constructor(props){
         super(props);
     }

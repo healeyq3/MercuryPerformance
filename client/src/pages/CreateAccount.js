@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import fire from '../Fire';
 
 import { Container, Form, Button } from 'react-bootstrap';
+// eslint-disable-next-line
 import cookieParser from 'cookie-parser';
 import cookie from 'react-cookies';
 
