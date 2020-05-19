@@ -3,9 +3,17 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getTeams } from '../actions/teamActions';
 import ExistingTeamCard from '../components/ExistingTeamCard';
+import NewTeamCard from '../components/NewTeamCard';
+import CreateTeamModal from '../components/CreateTeamModal';
 
 class TeamSelect extends Component {
- 
+  constructor(props){
+    super(props);
+    this.state = {
+      show: false
+    }
+  }
+
   componentWillMount() {
         this.props.getTeams();
     }
@@ -15,6 +23,12 @@ class TeamSelect extends Component {
           this.props.teams.unshift(nextProps.newTeam);
         }
     }
+
+    setShow = e => {
+      this.setState({
+          show: !this.state.show
+      })
+  }
 
     render() {
       console.log("Team props: "+this.props.teams);
@@ -37,6 +51,8 @@ class TeamSelect extends Component {
           <h1>Teams</h1>
           {this.teamItems}
           {cardItems}
+          <NewTeamCard onClick = {this.setShow} />
+          <CreateTeamModal setShow = {this.setShow} show = {this.state.show} />
         </div>
       );
     }
