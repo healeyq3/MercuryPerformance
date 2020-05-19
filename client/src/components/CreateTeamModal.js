@@ -1,5 +1,7 @@
 import React from 'react'
 import { Modal, Form, Button } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { newTeam } from '../actions/teamActions';
 
 export class CreateTeamModal extends React.Component {
     constructor(props){
@@ -16,6 +18,17 @@ export class CreateTeamModal extends React.Component {
     
     handleChange(e){
         this.setState({ [e.target.name] : e.target.value});
+    }
+
+    handleCreateTeam = (e) => {
+        const teamData = {
+            teamName: this.state.teamName,
+            teamYear: this.state.teamYear,
+            teamLevel: this.state.teamLevel,
+            teamWorkoutFormula: this.state.teamWorkoutFormula
+        }
+        console.log("Team handled");
+        this.props.newTeam(teamData)
     }
     
     render() {
@@ -55,7 +68,7 @@ export class CreateTeamModal extends React.Component {
                             <Form.Text>Other:</Form.Text>
                             <Form.Control type = "text" />
                         </Form.Group>
-                        <Button variant = "primary" onClick = {this.createTeam && this.props.setShow}>Add Team</Button>
+                        <Button variant = "primary" onClick = {this.handleCreateTeam && this.props.setShow}>Add Team</Button>
                     </Form>
                 </Modal.Body>
             </Modal.Dialog>
@@ -64,4 +77,4 @@ export class CreateTeamModal extends React.Component {
     }
 }
 
-export default CreateTeamModal
+export default connect(null, { newTeam }) (CreateTeamModal);

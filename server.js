@@ -40,6 +40,7 @@ app.post('/createTeam', (req, res) => {
 
 app.post('/teams', (req, res) => {
     if(req.body.idToken === req.session.idToken){
+        console.log("Got to before firebase call");
         firebaseUtils.getUserTeams(req.session.user).then((teams) => {
             res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify(teams));

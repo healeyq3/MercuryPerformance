@@ -72,5 +72,5 @@ const mapStateToProps = function(state){
   }
 }
 
-export default connect(mapStateToProps, { getTeams })(TeamSelect);
+export default connect(mapStateToProps, { getTeams }) (TeamSelect);
   
