@@ -30,6 +30,7 @@ export class CreateTeamModal extends React.Component {
             teamLevel: this.state.teamLevel,
             teamWorkoutFormula: this.state.teamWorkoutFormula
         }
+        console.log(teamData.user.uid);
         this.props.newTeam(teamData);
     }
     

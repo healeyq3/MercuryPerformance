@@ -13,7 +13,6 @@ async function authenticateToken(idToken){
 }
 
 async function createUser(uID, name, email){
-    console.log("Got to the firebase UTlis");
     await database.ref("users").child(uID.toString()).set({
     name: name,
     email: email,
@@ -28,7 +27,6 @@ async function createUser(uID, name, email){
 
 async function createTeam(user, teamName, teamYear, teamLevel, teamFormula){
     console.log("Creating team".red);
-    console.log(database.ref("teams"));
     await database.ref("teams").push().set({
         teamName: teamName,
         coach: user.uid,
@@ -37,20 +35,16 @@ async function createTeam(user, teamName, teamYear, teamLevel, teamFormula){
         formula: teamFormula
     }).then((snapshot) => {
         console.log("Successfully created team ".red + teamName.blue);
-        const toReturn = addTeamToUser(user, snapshot.key, "coach");
+        /* const toReturn = */addTeamToUser(user, snapshot.key, "coach");
     }).catch((err) => {
         console.log("Unable to create team ".red + teamName.blue);
         console.log(err.toString());
     });
-    // const toReturn2 = {
-    //     teamName: "fuck this",
-    //     year: "2032"
-    // }
-    return toReturn;
+    return getUserTeams(user);
 }
 
 async function addTeamToUser(user, teamUid, role){
-    await database.ref("users/" + user.uid.toString() + "/teams").child(teamUid).set({
+    await database.ref("users/" + user.uid.toString() + "/teams").child(teamUid.toString()).set({
         role : role
     }).then(() => {
         console.log("Successfully added team ".red + teamUid.red +" to ".red + user.uid.toString().blue);
@@ -58,7 +52,6 @@ async function addTeamToUser(user, teamUid, role){
         console.log("Unable to add team ".red + teamUid.red +" to ".red + user.uid.toString().blue);
         console.log(err);
     });
-    return getUserTeams(user);
 }
 
 async function getUserTeams(user){

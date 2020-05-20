@@ -36,6 +36,7 @@ app.post('/createTeam', (req, res) => {
         console.log("Got through user authentication");
         const data = req.body;
         console.log(data);
+
         firebaseUtils.createTeam(data.user, data.teamName, data.teamYear, data.teamLevel, data.teamWorkoutFormula).then((teams) => {
             res.setHeader('Content-Type', 'application/json');
             res.end(JSON.stringify(teams));

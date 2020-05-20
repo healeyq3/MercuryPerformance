@@ -31,11 +31,6 @@ class CreateAccount extends Component {
             cookie.save('idToken', idToken, { path: '/' });
             cookie.save('user', u.user, { path: '/' });
 
-            console.log(idToken);
-            console.log(cookie.load('user'));
-            console.log("Anticated user: " + u.user);
-
-
             fetch('/login/new', {
                 method: 'POST',
                 headers: {
@@ -49,10 +44,11 @@ class CreateAccount extends Component {
                 })
             });
 
-            //document.getElementById("createAccountForm").submit();
+            
         }).catch((error) => {
             console.log(error);
         });
+        // window.location.href('./login');
     }
     
     
