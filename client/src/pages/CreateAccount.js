@@ -31,6 +31,10 @@ class CreateAccount extends Component {
             cookie.save('idToken', idToken, { path: '/' });
             cookie.save('user', u.user, { path: '/' });
 
+            console.log(idToken);
+            console.log(cookie.load('user'));
+            console.log("Anticated user: " + u.user);
+
 
             fetch('/login/new', {
                 method: 'POST',
