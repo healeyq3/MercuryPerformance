@@ -14,19 +14,19 @@ router.post('/', (req, res) => {
 router.post('/new', (req, res) => {
     console.log("Got to the right route");
     req.session.idToken = req.body.idToken;
-    req.session.user = req.body.user;
+    req.session.user = req.body.uID;
 
     console.log(req.session.idToken);
     console.log(req.body.name);
     
 
-    // const name = req.body.name;
-    // const email = req.session.user.email;
-    // const uid = req.session.user.uid;
+    const name = req.body.name;
+    const email = req.body.email;
+    const uid = req.session.user;
 
-    // console.log("UID: " + uid);
+    console.log("UID: " + uid);
 
-    // createUser(uid, name, email).then(() => res.end());
+    createUser(uid, name, email).then(() => res.end());
 
     console.log("Created account with token ".yellow + req.session.idToken.blue);
 });

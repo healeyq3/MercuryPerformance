@@ -49,7 +49,7 @@ class CreateAccount extends Component {
                 })
             });
 
-            document.getElementById("createAccountForm").submit();
+            //document.getElementById("createAccountForm").submit();
         }).catch((error) => {
             console.log(error);
         });
