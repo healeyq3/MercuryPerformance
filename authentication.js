@@ -17,11 +17,11 @@ router.post('/new', (req, res) => {
 
     console.log(req.session.idToken);
     console.log(req.body.name);
-    
+    console.log("User ID: " + req.session.user.uid);
 
     const name = req.body.name;
     const email = req.body.email;
-    const uid = req.session.user;
+    const uid = req.session.user.uid;
 
     createUser(uid, name, email).then(() => res.end());
 

@@ -31,7 +31,7 @@ class CreateAccount extends Component {
             cookie.save('idToken', idToken, { path: '/' });
             cookie.save('user', u.user, { path: '/' });
 
-            fetch('/login/new', {
+            await fetch('/login/new', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -40,7 +40,7 @@ class CreateAccount extends Component {
                     idToken: idToken,
                     name: this.state.name,
                     email: this.state.email,
-                    uID: u.user.uid
+                    user: u.user
                 })
             });
 
@@ -48,7 +48,9 @@ class CreateAccount extends Component {
         }).catch((error) => {
             console.log(error);
         });
-        // window.location.href('./login');
+
+        await this.props.history.push('/teamselect');
+        window.location.reload();
     }
     
     

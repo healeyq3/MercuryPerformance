@@ -33,7 +33,9 @@ router.post('/new', async (req, res) => {
   }
 
   const data = req.body;
-  firebaseUtils.createTeam(data.user, data.teamName, data.teamYear, data.teamLevel, data.teamWorkoutFormula).then((teams) => {
+  req.session.user = data.teamData.user;
+
+  firebaseUtils.createTeam(data.teamData.user, data.teamData.teamName, data.teamData.teamYear, data.teamData.teamLevel, data.teamData.teamWorkoutFormula).then((teams) => {
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(teams));
   }).catch((error) => {

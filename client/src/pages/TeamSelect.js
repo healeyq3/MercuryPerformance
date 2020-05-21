@@ -60,7 +60,6 @@ TeamSelect.propTypes = {
 };
 
 const mapStateToProps = function(state){
-  console.log("Mapping state to props");
   return {
     teams: state.teams.teams,
     newTeam: state.teams.team,

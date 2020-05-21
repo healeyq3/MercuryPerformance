@@ -18,7 +18,6 @@ import AuthRoute2 from './util/AuthRoute2';
 
 class App extends Component {
   render() {
-    console.log("Cookie: "+cookie.load('idToken'));
     return (
       <Provider store={Store}>
         <div className="App">

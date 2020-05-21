@@ -27,15 +27,16 @@ async function createUser(uID, name, email){
 
 async function createTeam(user, teamName, teamYear, teamLevel, teamFormula){
     console.log("Creating team".red);
-    await database.ref("teams").push().set({
+    const teamRef = await database.ref("teams").push();
+    await teamRef.set({
         teamName: teamName,
         coach: user.uid,
         year: teamYear,
         level: teamLevel,
         formula: teamFormula
-    }).then((snapshot) => {
+    }).then(() => {
         console.log("Successfully created team ".red + teamName.blue);
-        /* const toReturn = */addTeamToUser(user, snapshot.key, "coach");
+        addTeamToUser(user, teamRef.key, "coach");
     }).catch((err) => {
         console.log("Unable to create team ".red + teamName.blue);
         console.log(err.toString());

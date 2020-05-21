@@ -2,8 +2,8 @@ import { GET_TEAMS } from './types';
 import cookie from 'react-cookies'
 
 export function getTeams() {
-  return function(dispatch){
-    fetch('/teams', {
+  return async function(dispatch){
+    await fetch('/teams', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
@@ -24,8 +24,6 @@ export function getTeams() {
 
 export function newTeam(teamData){
   return function(dispatch) {
-    console.log(teamData);
-    console.log(teamData.user);
     fetch('/teams/new', {
       method: 'POST',
       headers: {
