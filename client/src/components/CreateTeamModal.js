@@ -3,7 +3,6 @@ import { Modal, Form, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { newTeam } from '../actions/teamActions';
 import cookie from 'react-cookies';
-import fire from '../Fire';
 
 export class CreateTeamModal extends React.Component {
     constructor(props){

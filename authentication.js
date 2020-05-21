@@ -12,9 +12,8 @@ router.post('/', (req, res) => {
 });
 
 router.post('/new', (req, res) => {
-    console.log("Got to the right route");
     req.session.idToken = req.body.idToken;
-    req.session.user = req.body.uID;
+    req.session.user = req.body.user;
 
     console.log(req.session.idToken);
     console.log(req.body.name);
@@ -23,8 +22,6 @@ router.post('/new', (req, res) => {
     const name = req.body.name;
     const email = req.body.email;
     const uid = req.session.user;
-
-    console.log("UID: " + uid);
 
     createUser(uid, name, email).then(() => res.end());
 

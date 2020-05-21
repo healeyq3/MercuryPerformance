@@ -69,8 +69,17 @@ async function getUserTeams(user){
     return teams;
 }
 
+async function authenticatePost(req, res){
+    if(req.body.idToken == null || !await authenticateToken(req.body.idToken) || req.body.idToken !== req.session.idToken){
+        res.end();
+        console.log("Post Request Denied".red);
+        return false;
+    }
+    return true;
+}
+
 module.exports.createUser = createUser;
 module.exports.createTeam = createTeam;
 module.exports.addTeamToUser = addTeamToUser;
 module.exports.getUserTeams = getUserTeams;
-module.exports.authenticateToken = authenticateToken;
+module.exports.authenticatePost = authenticatePost;

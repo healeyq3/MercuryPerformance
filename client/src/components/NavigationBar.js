@@ -12,6 +12,7 @@ class NavigationBar extends Component {
         cookie.remove('idToken', { path: "/" });
         cookie.remove('user', { path: "/" });
         fire.auth().signOut().then(() => {
+            this.props.history.push('/');
             window.location.reload();
         });
 

@@ -32,7 +32,7 @@ class Login extends Component {
             cookie.save('idToken', idToken, { path: "/" });
             cookie.save('user', u.user, { path: "/" });
 
-            fetch('/login', {
+            await fetch('/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -46,8 +46,8 @@ class Login extends Component {
             console.log(error);
         });
 
-        this.props.history.push('teamselect');
-        window.location.href="./teamselect";
+        await this.props.history.push('/teamselect');
+        window.location.reload();
     }
 
     render() {

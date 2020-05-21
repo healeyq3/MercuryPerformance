@@ -26,7 +26,7 @@ export function newTeam(teamData){
   return function(dispatch) {
     console.log(teamData);
     console.log(teamData.user);
-    fetch('/createTeam', {
+    fetch('/teams/new', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
