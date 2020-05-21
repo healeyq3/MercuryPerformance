@@ -14,20 +14,20 @@ async function authenticateToken(idToken){
 
 async function createUser(uID, name, email){
     await database.ref("users").child(uID.toString()).set({
-        name: name,
-        email: email,
-        teams: []
-    }).then(() => {
-        console.log("Successfully created user with email ".red + email.blue);
-    }).catch((err) => {
-        console.log("Unable to create user with email ".red+email.blue);
-        console.log(err.toString().red);
-    });
+    name: name,
+    email: email,
+    teams: []
+}).then(() => {
+    console.log("Successfully created user with email ".red + email.blue);
+}).catch((err) => {
+    console.log("Unable to create user with email ".red+email.blue);
+    console.log(err.toString().red);
+});
 }
 
 async function createTeam(user, teamName, teamYear, teamLevel, teamFormula){
     console.log("Creating team".red);
-    database.ref("teams").push({
+    await database.ref("teams").push().set({
         teamName: teamName,
         coach: user.uid,
         year: teamYear,
@@ -35,15 +35,16 @@ async function createTeam(user, teamName, teamYear, teamLevel, teamFormula){
         formula: teamFormula
     }).then((snapshot) => {
         console.log("Successfully created team ".red + teamName.blue);
-        addTeamToUser(user, snapshot.key, "coach");
+        /* const toReturn = */addTeamToUser(user, snapshot.key, "coach");
     }).catch((err) => {
         console.log("Unable to create team ".red + teamName.blue);
         console.log(err.toString());
     });
+    return getUserTeams(user);
 }
 
 async function addTeamToUser(user, teamUid, role){
-    await database.ref("users/" + user.uid.toString() + "/teams").child(teamUid).set({
+    await database.ref("users/" + user.uid.toString() + "/teams").child(teamUid.toString()).set({
         role : role
     }).then(() => {
         console.log("Successfully added team ".red + teamUid.red +" to ".red + user.uid.toString().blue);

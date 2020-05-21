@@ -28,20 +28,24 @@ app.use("/login", authentication);
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
 //move to team router eventually
-app.post('/createTeam', (req, res) => {
+app.post('/createTeam', async (req, res) => {
     if(req.body.idToken == null || !await firebaseUtils.authenticateToken(req.idToken) || req.body.idToken !== req.session.idToken){
         res.end();
         console.log("Request Denied".red);
         return;
-    }
+    } else {
+        console.log("Got through user authentication");
+        const data = req.body;
+        console.log(data);
 
-    const data = req.body;
-    firebaseUtils.createTeam(data.user, data.teamName, data.teamYear, data.teamLevel, data.teamWorkoutFormula).then(r => {
-        res.end();
-    }).catch((error) => {
-        console.log(error);
-        res.end();
-    });
+        firebaseUtils.createTeam(data.user, data.teamName, data.teamYear, data.teamLevel, data.teamWorkoutFormula).then((teams) => {
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify(teams));
+        }).catch((error) => {
+            console.log("Error adding and fetching teams");
+            res.end();
+        })
+    }
 });
 
 app.post('/teams', async (req, res) => {

@@ -46,7 +46,8 @@ class Login extends Component {
             console.log(error);
         });
 
-        this.props.history.push('/teamselect');
+        this.props.history.push('teamselect');
+        window.location.href="./teamselect";
     }
 
     render() {
@@ -78,11 +79,11 @@ class Login extends Component {
                     </Form.Group>
                     <Row className = "justify-content-left">
                         <Col>
-                            <Button 
+
+                            <Button
                             onClick = {this.login} 
                             type = 'submit' 
-                            variant = "dark" >Login
-                            </Button>
+                            variant = "dark" >Login</Button>
                             <Button variant = "light">
                                 <Link to = "./CreateAccount">Create Account</Link>
                             </Button>

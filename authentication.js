@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const colors = require("colors");
-const {createUser} = require("./firebaseUtils");
+const { createUser } = require("./firebaseUtils");
 
 router.post('/', (req, res) => {
     req.session.idToken = req.body.idToken;
@@ -12,12 +12,19 @@ router.post('/', (req, res) => {
 });
 
 router.post('/new', (req, res) => {
+    console.log("Got to the right route");
     req.session.idToken = req.body.idToken;
-    req.session.user = req.body.user;
+    req.session.user = req.body.uID;
+
+    console.log(req.session.idToken);
+    console.log(req.body.name);
+    
 
     const name = req.body.name;
-    const email = req.session.user.email;
-    const uid = req.session.user.uid;
+    const email = req.body.email;
+    const uid = req.session.user;
+
+    console.log("UID: " + uid);
 
     createUser(uid, name, email).then(() => res.end());
 
