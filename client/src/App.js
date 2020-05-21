@@ -18,6 +18,7 @@ import AuthRoute2 from './util/AuthRoute2';
 
 class App extends Component {
   render() {
+    console.log("Cookie: "+cookie.load('idToken'));
     return (
       <Provider store={Store}>
         <div className="App">
@@ -25,10 +26,10 @@ class App extends Component {
             <NavigationBar />
             <div className = "container">
               <Switch>
-                <AuthRoute exact path = '/login' component = {Login} authenticated = {cookie.load('idToken')}/>
-                <AuthRoute2 exact path = '/' component = {Home} authenticated = {cookie.load('idToken')}/>
-                <AuthRoute2 exact path = '/teamselect' component = {TeamSelect} authenticated = {cookie.load('idToken')}/>
-                <AuthRoute exact path = '/signup' component = {CreateAccount} authenticated = {cookie.load('idToken')}/>
+                <AuthRoute2 exact path = '/login' component = {Login} authenticated = {cookie.load('idToken')}/>
+                <AuthRoute exact path = '/' component = {Home} authenticated = {cookie.load('idToken')}/>
+                <AuthRoute exact path = '/teamselect' component = {TeamSelect} authenticated = {cookie.load('idToken')}/>
+                <AuthRoute2 exact path = '/signup' component = {CreateAccount} authenticated = {cookie.load('idToken')}/>
               </Switch>
             </div>
           </Router>

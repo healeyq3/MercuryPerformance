@@ -29,28 +29,35 @@ app.listen(port, () => console.log(`Listening on port ${port}`));
 
 //move to team router eventually
 app.post('/createTeam', (req, res) => {
-    if(req.idToken == null || !firebaseUtils.authenticateToken(req.idToken)){
+    if(req.body.idToken == null || !await firebaseUtils.authenticateToken(req.idToken) || req.body.idToken !== req.session.idToken){
         res.end();
+        console.log("Request Denied".red);
         return;
     }
+
     const data = req.body;
-    firebaseUtils.createTeam(data.user, data.teamName, data.teamYear, data.teamLevel, data.teamWorkoutFormula);
-    res.end();
+    firebaseUtils.createTeam(data.user, data.teamName, data.teamYear, data.teamLevel, data.teamWorkoutFormula).then(r => {
+        res.end();
+    }).catch((error) => {
+        console.log(error);
+        res.end();
+    });
 });
 
-app.post('/teams', (req, res) => {
-    if(req.body.idToken === req.session.idToken){
-        firebaseUtils.getUserTeams(req.session.user).then((teams) => {
-            res.setHeader('Content-Type', 'application/json');
-            res.end(JSON.stringify(teams));
-        }).catch((error) => {
-            console.log(error);
-            res.end();
-        });
-    } else {
-        console.log("Request denied".red);
+app.post('/teams', async (req, res) => {
+    if(req.body.idToken == null || !await firebaseUtils.authenticateToken(req.idToken) || req.body.idToken !== req.session.idToken){
         res.end();
+        console.log("Request Denied".red);
+        return;
     }
+
+    firebaseUtils.getUserTeams(req.session.user).then((teams) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify(teams));
+    }).catch((error) => {
+        console.log(error);
+        res.end();
+    });
 });
 
 // catch 404 and forward to error handler

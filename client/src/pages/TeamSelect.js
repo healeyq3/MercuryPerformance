@@ -12,29 +12,25 @@ class TeamSelect extends Component {
 
     componentWillReceiveProps(nextProps, _) {
         if (nextProps.newTeam) {
-          this.props.teams.unshift(nextProps.newTeam);
+          console.log("New Team: "+nextProps.newTeam);
         }
     }
 
     render() {
-      const teamItems = [];
       let cardItems = [];
       for (const teamuid in this.props.teams) {
         if (this.props.teams.hasOwnProperty(teamuid)) {
           //to get the team object, do this.props.teams[teamuid]
           cardItems.push(
           <div key = {teamuid}>
-          <ExistingTeamCard team = {this.props.teams[teamuid]} />
+            <ExistingTeamCard team = {this.props.teams[teamuid]} />
           </div>
           )
-          teamItems.push(this.props.teams[teamuid].teamName + "\n | ");
         }
       }
-      console.log(this.teamItems);
       return (
         <div>
           <h1>Teams</h1>
-          {this.teamItems}
           {cardItems}
         </div>
       );
@@ -48,6 +44,7 @@ TeamSelect.propTypes = {
 };
 
 const mapStateToProps = function(state){
+  console.log("Mapping state to props");
   return {
     teams: state.teams.teams,
     newTeam: state.teams.team,

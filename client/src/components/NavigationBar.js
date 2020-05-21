@@ -5,13 +5,16 @@ import fire from '../Fire'
 //Bootstrap
 import { Container } from 'react-bootstrap';
 import { Navbar, Nav, Button } from 'react-bootstrap';
+import { withRouter } from "react-router-dom";
 
 class NavigationBar extends Component {
-    
     logout = () => {
         cookie.remove('idToken', { path: "/" });
         cookie.remove('user', { path: "/" });
-        fire.auth().signOut().then();
+        fire.auth().signOut().then(() => {
+            window.location.reload();
+        });
+
     }
     
     render() {
@@ -40,4 +43,4 @@ class NavigationBar extends Component {
     }
 }
 
-export default NavigationBar;
+export default withRouter(NavigationBar);

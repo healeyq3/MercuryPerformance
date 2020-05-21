@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 import fire from '../Fire';
 import cookie from 'react-cookies'
+import { withRouter } from "react-router-dom";
 
 //Bootstrap
 import {Button, Container, Row, Form, Col} from 'react-bootstrap';
@@ -31,7 +32,7 @@ class Login extends Component {
             cookie.save('idToken', idToken, { path: "/" });
             cookie.save('user', u.user, { path: "/" });
 
-            await fetch('/login', {
+            fetch('/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -45,7 +46,7 @@ class Login extends Component {
             console.log(error);
         });
 
-        await this.props.history.push('teamselect');
+        this.props.history.push('/teamselect');
     }
 
     render() {
@@ -80,7 +81,8 @@ class Login extends Component {
                             <Button 
                             onClick = {this.login} 
                             type = 'submit' 
-                            variant = "dark" >Login</Button>
+                            variant = "dark" >Login
+                            </Button>
                             <Button variant = "light">
                                 <Link to = "./CreateAccount">Create Account</Link>
                             </Button>
@@ -94,4 +96,4 @@ class Login extends Component {
 }
 
 
-export default Login
+export default withRouter(Login)
