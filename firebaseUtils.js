@@ -27,21 +27,25 @@ async function createUser(uID, name, email){
 
 async function createTeam(user, teamName, teamYear, teamLevel, teamFormula){
     console.log("Creating team".red);
-    const teamRef = await database.ref("teams").push();
-    await teamRef.set({
+
+    const newTeam = {
         teamName: teamName,
         coach: user.uid,
         year: teamYear,
         level: teamLevel,
         formula: teamFormula
-    }).then(() => {
+    }
+
+    const teamRef = await database.ref("teams").push();
+    await teamRef.set(newTeam).then(() => {
         console.log("Successfully created team ".red + teamName.blue);
         addTeamToUser(user, teamRef.key, "coach");
     }).catch((err) => {
         console.log("Unable to create team ".red + teamName.blue);
         console.log(err.toString());
     });
-    return getUserTeams(user);
+
+    return await getUserTeams(user);
 }
 
 async function addTeamToUser(user, teamUid, role){

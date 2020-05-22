@@ -8,7 +8,6 @@ const expressSession = require("express-session");
 const app = express();
 const port = process.env.PORT || 5000;
 
-const firebaseUtils = require("./firebaseUtils");
 const authentication = require("./authentication");
 const teamBackend = require("./teamBackend");
 

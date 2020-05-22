@@ -18,7 +18,7 @@ router.post('/', async (req, res) => {
     res.end(JSON.stringify(teams));
   }).catch((error) => {
     console.log(error);
-    res.end();
+    res.end("{}");
   });
 });
 
@@ -35,13 +35,13 @@ router.post('/new', async (req, res) => {
   const data = req.body;
   req.session.user = data.teamData.user;
 
-  firebaseUtils.createTeam(data.teamData.user, data.teamData.teamName, data.teamData.teamYear, data.teamData.teamLevel, data.teamData.teamWorkoutFormula).then((teams) => {
+  firebaseUtils.createTeam(data.teamData.user, data.teamData.teamName, data.teamData.teamYear, data.teamData.teamLevel, data.teamData.teamWorkoutFormula).then((team) => {
     res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(teams));
+    res.end(JSON.stringify(team));
   }).catch((error) => {
     console.log("Error adding and fetching teams".red);
     console.log(error);
-    res.end();
+    res.end("{}");
   })
 });
 

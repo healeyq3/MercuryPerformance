@@ -1,4 +1,4 @@
-import { GET_TEAMS } from './types';
+import {GET_TEAMS, NEW_TEAM} from './types';
 import cookie from 'react-cookies'
 
 export function getTeams() {
@@ -23,8 +23,8 @@ export function getTeams() {
 }
 
 export function newTeam(teamData){
-  return function(dispatch) {
-    fetch('/teams/new', {
+  return async function(dispatch) {
+    await fetch('/teams/new', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
@@ -35,10 +35,10 @@ export function newTeam(teamData){
       })
     })
       .then(res => res.json())
-      .then(teams =>
+      .then(team =>
         dispatch({
-          type: GET_TEAMS,
-          payload: teams
+          type: NEW_TEAM,
+          payload: team
         })
       ).catch((error) => {
         console.log(error);
