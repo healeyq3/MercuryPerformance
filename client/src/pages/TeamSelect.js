@@ -5,6 +5,7 @@ import { getTeams, newTeam } from '../actions/teamActions';
 import ExistingTeamCard from '../components/ExistingTeamCard';
 import NewTeamCard from '../components/NewTeamCard';
 import CreateTeamModal from '../components/CreateTeamModal';
+import { Row } from 'react-bootstrap';
 
 class TeamSelect extends Component {
   constructor(props){
@@ -32,17 +33,19 @@ class TeamSelect extends Component {
       if (this.props.teams.hasOwnProperty(teamuid)) {
         //to get the team object, do this.props.teams[teamuid]
         cardItems.push(
-        <div key = {teamuid}>
+        <React.Fragment key = {teamuid}>
           <ExistingTeamCard team = {this.props.teams[teamuid]} />
-        </div>
+        </React.Fragment>
         )
       }
     }
     return (
       <div>
         <h1>Teams</h1>
-        {cardItems}
-        <NewTeamCard onClick = {this.setShow} />
+        <Row > 
+          {cardItems}
+          <NewTeamCard onClick = {this.setShow} />
+        </Row>
         <CreateTeamModal setShow = {this.setShow} show = {this.state.show} />
       </div>
     );

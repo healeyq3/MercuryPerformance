@@ -3,7 +3,6 @@ import { GET_TEAMS, NEW_TEAM } from '../actions/types';
 const initialState = {
   teams: [],
   team: {}, 
-  counter: 0
 };
 
 export default function(state = initialState, action) {
