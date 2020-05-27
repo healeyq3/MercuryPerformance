@@ -8,7 +8,7 @@ export class ExistingTeamCard extends Component {
             <Card.Body>
                 <Card.Title>{this.props.team.teamName}</Card.Title>
                 <Card.Subtitle>{this.props.team.year}</Card.Subtitle>
-                <Card.Link /*href = './Home'*/ onClick={() => this.props.onSelect(this.props.team)}>Select Team</Card.Link>
+                <Card.Link href = './Home' onClick={() => this.props.onSelect(this.props.team)}>Select Team</Card.Link>
             </Card.Body>
         </Card>
         )
