@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getTeams, newTeam } from '../actions/teamActions';
+import { getTeams, newTeam, setTeam } from '../actions/teamActions';
 import ExistingTeamCard from '../components/ExistingTeamCard';
 import NewTeamCard from '../components/NewTeamCard';
 import CreateTeamModal from '../components/CreateTeamModal';
-import { Row } from 'react-bootstrap';
+import {Card, Row} from 'react-bootstrap';
 
 class TeamSelect extends Component {
   constructor(props){
@@ -15,10 +15,12 @@ class TeamSelect extends Component {
     }
 
     this.props.getTeams();
+
+    this.setSelectedTeam = this.setSelectedTeam.bind(this);
   }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    return null;
+  setSelectedTeam(team){
+    this.props.setTeam(team);
   }
 
   setShow = e => {
@@ -34,7 +36,7 @@ class TeamSelect extends Component {
         //to get the team object, do this.props.teams[teamuid]
         cardItems.push(
         <React.Fragment key = {teamuid}>
-          <ExistingTeamCard team = {this.props.teams[teamuid]} />
+          <ExistingTeamCard team = {this.props.teams[teamuid]} onSelect = {this.setSelectedTeam}/>
         </React.Fragment>
         )
       }
@@ -54,16 +56,19 @@ class TeamSelect extends Component {
 
 TeamSelect.propTypes = {
   getTeams: PropTypes.func.isRequired,
+  setTeam: PropTypes.func.isRequired,
   teams: PropTypes.object.isRequired,
-  team: PropTypes.object
+  team: PropTypes.object,
+  selectedTeam: PropTypes.object
 };
 
 const mapStateToProps = function(state){
   return {
     teams: state.teams.teams,
-    team: state.teams.team
+    team: state.teams.team,
+    selectedTeam: state.teams.selectedTeam
   }
 }
 
-export default connect(mapStateToProps, { getTeams, newTeam }) (TeamSelect);
+export default connect(mapStateToProps, { getTeams, newTeam, setTeam }) (TeamSelect);
   

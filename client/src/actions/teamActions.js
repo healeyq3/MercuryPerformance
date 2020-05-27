@@ -1,4 +1,4 @@
-import {GET_TEAMS, NEW_TEAM} from './types';
+import {GET_TEAMS, NEW_TEAM, SET_TEAM} from './types';
 import cookie from 'react-cookies'
 
 export function getTeams() {
@@ -43,5 +43,14 @@ export function newTeam(teamData){
       ).catch((error) => {
         console.log(error);
       })
+  }
+}
+
+export function setTeam(team){
+  return function(dispatch){
+    dispatch({
+      type: SET_TEAM,
+      payload: team
+    })
   }
 }
