@@ -6,14 +6,13 @@ import ExistingTeamCard from '../components/ExistingTeamCard';
 import NewTeamCard from '../components/NewTeamCard';
 import CreateTeamModal from '../components/CreateTeamModal';
 import { Row } from 'react-bootstrap';
-
 class TeamSelect extends Component {
   constructor(props){
     super(props);
     this.state = {
       show: false
     }
-
+    
     this.props.getTeams();
   }
 

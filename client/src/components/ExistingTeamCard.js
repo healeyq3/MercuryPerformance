@@ -14,7 +14,7 @@ export class ExistingTeamCard extends Component {
             <Card.Body>
                 <Card.Title>{this.props.team.teamName}</Card.Title>
                 <Card.Subtitle>{this.props.team.year}</Card.Subtitle>
-                <Card.Link href = './Home'>Select Team</Card.Link>
+                <Card.Link href = './'>Select Team</Card.Link>
             </Card.Body>
         </Card>
         )
