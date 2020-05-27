@@ -23,7 +23,7 @@ class NavigationBar extends Component {
             <Container fluid>
                 <header className = "navBar">
                     <Navbar className = "navBarNav" bg="light" expand="lg">
-                    <Navbar.Brand href="/Home" >Mercury</Navbar.Brand>
+                    <Navbar.Brand href="/" >Mercury</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className = "navBarItems">
