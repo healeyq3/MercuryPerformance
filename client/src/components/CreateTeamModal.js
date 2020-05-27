@@ -31,6 +31,7 @@ export class CreateTeamModal extends React.Component {
         }
         console.log(teamData.user.uid);
         this.props.newTeam(teamData);
+        this.props.setShow();
     }
     
     render() {
@@ -70,7 +71,7 @@ export class CreateTeamModal extends React.Component {
                             <Form.Text>Other:</Form.Text>
                             <Form.Control type = "text" />
                         </Form.Group>
-                        <Button variant = "primary" onClick = {this.handleCreateTeam /*&& this.props.setShow*/}>Add Team</Button>
+                        <Button variant = "primary" onClick = {this.handleCreateTeam}>Add Team</Button>
                     </Form>
                 </Modal.Body>
             </Modal.Dialog>
