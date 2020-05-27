@@ -12,7 +12,6 @@ export class CreateTeamModal extends React.Component {
             teamName: '',
             teamYear: '',
             teamLevel: '',
-            teamWorkoutFormula: ''
         }
         this.handleChange = this.handleChange.bind(this);
     }
@@ -27,7 +26,6 @@ export class CreateTeamModal extends React.Component {
             teamName: this.state.teamName,
             teamYear: this.state.teamYear,
             teamLevel: this.state.teamLevel,
-            teamWorkoutFormula: this.state.teamWorkoutFormula
         }
         console.log(teamData.user.uid);
         this.props.newTeam(teamData);
@@ -59,17 +57,6 @@ export class CreateTeamModal extends React.Component {
                                 <option>College</option>
                                 <option>Professional</option>
                             </Form.Control>
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Preferred Workout Formula</Form.Label>
-                            <Form.Control onChange = {this.handleChange} name = "teamWorkoutFormula" as = "select">
-                                <option hidden>Formula</option>
-                                <option>Benson</option>
-                                <option>Tinman</option>
-                                <option>Jack Daniel</option>
-                            </Form.Control>
-                            <Form.Text>Other:</Form.Text>
-                            <Form.Control type = "text" />
                         </Form.Group>
                         <Button variant = "primary" onClick = {this.handleCreateTeam}>Add Team</Button>
                     </Form>
