@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch} from 'react-router-dom';
 import './App.css';
 import { Provider } from 'react-redux';
 import cookie from 'react-cookies';
-import Store from './store';
+import store from './store';
 
 //Pages
 import Home from './pages/Home';
@@ -19,7 +19,7 @@ import AuthRoute2 from './util/AuthRoute2';
 class App extends Component {
   render() {
     return (
-      <Provider store={Store}>
+      <Provider store={store}>
         <div className="App">
           <Router>
             <NavigationBar />

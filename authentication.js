@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const colors = require("colors");
-const { createUser } = require("./firebaseUtils");
+const { createUser, getUserTeams } = require("./firebaseUtils");
 
 router.post('/', (req, res) => {
     req.session.idToken = req.body.idToken;
     req.session.user = req.body.user;
-    res.end();
+    res.end(JSON.stringify(getUserTeams(req.session.user)));
 
     console.log(req.session.user.email.blue + " logged in with token ".cyan + req.session.idToken.blue);
 });

@@ -5,7 +5,7 @@ import { getTeams, newTeam, setTeam } from '../actions/teamActions';
 import ExistingTeamCard from '../components/ExistingTeamCard';
 import NewTeamCard from '../components/NewTeamCard';
 import CreateTeamModal from '../components/CreateTeamModal';
-import {Card, Row} from 'react-bootstrap';
+import {Row} from 'react-bootstrap';
 
 class TeamSelect extends Component {
   constructor(props){
@@ -17,6 +17,10 @@ class TeamSelect extends Component {
     this.props.getTeams();
 
     this.setSelectedTeam = this.setSelectedTeam.bind(this);
+  }
+
+  componentDidMount(){
+    this.props.getTeams();
   }
 
   setSelectedTeam(team){
