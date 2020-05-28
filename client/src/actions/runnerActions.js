@@ -1,7 +1,7 @@
 import {GET_RUNNERS, NEW_RUNNER} from './types';
 import cookie from 'react-cookies'
 
-export function getRunners() {
+export function getRunners(selectedTeam) {
   return async function(dispatch){
     await fetch('/teams/', {//need to add selected team
       method: 'POST',

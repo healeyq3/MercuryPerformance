@@ -30,14 +30,17 @@ async function createUser(uID, name, email){
 async function createTeam(user, teamName, teamYear, teamLevel){
     console.log("Creating team".red);
 
+    const teamRef = await database.ref("teams").push();
+    
     const newTeam = {
         teamName: teamName,
         coach: user.uid,
         year: teamYear,
         level: teamLevel,
+        key: teamRef.key.toString()
     }
 
-    const teamRef = await database.ref("teams").push();
+    
     await teamRef.set(newTeam).then(async () => {
         console.log("Successfully created team ".red + teamName.blue);
         await addTeamToUser(user, teamRef.key, "coach");
