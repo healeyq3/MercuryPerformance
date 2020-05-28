@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-//import {withRouter} from 'react-router';
 import { getRunners, newRunner } from '../actions/runnerActions';
 import  { Container } from 'react-bootstrap'
 import { connect } from 'react-redux';
@@ -35,6 +34,7 @@ class Home extends Component {
 }
 Home.propTypes = {
     getRunners: PropTypes.func.isRequired,
+    newRunner: PropTypes.func.isRequired,
     runners: PropTypes.object.isRequired,
     runner: PropTypes.object,
     selectedTeam: PropTypes.object
