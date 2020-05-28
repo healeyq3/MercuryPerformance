@@ -1,6 +1,8 @@
 const admin = require("firebase-admin");
 const serviceAccount = require("./firebaseServiceAccountKey.json");
 
+
+
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: "https://mercury-1875e.firebaseio.com"
@@ -36,15 +38,17 @@ async function createTeam(user, teamName, teamYear, teamLevel){
     }
 
     const teamRef = await database.ref("teams").push();
-    await teamRef.set(newTeam).then(() => {
+    await teamRef.set(newTeam).then(async () => {
         console.log("Successfully created team ".red + teamName.blue);
-        addTeamToUser(user, teamRef.key, "coach");
+        await addTeamToUser(user, teamRef.key, "coach");
     }).catch((err) => {
         console.log("Unable to create team ".red + teamName.blue);
         console.log(err.toString());
     });
 
-    return await getUserTeams(user);
+    getUserTeams(user).then(() => {
+        return teams;
+    });
 }
 
 async function addTeamToUser(user, teamUid, role){
