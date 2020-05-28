@@ -35,7 +35,7 @@ Home.propTypes = {
   const mapStateToProps = function(state){
     return {
       runners: state.teams.team.runners,
-      runner: state.teams.team.runners.runner,
+      //runner: state.teams.team.runners.runner,
       selectedTeam: state.teams.selectedTeam
     }
   }
