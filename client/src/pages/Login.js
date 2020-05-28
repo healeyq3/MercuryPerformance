@@ -92,7 +92,7 @@ class Login extends Component {
                             type = 'submit' 
                             variant = "dark" >Login</Button>
                             <Button variant = "light">
-                                <Link to = "./CreateAccount">Create Account</Link>
+                                <Link to = "./signup">Create Account</Link>
                             </Button>
                         </Col>
                     </Row>
