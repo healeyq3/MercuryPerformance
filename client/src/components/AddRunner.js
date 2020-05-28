@@ -1,7 +1,5 @@
 import React from 'react'
-import {withRouter} from 'react-router';
 import { connect } from 'react-redux';
-// eslint-disable-next-line
 import  { Container, Button, Form, Modal } from 'react-bootstrap'
 import { newRunner } from '../actions/runnerActions';
 import cookie from 'react-cookies';
