@@ -89,8 +89,64 @@ async function authenticatePost(req, res){
     return true;
 }
 
+async function createRunner(user, teamUID, name, email, experience, gradYear, wPace){
+    console.log("Creating Runner".red);
+
+    const runnerRef = await database.ref("teams").push();
+    
+    const newTeam = {
+        name,
+        email,
+        experience,
+        gradYear,
+        wPace,
+        key: runnerRef.key.toString()
+    }
+
+    
+    await runnerRef.set(newRunner).then(async () => {
+        console.log("Successfully created Runner ".red + name.blue);
+        await addRunnerToTeam(user, teamUID, runnerRef.key);
+    }).catch((err) => {
+        console.log("Unable to create team ".red + teamName.blue);
+        console.log(err.toString());
+    });
+
+    getUserTeams(user).then(() => {
+        return teams;
+    });
+}
+
+async function addRunnerToTeam(user, teamUid, runnerUID){
+    await database.ref("users/" + user.uid.toString() + "/teams/runners").child(runnerUID.toString())
+    .then(() => {
+        console.log("Successfully added runner ".red + runnerUID.red +" to ".red + user.uid.toString().blue);
+    }).catch((err) => {
+        console.log("Unable to add runner ".red + runnerUID.red +" to ".red + user.uid.toString().blue);
+        console.log(err);
+    });
+}
+
+async function getTeamRunners(user, teamUID){
+    const runnersRef = database.ref("users/"+user.uid+"/teams/"+teamUID+"/runners");
+    let runners = {};
+    await runnersRef.once("value", function (snapshot) {
+        snapshot.forEach(function(child) {
+            const value = child.key;
+            database.ref("runners/" + value).on("value", runnerSnapshot => {
+                runners[value] = runnerSnapshot.val();
+            });
+        });
+    });
+
+    return teams;
+}
+
 module.exports.createUser = createUser;
 module.exports.createTeam = createTeam;
 module.exports.addTeamToUser = addTeamToUser;
 module.exports.getUserTeams = getUserTeams;
 module.exports.authenticatePost = authenticatePost;
+module.exports.createRunner = createRunner;
+module.exports.getTeamRunners = getTeamRunners;
+module.exports.addRunnerToTeam = addRunnerToTeam;

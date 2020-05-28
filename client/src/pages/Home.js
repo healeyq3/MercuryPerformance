@@ -10,19 +10,25 @@ class Home extends Component {
     constructor(props){
         super(props);
     
-        this.props.getRunners();
+        this.props.getRunners(this.props.selectedTeam.key);
+
+        this.state = {
+          teamUID: this.props.selectedTeam.key
+        }
     
         //this.setSelectedTeam = this.setSelectedTeam.bind(this);
-      }
-      componentDidMount(){
+    }
+      
+    componentDidMount(){
         this.props.getRunners();
-      }
+    }
+
     render() {
         return (
             <Container fluid>
                 <h2 id = "teamNameHome">{this.props.selectedTeam.teamName}</h2>
                 <ul>{this.props.runners}</ul>
-                <AddRunner addRunner = {this.addRunner}></AddRunner>
+                <AddRunner teamUID = {this.teamUID}></AddRunner>
             </Container>
         )
     }

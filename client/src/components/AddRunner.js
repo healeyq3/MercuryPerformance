@@ -1,14 +1,26 @@
 import React from 'react'
 import {withRouter} from 'react-router';
+import { connect } from 'react-redux';
 // eslint-disable-next-line
 import  { Container, Button, Form, Modal } from 'react-bootstrap'
+import { newRunner } from '../actions/runnerActions';
+import cookie from 'react-cookies';
 
 
 export class AddRunner extends React.Component {
-    
-    state = {
-        title : "",
-        show : false
+    constructor(props){
+        super(props);
+
+        this.state = {
+            title: '',
+            show: false,
+            name: '',
+            email: '',
+            experience: '',
+            gradYear: '',
+            workoutPace: ''
+        }
+        this.handleChange = this.handleChange.bind(this);
     }
     
     showModal = e => {
@@ -16,6 +28,24 @@ export class AddRunner extends React.Component {
           show: !this.state.show
         });
       };
+
+    handleChange(e){
+        this.setState({ [e.target.name] : e.target.value});
+    }
+
+    handleAddRunner = () => {
+        const runnerData = {
+            user: cookie.load('user'),
+            runnerName: this.state.name,
+            runnerEmail: this.state.email,
+            runnerExperience: this.state.runnerExperience,
+            runnerGradYear: this.state.runnerGradYear,
+            runnerWorkoutPace: this.state.workoutPace
+        }
+        this.props.newRunner(runnerData, this.props.teamUID);
+        this.state.showModal();
+    }
+
     render(){
     return (
         <Container fluid>
@@ -27,44 +57,58 @@ export class AddRunner extends React.Component {
             <Modal show = {this.state.show} onHide = {this.showModal}>
             <Modal.Dialog  >
                 <Modal.Header closeButton>Add Runner</Modal.Header>
-                    <Modal.Body>
+                <Modal.Body>
                     <Form>
-                        <Form.Group controlId = "controlInput2" onSubmit = {this.onSubmit}>
+                        <Form.Group>
                             <Form.Label>Full Name</Form.Label>
                             <Form.Control
                                 type = "text"
                                 name = "title"
                                 placeholder = "John O'Brien"
-                                
+                                onChange = {this.handleChange}
                             />
                         </Form.Group>
-                        <Form.Group controlId = "controlInput1">
-                            <Form.Label>Class</Form.Label>
-                            <Form.Control 
+                        <Form.Group>
+                            <Form.Label>Email Address</Form.Label>
+                            <Form.Control
                                 type = "text"
-                                placeholder = "Freshman"
+                                name = "title"
+                                placeholder = "john@gmail.com"
+                                onChange = {this.handleChange}
                             />
                         </Form.Group>
-                        <Form.Group controlId = "controlInput3">
+                        <Form.Group>
+                            <Form.Label>Runner Experience</Form.Label>
+                            <Form.Control onChange = {this.handleChange} name = "runnerExperience" as = "select">
+                                <option hidden>Level</option>
+                                <option>Beginner</option>
+                                <option>Intermediate</option>
+                                <option>Advanced</option>
+                                <option>Professional</option>
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Runner Year</Form.Label>
+                            <Form.Control onChange = {this.handleChange} name = "Runner Year" as = "select">
+                                <option hidden>Class</option>
+                                <option>Freshmen</option>
+                                <option>Sophomore</option>
+                                <option>Junior</option>
+                                <option>Senior</option>
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group>
                             <Form.Label>Workout Pace</Form.Label>
                             <Form.Control
                                 type = "text"
                                 placeholder = "00:00"
                             />
                         </Form.Group>
-                        </Form>
-                    </Modal.Body>
-                    <Modal.Footer>
-                    <Form>
-                        <Form.Group controlId = "enter">
-                            <Button type = "submit" >Add Runner
-                
-                            </Button>
-                        </Form.Group>
-                        </Form>
-                    </Modal.Footer>
-                </Modal.Dialog>
-                </Modal>
+                        <Button variant = "primary" onClick = {this.handleAddRunner}>Add Runner</Button>
+                    </Form>
+                </Modal.Body>
+            </Modal.Dialog>
+            </Modal>
         </Container>
     )
     }
@@ -72,4 +116,4 @@ export class AddRunner extends React.Component {
 }
 
 
-export default withRouter(AddRunner);
+export default connect(null, { newRunner }) (AddRunner);

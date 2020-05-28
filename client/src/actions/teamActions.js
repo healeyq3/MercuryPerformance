@@ -9,7 +9,7 @@ export function getTeams() {
         'content-type': 'application/json'
       },
       body: JSON.stringify({
-        idToken: cookie.load('idToken')
+        idToken: cookie.load('idToken'),
       })
     })
       .then(res => res.json())

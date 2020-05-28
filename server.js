@@ -10,6 +10,7 @@ const port = process.env.PORT || 5000;
 
 const authentication = require("./authentication");
 const teamBackend = require("./teamBackend");
+const runnerBackend = require("./teamBackend");
 
 app.use(logger("dev"));
 
@@ -26,6 +27,7 @@ app.use(expressSession({secret: "452948404D635166546A576E5A7234753777217A25432A4
 
 app.use("/login", authentication);
 app.use("/teams", teamBackend);
+app.use("/runners", runnerBackend);
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
