@@ -9,7 +9,8 @@ export function getRunners(selectedTeam) {
         'content-type': 'application/json'
       },
       body: JSON.stringify({
-        idToken: cookie.load('idToken')
+        idToken: cookie.load('idToken'),
+       // teamUID: selectedTeam.teamUID
       })
     })
       .then(res => res.json())

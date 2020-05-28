@@ -29,7 +29,7 @@ export class AddRunner extends React.Component {
                 <Modal.Header closeButton>Add Runner</Modal.Header>
                     <Modal.Body>
                     <Form>
-                        <Form.Group controlId = "controlInput2" onSubmit = {this.onSubmit}>
+                        <Form.Group controlId = "controlInput1" onSubmit = {this.onSubmit}>
                             <Form.Label>Full Name</Form.Label>
                             <Form.Control
                                 type = "text"
@@ -38,14 +38,23 @@ export class AddRunner extends React.Component {
                                 
                             />
                         </Form.Group>
-                        <Form.Group controlId = "controlInput1">
+                        <Form.Group controlId = "controlInput2">
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control
+                                type = "email"
+                                name = "title"
+                                placeholder = "johnobrien@mail.com"
+                                
+                            />
+                        </Form.Group>
+                        <Form.Group controlId = "controlInput3">
                             <Form.Label>Class</Form.Label>
                             <Form.Control 
                                 type = "text"
                                 placeholder = "Freshman"
                             />
                         </Form.Group>
-                        <Form.Group controlId = "controlInput3">
+                        <Form.Group controlId = "controlInput4">
                             <Form.Label>Workout Pace</Form.Label>
                             <Form.Control
                                 type = "text"
