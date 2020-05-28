@@ -10,9 +10,9 @@ class TeamSelect extends Component {
   constructor(props){
     super(props);
     this.state = {
-      show: false
+      show: false,
+      reloaded:false
     }
-    
     this.props.getTeams();
   }
 
@@ -25,9 +25,16 @@ class TeamSelect extends Component {
         show: !this.state.show
     })
   }
-
+  componentDidUpdate(){
+    if(this.props.teams!==this.props.getTeams){
+      //this.props.teams=this.props.getTeams;
+      
+      console.log("Don't Match")
+    }
+  }
   render() {
     let cardItems = [];
+    //console.log(this.props.teams)
     for (const teamuid in this.props.teams) {
       if (this.props.teams.hasOwnProperty(teamuid)) {
         //to get the team object, do this.props.teams[teamuid]
