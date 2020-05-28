@@ -2,7 +2,7 @@ import React from 'react'
 import {withRouter} from 'react-router';
 // eslint-disable-next-line
 import  { Container, Button, Form, Modal } from 'react-bootstrap'
-import PropTypes from 'prop-types';
+
 
 export class AddRunner extends React.Component {
     
@@ -70,8 +70,6 @@ export class AddRunner extends React.Component {
     }
     
 }
-AddRunner.propTypes = {
-    Runners: PropTypes.array.isRequired
-}
+
 
 export default withRouter(AddRunner);

@@ -13,7 +13,7 @@ export function getRunners() {
       })
     })
       .then(res => res.json())
-      .then(teams =>
+      .then(runners =>
         dispatch({
           type: GET_RUNNERS,
           payload: runners
@@ -35,7 +35,7 @@ export function newRunner(runnerData){
       })
     })
       .then(res => res.json())
-      .then(team =>
+      .then(runner =>
         dispatch({
           type: NEW_RUNNER,
           payload: runner

@@ -1,13 +1,22 @@
 import React, { Component } from 'react'
 //import {withRouter} from 'react-router';
-// eslint-disable-next-line
-import  { Container, Button } from 'react-bootstrap'
-// import { Runners } from './Runners';
+import { getRunners, newRunner } from '../actions/runnerActions';
+import  { Container } from 'react-bootstrap'
+import { connect } from 'react-redux';
  import {AddRunner} from '../components/AddRunner';
-//import uuid from 'react-uuid';
+ import PropTypes from 'prop-types';
 
 class Home extends Component {
+    constructor(props){
+        super(props);
     
+        this.props.getRunners();
+    
+        //this.setSelectedTeam = this.setSelectedTeam.bind(this);
+      }
+      componentDidMount(){
+        this.props.getRunners();
+      }
     render() {
         return (
             <Container fluid>
@@ -17,5 +26,17 @@ class Home extends Component {
         )
     }
 }
-
-export default Home
+Home.propTypes = {
+    getRunners: PropTypes.func.isRequired,
+    runners: PropTypes.object.isRequired,
+    runner: PropTypes.object,
+    selectedTeam: PropTypes.object
+  };
+  const mapStateToProps = function(state){
+    return {
+      runners: state.teams.team.runners,
+      runner: state.teams.team.runners.runner,
+      selectedTeam: state.teams.selectedTeam
+    }
+  }
+export default connect(mapStateToProps, { getRunners, newRunner }) (Home);
