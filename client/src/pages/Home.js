@@ -20,7 +20,8 @@ class Home extends Component {
     render() {
         return (
             <Container fluid>
-                <h2 id = "teamNameHome">Team Name</h2>
+                <h2 id = "teamNameHome">{this.props.selectedTeam.teamName}</h2>
+                <ul>{this.props.runners}</ul>
                 <AddRunner addRunner = {this.addRunner}></AddRunner>
             </Container>
         )
