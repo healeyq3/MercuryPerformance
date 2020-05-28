@@ -3,7 +3,7 @@ import cookie from 'react-cookies'
 
 export function getRunners() {
   return async function(dispatch){
-    await fetch('/teams/', {//need to add selected team
+    await fetch('/teams/getRunners', {//need to add selected team
       method: 'POST',
       headers: {
         'content-type': 'application/json'
