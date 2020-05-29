@@ -139,7 +139,7 @@ async function getTeamRunners(user, teamUID){
         });
     });
 
-    return teams;
+    return runners;
 }
 
 module.exports.createUser = createUser;
