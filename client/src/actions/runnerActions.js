@@ -3,6 +3,7 @@ import cookie from 'react-cookies'
 
 export function getRunners(selectedTeamUID) {
   return async function(dispatch){
+    console.log("SENDING TEAMUID "+selectedTeamUID);
     await fetch('/runners', {//need to add selected team
       method: 'POST',
       headers: {
@@ -14,12 +15,12 @@ export function getRunners(selectedTeamUID) {
       })
     })
       .then(res => res.json())
-      .then(runners =>
-        dispatch({
-          type: GET_RUNNERS,
-          payload: runners
-        })
-      );
+      .then(function(runners){
+          dispatch({
+            type: GET_RUNNERS,
+            payload: runners
+          })
+      });
   }
 }
 

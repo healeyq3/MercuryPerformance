@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getTeams, newTeam, setTeam } from '../actions/teamActions';
+import {getRunners} from '../actions/runnerActions';
 import ExistingTeamCard from '../components/ExistingTeamCard';
 import NewTeamCard from '../components/NewTeamCard';
 import CreateTeamModal from '../components/CreateTeamModal';
@@ -26,6 +27,7 @@ class TeamSelect extends Component {
 
   setSelectedTeam(team){
     this.props.setTeam(team);
+    this.props.getRunners(team.key);
   }
 
   setShow = e => {
@@ -36,8 +38,6 @@ class TeamSelect extends Component {
   componentDidUpdate(){
     if(this.props.teams!==this.props.getTeams){
       //this.props.teams=this.props.getTeams;
-      
-      console.log("Don't Match")
     }
   }
   render() {
@@ -70,6 +70,7 @@ class TeamSelect extends Component {
 TeamSelect.propTypes = {
   getTeams: PropTypes.func.isRequired,
   setTeam: PropTypes.func.isRequired,
+  getRunners: PropTypes.func.isRequired,
   teams: PropTypes.object.isRequired,
   team: PropTypes.object,
   selectedTeam: PropTypes.object
@@ -83,5 +84,5 @@ const mapStateToProps = function(state){
   }
 }
 
-export default connect(mapStateToProps, { getTeams, newTeam, setTeam }) (TeamSelect);
+export default connect(mapStateToProps, { getTeams, newTeam, setTeam, getRunners }) (TeamSelect);
   

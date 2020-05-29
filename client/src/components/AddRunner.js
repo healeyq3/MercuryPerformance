@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux';
 import  { Container, Button, Form, Modal } from 'react-bootstrap'
 import { newRunner } from '../actions/runnerActions';
-import cookie from 'react-cookies';
 
 export class AddRunner extends React.Component {
     constructor(props){
