@@ -92,9 +92,9 @@ async function authenticatePost(req, res){
 async function createRunner(user, teamUID, name, email, experience, gradYear, wPace){
     console.log("Creating Runner".red);
 
-    const runnerRef = await database.ref("teams").push();
+    const runnerRef = await database.ref("runners").push();
     
-    const newTeam = {
+    const newRunner = {
         name,
         email,
         experience,
@@ -118,7 +118,7 @@ async function createRunner(user, teamUID, name, email, experience, gradYear, wP
 }
 
 async function addRunnerToTeam(user, teamUid, runnerUID){
-    await database.ref("users/" + user.uid.toString() + "/teams/runners").child(runnerUID.toString())
+    await database.ref("users/" + user.uid.toString() + "/teams/" + teamUid + "/runners").child(runnerUID.toString())
     .then(() => {
         console.log("Successfully added runner ".red + runnerUID.red +" to ".red + user.uid.toString().blue);
     }).catch((err) => {

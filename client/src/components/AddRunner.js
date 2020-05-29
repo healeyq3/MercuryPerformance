@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import  { Container, Button, Form, Modal } from 'react-bootstrap'
 import { newRunner } from '../actions/runnerActions';
 import cookie from 'react-cookies';
-import PropTypes from 'prop-types';
 
 export class AddRunner extends React.Component {
     constructor(props){
@@ -37,11 +36,13 @@ export class AddRunner extends React.Component {
             user: cookie.load('user'),
             runnerName: this.state.name,
             runnerEmail: this.state.email,
-            runnerExperience: this.state.runnerExperience,
-            runnerGradYear: this.state.runnerGradYear,
+            runnerExperience: this.state.experience,
+            runnerGradYear: this.state.gradYear,
             runnerWorkoutPace: this.state.workoutPace
         }
         console.log(this.props.teamUID);
+        console.log(this.props);
+        console.log(runnerData);
         this.props.newRunner(runnerData, this.props.teamUID);
         this.state.showModal();
     }
@@ -55,7 +56,7 @@ export class AddRunner extends React.Component {
                 </Form.Group>
             </Form>
             <Modal show = {this.state.show} onHide = {this.showModal}>
-            <Modal.Dialog  >
+            <Modal.Dialog>
                 <Modal.Header closeButton>Add Runner</Modal.Header>
                 <Modal.Body>
                     <Form>
@@ -63,7 +64,7 @@ export class AddRunner extends React.Component {
                             <Form.Label>Full Name</Form.Label>
                             <Form.Control
                                 type = "text"
-                                name = "title"
+                                name = "name"
                                 placeholder = "John O'Brien"
                                 onChange = {this.handleChange}
                             />
@@ -72,14 +73,14 @@ export class AddRunner extends React.Component {
                             <Form.Label>Email Address</Form.Label>
                             <Form.Control
                                 type = "text"
-                                name = "title"
+                                name = "email"
                                 placeholder = "john@gmail.com"
                                 onChange = {this.handleChange}
                             />
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Runner Experience</Form.Label>
-                            <Form.Control onChange = {this.handleChange} name = "runnerExperience" as = "select">
+                            <Form.Control onChange = {this.handleChange} name = "experience" as = "select">
                                 <option hidden>Level</option>
                                 <option>Beginner</option>
                                 <option>Intermediate</option>
@@ -89,7 +90,7 @@ export class AddRunner extends React.Component {
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Runner Year</Form.Label>
-                            <Form.Control onChange = {this.handleChange} name = "Runner Year" as = "select">
+                            <Form.Control onChange = {this.handleChange} name = "gradYear" as = "select">
                                 <option hidden>Class</option>
                                 <option>Freshmen</option>
                                 <option>Sophomore</option>
@@ -102,10 +103,12 @@ export class AddRunner extends React.Component {
                             <Form.Control
                                 type = "text"
                                 placeholder = "00:00"
+                                name = "workoutPace"
+                                onChange = {this.handleChange}
                             />
                         </Form.Group>
                         <Button variant = "primary" onClick = {this.handleAddRunner}>Add Runner</Button>
-                    </Form>
+                    </Form> 
                 </Modal.Body>
             </Modal.Dialog>
             </Modal>
@@ -114,10 +117,5 @@ export class AddRunner extends React.Component {
     }
     
 }
-
-AddRunner.propTypes = {
-    newRunner: PropTypes.func.isRequired
-}
-
 
 export default connect(null, { newRunner }) (AddRunner);

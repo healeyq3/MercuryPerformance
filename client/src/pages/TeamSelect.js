@@ -44,6 +44,7 @@ class TeamSelect extends Component {
     let cardItems = [];
     //console.log(this.props.teams)
     for (const teamuid in this.props.teams) {
+      // console.log("const teamUID: " + teamuid);
       if (this.props.teams.hasOwnProperty(teamuid)) {
         //to get the team object, do this.props.teams[teamuid]
         cardItems.push(
