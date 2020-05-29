@@ -89,7 +89,7 @@ async function authenticatePost(req, res){
     return true;
 }
 
-async function createRunner(user, teamUID, name, email, experience, gradYear, wPace){
+async function createRunner(teamUID, name, email, experience, gradYear, wPace){
     console.log("Creating Runner".red);
 
     const runnerRef = await database.ref("runners").push();
@@ -106,7 +106,7 @@ async function createRunner(user, teamUID, name, email, experience, gradYear, wP
     
     await runnerRef.set(newRunner).then(async () => {
         console.log("Successfully created Runner ".red + name.blue);
-        await addRunnerToTeam(user, teamUID, runnerRef.key);
+        await addRunnerToTeam(teamUID, runnerRef.key);
     }).catch((err) => {
         console.log("Unable to create team ".red + teamName.blue);
         console.log(err.toString());
@@ -117,18 +117,19 @@ async function createRunner(user, teamUID, name, email, experience, gradYear, wP
     });
 }
 
-async function addRunnerToTeam(user, teamUid, runnerUID){
+async function addRunnerToTeam(teamUid, runnerUID){
+    console.log(`teamUID ${teamUid}, runnerUID: ${runnerUID}`)
     await database.ref("teams/" + teamUid + "/runners").child(runnerUID.toString())
     .then(() => {
         console.log("Successfully added runner ".red + runnerUID.red +" to ".red + user.uid.toString().blue);
     }).catch((err) => {
-        console.log("Unable to add runner ".red + runnerUID.red +" to ".red + user.uid.toString().blue);
+        console.log("Unable to add runner ".red + runnerUID.red +" to ".red);
         console.log(err);
     });
 }
 
-async function getTeamRunners(user, teamUID){
-    const runnersRef = database.ref("users/"+user.uid+"/teams/"+teamUID+"/runners");
+async function getTeamRunners(teamUID){
+    const runnersRef = database.ref("teams/"+teamUID+"/runners");
     let runners = {};
     await runnersRef.once("value", function (snapshot) {
         snapshot.forEach(function(child) {

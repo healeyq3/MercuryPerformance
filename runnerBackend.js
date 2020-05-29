@@ -15,7 +15,7 @@ router.post('/', async (req, res) => {
 
   const data = req.body;
 
-  firebaseUtils.getTeamRunners(req.session.user, data.teamUID).then((runners) => {
+  firebaseUtils.getTeamRunners(data.teamUID).then((runners) => {
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(runners));
   }).catch((error) => {
@@ -42,7 +42,7 @@ router.post('/new', async (req, res) => {
   const wPace = data.runnerData.runnerWorkoutPace;
 
 
-  firebaseUtils.createRunner(req.session.user, data.selectedTeamUID, name, email, experience, gradYear, wPace).then((teams) => {
+  firebaseUtils.createRunner(data.selectedTeamUID, name, email, experience, gradYear, wPace).then((teams) => {
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(runners));
     console.log("post over");
