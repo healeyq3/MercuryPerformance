@@ -41,11 +41,9 @@ router.post('/new', async (req, res) => {
   const gradYear = data.runnerData.runnerGradYear;
   const wPace = data.runnerData.runnerWorkoutPace;
 
-
-  firebaseUtils.createRunner(req.session.user, data.selectedTeamUID, name, email, experience, gradYear, wPace).then((teams) => {
+  firebaseUtils.createRunner(req.session.user, data.selectedTeamUID, name, email, experience, gradYear, wPace).then((runners) => {
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(runners));
-    console.log("post over");
   }).catch((error) => {
     console.log("Error adding and fetching Runners".red);
     console.log(error);

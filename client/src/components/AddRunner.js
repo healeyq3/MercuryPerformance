@@ -33,7 +33,6 @@ export class AddRunner extends React.Component {
 
     handleAddRunner = () => {
         const runnerData = {
-            user: cookie.load('user'),
             runnerName: this.state.name,
             runnerEmail: this.state.email,
             runnerExperience: this.state.experience,
