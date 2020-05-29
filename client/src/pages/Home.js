@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import { getRunners, newRunner } from '../actions/runnerActions';
 import  { Container } from 'react-bootstrap'
 import { connect } from 'react-redux';
- import {AddRunner} from '../components/AddRunner';
- import PropTypes from 'prop-types';
+import {AddRunner} from '../components/AddRunner';
+import PropTypes from 'prop-types';
 
 class Home extends Component {
-    constructor(props){
+  constructor(props){
         super(props);
     
         this.props.getRunners(this.props.selectedTeam.key);
@@ -19,7 +19,7 @@ class Home extends Component {
     }
       
     componentDidMount(){
-        this.props.getRunners();
+        this.props.getRunners(this.teamUID);
     }
 
     render() {

@@ -10,7 +10,7 @@ const port = process.env.PORT || 5000;
 
 const authentication = require("./authentication");
 const teamBackend = require("./teamBackend");
-const runnerBackend = require("./teamBackend");
+const runnerBackend = require("./runnerBackend");
 
 app.use(logger("dev"));
 
