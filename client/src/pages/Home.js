@@ -10,16 +10,13 @@ class Home extends Component {
         super(props);
 
     }
-      
-    componentDidMount(){
-      this.props.getRunners(this.teamUID);
-      
-      //How do we get the data stored in selectedTeam? SelectedTeam is printed as an object but I currently cannot call '.key' to access the key
-      //I believe the rest of the process of adding teams should work, but because teamUID starts as undefined here and is passed all the way through that is definitely creating problems
-      console.log(this.props.selectedTeam);
-    }
+    //Move this to render 
+    // componentDidMount(){
+    //   this.props.getRunners(this.teamUID);
+    // }
 
     render() {
+      this.props.getRunners(this.props.selectedTeam.key);
         return (
             <Container fluid>
                 <h2 id = "teamNameHome">{this.props.selectedTeam.teamName}</h2>
