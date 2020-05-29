@@ -112,15 +112,17 @@ async function createRunner(teamUID, name, email, experience, gradYear, wPace){
         console.log(err.toString());
     });
 
-    getTeamRunners(user).then((runners) => {
+    getTeamRunners(teamUID).then((runners) => {
         return runners;
     });
 }
 
-async function addRunnerToTeam(user, teamUid, runnerUID){
+async function addRunnerToTeam(teamUid, runnerUID){
+    console.log(`teamuid: ${teamUid}`);
+    console.log(runnerUID);
     await database.ref("teams/" + teamUid + "/runners").child(runnerUID.toString()).set(runnerUID)
     .then(() => {
-        console.log("Successfully added runner ".red + runnerUID.red +" to ".red + user.uid.toString().blue);
+        console.log("Successfully added runner ".red + runnerUID.red +" to ".red);
     }).catch((err) => {
         console.log("Unable to add runner ".red + runnerUID.red +" to ".red);
         console.log(err);
