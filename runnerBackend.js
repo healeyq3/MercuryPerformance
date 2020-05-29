@@ -15,7 +15,7 @@ router.post('/', async (req, res) => {
 
   const data = req.body;
 
-  firebaseUtils.getTeamRunners(req.session.user, data.teamUID).then((runners) => {
+  firebaseUtils.getTeamRunners(data.teamUID).then((runners) => {
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(runners));
   }).catch((error) => {
