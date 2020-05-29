@@ -20,6 +20,9 @@ class Home extends Component {
       
     componentDidMount(){
       this.props.getRunners(this.teamUID);
+      
+      //How do we get the data stored in selectedTeam? SelectedTeam is printed as an object but I currently cannot call '.key' to access the key
+      //I believe the rest of the process of adding teams should work, but because teamUID starts as undefined here and is passed all the way through that is definitely creating problems
       console.log(this.props.selectedTeam);
     }
 
