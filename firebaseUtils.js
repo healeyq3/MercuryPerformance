@@ -112,8 +112,8 @@ async function createRunner(user, teamUID, name, email, experience, gradYear, wP
         console.log(err.toString());
     });
 
-    getUserTeams(user).then(() => {
-        return teams;
+    getTeamRunners(user).then(() => {
+        return runners;
     });
 }
 

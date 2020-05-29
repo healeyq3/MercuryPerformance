@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import  { Container, Button, Form, Modal } from 'react-bootstrap'
 import { newRunner } from '../actions/runnerActions';
 import cookie from 'react-cookies';
-
+import PropTypes from 'prop-types';
 
 export class AddRunner extends React.Component {
     constructor(props){
@@ -48,9 +48,9 @@ export class AddRunner extends React.Component {
     return (
         <Container fluid>
             <Form>
-                     <Form.Group controlId = "enter">
-                         <Button onClick={e => {this.showModal();}}>Add Runner</Button>
-                     </Form.Group>
+                <Form.Group controlId = "enter">
+                    <Button onClick={e => {this.showModal();}}>Add Runner</Button>
+                </Form.Group>
             </Form>
             <Modal show = {this.state.show} onHide = {this.showModal}>
             <Modal.Dialog  >
@@ -111,6 +111,10 @@ export class AddRunner extends React.Component {
     )
     }
     
+}
+
+AddRunner.propTypes = {
+    newRunner: PropTypes.func.isRequired
 }
 
 
