@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { getRunners, newRunner } from '../actions/runnerActions';
 import  { Container } from 'react-bootstrap'
 import { connect } from 'react-redux';
-import { AddRunner } from '../components/AddRunner';
+import  AddRunner from '../components/AddRunner';
 import PropTypes from 'prop-types';
 
 class Home extends Component {

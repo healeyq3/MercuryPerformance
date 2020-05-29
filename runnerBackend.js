@@ -47,7 +47,7 @@ router.post('/new', async (req, res) => {
     res.end(JSON.stringify(runners));
     console.log("post over");
   }).catch((error) => {
-    console.log("Error adding and fetching teams".red);
+    console.log("Error adding and fetching Runners".red);
     console.log(error);
     res.end("{}");
   })

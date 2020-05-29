@@ -118,7 +118,7 @@ async function createRunner(user, teamUID, name, email, experience, gradYear, wP
 }
 
 async function addRunnerToTeam(user, teamUid, runnerUID){
-    await database.ref("users/" + user.uid.toString() + "/teams/" + teamUid + "/runners").child(runnerUID.toString())
+    await database.ref("teams/" + teamUid + "/runners").child(runnerUID.toString())
     .then(() => {
         console.log("Successfully added runner ".red + runnerUID.red +" to ".red + user.uid.toString().blue);
     }).catch((err) => {
