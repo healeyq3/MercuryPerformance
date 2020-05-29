@@ -19,6 +19,7 @@ export class AddRunner extends React.Component {
             workoutPace: ''
         }
         this.handleChange = this.handleChange.bind(this);
+        // this.handleAddRunner = this.handleAddRunner.bind(this);
     }
     
     showModal = e => {
@@ -40,6 +41,7 @@ export class AddRunner extends React.Component {
             runnerGradYear: this.state.runnerGradYear,
             runnerWorkoutPace: this.state.workoutPace
         }
+        console.log(this.props.teamUID);
         this.props.newRunner(runnerData, this.props.teamUID);
         this.state.showModal();
     }

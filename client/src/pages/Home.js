@@ -8,18 +8,19 @@ import PropTypes from 'prop-types';
 class Home extends Component {
   constructor(props){
         super(props);
-    
+
+        //THIS VALUE IS UNDEFINED
         this.props.getRunners(this.props.selectedTeam.key);
 
         this.state = {
           teamUID: this.props.selectedTeam.key
         }
-    
-        //this.setSelectedTeam = this.setSelectedTeam.bind(this);
+
     }
       
     componentDidMount(){
-        this.props.getRunners(this.teamUID);
+      this.props.getRunners(this.teamUID);
+      console.log(this.props.selectedTeam);
     }
 
     render() {
@@ -37,7 +38,7 @@ Home.propTypes = {
     newRunner: PropTypes.func.isRequired,
     runners: PropTypes.object.isRequired,
     runner: PropTypes.object,
-    selectedTeam: PropTypes.object
+    selectedTeam: PropTypes.object.isRequired,
   };
   const mapStateToProps = function(state){
     return {
