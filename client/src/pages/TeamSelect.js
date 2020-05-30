@@ -42,11 +42,8 @@ class TeamSelect extends Component {
   }
   render() {
     let cardItems = [];
-    //console.log(this.props.teams)
     for (const teamuid in this.props.teams) {
-      // console.log("const teamUID: " + teamuid);
       if (this.props.teams.hasOwnProperty(teamuid)) {
-        //to get the team object, do this.props.teams[teamuid]
         cardItems.push(
         <React.Fragment key = {teamuid}>
           <ExistingTeamCard team = {this.props.teams[teamuid]} onSelect = {this.setSelectedTeam}/>
@@ -72,14 +69,12 @@ TeamSelect.propTypes = {
   setTeam: PropTypes.func.isRequired,
   getRunners: PropTypes.func.isRequired,
   teams: PropTypes.object.isRequired,
-  team: PropTypes.object,
   selectedTeam: PropTypes.object
 };
 
 const mapStateToProps = function(state){
   return {
     teams: state.teams.teams,
-    team: state.teams.team,
     selectedTeam: state.teams.selectedTeam
   }
 }

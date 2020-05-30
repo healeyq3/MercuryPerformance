@@ -4,7 +4,6 @@ import  { Container } from 'react-bootstrap'
 import { connect } from 'react-redux';
 import  AddRunner from '../components/AddRunner';
 import PropTypes from 'prop-types';
-import ExistingTeamCard from "../components/ExistingTeamCard";
 
 class Home extends Component {
   constructor(props) {
