@@ -11,11 +11,15 @@ class Home extends Component {
   }
 
   render() {
-    console.log(this.props.runners);
+    console.log(Object.keys(this.props.runners));//returns array of keys of runners
+    const runnerArr = Object.keys(this.props.runners);
+    //const d = this.props.runners;
+   // const listItems = this.props.runners.getRunners
+    //map((d) => <li key={d.runnerName}>{d.runnerName}</li>);
     return (
         <Container fluid>
             <h2 id = "teamNameHome">{this.props.selectedTeam.teamName}</h2>
-            {/*<ul>{this.props.runners}</ul>*/}
+            <ul>{runnerArr}</ul>
             <AddRunner teamUID = {this.props.selectedTeam.key}/>
         </Container>
     )
