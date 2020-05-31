@@ -13,7 +13,6 @@ class Home extends Component {
   render() {
     console.log(Object.keys(this.props.runners));//returns array of keys of runners
     const runnerArr = Object.keys(this.props.runners);
-   
     return (
         <Container fluid>
             <h2 id = "teamNameHome">{this.props.selectedTeam.teamName}</h2>
