@@ -2,6 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux';
 import  { Container, Button, Form, Modal } from 'react-bootstrap'
 import { newRunner } from '../actions/runnerActions';
+import AddRunnerV02 from './AddRunnerV02';
+import getWorkoutPace from '../math/V02max';
 
 export class AddRunner extends React.Component {
     constructor(props){
@@ -14,7 +16,12 @@ export class AddRunner extends React.Component {
             email: '',
             experience: '',
             gradYear: '',
-            workoutPace: ''
+            workoutPace: '',
+            initialDistance: 0.0,
+            distanceUnit:'',
+            initialHours:0,
+            initalMinutes:0,
+            initialSeconds:0
         }
         this.handleChange = this.handleChange.bind(this);
         // this.handleAddRunner = this.handleAddRunner.bind(this);
@@ -43,6 +50,20 @@ export class AddRunner extends React.Component {
         console.log(runnerData);
         this.props.newRunner(runnerData, this.props.teamUID);
         this.showModal();
+    }
+
+    handleCalculate = () =>{
+        const data = {
+            distance: this.state.initialDistance,
+            units: this.state.distanceUnit,
+            hours: this.state.initialHours,
+            minutes: this.state.initialMinutes,
+            seconds: this.state.initialSeconds
+        }
+        let data1 = getWorkoutPace(data);
+        this.setState({
+            workoutPace: data1
+        });
     }
 
     render(){
@@ -97,16 +118,13 @@ export class AddRunner extends React.Component {
                             </Form.Control>
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>Workout Pace</Form.Label>
-                            <Form.Control
-                                type = "text"
-                                placeholder = "00:00"
-                                name = "workoutPace"
-                                onChange = {this.handleChange}
-                            />
+                            <Form.File id = "personalRecords" label = "Personal Records"></Form.File>
                         </Form.Group>
+                        <AddRunnerV02 handleChange = {this.handleChange}></AddRunnerV02>
+                        <Button variant  = "primary" onClick = {this.handleCalculate}>Calculate</Button>
                         <Button variant = "primary" onClick = {this.handleAddRunner}>Add Runner</Button>
                     </Form> 
+                    <h3>Pace: {this.state.workoutPace}</h3>
                 </Modal.Body>
             </Modal.Dialog>
             </Modal>
