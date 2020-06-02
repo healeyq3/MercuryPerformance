@@ -1,18 +1,20 @@
 import React, { Component } from 'react'
-import { getRunners, newRunner } from '../actions/runnerActions';
+import { newRunner } from '../actions/runnerActions';
 import  { Container } from 'react-bootstrap'
 import { connect } from 'react-redux';
 import  AddRunner from '../components/AddRunner';
 import PropTypes from 'prop-types';
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
-    console.log(Object.keys(this.props.runners));//returns array of keys of runners
-    const runnerArr = Object.keys(this.props.runners);
+    if(this.props.selectedTeam.length===0){
+      return null;
+    }
+
+    let runnerArr = [];
+    if(this.props.teams[this.props.selectedTeam].runners){
+      runnerArr = Object.keys(this.props.teams[this.props.selectedTeam].runners);
+    }
     return (
         <Container fluid>
             <h2 id = "teamNameHome">{this.props.selectedTeam.teamName}</h2>
@@ -24,17 +26,17 @@ class Home extends Component {
 }
 
 Home.propTypes = {
-    getRunners: PropTypes.func.isRequired,
     newRunner: PropTypes.func.isRequired,
-    runners: PropTypes.object.isRequired,
+    teams: PropTypes.object.isRequired,
+  selectedTeam: PropTypes.string.isRequired,
     runner: PropTypes.object,
-    selectedTeam: PropTypes.object.isRequired,
   };
   
 const mapStateToProps = function(state){
   return {
     runners: state.runners.runners,
-    selectedTeam: state.teams.selectedTeam
+    selectedTeam: state.teams.selectedTeam,
+    teams: state.teams.teams,
   }
 }
-export default connect(mapStateToProps, { getRunners, newRunner }) (Home);
+export default connect(mapStateToProps, { newRunner }) (Home);
