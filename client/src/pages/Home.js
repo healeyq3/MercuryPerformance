@@ -12,8 +12,8 @@ class Home extends Component {
     }
 
     let runnerArr = [];
-    if(this.props.teams[this.props.selectedTeam].runners){
-      runnerArr = Object.keys(this.props.teams[this.props.selectedTeam].runners);
+   if(this.props.teams[this.props.selectedTeam].runners){
+     runnerArr = Object.keys(this.props.teams[this.props.selectedTeam].runners);
     }
     return (
         <Container fluid>
