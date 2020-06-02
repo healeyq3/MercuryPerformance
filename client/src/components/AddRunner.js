@@ -57,7 +57,7 @@ export class AddRunner extends React.Component {
             distance: this.state.initialDistance,
             units: this.state.distanceUnit,
             hours: this.state.initialHours,
-            minutes: this.state.initalMinutes,
+            minutes: this.state.initialMinutes,
             seconds: this.state.initialSeconds
         }
         let data1 = getWorkoutPace(data);
@@ -120,7 +120,7 @@ export class AddRunner extends React.Component {
                         <Form.Group>
                             <Form.File id = "personalRecords" label = "Personal Records"></Form.File>
                         </Form.Group>
-                        <AddRunnerV02></AddRunnerV02>
+                        <AddRunnerV02 handleChange = {this.handleChange}></AddRunnerV02>
                         <Button variant  = "primary" onClick = {this.handleCalculate}>Calculate</Button>
                         <Button variant = "primary" onClick = {this.handleAddRunner}>Add Runner</Button>
                     </Form> 

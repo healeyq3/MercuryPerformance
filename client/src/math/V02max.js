@@ -19,9 +19,9 @@ function getWorkoutPace(data){
 }
 
 function getDistance(data){
-    if(data.units == 'kilometers'){
+    if(data.units == 'Kilometers'){
         return convertKToM(data.distance)
-    } else if(data.units == 'meters'){
+    } else if(data.units == 'Meters'){
         return convertMeToMi(data.distance)
     } else {
         return data.distance
@@ -90,8 +90,10 @@ function milesToMeters(distance){
 }
 
 function getVelocity(distance, time){
+    console.log(distance + "d");
     let d = milesToMeters(distance);
    let t = secondsToMinutes(time);
+   console.log(d + "d");
     return d / t;
 }
 
