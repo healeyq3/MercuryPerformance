@@ -10,6 +10,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import CreateAccount from './pages/CreateAccount';
 import TeamSelect from './pages/TeamSelect';
+import Events from './pages/Events';
 
 //Components
 import NavigationBar from './components/NavigationBar';
@@ -29,6 +30,7 @@ class App extends Component {
                 <AuthRoute2 exact path = '/' component = {Home} authenticated = {cookie.load('idToken')}/>
                 <AuthRoute exact path = '/signup' component = {CreateAccount} authenticated = {cookie.load('idToken')}/>
                 <AuthRoute2 exact path = '/teamselect' component = {TeamSelect} authenticated = {cookie.load('idToken')}/>
+                <AuthRoute2 exact path = '/events' component = {Events} authenticated = {cookie.load('idToken')}/>
               </Switch>
             </div>
           </Router>

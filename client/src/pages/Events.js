@@ -4,6 +4,7 @@ export class Events extends Component {
     render() {
         return (
             <h2>Events</h2>
+            
         )
     }
 }
