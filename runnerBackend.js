@@ -4,51 +4,21 @@ const colors = require("colors");
 const firebaseUtils = require("./firebaseUtils");
 
 router.post('/', async (req, res) => {
+  console.log("Received request");
   let authenticationSuccess = true;
   await firebaseUtils.authenticatePost(req, res).then((success) => {
     authenticationSuccess = success;
   })
   if(!authenticationSuccess){
-    res.end();
+    res.end("{}");
     return;
   }
 
-  const data = req.body;
-
-  firebaseUtils.getTeamRunners(data.teamUID).then((runners) => {
-    res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(runners));
-  }).catch((error) => {
-    console.log(error);
-    res.end("{}");
-  });
-});
-
-router.post('/new', async (req, res) => {
-  let authenticationSuccess = true;
-  await firebaseUtils.authenticatePost(req, res).then((success) => {
-    authenticationSuccess = success;
+  new Promise((resolve) => {
+    setTimeout(() => resolve(""), 5000);
   })
-  if(!authenticationSuccess){
-    res.end();
-    return;
-  }
 
-  const data = req.body;
-  const name = data.runnerData.runnerName;
-  const email = data.runnerData.runnerEmail;
-  const experience = data.runnerData.runnerExperience;
-  const gradYear = data.runnerData.runnerGradYear;
-  const wPace = data.runnerData.runnerWorkoutPace;
-
-  firebaseUtils.createRunner(data.selectedTeamUID, name, email, experience, gradYear, wPace).then((runners) => {
-    res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(runners));
-  }).catch((error) => {
-    console.log("Error adding and fetching Runners".red);
-    console.log(error);
-    res.end("{}");
-  })
+  res.end();
 });
 
 module.exports = router;

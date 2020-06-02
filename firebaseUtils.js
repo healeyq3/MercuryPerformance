@@ -80,6 +80,33 @@ async function getUserTeams(user){
     return teams;
 }
 
+async function getTeamRunners(teamUID){
+    return new Promise(async function(resolve, reject) {
+        const teamRunnersRef = database.ref("teams/" + teamUID + "/runners");
+        let runners = {};
+        await teamRunnersRef.once("value", function (snapshot) {
+            console.log("Num runners: ".cyan + snapshot.numChildren());
+            snapshot.forEach(function (childSnapshot) {
+                console.log("Running for child ".cyan + childSnapshot.val());
+                runners[childSnapshot.val()] = {};
+            });
+        });
+
+        for (const runnerUid of Object.keys(runners)) {
+            const runnerRef = database.ref("runners/" + runnerUid);
+            console.log("Get runner ".yellow+runnerUid+" with ref ".yellow+runnerRef.orderByValue());
+
+            await runnerRef.once("value", async function (snapshot) {
+                runners[runnerUid] = await snapshot.val();
+                console.log("Successfully added runner values".red);
+            });
+        }
+
+        console.log("Resolve".yellow);
+        resolve(runners);
+    });
+}
+
 async function authenticatePost(req, res){
     if(req.body.idToken == null || !await authenticateToken(req.body.idToken) || req.body.idToken !== req.session.idToken){
         res.end();
@@ -127,21 +154,6 @@ async function addRunnerToTeam(teamUid, runnerUID){
         console.log("Unable to add runner ".red + runnerUID.red +" to ".red);
         console.log(err);
     });
-}
-
-async function getTeamRunners(teamUID){
-    const runnersRef = database.ref("teams/"+teamUID+"/runners");
-    let runners = {};
-    await runnersRef.once("value", function (snapshot) {
-        snapshot.forEach(function(child) {
-            const value = child.key;
-            database.ref("runners/" + value).on("value", runnerSnapshot => {
-                runners[value] = runnerSnapshot.val();
-            });
-        });
-    });
-
-    return runners;
 }
 
 module.exports.createUser = createUser;

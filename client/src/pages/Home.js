@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 class Home extends Component {
   render() {
-    if(this.props.selectedTeam.length===0){
+    if(!this.props.rehydrated){
       return null;
     }
 
@@ -37,6 +37,7 @@ const mapStateToProps = function(state){
     runners: state.runners.runners,
     selectedTeam: state.teams.selectedTeam,
     teams: state.teams.teams,
+    rehydrated: state._persist.rehydrated
   }
 }
 export default connect(mapStateToProps, { newRunner }) (Home);
