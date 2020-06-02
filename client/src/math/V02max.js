@@ -89,3 +89,4 @@ function getPaceString(seconds){
 function secondsToMinutes(seconds){
     return seconds/60;
 }
+export default getWorkoutPace;
