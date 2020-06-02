@@ -17,11 +17,11 @@ export class AddRunner extends React.Component {
             experience: '',
             gradYear: '',
             workoutPace: '',
-            initialDistance: '',
+            initialDistance: 0.0,
             distanceUnit:'',
-            initialHours:'',
-            initalMinutes:'',
-            initialSeconds:''
+            initialHours:0,
+            initalMinutes:0,
+            initialSeconds:0
         }
         this.handleChange = this.handleChange.bind(this);
         // this.handleAddRunner = this.handleAddRunner.bind(this);
@@ -60,7 +60,11 @@ export class AddRunner extends React.Component {
             minutes: this.state.initalMinutes,
             seconds: this.state.initialSeconds
         }
-        v02max(data);
+        let data1 = v02max(data);
+        pace = data1.workoutPace;
+        this.setState({
+            workoutPace: pace
+        });
     }
 
     render(){
