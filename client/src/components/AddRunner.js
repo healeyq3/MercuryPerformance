@@ -118,10 +118,14 @@ export class AddRunner extends React.Component {
                                 <option>Senior</option>
                             </Form.Control>
                         </Form.Group>
+                        <Form.Group>
+                            <Form.File id = "personalRecords" label = "Personal Records"></Form.File>
+                        </Form.Group>
                         <AddRunnerV02></AddRunnerV02>
                         <Button variant  = "primary" onClick = {this.handleCalculate}>Calculate</Button>
                         <Button variant = "primary" onClick = {this.handleAddRunner}>Add Runner</Button>
                     </Form> 
+                    <h3>Pace: {this.state.workoutPace}</h3>
                 </Modal.Body>
             </Modal.Dialog>
             </Modal>
