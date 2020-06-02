@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import  { Container, Button, Form, Modal } from 'react-bootstrap'
 import { newRunner } from '../actions/runnerActions';
 import AddRunnerV02 from './AddRunnerV02';
-import getWorkoutPace from '../math/V02max';
+import {getWorkoutPace, getV02max} from '../math/V02max';
 
 export class AddRunner extends React.Component {
     constructor(props){
@@ -21,7 +21,8 @@ export class AddRunner extends React.Component {
             distanceUnit:'',
             initialHours:0,
             initalMinutes:0,
-            initialSeconds:0
+            initialSeconds:0,
+            v02max:0
         }
         this.handleChange = this.handleChange.bind(this);
         // this.handleAddRunner = this.handleAddRunner.bind(this);
@@ -61,8 +62,10 @@ export class AddRunner extends React.Component {
             seconds: this.state.initialSeconds
         }
         let data1 = getWorkoutPace(data);
+        let data2 = getV02max(data);
         this.setState({
-            workoutPace: data1
+            workoutPace: data1,
+            v02max:data2
         });
     }
 
@@ -125,6 +128,7 @@ export class AddRunner extends React.Component {
                         <Button variant = "primary" onClick = {this.handleAddRunner}>Add Runner</Button>
                     </Form> 
                     <h3>Pace: {this.state.workoutPace}</h3>
+                    <h3>V02 Max: {this.state.v02max}</h3>
                 </Modal.Body>
             </Modal.Dialog>
             </Modal>

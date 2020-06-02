@@ -101,4 +101,4 @@ function getV02(v){
     const toReturn = -4.6 + (.182258 * (v)) + (.000104 * Math.pow(v, 2));
     return toReturn;
 }
-export default getWorkoutPace;
+export { getWorkoutPace, getV02max };
