@@ -7,9 +7,12 @@ function v02max(data) {
 function getWorkoutPace(data){
     const distance = getDistance(data);
     const time = getTime(data);
+    console.log(`time being passed: ${time}`)
     const perMile = getPerMile(distance, time);
+    console.log('per mile = ' + perMile);
     const pMax = getPercentMax(time);
     const workoutPace = perMile * pMax;
+    console.log('workoutPace = ' + workoutPace);
     const toReturn = getPaceString(workoutPace);
     return toReturn;
 }
@@ -25,6 +28,7 @@ function getDistance(data){
 }
 
 function convertKToM(distance){
+    // console.log(`switch from km to m: ${distance / 1.609}`);
     return (distance / 1.609);
 }
 
@@ -33,7 +37,7 @@ function convertMeToMi(distance) {
 }
 
 function getTime(data){
-    const time = 0;
+    let time = 0;
     if(data.hours != null){
         time += (data.hours * 3600);
     }
@@ -43,6 +47,7 @@ function getTime(data){
     if(data.seconds != null){
         time += data.seconds
     }
+    console.log('time = ' + time);
     return time;
 }
 
@@ -53,11 +58,16 @@ function getPerMile(distance, time){
 
 function getPercentMax(time){
     const e = getE();
-    const pMax = .8 + .1894393 * (Math.pow(e, (-.012778*time))) + .2989558 * (Math.pow(e, (-.1932605 * time)));
+    let time2 = secondsToMinutes(time);
+    console.log(Math.pow(e, -5));
+    console.log((0.1894393 * (Math.pow(e, (-0.012778 * time)))))
+    const pMax = .8 + (0.1894393 * (Math.pow(e, (-0.012778 * time2)))) + (.2989558 * (Math.pow(e, (-0.1932605 * time2))));
+    console.log('percent max = '+ pMax);
     return pMax;
 }
 
 function getE(){
+    console.log("e = " + Math.E);
     return Math.E;
 }
 
@@ -67,11 +77,15 @@ function getPaceString(seconds){
     const minutesAnswer = minutes.toString();
     const remainingSeconds = Math.trunc(seconds - (60 * minutes));
     const remainingSecondsAnswer = remainingSeconds.toString();
-    if((seconds - (60 * initialMinutes)) == 0){
+    if((seconds - (60 * minutes)) == 0){
         return minutesAnswer + ":00"
     } else if(remainingSeconds < 10 && remainingSeconds != 0){
         return minutesAnswer + ":0" + remainingSecondsAnswer;
     } else {
         return minutesAnswer + ":" + remainingSecondsAnswer;
     }
+}
+
+function secondsToMinutes(seconds){
+    return seconds/60;
 }
