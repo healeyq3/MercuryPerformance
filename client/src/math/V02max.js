@@ -84,19 +84,14 @@ function getPaceString(seconds){
 function secondsToMinutes(seconds){
     return seconds/60;
 }
-<<<<<<< HEAD
-
-function secondsToMinutes(seconds){
-    return seconds/60;
-}
 
 function milesToMeters(distance){
     return distance * 1609;
 }
 
 function getVelocity(distance, time){
-    d = milesToMeters(distance);
-    t = secondsToMinutes(time);
+    let d = milesToMeters(distance);
+   let t = secondsToMinutes(time);
     return d / t;
 }
 
@@ -104,6 +99,4 @@ function getV02(v){
     const toReturn = -4.6 + (.182258 * (v)) + (.000104 * Math.pow(v, 2));
     return toReturn;
 }
-=======
 export default getWorkoutPace;
->>>>>>> 3686bcd7a8a554e223308c88749e8abcec0aa56f
