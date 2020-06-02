@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 class Home extends Component {
   render() {
-    if(this.props.selectedTeam.length===0){
+    if(this.props.selectedTeam.teamName.length===0){
       return null;
     }
 
