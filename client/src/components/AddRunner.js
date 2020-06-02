@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import  { Container, Button, Form, Modal } from 'react-bootstrap'
 import { newRunner } from '../actions/runnerActions';
 import AddRunnerV02 from './AddRunnerV02';
-import V02max from '../math/V02max';
+import getWorkoutPace from '../math/V02max';
 
 export class AddRunner extends React.Component {
     constructor(props){
@@ -60,10 +60,9 @@ export class AddRunner extends React.Component {
             minutes: this.state.initalMinutes,
             seconds: this.state.initialSeconds
         }
-        let data1 = v02max(data);
-        pace = data1.workoutPace;
+        let data1 = getWorkoutPace(data);
         this.setState({
-            workoutPace: pace
+            workoutPace: data1
         });
     }
 
