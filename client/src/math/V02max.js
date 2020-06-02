@@ -1,18 +1,19 @@
-function v02max(data) {
-    const distance = getDistance(data);
-    const time = getTime(data);
-    const perMile = getPerMile(distance, time);
+function getV02max(data) {
+    const distance = getDistance(data); //in miles
+    const time = getTime(data); //in seconds
+    const perMile = getPerMile(distance, time); //in miles per second
+    const pMax = getPercentMax(time); //works
+    const velocity = getVelocity(distance, time);
+    const v02 = getV02(velocity);
+    return v02 / pMax;
 }
 
 function getWorkoutPace(data){
     const distance = getDistance(data);
     const time = getTime(data);
-    console.log(`time being passed: ${time}`)
     const perMile = getPerMile(distance, time);
-    console.log('per mile = ' + perMile);
     const pMax = getPercentMax(time);
     const workoutPace = perMile * pMax;
-    console.log('workoutPace = ' + workoutPace);
     const toReturn = getPaceString(workoutPace);
     return toReturn;
 }
@@ -28,7 +29,6 @@ function getDistance(data){
 }
 
 function convertKToM(distance){
-    // console.log(`switch from km to m: ${distance / 1.609}`);
     return (distance / 1.609);
 }
 
@@ -47,7 +47,6 @@ function getTime(data){
     if(data.seconds != null){
         time += data.seconds
     }
-    console.log('time = ' + time);
     return time;
 }
 
@@ -59,15 +58,11 @@ function getPerMile(distance, time){
 function getPercentMax(time){
     const e = getE();
     let time2 = secondsToMinutes(time);
-    console.log(Math.pow(e, -5));
-    console.log((0.1894393 * (Math.pow(e, (-0.012778 * time)))))
     const pMax = .8 + (0.1894393 * (Math.pow(e, (-0.012778 * time2)))) + (.2989558 * (Math.pow(e, (-0.1932605 * time2))));
-    console.log('percent max = '+ pMax);
     return pMax;
 }
 
 function getE(){
-    console.log("e = " + Math.E);
     return Math.E;
 }
 
@@ -88,4 +83,23 @@ function getPaceString(seconds){
 
 function secondsToMinutes(seconds){
     return seconds/60;
+}
+
+function secondsToMinutes(seconds){
+    return seconds/60;
+}
+
+function milesToMeters(distance){
+    return distance * 1609;
+}
+
+function getVelocity(distance, time){
+    d = milesToMeters(distance);
+    t = secondsToMinutes(time);
+    return d / t;
+}
+
+function getV02(v){
+    const toReturn = -4.6 + (.182258 * (v)) + (.000104 * Math.pow(v, 2));
+    return toReturn;
 }
