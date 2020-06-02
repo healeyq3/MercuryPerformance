@@ -29,7 +29,7 @@ class NavigationBar extends Component {
                         <Nav className = "navBarItems">
                         <Nav.Link href="/">Home</Nav.Link>
                         <Nav.Link href="/CalendarHome">Calendar</Nav.Link>
-                        <Nav.Link href="./WorkoutInventory">Workouts</Nav.Link>
+                        <Nav.Link href="./Workouts">Workouts</Nav.Link>
                         <Nav.Link href="./Events">Events</Nav.Link>
                         <Nav.Link href="/teamselect">Select Team</Nav.Link>
                         <Nav.Link href="/Settings">Settings</Nav.Link>
