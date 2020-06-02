@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux';
 import  { Container, Button, Form, Modal } from 'react-bootstrap'
 import { newRunner } from '../actions/runnerActions';
+import AddRunnerV02 from './AddRunnerV02';
 
 export class AddRunner extends React.Component {
     constructor(props){
@@ -96,15 +97,7 @@ export class AddRunner extends React.Component {
                                 <option>Senior</option>
                             </Form.Control>
                         </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Workout Pace</Form.Label>
-                            <Form.Control
-                                type = "text"
-                                placeholder = "00:00"
-                                name = "workoutPace"
-                                onChange = {this.handleChange}
-                            />
-                        </Form.Group>
+                        <AddRunnerV02></AddRunnerV02>
                         <Button variant = "primary" onClick = {this.handleAddRunner}>Add Runner</Button>
                     </Form> 
                 </Modal.Body>
