@@ -28,7 +28,7 @@ class Home extends Component {
 Home.propTypes = {
     newRunner: PropTypes.func.isRequired,
     teams: PropTypes.object.isRequired,
-  selectedTeam: PropTypes.string.isRequired,
+    selectedTeam: PropTypes.object.isRequired,//changed to object from string, still didnt fix error, must be issue with redux?
     runner: PropTypes.object,
   };
   
