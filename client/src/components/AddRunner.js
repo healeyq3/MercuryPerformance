@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import  { Container, Button, Form, Modal } from 'react-bootstrap'
 import { newRunner } from '../actions/runnerActions';
 import AddRunnerV02 from './AddRunnerV02';
-import V02max from '../'
+import V02max from '../math/V02max';
 
 export class AddRunner extends React.Component {
     constructor(props){
@@ -60,7 +60,7 @@ export class AddRunner extends React.Component {
             minutes: this.state.initalMinutes,
             seconds: this.state.initialSeconds
         }
-        
+        v02max(data);
     }
 
     render(){
