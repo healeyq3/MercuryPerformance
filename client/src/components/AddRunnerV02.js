@@ -10,9 +10,9 @@ export class AddRunnerV02 extends Component {
                                 type = "text"
                                 placeholder = "Distance"
                                 name = "initialDistance"
-                                onChange = {this.handleChange}
+                                onChange = {this.props.handleChange}
                             />
-                 <Form.Control onChange = {this.handleChange} name = "distanceUnit" as = "select">
+                 <Form.Control onChange = {this.props.handleChange} name = "distanceUnit" as = "select">
                                 <option hidden>Units</option>
                                 <option>Miles</option>
                                 <option>Kilometers</option>
@@ -22,19 +22,19 @@ export class AddRunnerV02 extends Component {
                                 type = "text"
                                 placeholder = "Hours"
                                 name = "initialHours"
-                                onChange = {this.handleChange}
+                                onChange = {this.props.handleChange}
                             />
                 <Form.Control
                                 type = "text"
                                 placeholder = "Minutes"
                                 name = "initialMinutes"
-                                onChange = {this.handleChange}
+                                onChange = {this.props.handleChange}
                             />
                 <Form.Control
                                 type = "text"
                                 placeholder = "Seconds"
                                 name = "initialSeconds"
-                                onChange = {this.handleChange}
+                                onChange = {this.props.handleChange}
                             />
             </FormGroup>
         )
