@@ -7,7 +7,8 @@ import PropTypes from 'prop-types';
 
 class Home extends Component {
   render() {
-    if(this.props.selectedTeam.length===0){
+    console.log(this.props.selectedTeam);
+    if(this.props.selectedTeam.length===0){//this is wrong, and render gets called 4 times, the first two this value is null
       return null;
     }
 
@@ -28,7 +29,7 @@ class Home extends Component {
 Home.propTypes = {
     newRunner: PropTypes.func.isRequired,
     teams: PropTypes.object.isRequired,
-  selectedTeam: PropTypes.string.isRequired,
+    selectedTeam: PropTypes.object.isRequired,//changed to object from string, still didnt fix error, must be issue with redux?
     runner: PropTypes.object,
   };
   
