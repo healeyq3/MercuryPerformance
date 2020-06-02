@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getTeams, newTeam, setTeam } from '../actions/teamActions';
+import { getTeamRunners } from '../actions/runnerActions';
 import ExistingTeamCard from '../components/ExistingTeamCard';
 import NewTeamCard from '../components/NewTeamCard';
 import CreateTeamModal from '../components/CreateTeamModal';
@@ -26,6 +27,7 @@ class TeamSelect extends Component {
 
   setSelectedTeam(team){
     this.props.setTeam(team.key);
+    this.props.getTeamRunners(team.key);
   }
 
   setShow = e => {
@@ -61,6 +63,7 @@ class TeamSelect extends Component {
 TeamSelect.propTypes = {
   getTeams: PropTypes.func.isRequired,
   setTeam: PropTypes.func.isRequired,
+  getTeamRunners: PropTypes.func.isRequired,
   teams: PropTypes.object.isRequired,
   selectedTeam: PropTypes.string
 };
@@ -72,5 +75,5 @@ const mapStateToProps = function(state){
   }
 }
 
-export default connect(mapStateToProps, { getTeams, newTeam, setTeam }) (TeamSelect);
+export default connect(mapStateToProps, { getTeams, newTeam, setTeam, getTeamRunners }) (TeamSelect);
   
