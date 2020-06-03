@@ -56,14 +56,10 @@ function getPerMile(distance, time){
 }
 
 function getPercentMax(time){
-    const e = getE();
+    const e = Math.E;
     let time2 = secondsToMinutes(time);
     const pMax = .8 + (0.1894393 * (Math.pow(e, (-0.012778 * time2)))) + (.2989558 * (Math.pow(e, (-0.1932605 * time2))));
     return pMax;
-}
-
-function getE(){
-    return Math.E;
 }
 
 function getPaceString(seconds){
@@ -84,7 +80,6 @@ function getPaceString(seconds){
 function secondsToMinutes(seconds){
     return seconds/60;
 }
-<<<<<<< HEAD
 
 function secondsToMinutes(seconds){
     return seconds/60;
@@ -104,6 +99,3 @@ function getV02(v){
     const toReturn = -4.6 + (.182258 * (v)) + (.000104 * Math.pow(v, 2));
     return toReturn;
 }
-=======
-export default getWorkoutPace;
->>>>>>> 3686bcd7a8a554e223308c88749e8abcec0aa56f
