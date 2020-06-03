@@ -39,14 +39,18 @@ function convertMeToMi(distance) {
 function getTime(data){
     let time = 0;
     if(data.hours != null){
+        console.log('hours was logged');
         time += (data.hours * 3600);
     }
     if(data.minutes != null){
         time += (data.minutes * 60);
     }
     if(data.seconds != null){
-        time += data.seconds
+        console.log("seconds: " + data.seconds);
+        console.log(`time: ${time + (data.seconds * 1)}`)
+        time += (data.seconds * 1);
     }
+    console.log(`toReturn ${time}`)
     return time;
 }
 
