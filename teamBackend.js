@@ -9,7 +9,7 @@ router.post('/', async (req, res) => {
     authenticationSuccess = success;
   })
   if(!authenticationSuccess){
-    res.end();
+    res.end("{}");
     return;
   }
 
@@ -37,7 +37,6 @@ router.post('/new', async (req, res) => {
   firebaseUtils.createTeam(req.session.user, data.teamData.teamName, data.teamData.teamYear, data.teamData.teamLevel).then((teams) => {
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(teams));
-    console.log("post over");
   }).catch((error) => {
     console.log("Error adding and fetching teams".red);
     console.log(error);

@@ -7,8 +7,7 @@ import PropTypes from 'prop-types';
 
 class Home extends Component {
   render() {
-    console.log(this.props.selectedTeam);
-    if(this.props.selectedTeam.length===0){//this is wrong, and render gets called 4 times, the first two this value is null
+    if(!this.props.rehydrated){
       return null;
     }
 
@@ -29,7 +28,7 @@ class Home extends Component {
 Home.propTypes = {
     newRunner: PropTypes.func.isRequired,
     teams: PropTypes.object.isRequired,
-    selectedTeam: PropTypes.object.isRequired,//changed to object from string, still didnt fix error, must be issue with redux?
+  selectedTeam: PropTypes.string.isRequired,
     runner: PropTypes.object,
   };
   
@@ -38,6 +37,7 @@ const mapStateToProps = function(state){
     runners: state.runners.runners,
     selectedTeam: state.teams.selectedTeam,
     teams: state.teams.teams,
+    rehydrated: state._persist.rehydrated
   }
 }
 export default connect(mapStateToProps, { newRunner }) (Home);

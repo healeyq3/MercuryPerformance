@@ -19,9 +19,9 @@ function getWorkoutPace(data){
 }
 
 function getDistance(data){
-    if(data.units == 'kilometers'){
+    if(data.units == 'Kilometers'){
         return convertKToM(data.distance)
-    } else if(data.units == 'meters'){
+    } else if(data.units == 'Meters'){
         return convertMeToMi(data.distance)
     } else {
         return data.distance
@@ -81,17 +81,15 @@ function secondsToMinutes(seconds){
     return seconds/60;
 }
 
-function secondsToMinutes(seconds){
-    return seconds/60;
-}
-
 function milesToMeters(distance){
     return distance * 1609;
 }
 
 function getVelocity(distance, time){
-    d = milesToMeters(distance);
-    t = secondsToMinutes(time);
+    console.log(distance + "d");
+    let d = milesToMeters(distance);
+   let t = secondsToMinutes(time);
+   console.log(d + "d");
     return d / t;
 }
 
@@ -99,3 +97,4 @@ function getV02(v){
     const toReturn = -4.6 + (.182258 * (v)) + (.000104 * Math.pow(v, 2));
     return toReturn;
 }
+export { getWorkoutPace, getV02max };
