@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ExistingEventCard from '../components/ExistingEventCard'
 import  { Container, Button } from 'react-bootstrap'
-import CreateTeamModal from '../components/CreateTeamModal'
+import CreateEventModal from '../components/CreateEventModal'
 
 export class Events extends Component {
     constructor(props){
@@ -23,7 +23,7 @@ export class Events extends Component {
                 <p></p>
                 <ExistingEventCard></ExistingEventCard>
                 <p></p>
-                <CreateTeamModal setShow = {this.setShow} show = {this.state.show} />
+                <CreateEventModal setShow = {this.setShow} show = {this.state.show} />
             </Container>
         )
     }

@@ -45,7 +45,7 @@ export class AddRunner extends React.Component {
             runnerExperience: this.state.experience,
             runnerGradYear: this.state.gradYear,
             runnerWorkoutPace: this.state.workoutPace,
-            runnerV02Max: this.v02max
+            runnerV02Max: this.state.v02max
         }
         console.log(runnerData);
         this.props.newRunner(runnerData, this.props.teamUID);

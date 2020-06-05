@@ -41,10 +41,9 @@ router.post('/new', async (req, res) => {
   const experience = data.runnerData.runnerExperience;
   const gradYear = data.runnerData.runnerGradYear;
   const wPace = data.runnerData.runnerWorkoutPace;
+  const v02 = data.runnerData.runnerV02Max;
 
-  console.log("TEAMUID: "+data.selectedTeamUID);
-
-  firebaseUtils.createRunner(data.selectedTeamUID, name, email, experience, gradYear, wPace).then((runners) => {
+  firebaseUtils.createRunner(data.selectedTeamUID, name, email, experience, gradYear, wPace, v02).then((runners) => {
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(runners));
   }).catch((error) => {
