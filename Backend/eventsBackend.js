@@ -41,11 +41,11 @@ router.post('/', async (req, res) => {
     const date = data.eventData.date;
     const location = data.eventData.location;
   
-    firebaseUtils.createRunner(data.selectedTeamUID, name, date, location).then((runners) => {
+    firebaseUtils.createEvent(data.selectedTeamUID, name, date, location).then((events) => {
       res.setHeader('Content-Type', 'application/json');
-      res.end(JSON.stringify(runners));
+      res.end(JSON.stringify(events));
     }).catch((error) => {
-      console.log("Error adding and fetching Runners".red);
+      console.log("Error adding and fetching Events".red);
       console.log(error);
       res.end("{}");
     })
