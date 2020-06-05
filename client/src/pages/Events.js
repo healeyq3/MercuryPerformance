@@ -1,9 +1,21 @@
 import React, { Component } from 'react'
 import ExistingEventCard from '../components/ExistingEventCard'
 import  { Container, Button } from 'react-bootstrap'
+import CreateTeamModal from '../components/CreateTeamModal'
 
 export class Events extends Component {
-    render() {
+    constructor(props){
+        super(props);
+        this.state = {
+          show: false,
+          reloaded:false
+        }}
+        setShow = e => {
+            this.setState({
+                show: !this.state.show
+            })
+          }
+    render(){
         return (
             <Container fluid>
                 <h2>Events</h2>
@@ -11,7 +23,7 @@ export class Events extends Component {
                 <p></p>
                 <ExistingEventCard></ExistingEventCard>
                 <p></p>
-                <ExistingEventCard></ExistingEventCard>
+                <CreateTeamModal setShow = {this.setShow} show = {this.state.show} />
             </Container>
         )
     }
