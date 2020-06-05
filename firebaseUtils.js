@@ -114,7 +114,7 @@ async function authenticatePost(req, res){
     return true;
 }
 
-async function createRunner(teamUID, name, email, experience, gradYear, wPace){
+async function createRunner(teamUID, name, email, experience, gradYear, wPace, v02){
     console.log("Creating Runner".red);
 
     const runnerRef = await database.ref("runners").push();
@@ -125,6 +125,7 @@ async function createRunner(teamUID, name, email, experience, gradYear, wPace){
         experience,
         gradYear,
         wPace,
+        v02,
         key: runnerRef.key.toString()
     }
 
