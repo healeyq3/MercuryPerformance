@@ -39,3 +39,4 @@ export class CreateEventModal extends Component {
 }
 
 export default CreateEventModal
+//export default connect(null, { newEvent }) (CreateEventModal);
