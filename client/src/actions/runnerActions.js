@@ -25,7 +25,6 @@ export function getTeamRunners(selectedTeamUID) {
 
 export function newRunner(runnerData, selectedTeamUID){
   return async function(dispatch) {
-    console.log("Creating new runner");
     await fetch('/runners/new', {
       method: 'POST',
       headers: {
@@ -34,7 +33,7 @@ export function newRunner(runnerData, selectedTeamUID){
       body: JSON.stringify({
         runnerData,
         idToken: cookie.load('idToken'),
-        selectedTeamUID
+        selectedTeamUID: selectedTeamUID
       })
     })
       .then(res => res.json())

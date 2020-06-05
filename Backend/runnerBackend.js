@@ -3,6 +3,7 @@ const router = express.Router();
 const colors = require("colors");
 const firebaseUtils = require("../firebaseUtils");
 
+
 router.post('/', async (req, res) => {
   let authenticationSuccess = true;
   await firebaseUtils.authenticatePost(req, res).then((success) => {
@@ -42,9 +43,11 @@ router.post('/new', async (req, res) => {
   const wPace = data.runnerData.runnerWorkoutPace;
   const v02 = data.runnerData.runnerV02Max;
 
-  firebaseUtils.createRunner(data.selectedTeamUID, name, email, experience, gradYear, wPace, v02).then((runners) => {
+  firebaseUtils.createRunner(data.selectedTeamUID, name, email, experience, gradYear, wPace, v02).then((runner) => {
     res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(runners));
+
+    const runnerJson = JSON.stringify(runner);
+    res.end(runnerJson);
   }).catch((error) => {
     console.log("Error adding and fetching Runners".red);
     console.log(error);

@@ -1,23 +1,23 @@
-import { GET_TEAM_RUNNERS, NEW_RUNNER } from '../actions/types';
+import { GET_TEAM_EVENTS, NEW_EVENT } from '../actions/types';
 
 const initialState = {
-  runners: {},
-  createdRunner: {},
+  events: {},
+  newEvent: {},
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case GET_TEAM_RUNNERS:
-      console.log("Got new runners");
+    case GET_TEAM_EVENTS:
+      console.log("Got new events");
       console.log(action.payload);
       return {
         ...state,
-        runners: action.payload
+        events: action.payload
       }
-    case NEW_RUNNER:
+    case NEW_EVENT:
       return {
         ...state,
-        createdRunner: action.payload
+        newEvent: action.payload
       };
     default:
       return state;
