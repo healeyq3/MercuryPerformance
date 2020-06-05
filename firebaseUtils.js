@@ -185,9 +185,9 @@ async function addEventToTeam(teamUid, eventUID){
     console.log(eventUID);
     await database.ref("teams/" + teamUid + "/events").child(eventUID.toString()).set(eventUID)
     .then(() => {
-        console.log("Successfully added event ".red + runnerUID.red +" to ".red);
+        console.log("Successfully added event ".red + eventUID.red +" to ".red);
     }).catch((err) => {
-        console.log("Unable to add event ".red + runnerUID.red +" to ".red);
+        console.log("Unable to add event ".red + eventUID.red +" to ".red);
         console.log(err);
     });
 }
