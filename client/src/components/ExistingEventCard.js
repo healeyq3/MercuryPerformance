@@ -6,7 +6,7 @@ export class ExistingEventCard extends Component {
         return (
             <Card style = {{width: '100%', height: '10%'}}>
                 <Card.Body>
-                    <Card.Title>Event Name</Card.Title>
+                    <Card.Title>{this.props.event.name}</Card.Title>
                     <Card.Subtitle>Event Details</Card.Subtitle>
                 </Card.Body>
             </Card>

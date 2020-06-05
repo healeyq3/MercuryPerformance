@@ -29,7 +29,7 @@ export class Events extends Component {
                 <h2>Events</h2>
                 <Button onClick = {this.setShow}>Add</Button>
                 <p></p>
-                <ExistingEventCard></ExistingEventCard>
+                <ExistingEventCard team = {this.props.selectedTeam} onSelect = {this.setSelectedTeam}></ExistingEventCard>
                 <p></p>
                 <CreateEventModal setShow = {this.setShow} show = {this.state.show} teamUID = {this.props.selectedTeam}/>
             </Container>
