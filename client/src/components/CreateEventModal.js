@@ -28,7 +28,7 @@ export class CreateEventModal extends Component {
             locationl: this.state.location,
         }
         console.log(eventData.user.uid);
-        this.props.newTeam(eventData);
+        this.props.newEvent(eventData);
         this.props.setShow();
     }
     render() {
