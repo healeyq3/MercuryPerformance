@@ -11,6 +11,8 @@ async function authenticateToken(idToken){
     return await admin.auth().verifyIdToken(idToken);
 }
 
+// -------------- USER ----------------
+
 async function createUser(uID, name, email){
     await database.ref("users").child(uID.toString()).set({
     name: name,
@@ -23,6 +25,8 @@ async function createUser(uID, name, email){
     console.log(err.toString().red);
 });
 }
+
+// -------------- Team ----------------
 
 async function createTeam(user, teamName, teamYear, teamLevel){
     console.log("Creating team".red);
@@ -74,6 +78,8 @@ async function getUserTeams(user){
 
     return teams;
 }
+
+// -------------- Runners ----------------
 
 async function getTeamRunners(teamUID){
     const startTime = Date.now();
@@ -152,6 +158,70 @@ async function addRunnerToTeam(teamUid, runnerUID){
     });
 }
 
+// -------------- Events ----------------
+
+async function createEvent(teamUid, name, date, location){
+    console.log("creating event in Firebase Utils")
+    const eventRef = await database.ref("events").push();
+    console.log(eventRef);
+
+    const eventData = {
+        name,
+        date,
+        location,
+        key: eventRef.key.toString()
+    }
+
+
+    await eventRef.set(eventData).then(async () => {
+        console.log("Successfully created Event ".red + name.blue);
+        await addEventToTeam(teamUid, eventRef.key);
+    }).catch((err) => {
+        console.log("Unable to create event ".red + name.blue);
+        console.log(err.toString());
+    });
+
+    getTeamEvents(teamUid).then((events) => {
+        return events;
+    });
+
+}
+
+async function addEventToTeam(teamUid, eventUID){
+    console.log(`teamuid: ${teamUid}`);
+    console.log(eventUID);
+    await database.ref("teams/" + teamUid + "/events").child(eventUID.toString()).set(eventUID)
+    .then(() => {
+        console.log("Successfully added event ".red + eventUID.red +" to ".red + teamUid.red);
+    }).catch((err) => {
+        console.log("Unable to add event ".red + eventUID.red +" to ".red);
+        console.log(err);
+    });
+}
+
+async function getTeamEvents(teamUID){
+    console.log(teamUID);
+    const teamEventsRef = database.ref("teams/" + teamUID + "/events");
+    let events = {};
+    await teamEventsRef.once("value", function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
+            events[childSnapshot.val()] = {};
+        });
+    });
+
+    for (const eventUid of Object.keys(events)) {
+        const eventsRef = database.ref("events/" + eventUid);
+
+        await eventsRef.once("value", async function (snapshot) {
+            events[eventUid] = await snapshot.val();
+        });
+    }
+
+    return eventUid;
+}
+
+
+
 module.exports.createUser = createUser;
 module.exports.createTeam = createTeam;
 module.exports.addTeamToUser = addTeamToUser;
@@ -160,3 +230,6 @@ module.exports.authenticatePost = authenticatePost;
 module.exports.createRunner = createRunner;
 module.exports.getTeamRunners = getTeamRunners;
 module.exports.addRunnerToTeam = addRunnerToTeam;
+module.exports.createEvent = createEvent;
+module.exports.addEventToTeam = addEventToTeam;
+module.exports.getTeamEvents = getTeamEvents;

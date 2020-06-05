@@ -24,10 +24,10 @@ export class CreateEventModal extends Component {
             user: cookie.load('user'),
             name: this.state.name,
             date: this.state.date,
-            locationl: this.state.location,
+            location: this.state.location,
         }
         console.log(eventData.user.uid);
-        this.props.newTeam(eventData);
+        this.props.newEvent(eventData, this.props.teamUID);//need to pass in selectedTeamUID here
         this.props.setShow();
     }
     render() {

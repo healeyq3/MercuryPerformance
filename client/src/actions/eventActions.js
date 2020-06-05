@@ -1,4 +1,4 @@
-import {GET_TEAM_EVENTS, NEW_EVENT} from './types';
+import {GET_TEAM_EVENTS, NEW_EVENT, SET_EVENT} from './types';
 import cookie from 'react-cookies'
 
 export function newEvent(eventData, selectedTeamUID){
@@ -46,5 +46,14 @@ export function getTeamEvents(selectedTeamUID) {
           payload: events
         })
       );
+  }
+}
+
+export function setEvent(event){
+  return function(dispatch){
+    dispatch({
+      type: SET_EVENT,
+      payload: event
+    })
   }
 }

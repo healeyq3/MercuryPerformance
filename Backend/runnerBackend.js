@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const colors = require("colors");
-const firebaseUtils = require("./firebaseUtils");
+const firebaseUtils = require("../firebaseUtils");
 
 
 router.post('/', async (req, res) => {
