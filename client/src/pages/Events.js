@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
+import ExistingEventCard from '../components/ExistingEventCard'
 
 export class Events extends Component {
     render() {
         return (
-            <h2>Events</h2>
-            
+            <cont>
+                <h2>Events</h2>
+                <ExistingEventCard></ExistingEventCard>
+            </cont>
         )
     }
 }
