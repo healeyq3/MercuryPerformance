@@ -3,7 +3,6 @@ const router = express.Router();
 const colors = require("colors");
 const firebaseUtils = require("./firebaseUtils");
 
-
 router.post('/', async (req, res) => {
   let authenticationSuccess = true;
   await firebaseUtils.authenticatePost(req, res).then((success) => {
