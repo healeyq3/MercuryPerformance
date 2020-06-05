@@ -38,21 +38,19 @@ async function createTeam(user, teamName, teamYear, teamLevel){
     }
 
     
-    await teamRef.set(newTeam).then(async () => {
+    teamRef.set(newTeam).then(() => {
         console.log("Successfully created team ".red + teamName.blue);
-        await addTeamToUser(user, teamRef.key, "coach");
+        addTeamToUser(user, teamRef.key, "coach");
     }).catch((err) => {
         console.log("Unable to create team ".red + teamName.blue);
         console.log(err.toString());
     });
 
-    getUserTeams(user).then(() => {
-        return teams;
-    });
+    return newTeam;
 }
 
 async function addTeamToUser(user, teamUid, role){
-    await database.ref("users/" + user.uid.toString() + "/teams").child(teamUid.toString()).set({
+    database.ref("users/" + user.uid.toString() + "/teams").child(teamUid.toString()).set({
         role : role
     }).then(() => {
         console.log("Successfully added team ".red + teamUid.red +" to ".red + user.uid.toString().blue);
@@ -78,22 +76,31 @@ async function getUserTeams(user){
 }
 
 async function getTeamRunners(teamUID){
-    console.log(teamUID);
+    const startTime = Date.now();
+    console.log("Starting getRunners execution");
     const teamRunnersRef = database.ref("teams/" + teamUID + "/runners");
     let runners = {};
+
+    console.log("Reference received - ".cyan +(Date.now()-startTime));
+
     await teamRunnersRef.once("value", function (snapshot) {
+        console.log("Inside once - ".cyan +(Date.now()-startTime));
         snapshot.forEach(function (childSnapshot) {
             runners[childSnapshot.val()] = {};
         });
+        console.log("Finished getting runners - ".cyan +(Date.now()-startTime));
     });
 
     for (const runnerUid of Object.keys(runners)) {
         const runnerRef = database.ref("runners/" + runnerUid);
 
-        await runnerRef.once("value", async function (snapshot) {
-            runners[runnerUid] = await snapshot.val();
+        runnerRef.once("value", function (snapshot) {
+            runners[runnerUid] = snapshot.val();
         });
+        console.log("Done with runner ".cyan +(Date.now()-startTime));
     }
+
+    console.log("Done getting detailed runner info - ".cyan +(Date.now()-startTime));
 
     return runners;
 }
@@ -122,9 +129,9 @@ async function createRunner(teamUID, name, email, experience, gradYear, wPace, v
         key: runnerRef.key.toString()
     }
     
-    await runnerRef.set(newRunner).then(async () => {
+    runnerRef.set(newRunner).then(() => {
         console.log("Successfully created Runner ".red + name.blue);
-        await addRunnerToTeam(teamUID, runnerRef.key);
+        addRunnerToTeam(teamUID, runnerRef.key);
     }).catch((err) => {
         console.log("Unable to create runner ".red + name.blue);
         console.log(err.toString());
