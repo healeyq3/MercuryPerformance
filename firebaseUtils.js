@@ -1,13 +1,10 @@
 const admin = require("firebase-admin");
 const serviceAccount = require("./firebaseServiceAccountKey.json");
 
-
-
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: "https://mercury-1875e.firebaseio.com"
 });
-
 const database = admin.database();
 
 async function authenticateToken(idToken){
@@ -133,9 +130,7 @@ async function createRunner(teamUID, name, email, experience, gradYear, wPace, v
         console.log(err.toString());
     });
 
-    getTeamRunners(teamUID).then((runners) => {
-        return runners;
-    });
+    return newRunner;
 }
 
 async function addRunnerToTeam(teamUid, runnerUID){

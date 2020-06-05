@@ -2,7 +2,7 @@ import { GET_TEAM_RUNNERS, NEW_RUNNER } from '../actions/types';
 
 const initialState = {
   runners: {},
-  newRunner: {},
+  createdRunner: {},
 };
 
 export default function(state = initialState, action) {
@@ -17,7 +17,7 @@ export default function(state = initialState, action) {
     case NEW_RUNNER:
       return {
         ...state,
-        newRunner: action.payload
+        createdRunner: action.payload
       };
     default:
       return state;

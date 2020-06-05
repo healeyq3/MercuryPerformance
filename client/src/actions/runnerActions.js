@@ -25,7 +25,6 @@ export function getTeamRunners(selectedTeamUID) {
 
 export function newRunner(runnerData, selectedTeamUID){
   return async function(dispatch) {
-    console.log("Creating new runner");
     await fetch('/runners/new', {
       method: 'POST',
       headers: {
