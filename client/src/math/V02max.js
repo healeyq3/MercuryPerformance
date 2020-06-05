@@ -1,6 +1,7 @@
 function getV02max(data) {
     const distance = getDistance(data); //in miles
     const time = getTime(data); //in seconds
+    // eslint-disable-next-line
     const perMile = getPerMile(distance, time); //in miles per second
     const pMax = getPercentMax(time); //works
     const velocity = getVelocity(distance, time);
@@ -19,9 +20,9 @@ function getWorkoutPace(data){
 }
 
 function getDistance(data){
-    if(data.units == 'Kilometers'){
+    if(data.units === 'Kilometers'){
         return convertKToM(data.distance)
-    } else if(data.units == 'Meters'){
+    } else if(data.units === 'Meters'){
         return convertMeToMi(data.distance)
     } else {
         return data.distance
@@ -67,14 +68,15 @@ function getPercentMax(time){
 }
 
 function getPaceString(seconds){
+    // eslint-disable-next-line
     const initialMinutes = seconds / 60;
     const minutes = Math.trunc(seconds / 60);
     const minutesAnswer = minutes.toString();
     const remainingSeconds = Math.trunc(seconds - (60 * minutes));
     const remainingSecondsAnswer = remainingSeconds.toString();
-    if((seconds - (60 * minutes)) == 0){
+    if((seconds - (60 * minutes)) === 0){
         return minutesAnswer + ":00"
-    } else if(remainingSeconds < 10 && remainingSeconds != 0){
+    } else if(remainingSeconds < 10 && remainingSeconds !== 0){
         return minutesAnswer + ":0" + remainingSecondsAnswer;
     } else {
         return minutesAnswer + ":" + remainingSecondsAnswer;
