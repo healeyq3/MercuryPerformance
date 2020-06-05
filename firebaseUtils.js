@@ -85,20 +85,16 @@ async function getTeamRunners(teamUID){
     const teamRunnersRef = database.ref("teams/" + teamUID + "/runners");
     let runners = {};
     await teamRunnersRef.once("value", function (snapshot) {
-        console.log("Num runners: ".cyan + snapshot.numChildren());
         snapshot.forEach(function (childSnapshot) {
-            console.log("Running for child ".cyan + childSnapshot.val());
             runners[childSnapshot.val()] = {};
         });
     });
 
     for (const runnerUid of Object.keys(runners)) {
         const runnerRef = database.ref("runners/" + runnerUid);
-        console.log("Get runner ".yellow+runnerUid+" with ref ".yellow+runnerRef.orderByValue());
 
         await runnerRef.once("value", async function (snapshot) {
             runners[runnerUid] = await snapshot.val();
-            console.log("Successfully added runner values".red);
         });
     }
 
@@ -127,7 +123,6 @@ async function createRunner(teamUID, name, email, experience, gradYear, wPace){
         wPace,
         key: runnerRef.key.toString()
     }
-
     
     await runnerRef.set(newRunner).then(async () => {
         console.log("Successfully created Runner ".red + name.blue);
