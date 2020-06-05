@@ -13,12 +13,11 @@ export function getTeams() {
       })
     })
       .then(res => res.json())
-      .then(teams =>
-        dispatch({
-          type: GET_TEAMS,
-          payload: teams
-        })
-      );
+      .then(teams => dispatch({
+        type: GET_TEAMS,
+        payload: teams
+      })
+    );
   }
 }
 
@@ -35,10 +34,9 @@ export function newTeam(teamData){
       })
     })
       .then(res => res.json())
-      .then(team =>
-        dispatch({
+      .then(createdTeam => dispatch({
           type: NEW_TEAM,
-          payload: team
+          payload: createdTeam
         })
       ).catch((error) => {
         console.log(error);

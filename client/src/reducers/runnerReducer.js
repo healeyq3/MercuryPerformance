@@ -12,7 +12,8 @@ export default function(state = initialState, action) {
       console.log(action.payload);
       return {
         ...state,
-        runners: action.payload
+        runners: action.payload,
+        createdRunner: {}
       }
     case NEW_RUNNER:
       return {
