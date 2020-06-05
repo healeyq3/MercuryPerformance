@@ -39,14 +39,18 @@ function convertMeToMi(distance) {
 function getTime(data){
     let time = 0;
     if(data.hours != null){
+        console.log('hours was logged');
         time += (data.hours * 3600);
     }
     if(data.minutes != null){
         time += (data.minutes * 60);
     }
     if(data.seconds != null){
-        time += data.seconds
+        console.log("seconds: " + data.seconds);
+        console.log(`time: ${time + (data.seconds * 1)}`)
+        time += (data.seconds * 1);
     }
+    console.log(`toReturn ${time}`)
     return time;
 }
 
@@ -56,14 +60,10 @@ function getPerMile(distance, time){
 }
 
 function getPercentMax(time){
-    const e = getE();
+    const e = Math.E;
     let time2 = secondsToMinutes(time);
     const pMax = .8 + (0.1894393 * (Math.pow(e, (-0.012778 * time2)))) + (.2989558 * (Math.pow(e, (-0.1932605 * time2))));
     return pMax;
-}
-
-function getE(){
-    return Math.E;
 }
 
 function getPaceString(seconds){

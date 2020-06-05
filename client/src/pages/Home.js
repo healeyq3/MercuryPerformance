@@ -11,7 +11,7 @@ class Home extends Component {
       return null;
     }
 
-    let runnerArr = [];
+  let runnerArr = [];
    if(this.props.teams[this.props.selectedTeam].runners){
      runnerArr = Object.keys(this.props.teams[this.props.selectedTeam].runners);
     }
@@ -28,7 +28,7 @@ class Home extends Component {
 Home.propTypes = {
     newRunner: PropTypes.func.isRequired,
     teams: PropTypes.object.isRequired,
-  selectedTeam: PropTypes.string.isRequired,
+    selectedTeam: PropTypes.string.isRequired,
     runner: PropTypes.object,
   };
   
