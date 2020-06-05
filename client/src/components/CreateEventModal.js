@@ -10,7 +10,6 @@ export class CreateEventModal extends Component {
 
         this.state = {
             name: '',
-            //need to pass in selectedTeamUID
             date: '',
             location: ''
         }
@@ -28,7 +27,7 @@ export class CreateEventModal extends Component {
             location: this.state.location,
         }
         console.log(eventData.user.uid);
-        this.props.newEvent(eventData);
+        this.props.newEvent(eventData);//need to pass in selectedTeamUID here
         this.props.setShow();
     }
     render() {
