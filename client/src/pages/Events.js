@@ -31,7 +31,7 @@ export class Events extends Component {
                 <p></p>
                 <ExistingEventCard></ExistingEventCard>
                 <p></p>
-                <CreateEventModal setShow = {this.setShow} show = {this.state.show} />
+                <CreateEventModal setShow = {this.setShow} show = {this.state.show} teamUID = {this.props.selectedTeam}/>
             </Container>
         )
     }
@@ -40,7 +40,7 @@ Events.propTypes = {
     setEvent: PropTypes.func.isRequired,
     getTeamEvents: PropTypes.func.isRequired,
     events: PropTypes.object.isRequired,
-    selectedTeam: PropTypes.string
+    selectedTeam: PropTypes.string.isRequired
   };
   const mapStateToProps = function(state){
     return {
