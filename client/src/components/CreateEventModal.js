@@ -25,7 +25,7 @@ export class CreateEventModal extends Component {
             user: cookie.load('user'),
             name: this.state.name,
             date: this.state.date,
-            locationl: this.state.location,
+            location: this.state.location,
         }
         console.log(eventData.user.uid);
         this.props.newEvent(eventData);
