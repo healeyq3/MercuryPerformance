@@ -5,6 +5,7 @@ import CreateEventModal from '../components/CreateEventModal'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getTeamEvents, newEvent, setEvent } from '../actions/eventActions';
+import {Row} from 'react-bootstrap';
 
 export class Events extends Component {
     constructor(props){
@@ -24,12 +25,22 @@ export class Events extends Component {
             this.props.getTeamEvents();
           }
     render(){
+        let cardItems = [];
+        for (const event in this.props.events) {
+      if (this.props.events.hasOwnProperty(event)) {
+        cardItems.push(
+        <React.Fragment key = {event}>
+          <ExistingEventCard event = {this.props.event}/>
+        </React.Fragment>
+        )
+      }
+    }
         return (
             <Container fluid>
                 <h2>Events</h2>
                 <Button onClick = {this.setShow}>Add</Button>
                 <p></p>
-                <ExistingEventCard team = {this.props.selectedTeam} onSelect = {this.setSelectedTeam}></ExistingEventCard>
+                 <Row>{cardItems}</Row>
                 <p></p>
                 <CreateEventModal setShow = {this.setShow} show = {this.state.show} teamUID = {this.props.selectedTeam}/>
             </Container>
