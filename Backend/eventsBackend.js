@@ -50,3 +50,5 @@ router.post('/', async (req, res) => {
       res.end("{}");
     })
   });
+
+  module.exports = router;
