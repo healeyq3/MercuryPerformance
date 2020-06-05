@@ -155,6 +155,46 @@ async function addRunnerToTeam(teamUid, runnerUID){
     });
 }
 
+async function createEvent(teamUid, name, date, location){
+    
+    const eventRef = await database.ref("runners").push();
+
+    const eventData = {
+        name,
+        date,
+        location,
+        key: eventRef.key.toString()
+    }
+
+
+    await eventRef.set(eventData).then(async () => {
+        console.log("Successfully created Event ".red + name.blue);
+        await addEventToTeam(teamUid, eventRef.key);
+    }).catch((err) => {
+        console.log("Unable to create event ".red + name.blue);
+        console.log(err.toString());
+    });
+
+    getTeamRunners(teamUID).then((runners) => {
+        return runners;
+    });
+
+}
+
+async function addEventToTeam(teamUid, eventUID){
+    console.log(`teamuid: ${teamUid}`);
+    console.log(eventUID);
+    await database.ref("teams/" + teamUid + "/events").child(eventUID.toString()).set(eventUID)
+    .then(() => {
+        console.log("Successfully added event ".red + runnerUID.red +" to ".red);
+    }).catch((err) => {
+        console.log("Unable to add event ".red + runnerUID.red +" to ".red);
+        console.log(err);
+    });
+}
+
+
+
 module.exports.createUser = createUser;
 module.exports.createTeam = createTeam;
 module.exports.addTeamToUser = addTeamToUser;
@@ -163,3 +203,5 @@ module.exports.authenticatePost = authenticatePost;
 module.exports.createRunner = createRunner;
 module.exports.getTeamRunners = getTeamRunners;
 module.exports.addRunnerToTeam = addRunnerToTeam;
+module.exports.createEvent = createEvent;
+module.exports.addEventToTeam = addEventToTeam;

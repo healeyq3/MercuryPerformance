@@ -9,8 +9,8 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 const authentication = require("./authentication");
-const teamBackend = require("./teamBackend");
-const runnerBackend = require("./runnerBackend");
+const teamBackend = require("./Backend/teamBackend");
+const runnerBackend = require("./Backend/runnerBackend");
 
 app.use(logger("dev"));
 
