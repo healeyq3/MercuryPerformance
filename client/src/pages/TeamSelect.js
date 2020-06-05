@@ -15,15 +15,18 @@ class TeamSelect extends Component {
       show: false,
       reloaded:false
     }
-
-    this.props.getTeams();
-
     this.setSelectedTeam = this.setSelectedTeam.bind(this);
   }
 
   componentDidMount(){
     this.props.getTeams();
   }
+
+  // componentDidUpdate(prevProps, prevState, snapshot) {
+  //   if(prevProps.rehydrated === false){
+  //     this.props.getTeams();
+  //   }
+  // }
 
   setSelectedTeam(team){
     this.props.setTeam(team.key);
