@@ -26,8 +26,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(expressSession({secret: "452948404D635166546A576E5A7234753777217A25432A462D4A614E64526755", saveUninitialized: false, resave: false}));
 
 app.use("/login", authentication);
-app.use("/teams", teamBackend);
 app.use("/runners", runnerBackend);
+app.use("/teams", teamBackend);
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
 

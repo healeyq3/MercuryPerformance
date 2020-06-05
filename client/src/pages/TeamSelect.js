@@ -27,7 +27,6 @@ class TeamSelect extends Component {
 
   setSelectedTeam(team){
     this.props.setTeam(team.key);
-    this.props.getTeamRunners(team.key);
   }
 
   setShow = e => {
