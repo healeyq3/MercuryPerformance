@@ -29,6 +29,7 @@ app.use(expressSession({secret: "452948404D635166546A576E5A7234753777217A25432A4
 app.use("/login", authentication);
 app.use("/runners", runnerBackend);
 app.use("/teams", teamBackend);
+app.use("/events", eventBackend);
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
