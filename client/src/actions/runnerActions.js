@@ -1,4 +1,4 @@
-import {GET_TEAM_RUNNERS, GET_TEAMS, NEW_RUNNER} from './types';
+import {GET_TEAM_RUNNERS, NEW_RUNNER} from './types';
 import cookie from 'react-cookies'
 
 export function getTeamRunners(selectedTeamUID) {

@@ -1,6 +1,7 @@
 function getV02max(data) {
     const distance = getDistance(data); //in miles
     const time = getTime(data); //in seconds
+    // eslint-disable-next-line
     const perMile = getPerMile(distance, time); //in miles per second
     const pMax = getPercentMax(time); //works
     const velocity = getVelocity(distance, time);
@@ -19,9 +20,9 @@ function getWorkoutPace(data){
 }
 
 function getDistance(data){
-    if(data.units == 'Kilometers'){
+    if(data.units === 'Kilometers'){
         return convertKToM(data.distance)
-    } else if(data.units == 'Meters'){
+    } else if(data.units === 'Meters'){
         return convertMeToMi(data.distance)
     } else {
         return data.distance
@@ -39,14 +40,18 @@ function convertMeToMi(distance) {
 function getTime(data){
     let time = 0;
     if(data.hours != null){
+        console.log('hours was logged');
         time += (data.hours * 3600);
     }
     if(data.minutes != null){
         time += (data.minutes * 60);
     }
     if(data.seconds != null){
-        time += data.seconds
+        console.log("seconds: " + data.seconds);
+        console.log(`time: ${time + (data.seconds * 1)}`)
+        time += (data.seconds * 1);
     }
+    console.log(`toReturn ${time}`)
     return time;
 }
 
@@ -56,25 +61,22 @@ function getPerMile(distance, time){
 }
 
 function getPercentMax(time){
-    const e = getE();
+    const e = Math.E;
     let time2 = secondsToMinutes(time);
     const pMax = .8 + (0.1894393 * (Math.pow(e, (-0.012778 * time2)))) + (.2989558 * (Math.pow(e, (-0.1932605 * time2))));
     return pMax;
 }
 
-function getE(){
-    return Math.E;
-}
-
 function getPaceString(seconds){
+    // eslint-disable-next-line
     const initialMinutes = seconds / 60;
     const minutes = Math.trunc(seconds / 60);
     const minutesAnswer = minutes.toString();
     const remainingSeconds = Math.trunc(seconds - (60 * minutes));
     const remainingSecondsAnswer = remainingSeconds.toString();
-    if((seconds - (60 * minutes)) == 0){
+    if((seconds - (60 * minutes)) === 0){
         return minutesAnswer + ":00"
-    } else if(remainingSeconds < 10 && remainingSeconds != 0){
+    } else if(remainingSeconds < 10 && remainingSeconds !== 0){
         return minutesAnswer + ":0" + remainingSecondsAnswer;
     } else {
         return minutesAnswer + ":" + remainingSecondsAnswer;
@@ -101,4 +103,4 @@ function getV02(v){
     const toReturn = -4.6 + (.182258 * (v)) + (.000104 * Math.pow(v, 2));
     return toReturn;
 }
-export default getWorkoutPace;
+export { getWorkoutPace, getV02max };
