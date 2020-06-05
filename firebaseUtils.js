@@ -11,6 +11,8 @@ async function authenticateToken(idToken){
     return await admin.auth().verifyIdToken(idToken);
 }
 
+// -------------- USER ----------------
+
 async function createUser(uID, name, email){
     await database.ref("users").child(uID.toString()).set({
     name: name,
@@ -23,6 +25,8 @@ async function createUser(uID, name, email){
     console.log(err.toString().red);
 });
 }
+
+// -------------- Team ----------------
 
 async function createTeam(user, teamName, teamYear, teamLevel){
     console.log("Creating team".red);
@@ -76,6 +80,8 @@ async function getUserTeams(user){
 
     return teams;
 }
+
+// -------------- Runners ----------------
 
 async function getTeamRunners(teamUID){
     console.log(teamUID);
@@ -145,9 +151,11 @@ async function addRunnerToTeam(teamUid, runnerUID){
     });
 }
 
+// -------------- Events ----------------
+
 async function createEvent(teamUid, name, date, location){
     
-    const eventRef = await database.ref("runners").push();
+    const eventRef = await database.ref("events").push();
 
     const eventData = {
         name,
@@ -165,8 +173,8 @@ async function createEvent(teamUid, name, date, location){
         console.log(err.toString());
     });
 
-    getTeamRunners(teamUID).then((runners) => {
-        return runners;
+    getTeamEvents(teamUID).then((events) => {
+        return events;
     });
 
 }
@@ -183,6 +191,27 @@ async function addEventToTeam(teamUid, eventUID){
     });
 }
 
+async function getTeamEvents(teamUID){
+    console.log(teamUID);
+    const teamEventsRef = database.ref("teams/" + teamUID + "/events");
+    let events = {};
+    await teamEventsRef.once("value", function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
+            events[childSnapshot.val()] = {};
+        });
+    });
+
+    for (const eventUid of Object.keys(events)) {
+        const eventsRef = database.ref("events/" + eventUid);
+
+        await eventsRef.once("value", async function (snapshot) {
+            events[eventUid] = await snapshot.val();
+        });
+    }
+
+    return eventUid;
+}
+
 
 
 module.exports.createUser = createUser;
@@ -195,3 +224,4 @@ module.exports.getTeamRunners = getTeamRunners;
 module.exports.addRunnerToTeam = addRunnerToTeam;
 module.exports.createEvent = createEvent;
 module.exports.addEventToTeam = addEventToTeam;
+module.exports.getTeamEvents = getTeamEvents;
