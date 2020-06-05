@@ -29,7 +29,7 @@ export class CreateEventModal extends Component {
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Date</Form.Label>
-                            <Form.Control onChange = {this.handleChange} name = "eventDate" type = "text" placeholder = "00/00/00" />
+                            <Form.Control onChange = {this.handleChange} name = "eventDate" type = "date"  />
                         </Form.Group>
                         <Button variant = "primary">Add Event</Button>
                     </Form>
