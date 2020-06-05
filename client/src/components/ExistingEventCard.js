@@ -8,8 +8,6 @@ export class ExistingEventCard extends Component {
                 <Card.Body>
                     <Card.Title>Event Name</Card.Title>
                     <Card.Subtitle>Event Details</Card.Subtitle>
-                    <Card.Link href = './'>Add Details</Card.Link>
-                    <Card.Link href = './'>Add Runners</Card.Link>
                 </Card.Body>
             </Card>
         )
