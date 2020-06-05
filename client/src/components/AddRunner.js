@@ -47,8 +47,6 @@ export class AddRunner extends React.Component {
             runnerWorkoutPace: this.state.workoutPace,
             runnerV02Max: this.v02max
         }
-        console.log(this.props.teamUID);
-        console.log(this.props);
         console.log(runnerData);
         this.props.newRunner(runnerData, this.props.teamUID);
         this.showModal();
