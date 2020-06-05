@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { Modal, Form, Button } from 'react-bootstrap';
+//import { connect } from 'react-redux';
 
 export class CreateEventModal extends Component {
     constructor(props){
