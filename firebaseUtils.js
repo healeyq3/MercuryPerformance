@@ -154,7 +154,7 @@ async function addRunnerToTeam(teamUid, runnerUID){
 // -------------- Events ----------------
 
 async function createEvent(teamUid, name, date, location){
-    
+    console.log("creating event in Firebase Utils")
     const eventRef = await database.ref("events").push();
 
     const eventData = {
