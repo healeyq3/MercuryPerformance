@@ -1,7 +1,7 @@
 import {GET_TEAM_EVENTS, NEW_EVENT} from './types';
 import cookie from 'react-cookies'
 
-export function newEvents(eventData, selectedTeamUID){
+export function newEvent(eventData, selectedTeamUID){
     return async function(dispatch) {
       console.log("Creating new event");
       await fetch('/events/new', {
