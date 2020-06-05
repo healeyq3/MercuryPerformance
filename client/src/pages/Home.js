@@ -24,8 +24,8 @@ class Home extends Component {
     return (
         <Container fluid>
             <h2 id = "teamNameHome">{this.props.selectedTeam.teamName}</h2>
-            <ul>{runnerArr}</ul>
             <AddRunner teamUID = {this.props.selectedTeam}/>
+            <ul>{runnerArr}</ul>
         </Container>
     )
   }
