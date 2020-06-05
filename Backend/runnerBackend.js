@@ -45,14 +45,15 @@ router.post('/new', async (req, res) => {
 
   firebaseUtils.createRunner(data.selectedTeamUID, name, email, experience, gradYear, wPace, v02).then((runner) => {
     res.setHeader('Content-Type', 'application/json');
-
     const runnerJson = JSON.stringify(runner);
     res.end(runnerJson);
   }).catch((error) => {
     console.log("Error adding and fetching Runners".red);
     console.log(error);
     res.end("{}");
-  })
+  });
+
+
 });
 
 module.exports = router;

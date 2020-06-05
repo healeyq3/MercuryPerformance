@@ -22,7 +22,7 @@ class Home extends Component {
       runnerArr = Object.keys(this.props.runners);
     }
 
-    if(this.props.createdRunner.name){
+    if(this.props.createdRunner.name && !this.props.runners.hasOwnProperty(this.props.createdRunner.key)){
       runnerArr.push(this.props.createdRunner.key);
     }
 
