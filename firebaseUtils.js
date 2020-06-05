@@ -81,30 +81,28 @@ async function getUserTeams(user){
 }
 
 async function getTeamRunners(teamUID){
-    return new Promise(async function(resolve, reject) {
-        const teamRunnersRef = database.ref("teams/" + teamUID + "/runners");
-        let runners = {};
-        await teamRunnersRef.once("value", function (snapshot) {
-            console.log("Num runners: ".cyan + snapshot.numChildren());
-            snapshot.forEach(function (childSnapshot) {
-                console.log("Running for child ".cyan + childSnapshot.val());
-                runners[childSnapshot.val()] = {};
-            });
+    console.log(teamUID);
+    const teamRunnersRef = database.ref("teams/" + teamUID + "/runners");
+    let runners = {};
+    await teamRunnersRef.once("value", function (snapshot) {
+        console.log("Num runners: ".cyan + snapshot.numChildren());
+        snapshot.forEach(function (childSnapshot) {
+            console.log("Running for child ".cyan + childSnapshot.val());
+            runners[childSnapshot.val()] = {};
         });
-
-        for (const runnerUid of Object.keys(runners)) {
-            const runnerRef = database.ref("runners/" + runnerUid);
-            console.log("Get runner ".yellow+runnerUid+" with ref ".yellow+runnerRef.orderByValue());
-
-            await runnerRef.once("value", async function (snapshot) {
-                runners[runnerUid] = await snapshot.val();
-                console.log("Successfully added runner values".red);
-            });
-        }
-
-        console.log("Resolve".yellow);
-        resolve(runners);
     });
+
+    for (const runnerUid of Object.keys(runners)) {
+        const runnerRef = database.ref("runners/" + runnerUid);
+        console.log("Get runner ".yellow+runnerUid+" with ref ".yellow+runnerRef.orderByValue());
+
+        await runnerRef.once("value", async function (snapshot) {
+            runners[runnerUid] = await snapshot.val();
+            console.log("Successfully added runner values".red);
+        });
+    }
+
+    return runners;
 }
 
 async function authenticatePost(req, res){

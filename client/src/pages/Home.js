@@ -1,19 +1,25 @@
 import React, { Component } from 'react'
-import { newRunner } from '../actions/runnerActions';
+import { newRunner, getTeamRunners } from '../actions/runnerActions';
 import  { Container } from 'react-bootstrap'
 import { connect } from 'react-redux';
 import  AddRunner from '../components/AddRunner';
 import PropTypes from 'prop-types';
 
 class Home extends Component {
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if(prevProps.rehydrated === false){
+      this.props.getTeamRunners(this.props.selectedTeam);
+    }
+  }
+
   render() {
-    if(!this.props.rehydrated){
+    if(!this.props.selectedTeam){
       return null;
     }
 
     let runnerArr = [];
-   if(this.props.teams[this.props.selectedTeam].runners){
-     runnerArr = Object.keys(this.props.teams[this.props.selectedTeam].runners);
+    if(this.props.runners){
+      runnerArr = Object.keys(this.props.runners);
     }
     return (
         <Container fluid>
@@ -26,10 +32,12 @@ class Home extends Component {
 }
 
 Home.propTypes = {
+    getTeamRunners: PropTypes.func.isRequired,
     newRunner: PropTypes.func.isRequired,
     teams: PropTypes.object.isRequired,
-  selectedTeam: PropTypes.string.isRequired,
+    selectedTeam: PropTypes.string.isRequired,
     runner: PropTypes.object,
+    runners: PropTypes.object,
   };
   
 const mapStateToProps = function(state){
@@ -40,4 +48,4 @@ const mapStateToProps = function(state){
     rehydrated: state._persist.rehydrated
   }
 }
-export default connect(mapStateToProps, { newRunner }) (Home);
+export default connect(mapStateToProps, { newRunner, getTeamRunners }) (Home);
