@@ -23,8 +23,6 @@ router.post('/', async (req, res) => {
       res.end("{}");
     });
   });
-  module.exports = router;
-
 
   router.post('/new', async (req, res) => {
     let authenticationSuccess = true;
@@ -50,3 +48,4 @@ router.post('/', async (req, res) => {
       res.end("{}");
     })
   });
+  module.exports = router;
