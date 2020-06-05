@@ -9,7 +9,7 @@ router.post('/', async (req, res) => {
       authenticationSuccess = success;
     })
     if(!authenticationSuccess){
-      res.end();
+      res.end("{}");
       return;
     }
   
