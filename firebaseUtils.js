@@ -210,7 +210,7 @@ async function getTeamEvents(teamUID){
         });
     }
 
-    return eventUid;
+    return events;
 }
 
 
