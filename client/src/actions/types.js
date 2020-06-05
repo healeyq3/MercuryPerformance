@@ -5,3 +5,4 @@ export const NEW_RUNNER = 'NEW_RUNNER';
 export const GET_TEAM_RUNNERS = 'GET_TEAM_RUNNERS';
 export const NEW_EVENT = 'NEW_EVENT';
 export const GET_TEAM_EVENTS = 'GET_TEAM_EVENTS';
+export const SET_EVENT = 'SET_EVENT';

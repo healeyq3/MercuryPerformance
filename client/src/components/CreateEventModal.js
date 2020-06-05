@@ -10,6 +10,7 @@ export class CreateEventModal extends Component {
 
         this.state = {
             name: '',
+            //need to pass in selectedTeamUID
             date: '',
             location: ''
         }
