@@ -19,7 +19,7 @@ export class Events extends Component {
         return (
             <Container fluid>
                 <h2>Events</h2>
-                <Button>Add</Button>
+                <Button onClick = {this.setShow}>Add</Button>
                 <p></p>
                 <ExistingEventCard></ExistingEventCard>
                 <p></p>
