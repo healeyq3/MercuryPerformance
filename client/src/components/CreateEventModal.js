@@ -49,7 +49,7 @@ export class CreateEventModal extends Component {
                             <Form.Label>Location</Form.Label>
                             <Form.Control onChange = {this.handleChange} name = "location" type = "text" placeholder = "Enter Event Location"/>
                         </Form.Group>
-                        <Button variant = "primary">Add Event</Button>
+                        <Button variant = "primary" onClick = {this.handleCreateEvent}>Add Event</Button>
                     </Form>
                 </Modal.Body>
             </Modal.Dialog>
