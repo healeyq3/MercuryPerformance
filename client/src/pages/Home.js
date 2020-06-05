@@ -6,22 +6,24 @@ import  AddRunner from '../components/AddRunner';
 import PropTypes from 'prop-types';
 
 class Home extends Component {
+  
+  
+  
   render() {
     if(!this.props.rehydrated){
-      return null;
+        return null;
     }
-
-  let runnerArr = [];
-   if(this.props.teams[this.props.selectedTeam].runners){
-     runnerArr = Object.keys(this.props.teams[this.props.selectedTeam].runners);
-    }
-    return (
-        <Container fluid>
-            <h2 id = "teamNameHome">{this.props.selectedTeam.teamName}</h2>
-            <ul>{runnerArr}</ul>
-            <AddRunner teamUID = {this.props.selectedTeam.key}/>
-        </Container>
-    )
+    let runnerArr = [];
+    if(this.props.teams[this.props.selectedTeam].runners){
+      runnerArr = Object.keys(this.props.teams[this.props.selectedTeam].runners);
+      }
+      return (
+          <Container fluid>
+              <h2 id = "teamNameHome">{this.props.selectedTeam.teamName}</h2>
+              <ul>{runnerArr}</ul>
+              <AddRunner teamUID = {this.props.selectedTeam.key}/>
+          </Container>
+      )
   }
 }
 
