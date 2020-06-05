@@ -44,7 +44,8 @@ export class AddRunner extends React.Component {
             runnerEmail: this.state.email,
             runnerExperience: this.state.experience,
             runnerGradYear: this.state.gradYear,
-            runnerWorkoutPace: this.state.workoutPace
+            runnerWorkoutPace: this.state.workoutPace,
+            runnerV02Max: this.v02max
         }
         console.log(this.props.teamUID);
         console.log(this.props);
@@ -127,7 +128,7 @@ export class AddRunner extends React.Component {
                         <Button variant  = "primary" onClick = {this.handleCalculate}>Calculate</Button>
                         <Button variant = "primary" onClick = {this.handleAddRunner}>Add Runner</Button>
                     </Form> 
-                    <h3>Pace: {this.state.workoutPace}</h3>
+                    <h3>Workout Pace: {this.state.workoutPace}</h3>
                     <h3>V02 Max: {this.state.v02max}</h3>
                 </Modal.Body>
             </Modal.Dialog>
