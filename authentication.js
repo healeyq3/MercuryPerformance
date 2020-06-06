@@ -1,14 +1,20 @@
 const express = require("express");
 const router = express.Router();
 const colors = require("colors");
-const { createUser, getUserTeams } = require("./firebaseUtils");
+const { createUser,  authenticateToken } = require("./firebaseUtils");
 
 router.post('/', (req, res) => {
-    req.session.idToken = req.body.idToken;
-    req.session.user = req.body.user;
-    res.end(JSON.stringify(getUserTeams(req.session.user)));
-
-    console.log(req.session.user.email.blue + " logged in with token ".cyan + req.session.idToken.blue);
+    console.log("Verifying user".red);
+    authenticateToken(req.body.idToken).then((decodedIdToken) => {
+        console.log("Successfully authenticated ".green + decodedIdToken.email.cyan)
+        req.session.idToken = req.body.idToken;
+        req.session.useruid = decodedIdToken.uid;
+        res.end(/*teams?*/);
+    }).catch((error) => {
+        console.log("Firebase failed to authenticate a user id token".red);
+        console.log(error);
+        res.end();
+    })
 });
 
 router.post('/new', (req, res) => {

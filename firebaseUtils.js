@@ -221,7 +221,7 @@ async function getTeamEvents(teamUID){
 }
 
 
-
+module.exports.authenticateToken = authenticateToken;
 module.exports.createUser = createUser;
 module.exports.createTeam = createTeam;
 module.exports.addTeamToUser = addTeamToUser;

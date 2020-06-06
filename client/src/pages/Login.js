@@ -38,8 +38,7 @@ class Login extends Component {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    idToken: idToken,
-                    user: u.user
+                    idToken: idToken
                 })
             });
         }).catch((error) => {
