@@ -4,7 +4,6 @@ const colors = require("colors");
 const { createUser,  authenticateToken } = require("./firebaseUtils");
 
 router.post('/', (req, res) => {
-    console.log("Verifying user".red);
     authenticateToken(req.body.idToken).then((decodedIdToken) => {
         console.log("Successfully authenticated ".green + decodedIdToken.email.cyan)
         req.session.idToken = req.body.idToken;

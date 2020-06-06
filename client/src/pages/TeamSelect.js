@@ -53,7 +53,10 @@ class TeamSelect extends Component {
           <ExistingTeamCard team = {this.props.createdTeam} onSelect = {this.setSelectedTeam}/>
         </React.Fragment>
       )
+
+      this.props.teams[this.props.createdTeam.key] = this.props.createdTeam;
     }
+
     return (
       <div>
         <h1>Teams</h1>

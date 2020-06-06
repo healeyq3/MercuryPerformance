@@ -13,7 +13,7 @@ router.post('/', async (req, res) => {
     return;
   }
 
-  await firebaseUtils.getUserTeams(req.session.user).then((teams) => {
+  await firebaseUtils.getUserTeams(req.session.useruid).then((teams) => {
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(teams));
   }).catch((error) => {
@@ -34,7 +34,7 @@ router.post('/new', async (req, res) => {
 
   const data = req.body;
 
-  firebaseUtils.createTeam(req.session.user, data.teamData.teamName, data.teamData.teamYear, data.teamData.teamLevel).then((team) => {
+  firebaseUtils.createTeam(req.session.useruid, data.teamData.teamName, data.teamData.teamYear, data.teamData.teamLevel).then((team) => {
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(team));
   }).catch((error) => {

@@ -12,7 +12,8 @@ export default function(state = initialState, action) {
       return {
         ...state,
         selectedTeam: "",
-        teams: action.payload
+        teams: action.payload,
+        createdTeam: {},
       };
     case NEW_TEAM:
       return {
