@@ -16,13 +16,13 @@ class TeamSelect extends Component {
       reloaded:false
     }
 
-    this.props.getTeams();
-
     this.setSelectedTeam = this.setSelectedTeam.bind(this);
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.props.getTeams();
+
+    console.log("Mounted")
   }
 
   setSelectedTeam(team){
@@ -36,7 +36,6 @@ class TeamSelect extends Component {
   }
 
   render() {
-    console.log("Render");
     let cardItems = [];
     for (const teamuid in this.props.teams) {
       if (this.props.teams.hasOwnProperty(teamuid)) {
@@ -47,7 +46,7 @@ class TeamSelect extends Component {
         )
       }
     }
-    console.log(this.props.createdTeam.hasOwnProperty("teamName"));
+
     if(this.props.createdTeam.hasOwnProperty("teamName") && !this.props.teams.hasOwnProperty(this.props.createdTeam.key)){
       cardItems.push(
         <React.Fragment key = {this.props.createdTeam.key}>
