@@ -24,6 +24,8 @@ class Home extends Component {
 
     if(this.props.createdRunner.name && !this.props.runners.hasOwnProperty(this.props.createdRunner.key)){
       runnerArr.push(this.props.createdRunner.key);
+
+      this.props.runners[this.props.createdRunner.key] = this.props.createdRunner;
     }
 
     return (
