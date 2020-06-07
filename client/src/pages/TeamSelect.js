@@ -28,6 +28,7 @@ class TeamSelect extends Component {
 
   componentDidUpdate(prevProps) {
     if(prevProps.rehydrated === false){
+      console.log('CDU Reached');
       this.props.getTeams();
     }
   }
