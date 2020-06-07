@@ -27,14 +27,21 @@ export class Events extends Component {
     render(){
         let cardItems = [];
         for (const event in this.props.events) {
-      if (this.props.events.hasOwnProperty(event)) {
-        cardItems.push(
-        <React.Fragment key = {event}>
-          <ExistingEventCard event = {this.props.event}/>
-        </React.Fragment>
+          if (this.props.events.hasOwnProperty(event)) {
+             cardItems.push(
+            <React.Fragment key = {event}>
+              <ExistingEventCard event = {this.props.events[event]}/>
+            </React.Fragment>
         )
       }
     }
+    /*if(this.props.createdEvent.hasOwnProperty("name") && !this.props.events.hasOwnProperty(this.props.createdEvent.key)){
+      cardItems.push(
+        <React.Fragment key = {this.props.createdEvent.key}>
+          <ExistingEventCard team = {this.props.createdEvent}/>
+        </React.Fragment>
+      )
+    }*/
         return (
             <Container fluid>
                 <h2>Events</h2>
@@ -57,7 +64,8 @@ Events.propTypes = {
     return {
       events: state.events,
       selectedTeam: state.teams.selectedTeam,
-      selectedEvent: state.events.selectedEvent
+      selectedEvent: state.events.selectedEvent,
+      createdEvent: state.events.createdTeam
     }
   }
 
