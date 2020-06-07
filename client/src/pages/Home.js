@@ -7,7 +7,9 @@ import  AddRunner from '../components/AddRunner';
 import PropTypes from 'prop-types';
 
 class Home extends Component {
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  
+  
+  componentDidUpdate(prevProps) {
     if(prevProps.rehydrated === false){
       this.props.getTeamRunners(this.props.selectedTeam);
     }

@@ -26,7 +26,7 @@ class TeamSelect extends Component {
     console.log("Mounted")
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  componentDidUpdate(prevProps) {
     if(prevProps.rehydrated === false){
       this.props.getTeams();
     }
@@ -34,6 +34,7 @@ class TeamSelect extends Component {
 
   setSelectedTeam(team){
     this.props.setTeam(team.key);
+    // this.props.getTeamRunners(team.key); // this didn't work
   }
 
   setShow = e => {
