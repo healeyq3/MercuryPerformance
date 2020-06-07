@@ -171,9 +171,8 @@ async function addRunnerToTeam(teamUid, runnerUID){
 // -------------- Events ----------------
 
 async function createEvent(teamUid, name, date, location){
-    console.log("creating event in Firebase Utils")
+
     const eventRef = await database.ref("events").push();
-    console.log(eventRef);
 
     const eventData = {
         name,
@@ -191,42 +190,49 @@ async function createEvent(teamUid, name, date, location){
         console.log(err.toString());
     });
 
-    getTeamEvents(teamUid).then((events) => {
-        return events;
-    });
+    return eventData;
 
 }
 
 async function addEventToTeam(teamUid, eventUID){
-    console.log(`teamuid: ${teamUid}`);
-    console.log(eventUID);
-    await database.ref("teams/" + teamUid + "/events").child(eventUID.toString()).set(eventUID)
+    await database.ref("teams/" + teamUid.toString() + "/events").child(eventUID.toString()).set(eventUID)
     .then(() => {
-        console.log("Successfully added event ".red + eventUID.red +" to ".red + teamUid.red);
+        console.log("Successfully added event ".red + eventUID.red +" to ".red + teamUid.toString().red);
     }).catch((err) => {
-        console.log("Unable to add event ".red + eventUID.red +" to ".red);
+        console.log("Unable to add event ".red + eventUID.red +" to "+ teamUid.toString().red);
         console.log(err);
     });
 }
 
 async function getTeamEvents(teamUID){
-    console.log(teamUID);
-    const teamEventsRef = database.ref("teams/" + teamUID + "/events");
+    console.log("teamUID FUCK" + teamUID.toString())
+    const teamEventsRef = database.ref("teams/" + teamUID.toString() + "/events");
     let events = {};
-    await teamEventsRef.once("value", function (snapshot) {
-        snapshot.forEach(function (childSnapshot) {
-            events[childSnapshot.val()] = {};
+    
+    await teamEventsRef.once("value", function(snapshot){
+        snapshot.forEach(function(child) {
+            const value = child.key;
+            database.ref("teams/" + value).on("value", eventSnapshot => {
+                console.log(eventSnapshot.val());
+                events[value] = eventSnapshot.val();
+            });
         });
     });
 
-    for (const eventUid of Object.keys(events)) {
-        const eventsRef = database.ref("events/" + eventUid);
+    // await teamEventsRef.once("value", function (snapshot) {
+    //     snapshot.forEach(function (childSnapshot) {
+    //         events[childSnapshot.val()] = {};
+    //     });
+    // });
 
-        await eventsRef.once("value", async function (snapshot) {
-            events[eventUid] = await snapshot.val();
-        });
-    }
+    // for (const eventUid of Object.keys(events)) {
+    //     const eventsRef = database.ref("events/" + eventUid);
 
+    //     await eventsRef.once("value", async function (snapshot) {
+    //         events[eventUid] = await snapshot.val();
+    //     });
+    // }
+    console.log(events);
     return events;
 }
 

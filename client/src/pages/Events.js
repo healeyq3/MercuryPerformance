@@ -5,7 +5,6 @@ import CreateEventModal from '../components/CreateEventModal'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getTeamEvents, newEvent, setEvent } from '../actions/eventActions';
-import {Row} from 'react-bootstrap';
 
 export class Events extends Component {
     constructor(props){
@@ -14,17 +13,29 @@ export class Events extends Component {
           show: false,
           reloaded:false
         }
-        this.props.getTeamEvents();
+        // this.props.getTeamEvents();
     }
-        setShow = e => {
-            this.setState({
-                show: !this.state.show
-            })
-          }
-          componentDidMount(){
-            this.props.getTeamEvents();
-          }
+    
+    setShow = e => {
+      this.setState({
+          show: !this.state.show
+      })
+    }
+
+    componentDidMount(){
+      console.log("teamUID beign passed: " + this.props.selectedTeam); // this is null
+      this.props.getTeamEvents(this.teamUID); // this is null
+    }
+
+    componentDidUpdate(prevProps){
+      if(prevProps.rehydrated === false){ //not being reached
+        console.log("teamUID beign passed: " + this.props.selectedTeam);
+        this.props.getTeamEvents(this.props.selectedTeam);
+      }
+    }
+
     render(){
+      
         let cardItems = [];
         for (const event in this.props.events) {
           if (this.props.events.hasOwnProperty(event)) {
@@ -46,9 +57,7 @@ export class Events extends Component {
             <Container fluid>
                 <h2>Events</h2>
                 <Button onClick = {this.setShow}>Add</Button>
-                <p></p>
-                 <Row>{cardItems}</Row>
-                <p></p>
+                 {cardItems}
                 <CreateEventModal setShow = {this.setShow} show = {this.state.show} teamUID = {this.props.selectedTeam}/>
             </Container>
         )
@@ -60,6 +69,7 @@ Events.propTypes = {
     events: PropTypes.object.isRequired,
     selectedTeam: PropTypes.string.isRequired
   };
+
   const mapStateToProps = function(state){
     return {
       events: state.events,

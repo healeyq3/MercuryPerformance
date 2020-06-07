@@ -19,7 +19,8 @@ export function newEvent(eventData, selectedTeamUID){
         .then(event =>
           dispatch({
             type: NEW_EVENT,
-            payload: event
+            payload: event,
+            eventUID: event.key
           })
         ).catch((error) => {
           console.log(error);
@@ -36,7 +37,7 @@ export function getTeamEvents(selectedTeamUID) {
       },
       body: JSON.stringify({
         idToken: cookie.load('idToken'),
-        teamUID: selectedTeamUID
+        selectedTeamUID: selectedTeamUID
       })
     })
       .then(res => res.json())
