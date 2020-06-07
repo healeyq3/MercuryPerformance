@@ -25,6 +25,12 @@ class TeamSelect extends Component {
     console.log("Mounted")
   }
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if(prevProps.rehydrated === false){
+      this.props.getTeams();
+    }
+  }
+
   setSelectedTeam(team){
     this.props.setTeam(team.key);
   }
