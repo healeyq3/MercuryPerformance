@@ -91,23 +91,30 @@ async function getTeamRunners(teamUID){
 
     await teamRunnersRef.once("value", function (snapshot) {
         console.log("Inside once - ".cyan +(Date.now()-startTime));
-        snapshot.forEach(function (childSnapshot) {
-            runners[childSnapshot.val()] = {};
+        snapshot.forEach(function (child) {
+            // runners[childSnapshot.val()] = {};
+            const value = child.key;
+            database.ref('runners/' + value).on('value', runnerSnapshot => {
+                runners[value] = runnerSnapshot.val();
+            })
         });
         console.log("Finished getting runners - ".cyan +(Date.now()-startTime));
     });
 
-    for (const runnerUid of Object.keys(runners)) {
-        const runnerRef = database.ref("runners/" + runnerUid);
+    //This wasn't actually getting the info, hence the weird keys before...changed to mimic getUserTeams
+    // for (const runnerUid of Object.keys(runners)) {
+    //     const runnerRef = database.ref("runners/" + runnerUid);
 
-        runnerRef.once("value", function (snapshot) {
-            runners[runnerUid] = snapshot.val();
-        });
-        console.log("Done with runner ".cyan +(Date.now()-startTime));
-    }
+    //     runnerRef.once("value", function (snapshot) {
+    //         runners[runnerUid] = snapshot.val();
+    //         console.log("snapshot value: " + snapshot.val());
+    //     });
+    //     console.log("Done with runner ".cyan +(Date.now()-startTime));
+    // }
 
-    console.log("Done getting detailed runner info - ".cyan +(Date.now()-startTime));
+    // console.log("Done getting detailed runner info - ".cyan +(Date.now()-startTime));
 
+    // console.log(runners);
     return runners;
 }
 

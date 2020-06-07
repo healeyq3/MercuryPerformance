@@ -55,7 +55,7 @@ Home.propTypes = {
   newRunner: PropTypes.func.isRequired,
   teams: PropTypes.object.isRequired,
   selectedTeam: PropTypes.string.isRequired,
-  runners: PropTypes.object
+  runners: PropTypes.object.isRequired
 };
   
 const mapStateToProps = function(state){
