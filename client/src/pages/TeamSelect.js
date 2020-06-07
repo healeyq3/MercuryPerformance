@@ -16,6 +16,7 @@ class TeamSelect extends Component {
       reloaded:false
     }
 
+
     this.setSelectedTeam = this.setSelectedTeam.bind(this);
   }
 
