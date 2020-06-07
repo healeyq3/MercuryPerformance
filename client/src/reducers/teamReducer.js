@@ -2,7 +2,6 @@ import {GET_TEAMS, NEW_TEAM, SET_TEAM} from '../actions/types';
 
 const initialState = {
   teams: {},
-  createdTeam: {},
   selectedTeam: "",
 };
 
@@ -13,13 +12,12 @@ export default function(state = initialState, action) {
         ...state,
         selectedTeam: "",
         teams: action.payload,
-        createdTeam: {},
       };
     case NEW_TEAM:
       return {
         ...state,
         selectedTeam: "",
-        createdTeam: action.payload
+        teams: {...state.teams, [action.teamUID]: action.payload}
       };
     case SET_TEAM:
       return {

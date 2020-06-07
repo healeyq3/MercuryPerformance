@@ -47,16 +47,6 @@ class TeamSelect extends Component {
       }
     }
 
-    if(this.props.createdTeam.hasOwnProperty("teamName") && !this.props.teams.hasOwnProperty(this.props.createdTeam.key)){
-      cardItems.push(
-        <React.Fragment key = {this.props.createdTeam.key}>
-          <ExistingTeamCard team = {this.props.createdTeam} onSelect = {this.setSelectedTeam}/>
-        </React.Fragment>
-      )
-
-      this.props.teams[this.props.createdTeam.key] = this.props.createdTeam;
-    }
-
     return (
       <div>
         <h1>Teams</h1>
@@ -81,7 +71,6 @@ TeamSelect.propTypes = {
 const mapStateToProps = function(state){
   return {
     teams: state.teams.teams,
-    createdTeam: state.teams.createdTeam,
     selectedTeam: state.teams.selectedTeam
   }
 }
