@@ -16,17 +16,25 @@ class TeamSelect extends Component {
       reloaded:false
     }
 
-    this.props.getTeams();
 
     this.setSelectedTeam = this.setSelectedTeam.bind(this);
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.props.getTeams();
+
+    console.log("Mounted")
+  }
+
+  componentDidUpdate(prevProps) {
+    if(prevProps.rehydrated === false){
+      this.props.getTeams();
+    }
   }
 
   setSelectedTeam(team){
     this.props.setTeam(team.key);
+    // this.props.getTeamRunners(team.key); // this didn't work
   }
 
   setShow = e => {
@@ -36,7 +44,6 @@ class TeamSelect extends Component {
   }
 
   render() {
-    console.log("Render");
     let cardItems = [];
     for (const teamuid in this.props.teams) {
       if (this.props.teams.hasOwnProperty(teamuid)) {
@@ -47,14 +54,7 @@ class TeamSelect extends Component {
         )
       }
     }
-    console.log(this.props.createdTeam.hasOwnProperty("teamName"));
-    if(this.props.createdTeam.hasOwnProperty("teamName") && !this.props.teams.hasOwnProperty(this.props.createdTeam.key)){
-      cardItems.push(
-        <React.Fragment key = {this.props.createdTeam.key}>
-          <ExistingTeamCard team = {this.props.createdTeam} onSelect = {this.setSelectedTeam}/>
-        </React.Fragment>
-      )
-    }
+
     return (
       <div>
         <h1>Teams</h1>
@@ -79,7 +79,6 @@ TeamSelect.propTypes = {
 const mapStateToProps = function(state){
   return {
     teams: state.teams.teams,
-    createdTeam: state.teams.createdTeam,
     selectedTeam: state.teams.selectedTeam
   }
 }

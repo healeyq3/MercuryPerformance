@@ -40,7 +40,8 @@ export function newRunner(runnerData, selectedTeamUID){
       .then(runner =>
         dispatch({
           type: NEW_RUNNER,
-          payload: runner
+          payload: runner,
+          runnerUID: runner.key
         })
       ).catch((error) => {
         console.log(error);

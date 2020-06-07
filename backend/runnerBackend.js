@@ -52,8 +52,6 @@ router.post('/new', async (req, res) => {
     console.log(error);
     res.end("{}");
   });
-
-
 });
 
 module.exports = router;

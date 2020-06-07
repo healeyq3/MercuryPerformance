@@ -28,14 +28,14 @@ async function createUser(uID, name, email){
 
 // -------------- Team ----------------
 
-async function createTeam(user, teamName, teamYear, teamLevel){
-    console.log("Creating team".red);
+async function createTeam(useruid, teamName, teamYear, teamLevel){
+    console.log("Creating team ".red + teamName.green);
 
     const teamRef = await database.ref("teams").push();
     
     const newTeam = {
         teamName: teamName,
-        coach: user.uid,
+        coach: useruid,
         year: teamYear,
         level: teamLevel,
         key: teamRef.key.toString()
@@ -44,7 +44,7 @@ async function createTeam(user, teamName, teamYear, teamLevel){
     
     teamRef.set(newTeam).then(() => {
         console.log("Successfully created team ".red + teamName.blue);
-        addTeamToUser(user, teamRef.key, "coach");
+        addTeamToUser(useruid, teamRef.key, "coach");
     }).catch((err) => {
         console.log("Unable to create team ".red + teamName.blue);
         console.log(err.toString());
@@ -53,19 +53,19 @@ async function createTeam(user, teamName, teamYear, teamLevel){
     return newTeam;
 }
 
-async function addTeamToUser(user, teamUid, role){
-    database.ref("users/" + user.uid.toString() + "/teams").child(teamUid.toString()).set({
+async function addTeamToUser(useruid, teamUid, role){
+    database.ref("users/" + useruid + "/teams").child(teamUid.toString()).set({
         role : role
     }).then(() => {
-        console.log("Successfully added team ".red + teamUid.red +" to ".red + user.uid.toString().blue);
+        console.log("Successfully added team ".red + teamUid.red +" to ".red + useruid.blue);
     }).catch((err) => {
-        console.log("Unable to add team ".red + teamUid.red +" to ".red + user.uid.toString().blue);
+        console.log("Unable to add team ".red + teamUid.red +" to ".red + useruid.blue);
         console.log(err);
     });
 }
 
-async function getUserTeams(user){
-    const teamsRef = database.ref("users/"+user.uid+"/teams");
+async function getUserTeams(useruid){
+    const teamsRef = database.ref("users/"+useruid+"/teams");
     let teams = {};
     await teamsRef.once("value", function (snapshot) {
         snapshot.forEach(function(child) {
@@ -91,30 +91,40 @@ async function getTeamRunners(teamUID){
 
     await teamRunnersRef.once("value", function (snapshot) {
         console.log("Inside once - ".cyan +(Date.now()-startTime));
-        snapshot.forEach(function (childSnapshot) {
-            runners[childSnapshot.val()] = {};
+        snapshot.forEach(function (child) {
+            // runners[childSnapshot.val()] = {};
+            const value = child.key;
+            database.ref('runners/' + value).on('value', runnerSnapshot => {
+                runners[value] = runnerSnapshot.val();
+            })
         });
         console.log("Finished getting runners - ".cyan +(Date.now()-startTime));
     });
 
-    for (const runnerUid of Object.keys(runners)) {
-        const runnerRef = database.ref("runners/" + runnerUid);
+    //This wasn't actually getting the info, hence the weird keys before...changed to mimic getUserTeams
+    // for (const runnerUid of Object.keys(runners)) {
+    //     const runnerRef = database.ref("runners/" + runnerUid);
 
-        runnerRef.once("value", function (snapshot) {
-            runners[runnerUid] = snapshot.val();
-        });
-        console.log("Done with runner ".cyan +(Date.now()-startTime));
-    }
+    //     runnerRef.once("value", function (snapshot) {
+    //         runners[runnerUid] = snapshot.val();
+    //         console.log("snapshot value: " + snapshot.val());
+    //     });
+    //     console.log("Done with runner ".cyan +(Date.now()-startTime));
+    // }
 
-    console.log("Done getting detailed runner info - ".cyan +(Date.now()-startTime));
+    // console.log("Done getting detailed runner info - ".cyan +(Date.now()-startTime));
 
+    // console.log(runners);
     return runners;
 }
 
 async function authenticatePost(req, res){
     if(req.body.idToken == null || !await authenticateToken(req.body.idToken) || req.body.idToken !== req.session.idToken){
         res.end();
-        console.log("Post Request Denied".red);
+        console.log("Post Request Denied:".red);
+        console.log("   " + req.body.idToken);
+        console.log("   " + await authenticateToken(req.body.idToken));
+        console.log("   " + req.body.idToken !== req.session.idToken);
         return false;
     }
     return true;
@@ -221,7 +231,7 @@ async function getTeamEvents(teamUID){
 }
 
 
-
+module.exports.authenticateToken = authenticateToken;
 module.exports.createUser = createUser;
 module.exports.createTeam = createTeam;
 module.exports.addTeamToUser = addTeamToUser;

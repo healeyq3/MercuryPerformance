@@ -36,7 +36,8 @@ export function newTeam(teamData){
       .then(res => res.json())
       .then(createdTeam => dispatch({
           type: NEW_TEAM,
-          payload: createdTeam
+          payload: createdTeam,
+          teamUID: createdTeam.key
         })
       ).catch((error) => {
         console.log(error);
