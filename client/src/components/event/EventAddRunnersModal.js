@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Modal, Form, Button } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import cookie from 'react-cookies';
 import ToggleButtonRunners from './ToggleButtonRunners';
 
