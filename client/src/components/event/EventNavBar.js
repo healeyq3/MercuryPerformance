@@ -13,8 +13,8 @@ export class EventNavBar extends Component {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className = "navBarItems">
-                        <Button variant = "outline-primary" onClick = {this.props.setShow1}>Add Runners</Button>
-                        <Button variant = "outline-primary" onClick = {this.props.setShow2}>Add Results</Button>
+                        <Button variant = "outline-primary" onClick = {this.props.setShowRunner}>Add Runners</Button>
+                        <Button variant = "outline-primary" onClick = {this.props.setShowResults}>Add Results</Button>
                         <Nav.Link href="./comingsoon">Analysis</Nav.Link>
                         <Nav.Link href="./comingsoon">Edit</Nav.Link>
                         </Nav>

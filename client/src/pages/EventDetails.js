@@ -9,31 +9,31 @@ export class EventDetails extends Component {
     constructor(props){
         super(props);
         this.state = {
-          show1: false,
-          show2:false,
+          showRunner: false,
+          showResults:false,
           reloaded:false
         }
         // this.props.getTeamEvents();
     }
-    setShow1 = e => {
+    setShowRunner = e => {
         this.setState({
-            show1: !this.state.show1
+            showRunner: !this.state.showRunner
         })
       }
-      setShow2 = e => {
+      setShowResults = e => {
         this.setState({
-            show2: !this.state.show2
+            showResults: !this.state.showResults
         })
       }
 
     render() {
         return (
             <Container>
-                <EventNavBar setShow1 = {this.setShow1} setShow2 = {this.setShow2} show = {this.state.show1}></EventNavBar>
+                <EventNavBar setShowRunner = {this.setShowRunner} setShowResults = {this.setShowResults}></EventNavBar>
                 <div class="card-deck">
                 <EventRunnerCard></EventRunnerCard>
                 <EventDetailsCard></EventDetailsCard>
-                <EventAddRunnersModal show = {this.state.show1} setShow1 = {this.setShow1} teamUID = {this.props.selectedTeam}/>
+                <EventAddRunnersModal show = {this.state.showRunner} setShow = {this.setShowRunner} teamUID = {this.props.selectedTeam}/>
                 </div>
             </Container>
         )
