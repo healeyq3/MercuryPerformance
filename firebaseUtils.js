@@ -13,7 +13,7 @@ console.log("Running primer");
 database.ref("/").on("value", snapshot => {
     snapshot.val();
 });
-console.log("Finished primer after " + (Date.now() - startTime));
+console.log("Finished primer after ".green + (Date.now() - startTime).toString().cyan + "ms".cyan);
 
 async function authenticateToken(idToken){
     return await admin.auth().verifyIdToken(idToken);
@@ -75,14 +75,19 @@ async function addTeamToUser(useruid, teamUid, role){
 async function getUserTeams(useruid){
     const teamsRef = database.ref("users/"+useruid+"/teams");
     let teams = {};
-    await teamsRef.once("value", function (snapshot) {
+    await teamsRef.once("value").then(async (snapshot) => {
+        let teamArray = [];
         snapshot.forEach(function(child) {
-            const value = child.key;
-            database.ref("teams/" + value).on("value", teamSnapshot => {
+            teamArray.push(child);
+        });
+        for (const team of teamArray){
+            const value = team.key;
+            await database.ref("teams/" + value).once("value").then((teamSnapshot) => {
                 teams[value] = teamSnapshot.val();
             });
-        });
+        };
     });
+
     return teams;
 }
 
@@ -95,8 +100,7 @@ async function getTeamRunners(teamUID){
     await teamRunnersRef.once("value", function (snapshot) {
         snapshot.forEach(function (child) {
             const value = child.key;
-            console.log("Grabbing runner with key".cyan + value.red);
-            database.ref('runners/' + value).on('value', runnerSnapshot => {
+            database.ref('runners/' + value).once('value', runnerSnapshot => {
                 runners[value] = runnerSnapshot.val();
             })
         });
