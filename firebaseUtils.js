@@ -7,6 +7,14 @@ admin.initializeApp({
 });
 const database = admin.database();
 
+//Firebase Primer Setup
+const startTime = Date.now();
+console.log("Running primer");
+database.ref("/").on("value", snapshot => {
+    snapshot.val();
+});
+console.log("Finished primer after ".green + (Date.now() - startTime).toString().cyan + "ms".cyan);
+
 async function authenticateToken(idToken){
     return await admin.auth().verifyIdToken(idToken);
 }
@@ -67,13 +75,17 @@ async function addTeamToUser(useruid, teamUid, role){
 async function getUserTeams(useruid){
     const teamsRef = database.ref("users/"+useruid+"/teams");
     let teams = {};
-    await teamsRef.once("value", function (snapshot) {
+    await teamsRef.once("value").then(async (snapshot) => {
+        let teamArray = [];
         snapshot.forEach(function(child) {
-            const value = child.key;
-            database.ref("teams/" + value).on("value", teamSnapshot => {
+            teamArray.push(child);
+        });
+        for (const team of teamArray){
+            const value = team.key;
+            await database.ref("teams/" + value).once("value").then((teamSnapshot) => {
                 teams[value] = teamSnapshot.val();
             });
-        });
+        };
     });
 
     return teams;
@@ -82,39 +94,18 @@ async function getUserTeams(useruid){
 // -------------- Runners ----------------
 
 async function getTeamRunners(teamUID){
-    const startTime = Date.now();
-    console.log("Starting getRunners execution");
     const teamRunnersRef = database.ref("teams/" + teamUID + "/runners");
     let runners = {};
 
-    console.log("Reference received - ".cyan +(Date.now()-startTime));
-
     await teamRunnersRef.once("value", function (snapshot) {
-        console.log("Inside once - ".cyan +(Date.now()-startTime));
         snapshot.forEach(function (child) {
-            // runners[childSnapshot.val()] = {};
             const value = child.key;
-            database.ref('runners/' + value).on('value', runnerSnapshot => {
+            database.ref('runners/' + value).once('value', runnerSnapshot => {
                 runners[value] = runnerSnapshot.val();
             })
         });
-        console.log("Finished getting runners - ".cyan +(Date.now()-startTime));
     });
 
-    //This wasn't actually getting the info, hence the weird keys before...changed to mimic getUserTeams
-    // for (const runnerUid of Object.keys(runners)) {
-    //     const runnerRef = database.ref("runners/" + runnerUid);
-
-    //     runnerRef.once("value", function (snapshot) {
-    //         runners[runnerUid] = snapshot.val();
-    //         console.log("snapshot value: " + snapshot.val());
-    //     });
-    //     console.log("Done with runner ".cyan +(Date.now()-startTime));
-    // }
-
-    // console.log("Done getting detailed runner info - ".cyan +(Date.now()-startTime));
-
-    // console.log(runners);
     return runners;
 }
 

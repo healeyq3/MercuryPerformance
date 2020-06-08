@@ -22,11 +22,10 @@ export class Events extends Component {
       })
     }
 
-    componentDidMount(){
-      console.log("teamUID beign passed: " + this.props.selectedTeam); // this is null
-      this.props.getTeamEvents(this.teamUID); // this is null
-    }
+    componentDidMount(){ //need to start loading here
 
+    }
+    
     componentDidUpdate(prevProps){
       if(prevProps.rehydrated === false){ //not being reached
         console.log("teamUID beign passed: " + this.props.selectedTeam);
@@ -39,6 +38,9 @@ export class Events extends Component {
     }
 
     render(){
+      if(!this.props.selectedTeam){
+        return null;
+      }
       
         let cardItems = [];
         for (const event in this.props.events) {
