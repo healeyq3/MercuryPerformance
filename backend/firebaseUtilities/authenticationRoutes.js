@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const colors = require("colors");
-const { createUser,  authenticateToken } = require("./firebaseUtils");
+const { createUser,  authenticateToken } = require("./firebaseSetup");
 
 router.post('/', (req, res) => {
     authenticateToken(req.body.idToken).then((decodedIdToken) => {
