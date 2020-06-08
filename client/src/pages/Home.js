@@ -7,7 +7,6 @@ import  AddRunner from '../components/AddRunner';
 import PropTypes from 'prop-types';
 
 class Home extends Component {
-  componentDidUpdate(prevProps, prevState, snapshot) {
   constructor(props){
     super(props);
     this.setSelectedRunner = this.setSelectedRunner.bind(this);
