@@ -33,7 +33,7 @@ export class EventDetails extends Component {
                 <div class="card-deck">
                 <EventRunnerCard></EventRunnerCard>
                 <EventDetailsCard></EventDetailsCard>
-                <EventAddRunnersModal setShow1 = {this.setShow1} show = {this.state.show1} teamUID = {this.props.selectedTeam}/>
+                <EventAddRunnersModal show = {this.state.show1} setShow1 = {this.setShow1} teamUID = {this.props.selectedTeam}/>
                 </div>
             </Container>
         )
