@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Modal, Form, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { newEvent } from '../actions/eventActions';
+import { newEvent } from '../../actions/eventActions';
 import cookie from 'react-cookies';
 
 export class CreateEventModal extends Component {

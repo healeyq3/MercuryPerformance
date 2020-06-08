@@ -13,11 +13,25 @@ console.log("Running primer");
 database.ref("/").on("value", snapshot => {
     snapshot.val();
 });
-console.log("Finished primer after " + (Date.now() - startTime));
+console.log("Finished primer after ".green + (Date.now() - startTime).toString().cyan + "ms".cyan);
 
 async function authenticateToken(idToken){
     return await admin.auth().verifyIdToken(idToken);
 }
+
+async function authenticatePost(req, res){
+    return authenticateToken(req.body.idToken).then((decodedIdToken) => {
+        req.session.idToken = req.body.idToken;
+        req.session.useruid = decodedIdToken.uid;
+        return true;
+    }).catch((error) => {
+        res.end("{}");
+        console.log("Authentication failed for user token".red);
+        console.log(error);
+        return false;
+    });
+}
+
 
 // -------------- USER ----------------
 
@@ -73,48 +87,49 @@ async function addTeamToUser(useruid, teamUid, role){
 }
 
 async function getUserTeams(useruid){
+    const startTime = Date.now();
     const teamsRef = database.ref("users/"+useruid+"/teams");
     let teams = {};
-    await teamsRef.once("value", function (snapshot) {
+    await teamsRef.once("value").then(async (snapshot) => {
+        let teamArray = [];
         snapshot.forEach(function(child) {
-            const value = child.key;
-            database.ref("teams/" + value).on("value", teamSnapshot => {
+            teamArray.push(child);
+        });
+        for (const team of teamArray){
+            const value = team.key;
+            await database.ref("teams/" + value).once("value").then((teamSnapshot) => {
                 teams[value] = teamSnapshot.val();
             });
-        });
+        }
     });
+
+    console.log("Finished Get Teams - ".green + (Date.now() - startTime).toString().cyan + "ms".cyan);
     return teams;
 }
 
 // -------------- Runners ----------------
 
 async function getTeamRunners(teamUID){
+    const startTime = Date.now();
     const teamRunnersRef = database.ref("teams/" + teamUID + "/runners");
     let runners = {};
 
-    await teamRunnersRef.once("value", function (snapshot) {
-        snapshot.forEach(function (child) {
-            const value = child.key;
-            console.log("Grabbing runner with key".cyan + value.red);
-            database.ref('runners/' + value).on('value', runnerSnapshot => {
-                runners[value] = runnerSnapshot.val();
-            })
+    await teamRunnersRef.once("value").then(async (snapshot) => {
+        let runnerArray = [];
+        snapshot.forEach(function(child) {
+            runnerArray.push(child);
         });
+
+        for (const runner of runnerArray){
+            const value = runner.key;
+            await database.ref("runners/" + value).once("value").then((runnerSnapshot) => {
+                runners[value] = runnerSnapshot.val();
+            });
+        }
     });
 
+    console.log("Finished Get Runners - ".green + (Date.now() - startTime).toString().cyan + "ms".cyan);
     return runners;
-}
-
-async function authenticatePost(req, res){
-    if(req.body.idToken == null || !await authenticateToken(req.body.idToken) || req.body.idToken !== req.session.idToken){
-        res.end();
-        console.log("Post Request Denied:".red);
-        console.log("   " + req.body.idToken);
-        console.log("   " + await authenticateToken(req.body.idToken));
-        console.log("   " + req.body.idToken !== req.session.idToken);
-        return false;
-    }
-    return true;
 }
 
 async function createRunner(teamUID, name, email, experience, gradYear, wPace, v02){

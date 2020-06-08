@@ -13,11 +13,13 @@ router.post('/', async (req, res) => {
     return;
   }
 
+  const startTime = Date.now();
   await firebaseUtils.getUserTeams(req.session.useruid).then((teams) => {
     res.setHeader('Content-Type', 'application/json');
 
     const teamsJson = JSON.stringify(teams);
     res.end(teamsJson);
+    console.log("Done fetching teams - time: ".green + (Date.now() - startTime).toString().cyan + "ms".cyan);
   }).catch((error) => {
     console.log(error);
     res.end("{}");

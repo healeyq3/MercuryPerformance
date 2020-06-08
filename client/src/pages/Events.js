@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import ExistingEventCard from '../components/ExistingEventCard'
+import ExistingEventCard from '../components/Event/ExistingEventCard'
 import  { Container, Button } from 'react-bootstrap'
-import CreateEventModal from '../components/CreateEventModal'
+import CreateEventModal from '../components/Event/CreateEventModal'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getTeamEvents, newEvent, setEvent } from '../actions/eventActions';
@@ -32,6 +32,10 @@ export class Events extends Component {
         this.props.getTeamEvents(this.props.selectedTeam);
       }
     }
+    setSelectedEvent(event){
+      this.props.setEvent(event.key);
+    
+    }
 
     render(){
       if(!this.props.selectedTeam){
@@ -43,7 +47,7 @@ export class Events extends Component {
           if (this.props.events.hasOwnProperty(event)) {
              cardItems.push(
             <React.Fragment key = {event}>
-              <ExistingEventCard event = {this.props.events[event]}/>
+              <ExistingEventCard event = {this.props.events[event]} onSelect = {this.setSelectedTeam}/>
             </React.Fragment>
         )
       }
