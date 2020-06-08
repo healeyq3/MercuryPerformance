@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import EventNavBar from '../components/event/EventNavBar'
-import EventRunnerCard from '../components/event/EventRunnerCard'
+import EventNavBar from '../components/Event/EventNavBar'
+import EventRunnerCard from '../components/Event/EventRunnerCard'
 import { Container } from 'react-bootstrap'
-import EventDetailsCard from '../components/event/EventDetailsCard'
-import EventAddRunnersModal from '../components/event/EventAddRunnersModal'
+import EventDetailsCard from '../components/Event/EventDetailsCard'
+import EventAddRunnersModal from '../components/Event/EventAddRunnersModal'
 
 export class EventDetails extends Component {
     constructor(props){
