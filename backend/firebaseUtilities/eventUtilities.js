@@ -62,8 +62,8 @@ async function getTeamEvents(teamuid){
   return events;
 }
 
-async function addRunnerToEvent(eventuid, runneruid){
-  console.log("Adding runner".green + "(".cyan + runneruid.cyan + ") to team".green + "(".cyan + eventuid.cyan + ")".cyan);
+async function addRunnerToEvent(eventuid, runneruid, data){
+  console.log("Adding runner".green + "(".cyan + runneruid.cyan + ")".cyan + " to team".green + "(".cyan + eventuid.cyan + ")".cyan);
   const runnersRef = database.ref("runners/"+runneruid);
 
   await runnersRef.once("value").then((snapshot) => {
@@ -72,7 +72,7 @@ async function addRunnerToEvent(eventuid, runneruid){
       return false;
     }
 
-    database.ref("events/"+eventuid+"/runners/"+runneruid).set(runneruid).then(() =>{
+    database.ref("events/"+eventuid+"/runners/"+runneruid).set(data).then(() =>{
       console.log("Successfully added runner ".cyan + runneruid + " to ".cyan + eventuid);
       return true;
     }).catch((error) => {
@@ -80,6 +80,24 @@ async function addRunnerToEvent(eventuid, runneruid){
       console.log(error);
     })
   })
+}
+
+async function removeRunnerFromEvent(eventuid, runneruid){
+  console.log("Removing runner".green + "(".cyan + runneruid.cyan + ")".cyan +" from team".green + "(".cyan + eventuid.cyan + ")".cyan);
+  const eventRunnerRef = database.ref("events/"+eventuid+"/runners/"+runneruid);
+
+  let successfulDelete = true;
+
+  await eventRunnerRef.once("value").then((snapshot) => {
+    //Check if the runner exists - if not, return false
+    if(snapshot.val() == null){
+      successfulDelete = false;
+      return;
+    }
+
+    eventRunnerRef.remove();
+  })
+  return successfulDelete;
 }
 
 module.exports.createEvent = createEvent;

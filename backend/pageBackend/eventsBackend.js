@@ -60,4 +60,8 @@ router.post('/new', async (req, res) => {
   })
 });
 
+router.post('/addrunner', async (req, res) => {
+
+});
+
 module.exports = router;
