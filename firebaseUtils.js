@@ -107,6 +107,15 @@ async function getUserTeams(useruid){
     return teams;
 }
 
+
+async function doesUserOwnTeam(useruid, teamuid){
+    const startTime = Date.now();
+    const teamRef = database.ref("users/"+useruid+"/teams");
+    return teamRef.once("value").then((snapshot) => {
+       return snapshot.hasChild(teamuid);
+    });
+}
+
 // -------------- Runners ----------------
 
 async function getTeamRunners(teamUID){
@@ -159,8 +168,6 @@ async function createRunner(teamUID, name, email, experience, gradYear, wPace, v
 }
 
 async function addRunnerToTeam(teamUid, runnerUID){
-    console.log(`teamuid: ${teamUid}`);
-    console.log(runnerUID);
     await database.ref("teams/" + teamUid + "/runners").child(runnerUID.toString()).set(runnerUID)
     .then(() => {
         console.log("Successfully added runner ".red + runnerUID.red +" to ".red);
@@ -184,7 +191,7 @@ async function createEvent(teamUid, name, date, location){
     }
 
 
-    await eventRef.set(eventData).then(async () => {
+    eventRef.set(eventData).then(async () => {
         console.log("Successfully created Event ".red + name.blue);
         await addEventToTeam(teamUid, eventRef.key);
     }).catch((err) => {
@@ -207,43 +214,40 @@ async function addEventToTeam(teamUid, eventUID){
 }
 
 async function getTeamEvents(teamUID){
-    console.log("teamUID FUCK" + teamUID.toString())
+    const startTime = Date.now();
     const teamEventsRef = database.ref("teams/" + teamUID.toString() + "/events");
     let events = {};
-    
-    await teamEventsRef.once("value", function(snapshot){
+
+    await teamEventsRef.once("value").then(async (snapshot) => {
+        let eventsArray = [];
         snapshot.forEach(function(child) {
-            const value = child.key;
-            database.ref("teams/" + value).on("value", eventSnapshot => {
-                console.log(eventSnapshot.val());
-                events[value] = eventSnapshot.val();
-            });
+            eventsArray.push(child);
         });
-    });
 
-    // await teamEventsRef.once("value", function (snapshot) {
-    //     snapshot.forEach(function (childSnapshot) {
-    //         events[childSnapshot.val()] = {};
-    //     });
-    // });
-
-    // for (const eventUid of Object.keys(events)) {
-    //     const eventsRef = database.ref("events/" + eventUid);
-
-    //     await eventsRef.once("value", async function (snapshot) {
-    //         events[eventUid] = await snapshot.val();
-    //     });
-    // }
+        for (const event of eventsArray){
+            const value = event.key;
+            await database.ref("events/" + value).once("value").then((eventSnapshot) => {
+                events[value] = eventSnapshot.val();
+            }).catch((error) => {
+                console.log("Error in getTeamEvents - database ref events/value".red);
+                console.log(error);
+            })
+        }
+    }).catch((error) => {
+        console.log("Error in getTeamEvents".red);
+        console.log(error);
+    })
+    console.log("Finished Get Events - ".green + (Date.now() - startTime).toString().cyan + "ms".cyan);
     console.log(events);
     return events;
 }
-
 
 module.exports.authenticateToken = authenticateToken;
 module.exports.createUser = createUser;
 module.exports.createTeam = createTeam;
 module.exports.addTeamToUser = addTeamToUser;
 module.exports.getUserTeams = getUserTeams;
+module.exports.doesUserOwnTeam = doesUserOwnTeam;
 module.exports.authenticatePost = authenticatePost;
 module.exports.createRunner = createRunner;
 module.exports.getTeamRunners = getTeamRunners;

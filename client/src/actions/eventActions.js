@@ -21,8 +21,8 @@ export function newEvent(eventData, selectedTeamUID){
             type: NEW_EVENT,
             payload: event,
             eventUID: event.key
-          })
-        ).catch((error) => {
+          }))
+        .catch((error) => {
           console.log(error);
         })
     }
@@ -30,6 +30,7 @@ export function newEvent(eventData, selectedTeamUID){
 
 export function getTeamEvents(selectedTeamUID) {
   return async function(dispatch){
+    console.log("Grabbing events");
     await fetch('/events', {
       method: 'POST',
       headers: {
