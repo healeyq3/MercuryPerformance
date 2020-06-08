@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import ExistingEventCard from '../components/ExistingEventCard'
+import ExistingEventCard from '../components/Event/ExistingEventCard'
 import  { Container, Button } from 'react-bootstrap'
-import CreateEventModal from '../components/CreateEventModal'
+import CreateEventModal from '../components/Event/CreateEventModal'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getTeamEvents, newEvent, setEvent } from '../actions/eventActions';
