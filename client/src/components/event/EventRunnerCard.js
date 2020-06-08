@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, button } from 'react-bootstrap';
+import { Card, Button } from 'react-bootstrap';
 
 export class EventRunnerCard extends Component {
     render() {
@@ -8,8 +8,8 @@ export class EventRunnerCard extends Component {
                 <Card.Body>
                     <Card.Title>Runner Name</Card.Title>
                     <Card.Subtitle>00:00</Card.Subtitle>
-                    <button class="btn btn-sm btn-outline-secondary" type="button" onClick = {this.handleEdit}>Edit</button>
-                    <button class="btn btn-sm btn-outline-secondary" type="button" onClick = {this.handleDelete}>Delete</button>
+                    <Button variant = "outline-primary" onClick = {this.handleEdit}>Edit</Button>
+                    <Button variant = "outline-primary" onClick = {this.handleDelete}>Delete</Button>
                 </Card.Body>
             </Card>
         )
