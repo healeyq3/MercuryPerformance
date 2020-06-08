@@ -29,11 +29,11 @@ export class EventDetails extends Component {
     render() {
         return (
             <Container>
-                <EventNavBar setShow1 = {this.setShow1} show = {this.state.show1}></EventNavBar>
+                <EventNavBar setShow1 = {this.setShow1} setShow2 = {this.setShow2} show = {this.state.show1}></EventNavBar>
                 <div class="card-deck">
                 <EventRunnerCard></EventRunnerCard>
                 <EventDetailsCard></EventDetailsCard>
-                <EventAddRunnersModal setShow = {this.setShow} show = {this.state.show} teamUID = {this.props.selectedTeam}/>
+                <EventAddRunnersModal setShow1 = {this.setShow1} show = {this.state.show1} teamUID = {this.props.selectedTeam}/>
                 </div>
             </Container>
         )
