@@ -4,6 +4,7 @@ import EventRunnerCard from '../components/event/EventRunnerCard'
 import { Container } from 'react-bootstrap'
 import EventDetailsCard from '../components/event/EventDetailsCard'
 import EventAddRunnersModal from '../components/event/EventAddRunnersModal'
+import AddResultsModal from '../components/event/AddResultsModal'
 
 export class EventDetails extends Component {
     constructor(props){
@@ -33,8 +34,9 @@ export class EventDetails extends Component {
                 <div class="card-deck">
                 <EventRunnerCard></EventRunnerCard>
                 <EventDetailsCard></EventDetailsCard>
-                <EventAddRunnersModal show = {this.state.showRunner} setShow = {this.setShowRunner} teamUID = {this.props.selectedTeam}/>
                 </div>
+                <EventAddRunnersModal show = {this.state.showRunner} setShow = {this.setShowRunner} teamUID = {this.props.selectedTeam}/>
+                <AddResultsModal show = {this.state.showResults} setShow = {this.setShowResults}></AddResultsModal>
             </Container>
         )
     }
