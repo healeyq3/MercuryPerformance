@@ -70,6 +70,7 @@ Events.propTypes = {
     events: PropTypes.object.isRequired,
     selectedTeam: PropTypes.string.isRequired,
     rehydrated: PropTypes.bool.isRequired,
+    selectedEvent: PropTypes.string
   };
 
 const mapStateToProps = function(state){
