@@ -9,9 +9,9 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 const authentication = require("./authentication");
-const teamBackend = require("./backend/teamBackend");
-const runnerBackend = require("./backend/runnerBackend");
-const eventsBackend = require("./backend/eventsBackend");
+const teamBackend = require("./backend/pageBackend/teamBackend");
+const runnerBackend = require("./backend/pageBackend/runnerBackend");
+const eventsBackend = require("./backend/pageBackend/eventsBackend");
 
 app.use(logger("dev"));
 

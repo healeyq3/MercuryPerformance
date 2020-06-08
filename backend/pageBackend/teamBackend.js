@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const colors = require("colors");
-const firebaseUtils = require("../firebaseUtils");
+const teamUtilities = require("../firebaseUtilities/teamUtilities");
+const authenticationUtilities = require("../firebaseUtilities/authenticationUtilities");
 
 router.post('/', async (req, res) => {
   let authenticationSuccess = true;
-  await firebaseUtils.authenticatePost(req, res).then((success) => {
+  await authenticationUtilities.authenticatePost(req, res).then((success) => {
     authenticationSuccess = success;
   })
   if(!authenticationSuccess){
@@ -14,7 +15,7 @@ router.post('/', async (req, res) => {
   }
 
   const startTime = Date.now();
-  await firebaseUtils.getUserTeams(req.session.useruid).then((teams) => {
+  await teamUtilities.getUserTeams(req.session.useruid).then((teams) => {
     res.setHeader('Content-Type', 'application/json');
 
     const teamsJson = JSON.stringify(teams);
@@ -28,7 +29,7 @@ router.post('/', async (req, res) => {
 
 router.post('/new', async (req, res) => {
   let authenticationSuccess = true;
-  await firebaseUtils.authenticatePost(req, res).then((success) => {
+  await authenticationUtilities.authenticatePost(req, res).then((success) => {
     authenticationSuccess = success;
   })
   if(!authenticationSuccess){
@@ -38,7 +39,7 @@ router.post('/new', async (req, res) => {
 
   const data = req.body;
 
-  firebaseUtils.createTeam(req.session.useruid, data.teamData.teamName, data.teamData.teamYear, data.teamData.teamLevel).then((team) => {
+  teamUtilities.createTeam(req.session.useruid, data.teamData.teamName, data.teamData.teamYear, data.teamData.teamLevel).then((team) => {
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(team));
   }).catch((error) => {
