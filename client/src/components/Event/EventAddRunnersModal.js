@@ -31,8 +31,7 @@ export class EventAddRunnersModal extends Component {
                     <Form>
                         <Form.Group>
                             <Form.Label>Runners</Form.Label>
-                            <Form.Control onChange = {this.handleChange} name = "runner" type = "select" placeholder = "Test">
-                                <option>1</option>
+                            <Form.Control onChange = {this.handleChange} name = "runner" type = "checkbox" placeholder = "Test">
                             </Form.Control>
                         </Form.Group>
                         <Button variant = "primary" onClick = {this.handleAddRunners}>Save</Button>
