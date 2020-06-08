@@ -14,6 +14,8 @@ export class Events extends Component {
           reloaded:false
         }
         // this.props.getTeamEvents();
+
+        this.setSelectedEvent = this.setSelectedEvent.bind(this);
     }
     
     setShow = e => {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { newRunner, getTeamRunners } from '../actions/runnerActions';
+import { newRunner, getTeamRunners, setRunner } from '../actions/runnerActions';
 import  { Container } from 'react-bootstrap'
 import { connect } from 'react-redux';
 import ExistingRunnerCard from '../components/ExistingRunnerCard';
@@ -7,7 +7,10 @@ import  AddRunner from '../components/AddRunner';
 import PropTypes from 'prop-types';
 
 class Home extends Component {
-
+  constructor(props){
+    super(props);
+    this.setSelectedRunner = this.setSelectedRunner.bind(this);
+  }
   
   componentDidUpdate(prevProps) {
     if(prevProps.rehydrated === false){
@@ -16,28 +19,22 @@ class Home extends Component {
     }
   }
 
+  setSelectedRunner(runner){
+    this.props.setRunner(runner.key)
+  }
+
   render() {
     if(!this.props.selectedTeam){
       return null;
     }
 
     let runnerArr = [];
-    
-    // if(this.props.runners){
-    //   runnerArr = Object.keys(this.props.runners);
-    // }
-
-    // if(this.props.createdRunner.name && !this.props.runners.hasOwnProperty(this.props.createdRunner.key)){
-    //   runnerArr.push(this.props.createdRunner.key);
-
-    //   this.props.runners[this.props.createdRunner.key] = this.props.createdRunner;
-    // }
 
     for (const runneruid in this.props.runners) {
       if(this.props.runners.hasOwnProperty(runneruid)){
         runnerArr.push(
           <React.Fragment key = {runneruid}>
-            <ExistingRunnerCard runner = {this.props.runners[runneruid]} />
+            <ExistingRunnerCard runner = {this.props.runners[runneruid]} onSelect = {this.setSelectedRunner} />
           </React.Fragment>
         )
       }
@@ -58,7 +55,8 @@ Home.propTypes = {
   newRunner: PropTypes.func.isRequired,
   teams: PropTypes.object.isRequired,
   selectedTeam: PropTypes.string.isRequired,
-  runners: PropTypes.object.isRequired
+  runners: PropTypes.object.isRequired,
+  selectedRunner: PropTypes.string
 };
   
 const mapStateToProps = function(state){
@@ -66,7 +64,8 @@ const mapStateToProps = function(state){
     runners: state.runners.runners,
     selectedTeam: state.teams.selectedTeam,
     teams: state.teams.teams,
+    selectedRunner: state.runners.selectedRunner,
     rehydrated: state._persist.rehydrated,
   }
 }
-export default connect(mapStateToProps, { newRunner, getTeamRunners }) (Home);
+export default connect(mapStateToProps, { newRunner, getTeamRunners, setRunner }) (Home);
