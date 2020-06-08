@@ -36,6 +36,7 @@ export class Events extends Component {
 
     setSelectedEvent(event){
       this.props.setEvent(event.key);
+      console.log("event selected ");
     }
 
     render(){
@@ -48,7 +49,7 @@ export class Events extends Component {
         if (this.props.events.hasOwnProperty(event)) {
            cardItems.push(
           <React.Fragment key = {event}>
-            <ExistingEventCard event = {this.props.events[event]} onSelect = {this.setSelectedTeam}/>
+            <ExistingEventCard event = {this.props.events[event]} onSelect = {this.setSelectedEvent}/>
           </React.Fragment>
           )
         }

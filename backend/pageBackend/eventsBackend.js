@@ -2,40 +2,38 @@ const express = require("express");
 const router = express.Router();
 const colors = require("colors");
 const eventUtilities = require("../firebaseUtilities/eventUtilities");
-const authenticationUtilities = require("../firebaseUtilities/authenticationUtilities");
+const { authenticatePost } = require("../firebaseUtilities/authenticationUtilities");
 const teamUtilities = require("../firebaseUtilities/teamUtilities");
 
-router.post('/', async (req, res) => {
-    let authenticationSuccess = true;
-    await authenticationUtilities.authenticatePost(req, res).then((success) => {
-      authenticationSuccess = success;
-    })
-    if(!authenticationSuccess){
-      res.end("{}");
-      return;
-    }
-  
-    const data = req.body;
-    if(!await teamUtilities.doesUserOwnTeam(req.session.useruid, data.selectedTeamUID)){
-      res.end("{}");
-      return;
-    }
+router.post('/', getEvents);
+router.post('/new', createEvent);
+router.post('/addrunner', addRunner);
 
-    eventUtilities.getTeamEvents(data.selectedTeamUID).then((events) => {
-      res.setHeader('Content-Type', 'application/json');
-      res.end(JSON.stringify(events));
-    }).catch((error) => {
-      console.log(error);
-      res.end("{}");
-    });
-});
+module.exports = router;
 
-router.post('/new', async (req, res) => {
-  let authenticationSuccess = true;
-  await authenticationUtilities.authenticatePost(req, res).then((success) => {
-    authenticationSuccess = success;
-  })
-  if(!authenticationSuccess){
+async function getEvents(req, res){
+  if(!await authenticatePost(req, res)){
+    res.end();
+    return;
+  }
+
+  const data = req.body;
+  if(!await teamUtilities.doesUserOwnTeam(req.session.useruid, data.selectedTeamUID)){
+    res.end("{}");
+    return;
+  }
+
+  eventUtilities.getTeamEvents(data.selectedTeamUID).then((events) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify(events));
+  }).catch((error) => {
+    console.log(error);
+    res.end("{}");
+  });
+}
+
+async function createEvent(req, res){
+  if(!await authenticatePost(req, res)){
     res.end();
     return;
   }
@@ -58,6 +56,11 @@ router.post('/new', async (req, res) => {
     console.log(error);
     res.end("{}");
   })
-});
+}
 
-module.exports = router;
+async function addRunner(req, res){
+  if(!await authenticatePost(req, res)){
+    res.end();
+    return;
+  }
+}
