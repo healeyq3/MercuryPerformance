@@ -10,11 +10,16 @@ router.post('/', async (req, res) => {
     authenticationSuccess = success;
   })
   if(!authenticationSuccess){
-    res.end();
+    res.end("{}");
     return;
   }
 
   const data = req.body;
+
+  if(!await firebaseUtils.doesUserOwnTeam(req.session.useruid, data.teamUID)){
+    res.end("{}");
+    return;
+  }
 
   firebaseUtils.getTeamRunners(data.teamUID).then((runners) => {
     res.setHeader('Content-Type', 'application/json');
@@ -42,6 +47,11 @@ router.post('/new', async (req, res) => {
   const gradYear = data.runnerData.runnerGradYear;
   const wPace = data.runnerData.runnerWorkoutPace;
   const v02 = data.runnerData.runnerV02Max;
+
+  if(!await firebaseUtils.doesUserOwnTeam(req.session.useruid, data.teamUID)){
+    res.end("{}");
+    return;
+  }
 
   firebaseUtils.createRunner(data.selectedTeamUID, name, email, experience, gradYear, wPace, v02).then((runner) => {
     res.setHeader('Content-Type', 'application/json');
