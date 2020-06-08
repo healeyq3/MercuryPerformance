@@ -8,6 +8,7 @@ export class ExistingRunnerCard extends Component {
                 <Card.Body>
                     <Card.Title>{this.props.runner.name}</Card.Title>
                     <Card.Subtitle>Extra details</Card.Subtitle>
+                    <Card.Link href = './events' onClick = {() => this.props.onSelect(this.props.runner)}> Select Runner </Card.Link>
                 </Card.Body>
             </Card>
         )
