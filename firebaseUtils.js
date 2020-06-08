@@ -35,8 +35,8 @@ async function authenticatePost(req, res){
 
 // -------------- USER ----------------
 
-async function createUser(uID, name, email){
-    await database.ref("users").child(uID.toString()).set({
+async function createUser(useruid, name, email){
+    await database.ref("users").child(useruid.toString()).set({
     name: name,
     email: email,
     teams: []
@@ -75,13 +75,13 @@ async function createTeam(useruid, teamName, teamYear, teamLevel){
     return newTeam;
 }
 
-async function addTeamToUser(useruid, teamUid, role){
-    database.ref("users/" + useruid + "/teams").child(teamUid.toString()).set({
+async function addTeamToUser(useruid, teamuid, role){
+    database.ref("users/" + useruid + "/teams").child(teamuid.toString()).set({
         role : role
     }).then(() => {
-        console.log("Successfully added team ".red + teamUid.red +" to ".red + useruid.blue);
+        console.log("Successfully added team ".red + teamuid.red +" to ".red + useruid.blue);
     }).catch((err) => {
-        console.log("Unable to add team ".red + teamUid.red +" to ".red + useruid.blue);
+        console.log("Unable to add team ".red + teamuid.red +" to ".red + useruid.blue);
         console.log(err);
     });
 }
@@ -109,7 +109,10 @@ async function getUserTeams(useruid){
 
 
 async function doesUserOwnTeam(useruid, teamuid){
-    const startTime = Date.now();
+    if(!teamuid){
+        console.log("teamuid not passed for events - returning null".red);
+        return false;
+    }
     const teamRef = database.ref("users/"+useruid+"/teams");
     return teamRef.once("value").then((snapshot) => {
        return snapshot.hasChild(teamuid);
@@ -118,9 +121,9 @@ async function doesUserOwnTeam(useruid, teamuid){
 
 // -------------- Runners ----------------
 
-async function getTeamRunners(teamUID){
+async function getTeamRunners(teamuid){
     const startTime = Date.now();
-    const teamRunnersRef = database.ref("teams/" + teamUID + "/runners");
+    const teamRunnersRef = database.ref("teams/" + teamuid + "/runners");
     let runners = {};
 
     await teamRunnersRef.once("value").then(async (snapshot) => {
@@ -141,7 +144,7 @@ async function getTeamRunners(teamUID){
     return runners;
 }
 
-async function createRunner(teamUID, name, email, experience, gradYear, wPace, v02){
+async function createRunner(teamuid, name, email, experience, gradYear, wPace, v02){
     console.log("Creating Runner".red);
 
     const runnerRef = await database.ref("runners").push();
@@ -158,7 +161,7 @@ async function createRunner(teamUID, name, email, experience, gradYear, wPace, v
     
     runnerRef.set(newRunner).then(() => {
         console.log("Successfully created Runner ".red + name.blue);
-        addRunnerToTeam(teamUID, runnerRef.key);
+        addRunnerToTeam(teamuid, runnerRef.key);
     }).catch((err) => {
         console.log("Unable to create runner ".red + name.blue);
         console.log(err.toString());
@@ -167,8 +170,8 @@ async function createRunner(teamUID, name, email, experience, gradYear, wPace, v
     return newRunner;
 }
 
-async function addRunnerToTeam(teamUid, runnerUID){
-    await database.ref("teams/" + teamUid + "/runners").child(runnerUID.toString()).set(runnerUID)
+async function addRunnerToTeam(teamuid, runnerUID){
+    await database.ref("teams/" + teamuid + "/runners").child(runnerUID.toString()).set(runnerUID)
     .then(() => {
         console.log("Successfully added runner ".red + runnerUID.red +" to ".red);
     }).catch((err) => {
@@ -179,7 +182,7 @@ async function addRunnerToTeam(teamUid, runnerUID){
 
 // -------------- Events ----------------
 
-async function createEvent(teamUid, name, date, location){
+async function createEvent(teamuid, name, date, location){
 
     const eventRef = await database.ref("events").push();
 
@@ -192,8 +195,8 @@ async function createEvent(teamUid, name, date, location){
 
 
     eventRef.set(eventData).then(async () => {
-        console.log("Successfully created Event ".red + name.blue);
-        await addEventToTeam(teamUid, eventRef.key);
+        console.log("Successfully created event ".red + name.blue);
+        await addEventToTeam(teamuid, eventRef.key);
     }).catch((err) => {
         console.log("Unable to create event ".red + name.blue);
         console.log(err.toString());
@@ -203,12 +206,12 @@ async function createEvent(teamUid, name, date, location){
 
 }
 
-async function addEventToTeam(teamUid, eventUID){
-    await database.ref("teams/" + teamUid.toString() + "/events").child(eventUID.toString()).set(eventUID)
+async function addEventToTeam(teamuid, eventUID){
+    await database.ref("teams/" + teamuid.toString() + "/events").child(eventUID.toString()).set(eventUID)
     .then(() => {
-        console.log("Successfully added event ".red + eventUID.red +" to ".red + teamUid.toString().red);
+        console.log("Successfully added event ".red + eventUID.red +" to ".red + teamuid.toString().red);
     }).catch((err) => {
-        console.log("Unable to add event ".red + eventUID.red +" to "+ teamUid.toString().red);
+        console.log("Unable to add event ".red + eventUID.red +" to "+ teamuid.toString().red);
         console.log(err);
     });
 }
@@ -240,6 +243,26 @@ async function getTeamEvents(teamUID){
     console.log("Finished Get Events - ".green + (Date.now() - startTime).toString().cyan + "ms".cyan);
     console.log(events);
     return events;
+}
+
+async function addRunnerToEvent(eventuid, runneruid, teamuid){
+    console.log("Adding runner".green + "(".cyan + runneruid.cyan + ") to team".green + "(".cyan + teamuid.cyan + ")".cyan);
+    const runnersRef = database.ref("runners/"+runneruid);
+
+    await runnersRef.once("value").then((snapshot) => {
+        //Check if the runner exists - if not, return false
+        if(!snapshot.hasChild("email")){
+            return false;
+        }
+
+        database.ref("events/"+eventuid+"/runners/"+runneruid).set(runneruid).then(() =>{
+            console.log("Successfully added runner ".cyan + runneruid + " to ".cyan + teamuid);
+            return true;
+        }).catch((error) => {
+            console.log("Adding runner to event ".red + eventuid + " failed.".red);
+            console.log(error);
+        })
+    })
 }
 
 module.exports.authenticateToken = authenticateToken;

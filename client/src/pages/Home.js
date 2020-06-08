@@ -12,7 +12,7 @@ class Home extends Component {
     this.setSelectedRunner = this.setSelectedRunner.bind(this);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState, snapshot) {
     if(prevProps.rehydrated === false){
       console.log('CDU reached and teamUID is: ' + this.props.selectedTeam);
       this.props.getTeamRunners(this.props.selectedTeam);
