@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
+import EventNavBar from '../components/EventNavBar'
 
 export class EventDetails extends Component {
     render() {
         return (
-            <h2>Event Details</h2>
+            <EventNavBar></EventNavBar>
         )
     }
 }
