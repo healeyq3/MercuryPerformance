@@ -2,15 +2,16 @@ const express = require("express");
 const router = express.Router();
 const colors = require("colors");
 const teamUtilities = require("../firebaseUtilities/teamUtilities");
-const authenticationUtilities = require("../firebaseUtilities/authenticationUtilities");
+const { authenticatePost } = require("../firebaseUtilities/authenticationUtilities");
 
-router.post('/', async (req, res) => {
-  let authenticationSuccess = true;
-  await authenticationUtilities.authenticatePost(req, res).then((success) => {
-    authenticationSuccess = success;
-  })
-  if(!authenticationSuccess){
-    res.end("{}");
+router.post('/', getTeams);
+router.post('/new', createTeam);
+
+module.exports = router;
+
+async function getTeams(req, res){
+  if(!await authenticatePost(req, res)){
+    res.end();
     return;
   }
 
@@ -25,14 +26,10 @@ router.post('/', async (req, res) => {
     console.log(error);
     res.end("{}");
   });
-});
+}
 
-router.post('/new', async (req, res) => {
-  let authenticationSuccess = true;
-  await authenticationUtilities.authenticatePost(req, res).then((success) => {
-    authenticationSuccess = success;
-  })
-  if(!authenticationSuccess){
+async function createTeam(req, res){
+  if(!await authenticatePost(req, res)){
     res.end();
     return;
   }
@@ -47,6 +44,4 @@ router.post('/new', async (req, res) => {
     console.log(error);
     res.end("{}");
   })
-});
-
-module.exports = router;
+}

@@ -2,17 +2,17 @@ const express = require("express");
 const router = express.Router();
 const colors = require("colors");
 const runnerUtilities = require("../firebaseUtilities/runnerUtilities");
-const authenticationUtilities = require("../firebaseUtilities/authenticationUtilities");
+const { authenticatePost } = require("../firebaseUtilities/authenticationUtilities");
 const teamUtilities = require("../firebaseUtilities/teamUtilities");
 
+router.post('/', getRunners);
+router.post('/new', createRunner);
 
-router.post('/', async (req, res) => {
-  let authenticationSuccess = true;
-  await authenticationUtilities.authenticatePost(req, res).then((success) => {
-    authenticationSuccess = success;
-  })
-  if(!authenticationSuccess){
-    res.end("{}");
+module.exports = router;
+
+async function getRunners(req, res){
+  if(!await authenticatePost(req, res)){
+    res.end();
     return;
   }
 
@@ -30,14 +30,10 @@ router.post('/', async (req, res) => {
     console.log(error);
     res.end("{}");
   });
-});
+}
 
-router.post('/new', async (req, res) => {
-  let authenticationSuccess = true;
-  await authenticationUtilities.authenticatePost(req, res).then((success) => {
-    authenticationSuccess = success;
-  })
-  if(!authenticationSuccess){
+async function createRunner(req, res){
+  if(!await authenticatePost(req, res)){
     res.end();
     return;
   }
@@ -64,6 +60,4 @@ router.post('/new', async (req, res) => {
     console.log(error);
     res.end("{}");
   });
-});
-
-module.exports = router;
+}

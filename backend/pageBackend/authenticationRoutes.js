@@ -4,7 +4,12 @@ const colors = require("colors");
 const userUtilities = require("../firebaseUtilities/userUtilities");
 const authenticationUtilities = require("../firebaseUtilities/authenticationUtilities");
 
-router.post('/', (req, res) => {
+router.post('/', loginAuthentication);
+router.post('/new', createAccount);
+
+module.exports = router;
+
+async function loginAuthentication(req, res){
     authenticationUtilities.authenticateToken(req.body.idToken).then((decodedIdToken) => {
         console.log("Successfully authenticated ".green + decodedIdToken.email.cyan)
         req.session.idToken = req.body.idToken;
@@ -15,9 +20,9 @@ router.post('/', (req, res) => {
         console.log(error);
         res.end();
     })
-});
+}
 
-router.post('/new', (req, res) => {
+async function createAccount(req, res){
     req.session.idToken = req.body.idToken;
     req.session.user = req.body.user;
 
@@ -32,6 +37,4 @@ router.post('/new', (req, res) => {
     userUtilities.createUser(uid, name, email).then(() => res.end());
 
     console.log("Created account with token ".yellow + req.session.idToken.blue);
-});
-
-module.exports = router;
+}
