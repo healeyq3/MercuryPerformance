@@ -1,8 +1,9 @@
-import { database } from "./firebaseSetup";
+const firebaseSetup = require("./firebaseSetup");
+const database = firebaseSetup.database;
 
 // -------------- USER ----------------
 
-export async function createUser(useruid, name, email){
+async function createUser(useruid, name, email){
   await database.ref("users").child(useruid.toString()).set({
     name: name,
     email: email,
@@ -14,3 +15,5 @@ export async function createUser(useruid, name, email){
     console.log(err.toString().red);
   });
 }
+
+module.exports.createUser = createUser;

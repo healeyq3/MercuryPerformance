@@ -1,10 +1,10 @@
 const admin = require("firebase-admin");
 
-export async function authenticateToken(idToken){
+async function authenticateToken(idToken){
   return await admin.auth().verifyIdToken(idToken);
 }
 
-export async function authenticatePost(req, res){
+async function authenticatePost(req, res){
   return authenticateToken(req.body.idToken).then((decodedIdToken) => {
     req.session.idToken = req.body.idToken;
     req.session.useruid = decodedIdToken.uid;
@@ -16,3 +16,6 @@ export async function authenticatePost(req, res){
     return false;
   });
 }
+
+module.exports.authenticateToken = authenticateToken;
+module.exports.authenticatePost = authenticatePost;

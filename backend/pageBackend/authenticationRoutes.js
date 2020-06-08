@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const colors = require("colors");
-const { createUser,  authenticateToken } = require("./firebaseSetup");
+const userUtilities = require("../firebaseUtilities/userUtilities");
+const authenticationUtilities = require("../firebaseUtilities/authenticationUtilities");
 
 router.post('/', (req, res) => {
-    authenticateToken(req.body.idToken).then((decodedIdToken) => {
+    authenticationUtilities.authenticateToken(req.body.idToken).then((decodedIdToken) => {
         console.log("Successfully authenticated ".green + decodedIdToken.email.cyan)
         req.session.idToken = req.body.idToken;
         req.session.useruid = decodedIdToken.uid;
@@ -28,7 +29,7 @@ router.post('/new', (req, res) => {
     const email = req.body.email;
     const uid = req.session.user.uid;
 
-    createUser(uid, name, email).then(() => res.end());
+    userUtilities.createUser(uid, name, email).then(() => res.end());
 
     console.log("Created account with token ".yellow + req.session.idToken.blue);
 });

@@ -1,8 +1,9 @@
-import { database } from "./firebaseSetup";
+const firebaseSetup = require("./firebaseSetup");
+const database = firebaseSetup.database;
 
 // -------------- Runners ----------------
 
-export async function getTeamRunners(teamuid){
+async function getTeamRunners(teamuid){
   const startTime = Date.now();
   const teamRunnersRef = database.ref("teams/" + teamuid + "/runners");
   let runners = {};
@@ -25,7 +26,7 @@ export async function getTeamRunners(teamuid){
   return runners;
 }
 
-export async function createRunner(teamuid, name, email, experience, gradYear, wPace, v02){
+async function createRunner(teamuid, name, email, experience, gradYear, wPace, v02){
   console.log("Creating Runner".red);
 
   const runnerRef = await database.ref("runners").push();
@@ -51,7 +52,7 @@ export async function createRunner(teamuid, name, email, experience, gradYear, w
   return newRunner;
 }
 
-export async function addRunnerToTeam(teamuid, runneruid){
+async function addRunnerToTeam(teamuid, runneruid){
   await database.ref("teams/" + teamuid + "/runners").child(runneruid.toString()).set(runneruid)
     .then(() => {
       console.log("Successfully added runner ".red + runneruid.red +" to ".red);
@@ -60,3 +61,7 @@ export async function addRunnerToTeam(teamuid, runneruid){
       console.log(err);
     });
 }
+
+module.exports.getTeamRunners = getTeamRunners;
+module.exports.createRunner = createRunner;
+module.exports.addRunnerToTeam = addRunnerToTeam;

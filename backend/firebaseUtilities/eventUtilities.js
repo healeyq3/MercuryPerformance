@@ -1,8 +1,9 @@
-import { database } from "./firebaseSetup";
+const firebaseSetup = require("./firebaseSetup");
+const database = firebaseSetup.database;
 
 // -------------- Events ----------------
 
-export async function createEvent(teamuid, name, date, location){
+async function createEvent(teamuid, name, date, location){
   const eventRef = await database.ref("events").push();
 
   const eventData = {
@@ -23,7 +24,7 @@ export async function createEvent(teamuid, name, date, location){
   return eventData;
 }
 
-export async function addEventToTeam(teamuid, eventuid){
+async function addEventToTeam(teamuid, eventuid){
   await database.ref("teams/" + teamuid.toString() + "/events").child(eventuid.toString()).set(eventuid)
     .then(() => {
       console.log("Successfully added event ".red + eventuid.red +" to ".red + teamuid.toString().red);
@@ -33,7 +34,7 @@ export async function addEventToTeam(teamuid, eventuid){
     });
 }
 
-export async function getTeamEvents(teamuid){
+async function getTeamEvents(teamuid){
   const startTime = Date.now();
   const teamEventsRef = database.ref("teams/" + teamuid.toString() + "/events");
   let events = {};
@@ -61,7 +62,7 @@ export async function getTeamEvents(teamuid){
   return events;
 }
 
-export async function addRunnerToEvent(eventuid, runneruid){
+async function addRunnerToEvent(eventuid, runneruid){
   console.log("Adding runner".green + "(".cyan + runneruid.cyan + ") to team".green + "(".cyan + eventuid.cyan + ")".cyan);
   const runnersRef = database.ref("runners/"+runneruid);
 
@@ -80,3 +81,8 @@ export async function addRunnerToEvent(eventuid, runneruid){
     })
   })
 }
+
+module.exports.createEvent = createEvent;
+module.exports.addEventToTeam = addEventToTeam;
+module.exports.getTeamEvents = getTeamEvents;
+module.exports.addRunnerToEvent = addRunnerToEvent;

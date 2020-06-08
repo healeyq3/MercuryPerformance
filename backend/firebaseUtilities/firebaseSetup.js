@@ -6,11 +6,15 @@ admin.initializeApp({
     databaseURL: "https://mercury-1875e.firebaseio.com"
 });
 
-export const database = admin.database();
+const database = admin.database();
 
 //Firebase Primer Setup
 const startTime = Date.now();
 database.ref("/").on("value", snapshot => {
     snapshot.val();
-    console.log("Finished primer after ".green + (Date.now() - startTime).toString().cyan + "ms".cyan);
 });
+console.log("Finished primer after ".green + (Date.now() - startTime).toString().cyan + "ms".cyan);
+
+module.exports = {
+    database: database
+};

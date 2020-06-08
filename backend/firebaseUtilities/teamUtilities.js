@@ -1,7 +1,7 @@
-const { database } = require("backend/firebaseUtilities/firebaseSetup");
-
+const firebaseSetup = require("./firebaseSetup");
+const database = firebaseSetup.database;
 // -------------- Team ----------------
-export async function createTeam(useruid, teamName, teamYear, teamLevel){
+async function createTeam(useruid, teamName, teamYear, teamLevel){
   console.log("Creating team ".red + teamName.green);
 
   const teamRef = await database.ref("teams").push();
@@ -26,7 +26,7 @@ export async function createTeam(useruid, teamName, teamYear, teamLevel){
   return newTeam;
 }
 
-export async function addTeamToUser(useruid, teamuid, role){
+async function addTeamToUser(useruid, teamuid, role){
   database.ref("users/" + useruid + "/teams").child(teamuid.toString()).set({
     role : role
   }).then(() => {
@@ -37,7 +37,7 @@ export async function addTeamToUser(useruid, teamuid, role){
   });
 }
 
-export async function getUserTeams(useruid){
+async function getUserTeams(useruid){
   const startTime = Date.now();
   const teamsRef = database.ref("users/"+useruid+"/teams");
   let teams = {};
@@ -58,7 +58,7 @@ export async function getUserTeams(useruid){
   return teams;
 }
 
-export async function doesUserOwnTeam(useruid, teamuid){
+async function doesUserOwnTeam(useruid, teamuid){
   if(!teamuid){
     console.log("teamuid not passed for events - returning null".red);
     return false;
@@ -68,3 +68,8 @@ export async function doesUserOwnTeam(useruid, teamuid){
     return snapshot.hasChild(teamuid);
   });
 }
+
+module.exports.createTeam = createTeam;
+module.exports.addTeamToUser = addTeamToUser;
+module.exports.getUserTeams = getUserTeams;
+module.exports.doesUserOwnTeam = doesUserOwnTeam;

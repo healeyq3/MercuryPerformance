@@ -8,7 +8,7 @@ const expressSession = require("express-session");
 const app = express();
 const port = process.env.PORT || 5000;
 
-const authentication = require("./authentication");
+const authentication = require("./backend/pageBackend/authenticationRoutes");
 const teamBackend = require("./backend/pageBackend/teamBackend");
 const runnerBackend = require("./backend/pageBackend/runnerBackend");
 const eventsBackend = require("./backend/pageBackend/eventsBackend");
