@@ -7,6 +7,14 @@ admin.initializeApp({
 });
 const database = admin.database();
 
+//Firebase Primer Setup
+const startTime = Date.now();
+console.log("Running primer");
+database.ref("/").on("value", snapshot => {
+    snapshot.val();
+});
+console.log("Finished primer after " + (Date.now() - startTime));
+
 async function authenticateToken(idToken){
     return await admin.auth().verifyIdToken(idToken);
 }
@@ -75,46 +83,25 @@ async function getUserTeams(useruid){
             });
         });
     });
-
     return teams;
 }
 
 // -------------- Runners ----------------
 
 async function getTeamRunners(teamUID){
-    const startTime = Date.now();
-    console.log("Starting getRunners execution");
     const teamRunnersRef = database.ref("teams/" + teamUID + "/runners");
     let runners = {};
 
-    console.log("Reference received - ".cyan +(Date.now()-startTime));
-
     await teamRunnersRef.once("value", function (snapshot) {
-        console.log("Inside once - ".cyan +(Date.now()-startTime));
         snapshot.forEach(function (child) {
-            // runners[childSnapshot.val()] = {};
             const value = child.key;
+            console.log("Grabbing runner with key".cyan + value.red);
             database.ref('runners/' + value).on('value', runnerSnapshot => {
                 runners[value] = runnerSnapshot.val();
             })
         });
-        console.log("Finished getting runners - ".cyan +(Date.now()-startTime));
     });
 
-    //This wasn't actually getting the info, hence the weird keys before...changed to mimic getUserTeams
-    // for (const runnerUid of Object.keys(runners)) {
-    //     const runnerRef = database.ref("runners/" + runnerUid);
-
-    //     runnerRef.once("value", function (snapshot) {
-    //         runners[runnerUid] = snapshot.val();
-    //         console.log("snapshot value: " + snapshot.val());
-    //     });
-    //     console.log("Done with runner ".cyan +(Date.now()-startTime));
-    // }
-
-    // console.log("Done getting detailed runner info - ".cyan +(Date.now()-startTime));
-
-    // console.log(runners);
     return runners;
 }
 

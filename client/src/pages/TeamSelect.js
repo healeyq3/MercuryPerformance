@@ -22,20 +22,10 @@ class TeamSelect extends Component {
 
   componentDidMount() {
     this.props.getTeams();
-
-    console.log("Mounted")
-  }
-
-  componentDidUpdate(prevProps) {
-    if(prevProps.rehydrated === false){
-      console.log('CDU Reached');
-      this.props.getTeams();
-    }
   }
 
   setSelectedTeam(team){
     this.props.setTeam(team.key);
-    // this.props.getTeamRunners(team.key); // this didn't work
   }
 
   setShow = e => {
