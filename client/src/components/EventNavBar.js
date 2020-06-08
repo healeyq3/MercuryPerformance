@@ -26,4 +26,4 @@ export class EventNavBar extends Component {
     }
 }
 
-export default EventNavBar
+export default withRouter(EventNavBar)
