@@ -10,7 +10,7 @@ export class ExistingEventCard extends Component {
                     <Card.Subtitle>{this.props.event.location}</Card.Subtitle>
                     <p></p>
                     <Card.Subtitle>{this.props.event.date}</Card.Subtitle>
-                    <Card.Link href = './eventdetails' onClick={() => this.props.onSelect(this.props.event)}>Select Team</Card.Link>
+                    <Card.Link href = './eventdetails' onClick={() => this.props.onSelect(this.props.event)}>Select Event</Card.Link>
                 </Card.Body>
             </Card>
         )

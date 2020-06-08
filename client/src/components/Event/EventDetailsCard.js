@@ -10,6 +10,9 @@ export class EventDetailsCard extends Component {
                 <Card.Subtitle>Hometown, USA</Card.Subtitle>
                 <p></p>
                 <Card.Subtitle>12/12/20</Card.Subtitle>
+                <p>
+                </p>
+                <Card.Subtitle>5 Kilometers</Card.Subtitle>
                 <Card.Link href = './eventdetails' onClick={() => this.props.onSelect(this.props.event)}>Edit</Card.Link>
             </Card.Body>
             </Card>

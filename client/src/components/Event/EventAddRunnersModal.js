@@ -30,12 +30,10 @@ export class EventAddRunnersModal extends Component {
                 <Modal.Body>
                     <Form>
                         <Form.Group>
-                            <Form.Label>Runners<Form.Control onChange = {this.handleChange} name = "runner" type = "checkbox" id = "1"/>
-                            </Form.Label>
-                            <div>
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" onChange = {this.handleChange}></input>
-                                <label class="form-check-label" for="defaultCheck1">Taint McGee</label>
-                            </div>
+                            <Form.Label>Runners</Form.Label>
+                            <Form.Control onChange = {this.handleChange} name = "runner" type = "select" placeholder = "Test">
+                                <option>1</option>
+                            </Form.Control>
                         </Form.Group>
                         <Button variant = "primary" onClick = {this.handleAddRunners}>Save</Button>
                     </Form>
