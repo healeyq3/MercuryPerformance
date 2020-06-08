@@ -3,15 +3,31 @@ import EventNavBar from '../components/Event/EventNavBar'
 import EventRunnerCard from '../components/Event/EventRunnerCard'
 import { Container } from 'react-bootstrap'
 import EventDetailsCard from '../components/Event/EventDetailsCard'
+import EventAddRunnersModal from '../components/Event/EventAddRunnersModal'
 
 export class EventDetails extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+          show: false,
+          reloaded:false
+        }
+        // this.props.getTeamEvents();
+    }
+    setShow = e => {
+        this.setState({
+            show: !this.state.show
+        })
+      }
+
     render() {
         return (
             <Container>
-                <EventNavBar></EventNavBar>
+                <EventNavBar setShow = {this.setShow}></EventNavBar>
                 <div class="card-deck">
                 <EventRunnerCard></EventRunnerCard>
                 <EventDetailsCard></EventDetailsCard>
+                <EventAddRunnersModal setShow = {this.setShow} show = {this.state.show} teamUID = {this.props.selectedTeam}/>
                 </div>
             </Container>
         )
