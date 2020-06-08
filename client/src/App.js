@@ -17,6 +17,7 @@ import EventDetails from './pages/EventDetails'
 import NavigationBar from './components/NavigationBar';
 import AuthRoute from './util/AuthRoute.js';
 import AuthRoute2 from './util/AuthRoute2';
+import AuthRoute3 from './util/AuthRoute3';
 
 class App extends Component {
   render() {
@@ -28,11 +29,11 @@ class App extends Component {
             <div className = "container">
               <Switch>
                 <AuthRoute exact path = '/login' component = {Login} authenticated = {cookie.load('idToken')}/>
-                <AuthRoute2 exact path = '/' component = {Home} authenticated = {cookie.load('idToken')}/>
+                <AuthRoute3 exact path = '/' component = {Home} authenticated = {cookie.load('idToken')} team = {cookie.load('selectedTeam')}/>
                 <AuthRoute exact path = '/signup' component = {CreateAccount} authenticated = {cookie.load('idToken')}/>
                 <AuthRoute2 exact path = '/teamselect' component = {TeamSelect} authenticated = {cookie.load('idToken')}/>
-                <AuthRoute2 exact path = '/events' component = {Events} authenticated = {cookie.load('idToken')}/>
-                <AuthRoute2 exact path = '/eventdetails' component = {EventDetails} authenticated = {cookie.load('idToken')}/>
+                <AuthRoute3 exact path = '/events' component = {Events} authenticated = {cookie.load('idToken')} team = {cookie.load('selectedTeam')}/>
+                <AuthRoute3 exact path = '/eventdetails' component = {EventDetails} authenticated = {cookie.load('idToken')} team = {cookie.load('selectedTeam')}/>
               </Switch>
             </div>
           </Router>
@@ -42,4 +43,4 @@ class App extends Component {
   }
 }
 
-export default App
+export default App;

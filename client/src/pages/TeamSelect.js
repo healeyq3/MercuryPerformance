@@ -7,6 +7,7 @@ import ExistingTeamCard from '../components/ExistingTeamCard';
 import NewTeamCard from '../components/NewTeamCard';
 import CreateTeamModal from '../components/CreateTeamModal';
 import {Row} from 'react-bootstrap';
+import cookie from 'react-cookies';
 
 class TeamSelect extends Component {
   constructor(props){
@@ -26,6 +27,7 @@ class TeamSelect extends Component {
 
   setSelectedTeam(team){
     this.props.setTeam(team.key);
+    cookie.save('selectedTeam', team.key, { path: '/'});
   }
 
   setShow = e => {
