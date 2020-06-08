@@ -1,7 +1,8 @@
-import { GET_TEAM_EVENTS, NEW_EVENT } from '../actions/types';
+import { GET_TEAM_EVENTS, NEW_EVENT, SET_EVENT } from '../actions/types';
 
 const initialState = {
-  events: {}
+  events: {},
+  selectedEvent: ''
 };
 
 export default function(state = initialState, action) {
@@ -16,6 +17,11 @@ export default function(state = initialState, action) {
         ...state,
         events: {...state.events, [action.eventUID]: action.payload}
       };
+    case SET_EVENT:
+      return {
+        ...state,
+        selectedEvent: action.payload
+      }
     default:
       return state;
   }

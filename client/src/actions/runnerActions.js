@@ -1,4 +1,4 @@
-import {GET_TEAM_RUNNERS, NEW_RUNNER} from './types';
+import {GET_TEAM_RUNNERS, NEW_RUNNER, SET_RUNNER} from './types';
 import cookie from 'react-cookies'
 
 export function getTeamRunners(selectedTeamUID) {
@@ -53,5 +53,14 @@ export function newRunner(runnerData, selectedTeamUID){
       ).catch((error) => {
         console.log(error);
       })
+  }
+}
+
+export function setRunner(runner){
+  return function(dispatch){
+    dispatch({
+      type: SET_RUNNER,
+      payload: runner
+    })
   }
 }
