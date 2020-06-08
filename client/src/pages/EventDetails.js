@@ -29,7 +29,7 @@ export class EventDetails extends Component {
     render() {
         return (
             <Container>
-                <EventNavBar setShow1 = {this.setShow1} setShow2 = {this.setShow2}></EventNavBar>
+                <EventNavBar setShow1 = {this.setShow1} setShow2 = {this.setShow2} show1 = {this.state.show1}></EventNavBar>
                 <div class="card-deck">
                 <EventRunnerCard></EventRunnerCard>
                 <EventDetailsCard></EventDetailsCard>
