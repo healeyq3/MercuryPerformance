@@ -14,7 +14,7 @@ export class EventDetails extends Component {
         }
         // this.props.getTeamEvents();
     }
-    setShow = e => {
+    setShow1 = e => {
         this.setState({
             show: !this.state.show
         })
@@ -23,7 +23,7 @@ export class EventDetails extends Component {
     render() {
         return (
             <Container>
-                <EventNavBar setShow = {this.setShow}></EventNavBar>
+                <EventNavBar setShow1 = {this.setShow1}></EventNavBar>
                 <div class="card-deck">
                 <EventRunnerCard></EventRunnerCard>
                 <EventDetailsCard></EventDetailsCard>
