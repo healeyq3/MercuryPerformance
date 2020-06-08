@@ -7,8 +7,6 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_TEAM_EVENTS:
-      // console.log("Got new events");
-      // console.log(action.payload);
       return {
         ...state,
         events: action.payload

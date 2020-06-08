@@ -8,12 +8,11 @@ import { getTeamEvents, newEvent, setEvent } from '../actions/eventActions';
 
 export class Events extends Component {
     constructor(props){
-        super(props);
-        this.state = {
-          show: false,
-          reloaded:false
-        }
-        // this.props.getTeamEvents();
+      super(props);
+      this.state = {
+        show: false,
+        reloaded:false
+      }
     }
     
     setShow = e => {
@@ -26,32 +25,32 @@ export class Events extends Component {
 
     }
     
-    componentDidUpdate(prevProps){
-      if(prevProps.rehydrated === false){ //not being reached
-        console.log("teamUID beign passed: " + this.props.selectedTeam);
+    componentDidUpdate(prevProps, prevState, snapshot){
+      if(prevProps.rehydrated === false){
+        console.log("Events needed - passing: " + this.props.selectedTeam);
         this.props.getTeamEvents(this.props.selectedTeam);
       }
     }
+
     setSelectedEvent(event){
       this.props.setEvent(event.key);
-    
     }
 
     render(){
       if(!this.props.selectedTeam){
         return null;
       }
-      
-        let cardItems = [];
-        for (const event in this.props.events) {
-          if (this.props.events.hasOwnProperty(event)) {
-             cardItems.push(
-            <React.Fragment key = {event}>
-              <ExistingEventCard event = {this.props.events[event]} onSelect = {this.setSelectedTeam}/>
-            </React.Fragment>
-        )
+
+      let cardItems = [];
+      for (const event in this.props.events) {
+        if (this.props.events.hasOwnProperty(event)) {
+           cardItems.push(
+          <React.Fragment key = {event}>
+            <ExistingEventCard event = {this.props.events[event]} onSelect = {this.setSelectedTeam}/>
+          </React.Fragment>
+          )
+        }
       }
-    }
     /*if(this.props.createdEvent.hasOwnProperty("name") && !this.props.events.hasOwnProperty(this.props.createdEvent.key)){
       cardItems.push(
         <React.Fragment key = {this.props.createdEvent.key}>
@@ -59,30 +58,32 @@ export class Events extends Component {
         </React.Fragment>
       )
     }*/
-        return (
-            <Container fluid>
-                <h2>Events</h2>
-                <Button onClick = {this.setShow}>Add</Button>
-                 {cardItems}
-                <CreateEventModal setShow = {this.setShow} show = {this.state.show} teamUID = {this.props.selectedTeam}/>
-            </Container>
-        )
+    return (
+        <Container fluid>
+            <h2>Events</h2>
+            <Button onClick = {this.setShow}>Add</Button>
+             {cardItems}
+            <CreateEventModal setShow = {this.setShow} show = {this.state.show} teamUID = {this.props.selectedTeam}/>
+        </Container>
+    )
     }
 }
 Events.propTypes = {
     setEvent: PropTypes.func.isRequired,
     getTeamEvents: PropTypes.func.isRequired,
     events: PropTypes.object.isRequired,
-    selectedTeam: PropTypes.string.isRequired
+    selectedTeam: PropTypes.string.isRequired,
+    rehydrated: PropTypes.bool.isRequired,
   };
 
-  const mapStateToProps = function(state){
-    return {
-      events: state.events,
-      selectedTeam: state.teams.selectedTeam,
-      selectedEvent: state.events.selectedEvent,
-      createdEvent: state.events.createdTeam
-    }
+const mapStateToProps = function(state){
+  return {
+    events: state.events.events,
+    selectedTeam: state.teams.selectedTeam,
+    selectedEvent: state.events.selectedEvent,
+    createdEvent: state.events.createdEvent,
+    rehydrated: state._persist.rehydrated
   }
+}
 
 export default connect(mapStateToProps, { newEvent, setEvent, getTeamEvents }) (Events);
