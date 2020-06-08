@@ -8,15 +8,7 @@ export class AddResultsModal extends Component {
             finalTime: '',
             oneMileSplit: '',
             splits = {
-                mile={
-
-                },
-                meter={
-
-                },
-                kilometers={
-                    
-                }
+                
             }
         }
         this.handleChange = this.handleChange.bind(this);
