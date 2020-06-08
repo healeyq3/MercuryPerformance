@@ -14,9 +14,9 @@ function ToggleButtonRunners() {
   
     return (
       <ToggleButtonGroup type="checkbox" value={value} onChange={handleChange} vertical>
-        <ToggleButton value={1}>Option 1</ToggleButton>
-        <ToggleButton value={2}>Option 2</ToggleButton>
-        <ToggleButton value={3}>Option 3</ToggleButton>
+        <ToggleButton value={1} type = "radio">James Taylor</ToggleButton>
+        <ToggleButton value={2} type = "radio">Phallic Member</ToggleButton>
+        <ToggleButton value={3} type = "radio">Howie Schmultz</ToggleButton>
       </ToggleButtonGroup>
     );
   };
