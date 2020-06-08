@@ -15,8 +15,8 @@ export class EventNavBar extends Component {
                         <Nav className = "navBarItems">
                         <Button variant = "outline-primary" onClick = {this.props.setShow1}>Add Runners</Button>
                         <Button variant = "outline-primary" onClick = {this.props.setShow}>Add Results</Button>
-                        <Nav.Link href="./analysis">Analysis</Nav.Link>
-                        <Nav.Link href="./events">Edit</Nav.Link>
+                        <Nav.Link href="./comingsoon">Analysis</Nav.Link>
+                        <Nav.Link href="./comingsoon">Edit</Nav.Link>
                         </Nav>
                         </Navbar.Collapse>
                     </Navbar> 

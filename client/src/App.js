@@ -12,12 +12,14 @@ import CreateAccount from './pages/CreateAccount';
 import TeamSelect from './pages/TeamSelect';
 import Events from './pages/Events';
 import EventDetails from './pages/EventDetails'
+import ComingSoon from './pages/ComingSoon';
 
 //Components
 import NavigationBar from './components/NavigationBar';
 import AuthRoute from './util/AuthRoute.js';
 import AuthRoute2 from './util/AuthRoute2';
 import AuthRoute3 from './util/AuthRoute3';
+
 
 class App extends Component {
   render() {
@@ -32,6 +34,7 @@ class App extends Component {
                 <AuthRoute3 exact path = '/' component = {Home} authenticated = {cookie.load('idToken')} team = {cookie.load('selectedTeam')}/>
                 <AuthRoute exact path = '/signup' component = {CreateAccount} authenticated = {cookie.load('idToken')}/>
                 <AuthRoute2 exact path = '/teamselect' component = {TeamSelect} authenticated = {cookie.load('idToken')}/>
+                <AuthRoute2 exact path = '/comingsoon' component = {ComingSoon} authenticated = {cookie.load('idToken')}/>
                 <AuthRoute3 exact path = '/events' component = {Events} authenticated = {cookie.load('idToken')} team = {cookie.load('selectedTeam')}/>
                 <AuthRoute3 exact path = '/eventdetails' component = {EventDetails} authenticated = {cookie.load('idToken')} team = {cookie.load('selectedTeam')}/>
               </Switch>

@@ -28,11 +28,11 @@ class NavigationBar extends Component {
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className = "navBarItems">
                         <Nav.Link href="/">Home</Nav.Link>
-                        <Nav.Link href="/CalendarHome">Calendar</Nav.Link>
-                        <Nav.Link href="./Workouts">Workouts</Nav.Link>
+                        <Nav.Link href="/comingsoon">Calendar</Nav.Link>
+                        <Nav.Link href="./comingsoon">Workouts</Nav.Link>
                         <Nav.Link href="./events">Events</Nav.Link>
                         <Nav.Link href="/teamselect">Select Team</Nav.Link>
-                        <Nav.Link href="/Settings">Settings</Nav.Link>
+                        <Nav.Link href="/comingsoon">Settings</Nav.Link>
                         <Nav.Link href="/login">Login</Nav.Link>
                         <Nav.Link href="/signup">Create Account</Nav.Link>
                         </Nav>
