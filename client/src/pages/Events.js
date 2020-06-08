@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import ExistingEventCard from '../components/Event/ExistingEventCard'
+import ExistingEventCard from '../components/event/ExistingEventCard'
 import  { Container, Button } from 'react-bootstrap'
-import CreateEventModal from '../components/Event/CreateEventModal'
+import CreateEventModal from '../components/event/CreateEventModal'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getTeamEvents, newEvent, setEvent } from '../actions/eventActions';
@@ -53,21 +53,15 @@ export class Events extends Component {
           )
         }
       }
-    /*if(this.props.createdEvent.hasOwnProperty("name") && !this.props.events.hasOwnProperty(this.props.createdEvent.key)){
-      cardItems.push(
-        <React.Fragment key = {this.props.createdEvent.key}>
-          <ExistingEventCard team = {this.props.createdEvent}/>
-        </React.Fragment>
+
+      return (
+          <Container fluid>
+              <h2>Events</h2>
+              <Button onClick = {this.setShow}>Add</Button>
+               {cardItems}
+              <CreateEventModal setShow = {this.setShow} show = {this.state.show} teamUID = {this.props.selectedTeam}/>
+          </Container>
       )
-    }*/
-    return (
-        <Container fluid>
-            <h2>Events</h2>
-            <Button onClick = {this.setShow}>Add</Button>
-             {cardItems}
-            <CreateEventModal setShow = {this.setShow} show = {this.state.show} teamUID = {this.props.selectedTeam}/>
-        </Container>
-    )
     }
 }
 Events.propTypes = {
