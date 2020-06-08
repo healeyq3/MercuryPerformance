@@ -21,12 +21,12 @@ export class EventAddRunnersModal extends Component {
             runners: this.state.runners
         }
         this.props.addEventRunners(runnersData, this.props.teamUID);//need to pass in selectedTeamUID here
-        this.props.setShow1();
+        this.props.setShow();
     }
 
     render() {
         return (
-            <Modal show = {this.props.show1} onHide = {this.props.setShow1}>
+            <Modal show = {this.props.show} onHide = {this.props.setShow}>
             <Modal.Dialog>
                 <Modal.Header closeButton>Add Runners</Modal.Header>
                 <Modal.Body>
