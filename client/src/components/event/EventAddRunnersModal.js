@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import { Modal } from 'react-bootstrap';
-import cookie from 'react-cookies';
+import React, { Component } from '../../../node_modules/react'
+import { Modal } from '../../../node_modules/react-bootstrap'
+import { cookie } from '../../../node_modules/react-cookies'
 import ToggleButtonRunners from './ToggleButtonRunners';
 
 export class EventAddRunnersModal extends Component {

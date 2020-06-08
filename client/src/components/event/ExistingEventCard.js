@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { Card } from 'react-bootstrap';
+import React, { Component } from '../../../node_modules/react'
+import { Card } from '../../../node_modules/react-bootstrap';
 
 export class ExistingEventCard extends Component {
     render() {
