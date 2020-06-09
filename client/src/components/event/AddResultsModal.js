@@ -8,12 +8,24 @@ export class AddResultsModal extends Component {
 
         this.state = {
             finalTime: '',
-            oneMileSplit: '',
+            splitUnit: '',
+            splitDistance: '',//May be an easier way, could add to arrays when you add split in order to not limit # of splits
+            splitTime:''
         }
         this.handleChange = this.handleChange.bind(this);
     }
     handleChange(e){
         this.setState({ [e.target.name] : e.target.value});
+    }
+
+    handleAddSplits = () => {
+        const splitData = {
+            user:cookie.load('user'),
+            splitDistance: this.state.splitDistance,
+            splitTime: this.state.splitTime,
+            splitUnit: this.state.splitUnit
+        }
+        this.props.addSplit(splitData);//need to add splits to backened
     }
     handleAddResults = () => {
         const runnerData = {
@@ -32,19 +44,23 @@ export class AddResultsModal extends Component {
                     <Form>
                         <Form.Group>
                             <Form.Label>Final Time</Form.Label>
-                            <Form.Control onChange = {this.handleChange} name = "teamName" type = "time" placeholder = "00:00:00"/>
+                            <Form.Control onChange = {this.handleChange} name = "finalTime" type = "time" placeholder = "00:00:00"/>
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Splits (optional)</Form.Label>
-                            <Form.Control onChange = {this.handleChange} name = "teamYear" type = "text" placeholder = "ex: 2020" />
-                            <Form.Control onChange = {this.handleChange} name = "teamLevel" as = "select">
+                            <Form.Control onChange = {this.handleChange} name = "splitDistance" type = "text" placeholder = "Distance" />
+                            <Form.Control onChange = {this.handleChange} name = "splitUnit" as = "select">
                                 <option hidden>Units</option>
                                 <option>Miles</option>
                                 <option>Kilometers</option>
                                 <option>Meters</option>
                             </Form.Control>
+                            <Form.Control onChange = {this.handleChange} name = "splitTime" type = "time"></Form.Control>
+                            <Button variant = "primary">Add Split</Button>
                         </Form.Group>
-                        <Button variant = "primary" onClick = {this.handleCreateTeam}>Add Team</Button>
+                        <Button variant = "primary" >⇦</Button>
+                        <Button variant = "primary" onClick = {this.handleAddResults}>Save Results</Button>
+                        <Button variant = "primary" >⇨</Button>
                     </Form>
                 </Modal.Body>
             </Modal.Dialog>
