@@ -13,8 +13,12 @@ export class EventAddRunnersModal extends Component {
         }
         this.handleChange = this.handleChange.bind(this);
     }
+    
     handleChange(e){
-        this.setState({ [e.target.name] : e.target.value});
+        // this.setState({ [e.target.name] : e.target.value});
+        console.log(e.target.value)
+        console.log(e.target.checked)
+        // e.target.checked = !e.target.checked
     }
     handleAddRunners = () => {
         const runnersData = {
@@ -33,14 +37,16 @@ export class EventAddRunnersModal extends Component {
             if(this.props.runners.hasOwnProperty(runner)){
                 runnerArr.push(
                     <Form.Group key = {this.props.runners[runner].key}>
-                        <Form.Check type = 'checkbox' id = {this.props.runners[runner].key} onClick = {console.log('toggled')}>
-                            <Form.Check.Input type = 'checkbox' checked />
+                        <Form.Check type = 'checkbox' id = {this.props.runners[runner].key} >
+                            <Form.Check.Input id = {this.props.runners[runner].key} type = 'checkbox' value = {this.props.runners[runner].key}onChange = {this.handleChange}/>
                             <Form.Check.Label>{this.props.runners[runner].name}</Form.Check.Label>
                         </Form.Check>
                     </Form.Group>
                 )
             }
         }
+
+        // for(const runnuid in this.props.events[this.props.selectedEvent].hasOwnProperty('runners'))
 
         return (
             <Modal show = {this.props.show} onHide = {this.props.setShow}>
@@ -59,13 +65,15 @@ export class EventAddRunnersModal extends Component {
 
 EventAddRunnersModal.propTypes = {
     selectedEvent: PropTypes.string.isRequired,
-    runners: PropTypes.object.isRequired
+    runners: PropTypes.object.isRequired,
+    events: PropTypes.object.isRequired
 }
 
 const mapStateToProps = function(state){
     return {
         runners: state.runners.runners,
-        selectedEvent: state.events.selectedEvent
+        selectedEvent: state.events.selectedEvent,
+        events: state.events.events
     }
 }
 

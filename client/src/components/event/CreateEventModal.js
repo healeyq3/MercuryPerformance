@@ -17,6 +17,7 @@ export class CreateEventModal extends Component {
     }
     
     handleChange(e){
+        console.log("changed");
         this.setState({ [e.target.name] : e.target.value});
     }
     handleCreateEvent = () => {
@@ -24,7 +25,7 @@ export class CreateEventModal extends Component {
             user: cookie.load('user'),
             name: this.state.name,
             date: this.state.date,
-            location: this.state.location,
+            location: this.state.location
         }
         console.log(eventData.user.uid);
         this.props.newEvent(eventData, this.props.teamUID);//need to pass in selectedTeamUID here

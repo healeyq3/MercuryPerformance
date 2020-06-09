@@ -42,7 +42,7 @@ class Home extends Component {
 
     return (
         <Container fluid>
-            <h2 id = "teamNameHome">{this.props.selectedTeam.teamName}</h2>
+            <h2 id = "teamNameHome">{this.props.teams[this.props.selectedTeam].teamName}</h2>
             <AddRunner teamUID = {this.props.selectedTeam}/>
             {runnerArr}
         </Container>
