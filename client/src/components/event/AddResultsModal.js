@@ -8,7 +8,9 @@ export class AddResultsModal extends Component {
 
         this.state = {
             finalTime: '',
-            oneMileSplit: '',
+            splitUnits: [],
+            splitDistances:[],//May be an easier way, but could add to arrays when you add split in order to not limit # of splits
+            splitTimes:[]
         }
         this.handleChange = this.handleChange.bind(this);
     }
@@ -32,19 +34,23 @@ export class AddResultsModal extends Component {
                     <Form>
                         <Form.Group>
                             <Form.Label>Final Time</Form.Label>
-                            <Form.Control onChange = {this.handleChange} name = "teamName" type = "time" placeholder = "00:00:00"/>
+                            <Form.Control onChange = {this.handleChange} name = "finalTime" type = "time" placeholder = "00:00:00"/>
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Splits (optional)</Form.Label>
-                            <Form.Control onChange = {this.handleChange} name = "teamYear" type = "text" placeholder = "ex: 2020" />
-                            <Form.Control onChange = {this.handleChange} name = "teamLevel" as = "select">
+                            <Form.Control name = "distance" type = "text" placeholder = "Distance" />
+                            <Form.Control name = "units" as = "select">
                                 <option hidden>Units</option>
                                 <option>Miles</option>
                                 <option>Kilometers</option>
                                 <option>Meters</option>
                             </Form.Control>
+                            <Form.Control name = "time" type = "time"></Form.Control>
+                            <Button variant = "primary">Add Split</Button>
                         </Form.Group>
-                        <Button variant = "primary" onClick = {this.handleCreateTeam}>Add Team</Button>
+                        <Button variant = "primary" >⇦</Button>
+                        <Button variant = "primary" onClick = {this.handleAddResults}>Save Results</Button>
+                        <Button variant = "primary" >⇨</Button>
                     </Form>
                 </Modal.Body>
             </Modal.Dialog>
