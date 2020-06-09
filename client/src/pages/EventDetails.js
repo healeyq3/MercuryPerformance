@@ -31,7 +31,7 @@ export class EventDetails extends Component {
         return (
             <Container>
                 <EventNavBar setShowRunner = {this.setShowRunner} setShowResults = {this.setShowResults}></EventNavBar>
-                <div class="card-deck">
+                <div className="card-deck">
                 <EventRunnerCard></EventRunnerCard>
                 <EventDetailsCard></EventDetailsCard>
                 </div>

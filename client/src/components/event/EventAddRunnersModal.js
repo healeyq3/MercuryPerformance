@@ -1,7 +1,8 @@
 import React, { Component } from '../../../node_modules/react'
-import { Modal } from '../../../node_modules/react-bootstrap'
+import { Modal, Form } from '../../../node_modules/react-bootstrap'
 import { cookie } from '../../../node_modules/react-cookies'
-import ToggleButtonRunners from './ToggleButtonRunners';
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types';
 
 export class EventAddRunnersModal extends Component {
     constructor(props){
@@ -25,23 +26,27 @@ export class EventAddRunnersModal extends Component {
     }
 
     render() {
+        
+        let runnerArr = [];
+
+        for (const runner in this.props.runners) {
+            if(this.props.runners.hasOwnProperty(runner)){
+                runnerArr.push(
+                    <Form.Group controlId = 'formBasicCheckbox' key = {this.props.runners[runner].key}>
+                        <Form.Check type = 'checkbox' label = {this.props.runners[runner].name}/>
+                    </Form.Group>
+                )
+            }
+        }
+
         return (
             <Modal show = {this.props.show} onHide = {this.props.setShow}>
             <Modal.Dialog>
                 <Modal.Header closeButton>Add Runners</Modal.Header>
                 <Modal.Body>
-                    <ToggleButtonRunners />
-                    
-                    
-                    
-                    {/* <Form>
-                        <Form.Group>
-                            <Form.Label>Runners</Form.Label>
-                            <Form.Control onChange = {this.handleChange} name = "runner" type = "checkbox" placeholder = "Test">
-                            </Form.Control>
-                        </Form.Group>
-                        <Button variant = "primary" onClick = {this.handleAddRunners}>Save</Button>
-                    </Form> */}
+                    <Form>
+                        {runnerArr}
+                    </Form>
                 </Modal.Body>
             </Modal.Dialog>
             </Modal>
@@ -49,4 +54,16 @@ export class EventAddRunnersModal extends Component {
     }
 }
 
-export default EventAddRunnersModal
+EventAddRunnersModal.propTypes = {
+    selectedEvent: PropTypes.string.isRequired,
+    runners: PropTypes.object.isRequired
+}
+
+const mapStateToProps = function(state){
+    return {
+        runners: state.runners.runners,
+        selectedEvent: state.events.selectedEvent
+    }
+}
+
+export default connect(mapStateToProps, {}) (EventAddRunnersModal)

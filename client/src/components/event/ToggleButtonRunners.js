@@ -13,11 +13,12 @@ function ToggleButtonRunners() {
     const handleChange = (val) => setValue(val);
   
     return (
-      <ToggleButtonGroup type="checkbox" value={value} onChange={handleChange} vertical>
-        <ToggleButton value={1} type = "radio">James Taylor</ToggleButton>
-        <ToggleButton value={2} type = "radio">Phallic Member</ToggleButton>
-        <ToggleButton value={3} type = "radio">Howie Schmultz</ToggleButton>
+      <ToggleButtonGroup type = 'checkbox' value={value} onChange={handleChange} vertical>
+        <ToggleButton value={1} variant = 'outline-primary'>James Taylor</ToggleButton>
+        <ToggleButton value={2} variant = 'outline-primary'>Phallic Member</ToggleButton>
+        <ToggleButton value={3} variant = 'outline-primary'>Howie Schmultz</ToggleButton>
       </ToggleButtonGroup>
+      
     );
   };
 
