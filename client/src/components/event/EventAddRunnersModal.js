@@ -32,8 +32,11 @@ export class EventAddRunnersModal extends Component {
         for (const runner in this.props.runners) {
             if(this.props.runners.hasOwnProperty(runner)){
                 runnerArr.push(
-                    <Form.Group controlId = 'formBasicCheckbox' key = {this.props.runners[runner].key}>
-                        <Form.Check type = 'checkbox' label = {this.props.runners[runner].name}/>
+                    <Form.Group key = {this.props.runners[runner].key}>
+                        <Form.Check type = 'checkbox' id = {this.props.runners[runner].key} onClick = {console.log('toggled')}>
+                            <Form.Check.Input type = 'checkbox' checked />
+                            <Form.Check.Label>{this.props.runners[runner].name}</Form.Check.Label>
+                        </Form.Check>
                     </Form.Group>
                 )
             }
