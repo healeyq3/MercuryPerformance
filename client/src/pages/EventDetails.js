@@ -79,20 +79,8 @@ EventDetails.propTypes = {
       selectedEvent: state.events.selectedEvent,
       times: state.events.times,
       rehydrated: state._persist.rehydrated,
+      events: state.events.events
     }
   }
-
-EventDetails.propTypes = {
-    selectedEvent: PropTypes.string.isRequired,
-    events: PropTypes.func.isRequired
-}
-
-const mapStateToProps = function(state){
-    return {
-        selectedEvent: state.events.selectedEvent,
-        events: state.events.events,
-        rehydrated: state._persist.rehydrated,
-    }
-}
 
 export default connect(mapStateToProps, {newTime, addRunnersToEvent}) (EventDetails)

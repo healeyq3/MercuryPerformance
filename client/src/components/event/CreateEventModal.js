@@ -11,7 +11,9 @@ export class CreateEventModal extends Component {
         this.state = {
             name: '',
             date: '',
-            location: ''
+            location: '',
+            distance: 0.0,
+            distanceUnit: ''
         }
         this.handleChange = this.handleChange.bind(this);
     }
