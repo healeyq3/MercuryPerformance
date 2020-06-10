@@ -1,5 +1,5 @@
 import React, { Component } from '../../../node_modules/react'
-import { Modal, Form } from '../../../node_modules/react-bootstrap'
+import { Modal, Form, Button } from '../../../node_modules/react-bootstrap'
 import { cookie } from '../../../node_modules/react-cookies'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
@@ -9,42 +9,44 @@ export class EventAddRunnersModal extends Component {
         super(props);
 
         this.state = {
-            runnersToAddToFire: []
+            runnersToAddToFire: [],
+            toMakeFn: ''
         }
         this.handleChange = this.handleChange.bind(this);
     }
     
     handleChange(e){ // no matter what I do, whether try to add directly or hard copy then replace, will change runnersToAddToFire...JS IS A FUCKING BITCH 
         console.log(e.target.value)
-        console.log(e.target.checked)
+        console.log(e.target.checked);
         if(e.target.checked === true){
             let toAdd = e.target.value;
-            const toAddArray = [];//no point in this array, gets reset every time
-            if(this.runnersToAddToFire === undefined){
-                toAddArray.push(toAdd);
+            if( this.state.runnersToAddToFire.length === 0/*this.state.runnersToAddToFire === undefined*/){
+                console.log("First if statement reached");
+                console.log("Being added:" + toAdd)
+                this.setState((state) => ({
+                    runnersToAddToFire: [...state.runnersToAddToFire, toAdd]
+                }));
             } else {
-                this.runnersToAddToFire.map((key) => toAddArray.push(key))
+                console.log("Second in first checking")
+                console.log(this.state.runnersToAddToFire);
+                this.setState((state) => ({
+                    runnersToAddToFire: [...state.runnersToAddToFire, toAdd]
+                }));
             }
-            this.setState({
-                //runnersToAddToFire: this.state.runnersToAddToFire.concat([toAdd])
-               // runnersToAddToFire: toAddArray //Aidan look right here
-                //runnersToAddToFire:[...prevState.runnersToAddToFire, toAdd]
-                runnersToAddToFire:[1,2]//Set state either isn't running or something is wrong with our state
-            })
-            console.log(this.state.runnersToAddToFire + " Array");
-        } else if(this.runnersToAddToFire === undefined){
-            console.log('still empty');
-        } 
-        else {
-            if(this.runnersToAddToFire.includes(e.target.value)){
-                const index = this.runnersToAddToFire.indexOf(e.target.value);
-                const toReturn = this.runnersToAddToFire.splice(index, 1);
-                this.setState({
-                    runnersToAddToFire: toReturn
-                });
+        } else {
+            console.log("Final else statement reached")
+            if(this.state.runnersToAddToFire.includes(e.target.value)){
+                const index = this.state.runnersToAddToFire.indexOf(e.target.value);
+                const toReturn = this.state.runnersToAddToFire.splice(index, 1);
+                console.log("toReturn reached");
+                console.log(toReturn);
+                console.log(this.state.runnersToAddToFire);
+                // this.setState({
+                //     runnersToAddToFire: toReturn
+                // });
             }
         }
-        console.log('Array' + this.runnersToAddToFire);
+        console.log('Array' + this.state.runnersToAddToFire);
 
     }
     handleAddRunners = () => {
@@ -95,6 +97,7 @@ export class EventAddRunnersModal extends Component {
                 <Modal.Body>
                     <Form>
                         {runnerToAddArr}
+                        <Button variant = 'primary' onClick = {this.handleAddRunners}>Save Runners</Button>
                     </Form>
                 </Modal.Body>
             </Modal.Dialog>
