@@ -32,12 +32,13 @@ export class AddResultsModal extends Component {
             this.setState((state) => ({ splits:[...this.state.splits, splitData]}));
     }
     handleAddResults = () => {
-        const runnerData = {
+        const timeData = {
             user: cookie.load('user'),
+            finalTime: this.state.finalTime,
             splits: this.state.splits
         }
-        console.log(runnerData.user.uid);
-        this.props.newTime(runnerData, this.props.selectedTeam, this.props.selectedTeam, this.props.selectedRunner);//needs to have selectedEventUID, and runnerUID
+        console.log(timeData.user.uid);
+        this.props.newTime(timeData, this.props.selectedTeam, this.props.selectedTeam, this.props.selectedRunner);//needs to have selectedEventUID, and runnerUID
         this.props.setShow();
     }
     render() {
