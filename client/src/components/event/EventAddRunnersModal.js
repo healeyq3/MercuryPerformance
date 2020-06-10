@@ -25,10 +25,11 @@ export class EventAddRunnersModal extends Component {
             } else {
                 this.runnersToAddToFire.map((key) => toAddArray.push(key))
             }
-            this.setState((state, props) => ({
-                runnersToAddToFire: toAddArray 
-            }));
+            this.setState({
+                runnersToAddToFire: toAddArray //Aidan look right here
+            })
             console.log(toAddArray);
+            console.log(this.runneresToAddToFire);
         } else if(this.runnersToAddToFire === undefined){
             console.log('still empty');
         } 
