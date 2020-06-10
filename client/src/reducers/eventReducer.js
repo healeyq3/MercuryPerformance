@@ -25,7 +25,7 @@ export default function(state = initialState, action) {
     case NEW_TIME:
       return{
         ...state,
-        //need to add
+        times: {...state.times, [action.eventUID]: action.payload}//this is wrong
       }
     default:
       return state;

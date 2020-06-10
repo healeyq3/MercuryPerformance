@@ -85,11 +85,11 @@ function addRunnerToEvent(eventuid, runnerUidArray){
   });
 }
 
-function newTime(timeData, eventuid, runneruid){
+function newTime(timeData, teamuid, eventuid, runneruid){
   console.log(timeData);
   console.log(eventuid);
   // console.log("Adding runners".green + "(".cyan + runnerUidArray.toString().cyan + ")".cyan + " to team".green + "(".cyan + eventuid.cyan + ")".cyan);
-
+  console.log("Time event id" + eventuid + " " + runneruid)
   const eventRef = database.ref("events/" + eventuid + "/" + runneruid + "/times").child(timeData.key).set(timeData);
 
   //await database.ref("teams/" + teamuid.toString() + "/events" + eventuid + "/" + runneruid).child(eventuid.toString()).set(eventuid)
@@ -132,3 +132,4 @@ module.exports.addEventToTeam = addEventToTeam;
 module.exports.getTeamEvents = getTeamEvents;
 module.exports.addRunnerToEvent = addRunnerToEvent;
 module.exports.removeRunnerFromEvent = removeRunnerFromEvent;
+module.exports.newTime = newTime;
