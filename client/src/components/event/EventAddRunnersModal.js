@@ -3,6 +3,7 @@ import { Modal, Form, Button } from '../../../node_modules/react-bootstrap'
 import { cookie } from '../../../node_modules/react-cookies'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
+import { addRunnersToEvent } from "../../actions/eventActions";
 
 export class EventAddRunnersModal extends Component {
     constructor(props){
@@ -15,7 +16,7 @@ export class EventAddRunnersModal extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
     
-    handleChange(e){ // no matter what I do, whether try to add directly or hard copy then replace, will change runnersToAddToFire...JS IS A FUCKING BITCH 
+    handleChange(e){ // no matter what I do, whether try to add directly or hard copy then replace, will change runnersToAddToFire
         console.log(e.target.value)
         console.log(e.target.checked);
         if(e.target.checked === true){
@@ -54,7 +55,7 @@ export class EventAddRunnersModal extends Component {
             user: cookie.load('user'),
             runners: this.state.runners
         }
-        this.props.addEventRunners(runnersData, this.props.teamUID);//need to pass in selectedTeamUID here
+        this.props.addRunnersToEvent(runnersData, this.props.teamUID);//need to pass in selectedTeamUID here
         this.props.setShow();
     }
 
@@ -109,7 +110,8 @@ export class EventAddRunnersModal extends Component {
 EventAddRunnersModal.propTypes = {
     selectedEvent: PropTypes.string.isRequired,
     runners: PropTypes.object.isRequired,
-    events: PropTypes.object.isRequired
+    events: PropTypes.object.isRequired,
+    addRunnersToEvent: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = function(state){
@@ -120,4 +122,4 @@ const mapStateToProps = function(state){
     }
 }
 
-export default connect(mapStateToProps, {}) (EventAddRunnersModal)
+export default connect(mapStateToProps, { addRunnersToEvent }) (EventAddRunnersModal)

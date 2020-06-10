@@ -14,19 +14,12 @@ export function getTeamRunners(selectedTeamUID) {
       })
     })
       .then(res => res.json())
-      .then(function(runners){
-        console.log(runners);
+      .then(runners =>
         dispatch({
           type: GET_TEAM_RUNNERS,
           payload: runners
         })
-      })
-      // .then(runners =>
-      //   dispatch({
-      //     type: GET_TEAM_RUNNERS,
-      //     payload: runners
-      //   })
-      // );
+      );
   }
 }
 

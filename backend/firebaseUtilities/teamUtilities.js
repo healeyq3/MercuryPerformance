@@ -58,7 +58,10 @@ async function getUserTeams(useruid){
   return teams;
 }
 
-async function doesUserOwnTeam(useruid, teamuid){
+async function doesUserOwnTeam(req){
+  const useruid = req.session.useruid;
+  const teamuid = req.body.selectedTeamUID;
+
   if(!teamuid){
     console.log("teamuid not passed for events - returning null".red);
     return false;

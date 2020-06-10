@@ -1,4 +1,4 @@
-import {GET_TEAM_EVENTS, NEW_EVENT, SET_EVENT} from './types';
+import {GET_TEAM_EVENTS, NEW_EVENT, SET_EVENT, NEW_TIME} from './types';
 import cookie from 'react-cookies'
 
 export function newEvent(eventData, selectedTeamUID){
@@ -15,12 +15,39 @@ export function newEvent(eventData, selectedTeamUID){
           selectedTeamUID: selectedTeamUID
         })
       })
+      .then(res => res.json())
+      .then(event =>
+        dispatch({
+          type: NEW_EVENT,
+          payload: event,
+          eventUID: event.key
+        }))
+      .catch((error) => {
+        console.log(error);
+      })
+    }
+  }
+  export function newTime(timeData, selectedTeamUID, runnerUID){
+    return async function(dispatch) {
+      console.log("Creating new time");
+      await fetch('/events/' + runnerUID + '/new', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          timeData,
+          idToken: cookie.load('idToken'),
+          selectedTeamUID: selectedTeamUID,
+          runnerUID:runnerUID
+        })
+      })
         .then(res => res.json())
-        .then(event =>
+        .then(time =>
           dispatch({
-            type: NEW_EVENT,
-            payload: event,
-            eventUID: event.key
+            type: NEW_TIME,
+            payload: time,
+            timeUID: time.key
           }))
         .catch((error) => {
           console.log(error);
@@ -30,7 +57,6 @@ export function newEvent(eventData, selectedTeamUID){
 
 export function getTeamEvents(selectedTeamUID) {
   return async function(dispatch){
-    console.log("Grabbing events");
     await fetch('/events', {
       method: 'POST',
       headers: {
@@ -41,13 +67,13 @@ export function getTeamEvents(selectedTeamUID) {
         selectedTeamUID: selectedTeamUID
       })
     })
-      .then(res => res.json())
-      .then(events =>
-        dispatch({
-          type: GET_TEAM_EVENTS,
-          payload: events
-        })
-      );
+    .then(res => res.json())
+    .then(events =>
+      dispatch({
+        type: GET_TEAM_EVENTS,
+        payload: events
+      })
+    );
   }
 }
 
@@ -57,5 +83,30 @@ export function setEvent(event){
       type: SET_EVENT,
       payload: event
     })
+  }
+}
+
+export function addRunnersToEvent(runnerUidArray, eventuid){
+  return async function(dispatch){
+    await fetch('/events/addrunner', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        idToken: cookie.load('idToken'),
+        eventuid: eventuid,
+        runnerUidArray: runnerUidArray
+      })
+    })
+    .then((res) => {
+      console.log(res);
+    })
+    // .then(events =>
+    //   dispatch({
+    //     type: GET_TEAM_EVENTS,
+    //     payload: events
+    //   })
+    // );
   }
 }

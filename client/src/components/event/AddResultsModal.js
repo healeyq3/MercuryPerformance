@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Modal, Form, Button } from 'react-bootstrap';
 import cookie from 'react-cookies';
+import { newTime } from '../../actions/eventActions'
+import { connect } from 'react-redux';
 
 export class AddResultsModal extends Component {
     constructor(props){
@@ -8,6 +10,7 @@ export class AddResultsModal extends Component {
 
         this.state = {
             finalTime: '',
+            splits:[],
             splitUnit: '',
             splitDistance: '',//May be an easier way, could add to arrays when you add split in order to not limit # of splits
             splitTime:''
@@ -19,20 +22,22 @@ export class AddResultsModal extends Component {
     }
 
     handleAddSplits = () => {
-        const splitData = {
-            user:cookie.load('user'),
-            splitDistance: this.state.splitDistance,
-            splitTime: this.state.splitTime,
-            splitUnit: this.state.splitUnit
-        }
-        this.props.addSplit(splitData);//need to add splits to backened
+            const splitData = {
+                user:cookie.load('user'),
+                splitDistance: this.state.splitDistance,
+                splitTime: this.state.splitTime,
+                splitUnit: this.state.splitUnit
+            }
+            console.log(splitData)
+            this.setState((state) => ({ splits:[...this.state.splits, splitData]}));
     }
     handleAddResults = () => {
         const runnerData = {
             user: cookie.load('user'),
+            splits: this.state.splits
         }
         console.log(runnerData.user.uid);
-        this.props.addResults(runnerData);
+        this.props.newTime(runnerData);//needs to have selectedTeamUID, and runnerUID
         this.props.setShow();
     }
     render() {
@@ -44,7 +49,7 @@ export class AddResultsModal extends Component {
                     <Form>
                         <Form.Group>
                             <Form.Label>Final Time</Form.Label>
-                            <Form.Control onChange = {this.handleChange} name = "finalTime" type = "time" placeholder = "00:00:00"/>
+                            <Form.Control onChange = {this.handleChange} name = "finalTime" type = "text" placeholder = "00:00:00"/>
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Splits (optional)</Form.Label>
@@ -55,8 +60,8 @@ export class AddResultsModal extends Component {
                                 <option>Kilometers</option>
                                 <option>Meters</option>
                             </Form.Control>
-                            <Form.Control onChange = {this.handleChange} name = "splitTime" type = "time"></Form.Control>
-                            <Button variant = "primary">Add Split</Button>
+                            <Form.Control onChange = {this.handleChange} name = "splitTime" type = "text" placeholder = "00:00:00"></Form.Control>
+                            <Button variant = "primary" onClick = {this.handleAddSplits}>Add Split</Button>
                         </Form.Group>
                         <Button variant = "primary" >⇦</Button>
                         <Button variant = "primary" onClick = {this.handleAddResults}>Save Results</Button>
@@ -69,4 +74,4 @@ export class AddResultsModal extends Component {
     }
 }
 
-export default AddResultsModal
+export default connect(null, { newTime }) (AddResultsModal);
