@@ -26,12 +26,13 @@ export class AddResultsModal extends Component {
                 splitTime: this.state.splitTime,
                 splitUnit: this.state.splitUnit
             }
+            console.log(splitData)
             this.setState((state) => ({ splits:[...this.state.splits, splitData]}));
-            console.log("Splits" + this.state.splits)
     }
     handleAddResults = () => {
         const runnerData = {
             user: cookie.load('user'),
+            splits: this.state.splits
         }
         console.log(runnerData.user.uid);
         this.props.addResults(runnerData);
