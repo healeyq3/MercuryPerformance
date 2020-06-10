@@ -89,6 +89,7 @@ export function setEvent(event){
 
 export function addRunnersToEvent(runnerUidArray, eventuid){
   return async function(dispatch){
+    console.log("Sending eventuid "+eventuid);
     await fetch('/events/addrunner', {
       method: 'POST',
       headers: {
@@ -101,7 +102,7 @@ export function addRunnersToEvent(runnerUidArray, eventuid){
       })
     })
     .then((res) => {
-      console.log(res);
+      console.log(res.json());
     })
     // .then(events =>
     //   dispatch({

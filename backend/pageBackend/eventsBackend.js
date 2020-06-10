@@ -19,6 +19,7 @@ async function getEvents(req, res){
 
   const data = req.body;
   if(!await teamUtilities.doesUserOwnTeam(req)){
+    console.log("User does not own team they tried to access".red);
     res.end("{}");
     return;
   }
@@ -63,10 +64,6 @@ async function addRunner(req, res){
     res.end();
     return;
   }
-  // if(!await teamUtilities.doesUserOwnTeam(req)){
-  //   res.end("{}");
-  //   return;
-  // }
 
   console.log("Adding runner to event".green);
 
