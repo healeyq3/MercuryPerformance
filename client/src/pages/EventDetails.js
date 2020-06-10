@@ -5,6 +5,9 @@ import { Container } from 'react-bootstrap'
 import EventDetailsCard from '../components/event/EventDetailsCard'
 import EventAddRunnersModal from '../components/event/EventAddRunnersModal'
 import AddResultsModal from '../components/event/AddResultsModal'
+import PropTypes from 'prop-types';
+import { newTime, addRunnersToEvent } from '../actions/eventActions';
+import { connect } from 'react-redux';
 
 export class EventDetails extends Component {
     constructor(props){
@@ -41,5 +44,20 @@ export class EventDetails extends Component {
         )
     }
 }
+EventDetails.propTypes = {
+    addRunnerToEvent: PropTypes.func.isRequired,
+    newTime: PropTypes.func.isRequired,
+    eventRunners: PropTypes.object.isRequired,
+    selectedEvent: PropTypes.object.isRequired,
+    times: PropTypes.object.isRequired,
+  };
+  const mapStateToProps = function(state){
+    return {
+      runners: state.events.runners,
+      selectedEvent: state.events.selectedEvent,
+      times: state.events.times,
+      rehydrated: state._persist.rehydrated,
+    }
+  }
 
-export default EventDetails
+export default connect(mapStateToProps, { newTime, addRunnersToEvent }) (EventDetails);
