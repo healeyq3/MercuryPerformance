@@ -18,7 +18,7 @@ async function getRunners(req, res){
 
   const data = req.body;
 
-  if(!await teamUtilities.doesUserOwnTeam(req.session.useruid, data.teamUID)){
+  if(!await teamUtilities.doesUserOwnTeam(req)){
     res.end("{}");
     return;
   }
@@ -46,7 +46,7 @@ async function createRunner(req, res){
   const wPace = data.runnerData.runnerWorkoutPace;
   const v02 = data.runnerData.runnerV02Max;
 
-  if(!await teamUtilities.doesUserOwnTeam(req.session.useruid, data.teamUID)){
+  if(!await teamUtilities.doesUserOwnTeam(req)){
     res.end("{}");
     return;
   }
@@ -58,6 +58,5 @@ async function createRunner(req, res){
   }).catch((error) => {
     console.log("Error adding and fetching Runners".red);
     console.log(error);
-    res.end("{}");
   });
 }

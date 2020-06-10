@@ -106,7 +106,8 @@ export class EventAddRunnersModal extends Component {
 EventAddRunnersModal.propTypes = {
     selectedEvent: PropTypes.string.isRequired,
     runners: PropTypes.object.isRequired,
-    events: PropTypes.object.isRequired
+    events: PropTypes.object.isRequired,
+
 }
 
 const mapStateToProps = function(state){

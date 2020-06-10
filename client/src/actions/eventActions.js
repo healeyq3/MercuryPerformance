@@ -15,22 +15,21 @@ export function newEvent(eventData, selectedTeamUID){
           selectedTeamUID: selectedTeamUID
         })
       })
-        .then(res => res.json())
-        .then(event =>
-          dispatch({
-            type: NEW_EVENT,
-            payload: event,
-            eventUID: event.key
-          }))
-        .catch((error) => {
-          console.log(error);
-        })
+      .then(res => res.json())
+      .then(event =>
+        dispatch({
+          type: NEW_EVENT,
+          payload: event,
+          eventUID: event.key
+        }))
+      .catch((error) => {
+        console.log(error);
+      })
     }
   }
 
 export function getTeamEvents(selectedTeamUID) {
   return async function(dispatch){
-    console.log("Grabbing events");
     await fetch('/events', {
       method: 'POST',
       headers: {
@@ -41,13 +40,13 @@ export function getTeamEvents(selectedTeamUID) {
         selectedTeamUID: selectedTeamUID
       })
     })
-      .then(res => res.json())
-      .then(events =>
-        dispatch({
-          type: GET_TEAM_EVENTS,
-          payload: events
-        })
-      );
+    .then(res => res.json())
+    .then(events =>
+      dispatch({
+        type: GET_TEAM_EVENTS,
+        payload: events
+      })
+    );
   }
 }
 
@@ -57,5 +56,30 @@ export function setEvent(event){
       type: SET_EVENT,
       payload: event
     })
+  }
+}
+
+export function addRunner(runnerUidArray, eventuid){
+  return async function(dispatch){
+    await fetch('/events/addrunner', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        idToken: cookie.load('idToken'),
+        eventuid: eventuid,
+        runnerUidArray: runnerUidArray
+      })
+    })
+    .then((res) => {
+      console.log(res);
+    })
+    // .then(events =>
+    //   dispatch({
+    //     type: GET_TEAM_EVENTS,
+    //     payload: events
+    //   })
+    // );
   }
 }

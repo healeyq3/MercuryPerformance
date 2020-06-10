@@ -62,24 +62,19 @@ async function getTeamEvents(teamuid){
   return events;
 }
 
-async function addRunnerToEvent(eventuid, runneruid, data){
-  console.log("Adding runner".green + "(".cyan + runneruid.cyan + ")".cyan + " to team".green + "(".cyan + eventuid.cyan + ")".cyan);
-  const runnersRef = database.ref("runners/"+runneruid);
+function addRunnerToEvent(eventuid, runnerUidArray){
+  console.log("Adding runners".green + "(".cyan + runnerUidArray.toString().cyan + ")".cyan + " to team".green + "(".cyan + eventuid.cyan + ")".cyan);
 
-  await runnersRef.once("value").then((snapshot) => {
-    //Check if the runner exists - if not, return false
-    if(!snapshot.hasChild("email")){
-      return false;
+  const eventRef = database.ref("events/" + eventuid + "/runners");
+  for(const runneruid in runnerUidArray){
+    if(!eventRef.hasOwnProperty(""+runneruid)){
+      eventRef.child(""+runneruid).set({}).then(() => {
+        console.log("Successfully added runner ".cyan + runneruid + " to ".cyan + eventuid);
+      }).catch(() => {
+        console.log("Error adding runner ".cyan + runneruid + " to ".cyan + eventuid);
+      })
     }
-
-    database.ref("events/"+eventuid+"/runners/"+runneruid).set(data).then(() =>{
-      console.log("Successfully added runner ".cyan + runneruid + " to ".cyan + eventuid);
-      return true;
-    }).catch((error) => {
-      console.log("Adding runner to event ".red + eventuid + " failed.".red);
-      console.log(error);
-    })
-  })
+  }
 }
 
 async function removeRunnerFromEvent(eventuid, runneruid){
