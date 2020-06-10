@@ -30,7 +30,7 @@ export function newEvent(eventData, selectedTeamUID){
   export function newTime(timeData, selectedTeamUID, eventUID, runnerUID){
     return async function(dispatch) {
       console.log("Creating new time");
-      await fetch('/events/new', {//this may be wrong
+      await fetch('/events/addtime', {//this may be wrong
         method: 'POST',
         headers: {
           'content-type': 'application/json'

@@ -65,6 +65,7 @@ async function getTeamEvents(teamuid){
 function addRunnerToEvent(eventuid, runnerUidArray){
   console.log(runnerUidArray);
   console.log(eventuid);
+  // console.log("Adding runners".green + "(".cyan + runnerUidArray.toString().cyan + ")".cyan + " to team".green + "(".cyan + eventuid.cyan + ")".cyan);
 
   const eventRef = database.ref("events/" + eventuid + "/runners");
   runnerUidArray.forEach((runneruid) => {
@@ -82,6 +83,16 @@ function addRunnerToEvent(eventuid, runnerUidArray){
       }
     })
   });
+}
+
+function newTime(timeData, eventuid, runneruid){
+  console.log(timeData);
+  console.log(eventuid);
+  // console.log("Adding runners".green + "(".cyan + runnerUidArray.toString().cyan + ")".cyan + " to team".green + "(".cyan + eventuid.cyan + ")".cyan);
+
+  const eventRef = database.ref("events/" + eventuid + "/" + runneruid + "/times").child(timeData.key).set(timeData);
+
+  //await database.ref("teams/" + teamuid.toString() + "/events" + eventuid + "/" + runneruid).child(eventuid.toString()).set(eventuid)
 }
 
 async function removeRunnerFromEvent(eventuid, runneruid){
@@ -121,4 +132,3 @@ module.exports.addEventToTeam = addEventToTeam;
 module.exports.getTeamEvents = getTeamEvents;
 module.exports.addRunnerToEvent = addRunnerToEvent;
 module.exports.removeRunnerFromEvent = removeRunnerFromEvent;
-module.exports.doesEventBelongToTeam = doesEventBelongToTeam;
