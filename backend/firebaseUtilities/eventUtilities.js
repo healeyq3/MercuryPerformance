@@ -69,23 +69,29 @@ function addRunnerToEvent(eventuid, runnerUidArray){
 
   const eventRef = database.ref("events/" + eventuid + "/runners");
   runnerUidArray.forEach((runneruid) => {
-    if (!eventRef.hasOwnProperty("" + runneruid)) {
-      console.log("runneruid: " + runneruid);
-      eventRef.child("" + runneruid).set({ runneruid: runneruid }).then(() => {
-        console.log("Successfully added runner ".cyan + runneruid + " to ".cyan + eventuid);
-      }).catch(() => {
-        console.log("Error adding runner ".cyan + runneruid + " to ".cyan + eventuid);
-      })
-    }
+    //check if runner is already added
+    eventRef.once("value").then((snapshot) => {
+      if(!snapshot.hasChild(runneruid)) {
+        console.log("runneruid: " + runneruid);
+        eventRef.child("" + runneruid).set({runneruid: runneruid}).then(() => {
+          console.log("Successfully added runner ".cyan + runneruid + " to ".cyan + eventuid);
+        }).catch(() => {
+          console.log("Error adding runner ".cyan + runneruid + " to ".cyan + eventuid);
+        })
+      } else {
+        console.log("Did not add runner because runner already exists under event".yellow);
+      }
+    })
   });
 }
+
 function newTime(timeData, eventuid, runneruid){
   console.log(timeData);
   console.log(eventuid);
   // console.log("Adding runners".green + "(".cyan + runnerUidArray.toString().cyan + ")".cyan + " to team".green + "(".cyan + eventuid.cyan + ")".cyan);
 
   const eventRef = database.ref("events/" + eventuid + "/" + runneruid + "/times").child(timeData.key).set(timeData);
-  
+
   //await database.ref("teams/" + teamuid.toString() + "/events" + eventuid + "/" + runneruid).child(eventuid.toString()).set(eventuid)
 }
 
@@ -107,9 +113,22 @@ async function removeRunnerFromEvent(eventuid, runneruid){
   return successfulDelete;
 }
 
+async function doesEventBelongToTeam(req){
+  const teamuid = req.body.selectedTeamUID;
+  const eventuid = req.body.eventuid;
+
+  if(!eventuid){
+    console.log("eventuid not passed for events - returning null".red);
+    return false;
+  }
+  const eventRef = database.ref("teams/"+teamuid+"/events");
+  return eventRef.once("value").then((snapshot) => {
+    return snapshot.hasChild(eventuid);
+  });
+}
+
 module.exports.createEvent = createEvent;
 module.exports.addEventToTeam = addEventToTeam;
 module.exports.getTeamEvents = getTeamEvents;
 module.exports.addRunnerToEvent = addRunnerToEvent;
 module.exports.removeRunnerFromEvent = removeRunnerFromEvent;
-module.exports.newTime = newTime;
