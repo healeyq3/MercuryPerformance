@@ -27,10 +27,10 @@ export function newEvent(eventData, selectedTeamUID){
       })
     }
   }
-  export function newTime(timeData, selectedTeamUID, runnerUID){
+  export function newTime(timeData, selectedTeamUID, eventUID, runnerUID){
     return async function(dispatch) {
       console.log("Creating new time");
-      await fetch('/events/' + runnerUID + '/new', {
+      await fetch('/events/new', {//this may be wrong
         method: 'POST',
         headers: {
           'content-type': 'application/json'
@@ -38,6 +38,7 @@ export function newEvent(eventData, selectedTeamUID){
         body: JSON.stringify({
           timeData,
           idToken: cookie.load('idToken'),
+          eventUID: eventUID,
           selectedTeamUID: selectedTeamUID,
           runnerUID:runnerUID
         })

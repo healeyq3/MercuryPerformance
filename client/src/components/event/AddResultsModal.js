@@ -23,7 +23,6 @@ export class AddResultsModal extends Component {
 
     handleAddSplits = () => {
             const splitData = {
-                user:cookie.load('user'),
                 splitDistance: this.state.splitDistance,
                 splitTime: this.state.splitTime,
                 splitUnit: this.state.splitUnit
@@ -37,7 +36,7 @@ export class AddResultsModal extends Component {
             splits: this.state.splits
         }
         console.log(runnerData.user.uid);
-        this.props.newTime(runnerData);//needs to have selectedTeamUID, and runnerUID
+        this.props.newTime(runnerData, this.props.teamUID, this.props.eventUID, this.props.runnerUID);//needs to have selectedEventUID, and runnerUID
         this.props.setShow();
     }
     render() {

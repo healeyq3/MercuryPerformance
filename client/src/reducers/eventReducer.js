@@ -1,4 +1,4 @@
-import { GET_TEAM_EVENTS, NEW_EVENT, SET_EVENT } from '../actions/types';
+import { GET_TEAM_EVENTS, NEW_EVENT, SET_EVENT, NEW_TIME} from '../actions/types';
 
 const initialState = {
   events: {},
@@ -21,6 +21,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         selectedEvent: action.payload
+      }
+    case NEW_TIME:
+      return{
+        ...state,
+        //need to add
       }
     default:
       return state;
