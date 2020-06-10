@@ -99,7 +99,10 @@ async function addRunner(req, res){
   const runnerUidArray = data.runnerUidArray;
   const eventuid = data.eventuid;
 
-  eventUtilities.addRunnerToEvent(eventuid, runnerUidArray);
-  console.log("Add runner to event success".green);
-  res.end(JSON.stringify({success:true}));
+  const runnersAdded = await eventUtilities.addRunnerToEvent(eventuid, runnerUidArray);
+  res.end(JSON.stringify({
+      runnersAdded: runnersAdded,
+      eventuid: eventuid
+    })
+  );
 }

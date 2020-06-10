@@ -62,17 +62,18 @@ async function getTeamEvents(teamuid){
   return events;
 }
 
-function addRunnerToEvent(eventuid, runnerUidArray){
+async function addRunnerToEvent(eventuid, runnerUidArray){
   console.log(runnerUidArray);
   console.log(eventuid);
-  // console.log("Adding runners".green + "(".cyan + runnerUidArray.toString().cyan + ")".cyan + " to team".green + "(".cyan + eventuid.cyan + ")".cyan);
 
+  let runnersAdded = {};
   const eventRef = database.ref("events/" + eventuid + "/runners");
   runnerUidArray.forEach((runneruid) => {
     //check if runner is already added
     eventRef.once("value").then((snapshot) => {
       if(!snapshot.hasChild(runneruid)) {
         console.log("runneruid: " + runneruid);
+        runnersAdded[runneruid] = {runneruid: runneruid};
         eventRef.child("" + runneruid).set({runneruid: runneruid}).then(() => {
           console.log("Successfully added runner ".cyan + runneruid + " to ".cyan + eventuid);
         }).catch(() => {
@@ -83,6 +84,8 @@ function addRunnerToEvent(eventuid, runnerUidArray){
       }
     })
   });
+
+  return runnersAdded;
 }
 
 function newTime(timeData, eventuid, runneruid){

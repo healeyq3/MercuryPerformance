@@ -15,38 +15,24 @@ export class EventAddRunnersModal extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
     
-    handleChange(e){ // no matter what I do, whether try to add directly or hard copy then replace, will change runnersToAddToFire
-        console.log(e.target.value);
-        console.log(e.target.checked);
+    handleChange(e){
         if(e.target.checked === true){
             let toAdd = e.target.value;
-            if( this.state.runnersToAddToFire.length === 0/*this.state.runnersToAddToFire === undefined*/){
-                console.log("First if statement reached");
-                console.log("Being added:" + toAdd)
+            if( this.state.runnersToAddToFire.length === 0){
                 this.setState((state) => ({
                     runnersToAddToFire: [...state.runnersToAddToFire, toAdd]
                 }));
             } else {
-                console.log("Second in first checking")
-                console.log(this.state.runnersToAddToFire);
                 this.setState((state) => ({
                     runnersToAddToFire: [...state.runnersToAddToFire, toAdd]
                 }));
             }
         } else {
-            console.log("Final else statement reached")
             if(this.state.runnersToAddToFire.includes(e.target.value)){
                 const index = this.state.runnersToAddToFire.indexOf(e.target.value);
-                const toReturn = this.state.runnersToAddToFire.splice(index, 1);
-                console.log("toReturn reached");
-                console.log(toReturn);
-                console.log(this.state.runnersToAddToFire);
-                // this.setState({
-                //     runnersToAddToFire: toReturn
-                // });
+                this.state.runnersToAddToFire.splice(index, 1);
             }
         }
-        console.log('Array' + this.state.runnersToAddToFire);
     }
     handleAddRunners = () => {
         this.props.addRunnersToEvent(this.state.runnersToAddToFire, this.props.selectedEvent);
@@ -74,11 +60,7 @@ export class EventAddRunnersModal extends Component {
                          </Form.Check>
                      </Form.Group>
                     );
-                } else if(this.props.events[this.props.selectedEvent].runners[this.props.runners[runner].key] !== undefined){
-                    // console.log('reached else if statement');
-                    // console.log(this.props.runners[runner].key);
-                    // console.log(this.props.events[this.props.selectedEvent].runners[this.props.runners[runner].key]);
-                } else {
+                } else if(this.props.events[this.props.selectedEvent].runners[this.props.runners[runner].key] !== undefined){} else {
                     runnerToAddArr.push(
                         <Form.Group key = {this.props.runners[runner].key}>
                          <Form.Check type = 'checkbox' id = {this.props.runners[runner].key} >
@@ -118,7 +100,7 @@ const mapStateToProps = function(state){
     return {
         runners: state.runners.runners,
         selectedEvent: state.events.selectedEvent,
-        events: state.events.events
+        events: state.events.events,
     }
 }
 

@@ -1,4 +1,4 @@
-import {GET_TEAM_EVENTS, NEW_EVENT, SET_EVENT, NEW_TIME} from './types';
+import {GET_TEAM_EVENTS, NEW_EVENT, SET_EVENT, NEW_TIME, RUNNERS_ADDED} from './types';
 import cookie from 'react-cookies'
 
 export function newEvent(eventData, selectedTeamUID){
@@ -89,7 +89,6 @@ export function setEvent(event){
 
 export function addRunnersToEvent(runnerUidArray, eventuid){
   return async function(dispatch){
-    console.log("Sending eventuid "+eventuid);
     await fetch('/events/addrunner', {
       method: 'POST',
       headers: {
@@ -101,14 +100,12 @@ export function addRunnersToEvent(runnerUidArray, eventuid){
         runnerUidArray: runnerUidArray
       })
     })
-    .then((res) => {
-      console.log(res.json());
-    })
-    // .then(events =>
-    //   dispatch({
-    //     type: GET_TEAM_EVENTS,
-    //     payload: events
-    //   })
-    // );
+    .then(res => res.json())
+    .then(runnersAddedObject =>
+      dispatch({
+        type: RUNNERS_ADDED,
+        payload: runnersAddedObject
+      })
+    );
   }
 }

@@ -13,3 +13,4 @@ export const NEW_EVENT = 'NEW_EVENT';
 export const GET_TEAM_EVENTS = 'GET_TEAM_EVENTS';
 export const SET_EVENT = 'SET_EVENT';
 export const NEW_TIME = 'NEW_TIME';//this may move
+export const RUNNERS_ADDED = 'RUNNERS_ADDED';
