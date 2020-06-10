@@ -3,6 +3,7 @@ import { Modal, Form, Button } from 'react-bootstrap';
 import cookie from 'react-cookies';
 import { newTime } from '../../actions/eventActions'
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 export class AddResultsModal extends Component {
     constructor(props){
@@ -31,12 +32,13 @@ export class AddResultsModal extends Component {
             this.setState((state) => ({ splits:[...this.state.splits, splitData]}));
     }
     handleAddResults = () => {
-        const runnerData = {
+        const timeData = {
             user: cookie.load('user'),
+            finalTime: this.state.finalTime,
             splits: this.state.splits
         }
-        console.log(runnerData.user.uid);
-        this.props.newTime(runnerData, this.props.teamUID, this.props.eventUID, this.props.runnerUID);//needs to have selectedEventUID, and runnerUID
+        console.log(timeData.user.uid);
+        this.props.newTime(timeData, this.props.selectedTeam, this.props.selectedTeam, this.props.selectedRunner);//needs to have selectedEventUID, and runnerUID
         this.props.setShow();
     }
     render() {
@@ -72,5 +74,22 @@ export class AddResultsModal extends Component {
         )
     }
 }
+AddResultsModal.propTypes = {
+    selectedEvent: PropTypes.string.isRequired,
+    selectedTeam: PropTypes.string.isRequired,
+    selectedRunner: PropTypes.string.isRequired,
+    runners: PropTypes.object.isRequired,
+    events: PropTypes.object.isRequired,
+    newTime: PropTypes.func.isRequired,
+}
+const mapStateToProps = function(state){
+    return {
+        runners: state.runners.runners,
+        eventRunners: state.events.runners,
+        selectedRunner:state.events.runners.selectedRunner,
+        selectedEvent: state.events.selectedEvent,
+        events: state.events.events
+    }
+}
 
-export default connect(null, { newTime }) (AddResultsModal);
+export default connect(mapStateToProps, { newTime }) (AddResultsModal);

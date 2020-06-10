@@ -67,7 +67,7 @@ async function newTime(req, res){
     res.end();
     return;
   }
-
+  console.log()
   const data = req.body;
   const finalTime = data.timeData.finalTime;
   const splits = data.timeData.splits;
@@ -77,7 +77,7 @@ async function newTime(req, res){
     return;
   }
 
-  eventUtilities.newTime(data.selectedTeamUID, finalTime, splits).then((time) => {
+  eventUtilities.newTime(data.timeData, data.selectedTeamUID, data.eventUID, data.runnerUID ).then((time) => {
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(time));
   }).catch((error) => {

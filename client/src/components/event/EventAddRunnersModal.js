@@ -48,6 +48,8 @@ export class EventAddRunnersModal extends Component {
         
         let runnerToAddArr = [];
 
+        
+
         for(const runner in this.props.runners){
             if(this.props.runners.hasOwnProperty(runner)){
                 if(this.props.events[this.props.selectedEvent].hasOwnProperty('runners') === false){
