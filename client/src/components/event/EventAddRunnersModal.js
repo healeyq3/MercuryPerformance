@@ -1,6 +1,5 @@
 import React, { Component } from '../../../node_modules/react'
 import { Modal, Form, Button } from '../../../node_modules/react-bootstrap'
-import { cookie } from '../../../node_modules/react-cookies'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 import { addRunnersToEvent } from "../../actions/eventActions";
