@@ -19,9 +19,16 @@ export class EventAddRunnersModal extends Component {
         console.log(e.target.checked)
         if(e.target.checked === true){
             let toAdd = e.target.value;
-            this.setState({
-                runnersToAddToFire: [...this.state.runnersToAddToFire, toAdd]
-            })
+            const toAddArray = [];
+            if(this.runnersToAddToFire === undefined){
+                toAddArray.push(toAdd);
+            } else {
+                this.runnersToAddToFire.map((key) => toAddArray.push(key))
+            }
+            this.setState((state, props) => ({
+                runnersToAddToFire: toAddArray 
+            }));
+            console.log(toAddArray);
         } else if(this.runnersToAddToFire === undefined){
             console.log('still empty');
         } 
