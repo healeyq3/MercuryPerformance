@@ -1,5 +1,6 @@
 import React, { Component } from '../../../node_modules/react'
 import { Modal, Form, Button } from '../../../node_modules/react-bootstrap'
+// import { cookie } from '../../../node_modules/react-cookies'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 import { addRunnersToEvent } from "../../actions/eventActions";
@@ -9,8 +10,7 @@ export class EventAddRunnersModal extends Component {
         super(props);
 
         this.state = {
-            runnersToAddToFire: [],
-            toMakeFn: ''
+            runnersToAddToFire: []
         }
         this.handleChange = this.handleChange.bind(this);
     }
@@ -53,6 +53,12 @@ export class EventAddRunnersModal extends Component {
         this.props.setShow();
     }
 
+    reset = () => {
+        this.setState({
+            runnersToAddToFire: []
+        })
+    }
+
     render() {
         
         let runnerToAddArr = [];
@@ -86,7 +92,7 @@ export class EventAddRunnersModal extends Component {
         }
 
         return (
-            <Modal show = {this.props.show} onHide = {this.props.setShow}>
+            <Modal show = {this.props.show} onHide = {this.props.setShow} onShow = {this.reset}>
             <Modal.Dialog>
                 <Modal.Header closeButton>Add Runners</Modal.Header>
                 <Modal.Body>
