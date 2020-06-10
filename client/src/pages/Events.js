@@ -55,6 +55,8 @@ export class Events extends Component {
         }
       }
 
+  
+
       return (
           <Container fluid>
               <h2>Events</h2>
