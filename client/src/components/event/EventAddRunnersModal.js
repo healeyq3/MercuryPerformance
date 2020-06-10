@@ -14,7 +14,7 @@ export class EventAddRunnersModal extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
     
-    handleChange(e){ // no matter what I do, whether try to add directly or hard copy then replace, will change runnersToAddToFire...JS IS A FUCKING BITCH 
+    handleChange(e){ // no matter what I do, whether try to add directly or hard copy then replace, will change runnersToAddToFire
         console.log(e.target.value)
         console.log(e.target.checked)
         if(e.target.checked === true){

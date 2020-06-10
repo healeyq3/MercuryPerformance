@@ -71,19 +71,17 @@ async function addRunner(req, res){
   console.log("Adding runner to event".green);
 
   const data = req.body;
-  const runnerIdArray = data.runnerIdArray;
+  const runnerUidArray = data.runnerUidArray;
   const eventuid = data.eventuid;
 
-  eventUtilities.addRunnerToEvent(eventuid, runnerIdArray).then((success) => {
+  eventUtilities.addRunnerToEvent(eventuid, runnerUidArray).then((success) => {
     if(!success){
-      res.send({ "result" : false })
-      res.end();
+      res.end({success:false});
       console.log("Add runner to event failed".red);
     }
-
-    res.send({ result : true })
-    res.end();
+    res.end({success:true});
   }).catch((error) => {
+    res.end({success:false});
     console.log("Error while adding runner to event".red);
     console.log(error);
   })

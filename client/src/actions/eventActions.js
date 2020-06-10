@@ -86,7 +86,7 @@ export function setEvent(event){
   }
 }
 
-export function addRunner(runnerUidArray, eventuid){
+export function addRunnersToEvent(runnerUidArray, eventuid){
   return async function(dispatch){
     await fetch('/events/addrunner', {
       method: 'POST',

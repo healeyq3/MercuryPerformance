@@ -66,15 +66,16 @@ function addRunnerToEvent(eventuid, runnerUidArray){
   console.log("Adding runners".green + "(".cyan + runnerUidArray.toString().cyan + ")".cyan + " to team".green + "(".cyan + eventuid.cyan + ")".cyan);
 
   const eventRef = database.ref("events/" + eventuid + "/runners");
-  for(const runneruid in runnerUidArray){
-    if(!eventRef.hasOwnProperty(""+runneruid)){
-      eventRef.child(""+runneruid).set({}).then(() => {
+  runnerUidArray.forEach((runneruid) => {
+    if (!eventRef.hasOwnProperty("" + runneruid)) {
+      console.log("runneruid: " + runneruid);
+      eventRef.child("" + runneruid).set({ runneruid: runneruid }).then(() => {
         console.log("Successfully added runner ".cyan + runneruid + " to ".cyan + eventuid);
       }).catch(() => {
         console.log("Error adding runner ".cyan + runneruid + " to ".cyan + eventuid);
       })
     }
-  }
+  });
 }
 
 async function removeRunnerFromEvent(eventuid, runneruid){
