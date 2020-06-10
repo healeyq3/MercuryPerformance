@@ -12,7 +12,7 @@ async function authenticatePost(req, res){
   }).catch((error) => {
     res.end("{}");
     console.log("Authentication failed for user token".red);
-    console.log(error);
+    console.log(error.toString().substr(0,150));
     return false;
   });
 }

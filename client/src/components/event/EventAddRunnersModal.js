@@ -16,7 +16,7 @@ export class EventAddRunnersModal extends Component {
     }
     
     handleChange(e){ // no matter what I do, whether try to add directly or hard copy then replace, will change runnersToAddToFire
-        console.log(e.target.value)
+        console.log(e.target.value);
         console.log(e.target.checked);
         if(e.target.checked === true){
             let toAdd = e.target.value;
@@ -69,14 +69,14 @@ export class EventAddRunnersModal extends Component {
                      </Form.Group>
                     );
                 } else if(this.props.events[this.props.selectedEvent].runners[this.props.runners[runner].key] !== undefined){
-                    console.log('reached else if statement');
-                    console.log(this.props.runners[runner].key);
-                    console.log(this.props.events[this.props.selectedEvent].runners[this.props.runners[runner].key]);
+                    // console.log('reached else if statement');
+                    // console.log(this.props.runners[runner].key);
+                    // console.log(this.props.events[this.props.selectedEvent].runners[this.props.runners[runner].key]);
                 } else {
                     runnerToAddArr.push(
                         <Form.Group key = {this.props.runners[runner].key}>
                          <Form.Check type = 'checkbox' id = {this.props.runners[runner].key} >
-                             <Form.Check.Input id = {this.props.runners[runner].key} type = 'checkbox' value = {this.props.runners[runner].key}onChange = {this.handleChange}/>
+                             <Form.Check.Input id = {this.props.runners[runner].key} type = 'checkbox' value = {this.props.runners[runner].key} onChange = {this.handleChange}/>
                              <Form.Check.Label>{this.props.runners[runner].name}</Form.Check.Label>
                          </Form.Check>
                      </Form.Group>
