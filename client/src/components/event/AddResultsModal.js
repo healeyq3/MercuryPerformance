@@ -8,6 +8,7 @@ export class AddResultsModal extends Component {
 
         this.state = {
             finalTime: '',
+            splits:[],
             splitUnit: '',
             splitDistance: '',//May be an easier way, could add to arrays when you add split in order to not limit # of splits
             splitTime:''
@@ -19,13 +20,14 @@ export class AddResultsModal extends Component {
     }
 
     handleAddSplits = () => {
-        const splitData = {
-            user:cookie.load('user'),
-            splitDistance: this.state.splitDistance,
-            splitTime: this.state.splitTime,
-            splitUnit: this.state.splitUnit
-        }
-        this.props.addSplit(splitData);//need to add splits to backened
+            const splitData = {
+                user:cookie.load('user'),
+                splitDistance: this.state.splitDistance,
+                splitTime: this.state.splitTime,
+                splitUnit: this.state.splitUnit
+            }
+            this.setState((state) => ({ splits:[...this.state.splits, splitData]}));
+            console.log("Splits" + this.state.splits)
     }
     handleAddResults = () => {
         const runnerData = {
@@ -44,7 +46,7 @@ export class AddResultsModal extends Component {
                     <Form>
                         <Form.Group>
                             <Form.Label>Final Time</Form.Label>
-                            <Form.Control onChange = {this.handleChange} name = "finalTime" type = "time" placeholder = "00:00:00"/>
+                            <Form.Control onChange = {this.handleChange} name = "finalTime" type = "text" placeholder = "00:00:00"/>
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Splits (optional)</Form.Label>
@@ -55,8 +57,8 @@ export class AddResultsModal extends Component {
                                 <option>Kilometers</option>
                                 <option>Meters</option>
                             </Form.Control>
-                            <Form.Control onChange = {this.handleChange} name = "splitTime" type = "time"></Form.Control>
-                            <Button variant = "primary">Add Split</Button>
+                            <Form.Control onChange = {this.handleChange} name = "splitTime" type = "text" placeholder = "00:00:00"></Form.Control>
+                            <Button variant = "primary" onClick = {this.handleAddSplits}>Add Split</Button>
                         </Form.Group>
                         <Button variant = "primary" >⇦</Button>
                         <Button variant = "primary" onClick = {this.handleAddResults}>Save Results</Button>
