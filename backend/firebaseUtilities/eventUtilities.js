@@ -132,3 +132,4 @@ module.exports.addEventToTeam = addEventToTeam;
 module.exports.getTeamEvents = getTeamEvents;
 module.exports.addRunnerToEvent = addRunnerToEvent;
 module.exports.removeRunnerFromEvent = removeRunnerFromEvent;
+module.exports.newTime = newTime;
