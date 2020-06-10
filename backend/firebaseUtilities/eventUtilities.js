@@ -85,7 +85,7 @@ function addRunnerToEvent(eventuid, runnerUidArray){
   });
 }
 
-function newTime(timeData, eventuid, runneruid){
+function newTime(timeData, teamuid, eventuid, runneruid){
   console.log(timeData);
   console.log(eventuid);
   // console.log("Adding runners".green + "(".cyan + runnerUidArray.toString().cyan + ")".cyan + " to team".green + "(".cyan + eventuid.cyan + ")".cyan);

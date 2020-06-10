@@ -48,8 +48,10 @@ EventDetails.propTypes = {
     addRunnersToEvent: PropTypes.func.isRequired,
     newTime: PropTypes.func.isRequired,
     eventRunners: PropTypes.object.isRequired,
-    selectedEvent: PropTypes.object.isRequired,
+    selectedEvent: PropTypes.string.isRequired,
     times: PropTypes.object.isRequired,
+    runners: PropTypes.object.isRequired,
+    events: PropTypes.object.isRequired,
   };
   const mapStateToProps = function(state){
     return {
