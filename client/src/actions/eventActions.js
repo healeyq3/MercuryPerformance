@@ -30,7 +30,7 @@ export function newEvent(eventData, selectedTeamUID){
   export function newTime(timeData, selectedTeamUID, eventUID, runnerUID){
     return async function(dispatch) {
       console.log("Creating new time");
-      await fetch('/events/addtime', {//this may be wrong
+      await fetch('/events/newtime', {//method never gets to eventsBackend, link should be right but error-> "POST POST http://localhost:3000/events/addtime net::ERR_EMPTY_RESPONSE"
         method: 'POST',
         headers: {
           'content-type': 'application/json'
