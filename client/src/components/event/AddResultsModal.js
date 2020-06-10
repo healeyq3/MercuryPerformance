@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Modal, Form, Button } from 'react-bootstrap';
 import cookie from 'react-cookies';
+import { newTime } from '../../actions/eventActions'
+import { connect } from 'react-redux';
 
 export class AddResultsModal extends Component {
     constructor(props){
@@ -35,7 +37,7 @@ export class AddResultsModal extends Component {
             splits: this.state.splits
         }
         console.log(runnerData.user.uid);
-        this.props.addResults(runnerData);
+        this.props.newTime(runnerData);//needs to have selectedTeamUID, and runnerUID
         this.props.setShow();
     }
     render() {
@@ -72,4 +74,4 @@ export class AddResultsModal extends Component {
     }
 }
 
-export default AddResultsModal
+export default connect(null, { newTime }) (AddResultsModal);
