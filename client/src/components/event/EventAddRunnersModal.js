@@ -29,7 +29,7 @@ export class EventAddRunnersModal extends Component {
                 //runnersToAddToFire: this.state.runnersToAddToFire.concat([toAdd])
                // runnersToAddToFire: toAddArray //Aidan look right here
                 //runnersToAddToFire:[...prevState.runnersToAddToFire, toAdd]
-                runnersToAddToFire:[1]//Set state either isn't running or something is wrong with our state
+                runnersToAddToFire:[1,2]//Set state either isn't running or something is wrong with our state
             })
             console.log(this.state.runnersToAddToFire + " Array");
         } else if(this.runnersToAddToFire === undefined){
