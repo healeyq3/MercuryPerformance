@@ -85,16 +85,7 @@ function newTime(timeData, eventuid, runneruid){
   // console.log("Adding runners".green + "(".cyan + runnerUidArray.toString().cyan + ")".cyan + " to team".green + "(".cyan + eventuid.cyan + ")".cyan);
 
   const eventRef = database.ref("events/" + eventuid + "/" + runneruid + "/times").child(timeData.key).set(timeData);
-  runnerUidArray.forEach((runneruid) => {
-    if (!eventRef.hasOwnProperty("" + runneruid)) {
-      console.log("runneruid: " + runneruid);
-      eventRef.child("" + runneruid).set({ runneruid: runneruid }).then(() => {
-        console.log("Successfully added runner ".cyan + runneruid + " to ".cyan + eventuid);
-      }).catch(() => {
-        console.log("Error adding runner ".cyan + runneruid + " to ".cyan + eventuid);
-      })
-    }
-  });
+  
   //await database.ref("teams/" + teamuid.toString() + "/events" + eventuid + "/" + runneruid).child(eventuid.toString()).set(eventuid)
 }
 
