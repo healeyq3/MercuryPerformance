@@ -51,11 +51,11 @@ export class EventAddRunnersModal extends Component {
 
     }
     handleAddRunners = () => {
-        const runnersData = {
-            user: cookie.load('user'),
-            runners: this.state.runners
-        }
-        this.props.addRunnersToEvent(runnersData, this.props.teamUID);//need to pass in selectedTeamUID here
+        // const runnersData = {
+        //     user: cookie.load('user'),
+        //     runners: this.state.runners
+        // }
+        this.props.addRunnersToEvent(this.state.runnersToAddToFire, this.props.teamUID);//need to pass in selectedTeamUID here
         this.props.setShow();
     }
 

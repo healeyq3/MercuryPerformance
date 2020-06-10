@@ -63,10 +63,10 @@ async function addRunner(req, res){
     res.end();
     return;
   }
-  if(!await teamUtilities.doesUserOwnTeam(req)){
-    res.end("{}");
-    return;
-  }
+  // if(!await teamUtilities.doesUserOwnTeam(req)){
+  //   res.end("{}");
+  //   return;
+  // }
 
   console.log("Adding runner to event".green);
 
@@ -74,15 +74,7 @@ async function addRunner(req, res){
   const runnerUidArray = data.runnerUidArray;
   const eventuid = data.eventuid;
 
-  eventUtilities.addRunnerToEvent(eventuid, runnerUidArray).then((success) => {
-    if(!success){
-      res.end({success:false});
-      console.log("Add runner to event failed".red);
-    }
-    res.end({success:true});
-  }).catch((error) => {
-    res.end({success:false});
-    console.log("Error while adding runner to event".red);
-    console.log(error);
-  })
+  eventUtilities.addRunnerToEvent(eventuid, runnerUidArray);
+  console.log("Add runner to event success".green);
+  res.end(JSON.stringify({success:true}));
 }

@@ -23,7 +23,7 @@ async function getRunners(req, res){
     return;
   }
 
-  runnerUtilities.getTeamRunners(data.teamUID).then((runners) => {
+  runnerUtilities.getTeamRunners(data.selectedTeamUID).then((runners) => {
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(runners));
   }).catch((error) => {

@@ -72,6 +72,20 @@ async function doesUserOwnTeam(req){
   });
 }
 
+async function doesUserOwnEvent(req){
+  const useruid = req.session.useruid;
+  const teamuid = req.body.selectedTeamUID;
+
+  if(!teamuid){
+    console.log("teamuid not passed for events - returning null".red);
+    return false;
+  }
+  const teamRef = database.ref("users/"+useruid+"/teams");
+  return teamRef.once("value").then((snapshot) => {
+    return snapshot.hasChild(teamuid);
+  });
+}
+
 module.exports.createTeam = createTeam;
 module.exports.addTeamToUser = addTeamToUser;
 module.exports.getUserTeams = getUserTeams;

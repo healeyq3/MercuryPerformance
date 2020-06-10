@@ -10,7 +10,7 @@ export function getTeamRunners(selectedTeamUID) {
       },
       body: JSON.stringify({
         idToken: cookie.load('idToken'),
-        teamUID: selectedTeamUID
+        selectedTeamUID: selectedTeamUID
       })
     })
       .then(res => res.json())

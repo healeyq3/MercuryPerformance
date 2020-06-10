@@ -63,7 +63,9 @@ async function getTeamEvents(teamuid){
 }
 
 function addRunnerToEvent(eventuid, runnerUidArray){
-  console.log("Adding runners".green + "(".cyan + runnerUidArray.toString().cyan + ")".cyan + " to team".green + "(".cyan + eventuid.cyan + ")".cyan);
+  console.log(runnerUidArray);
+  console.log(eventuid);
+  // console.log("Adding runners".green + "(".cyan + runnerUidArray.toString().cyan + ")".cyan + " to team".green + "(".cyan + eventuid.cyan + ")".cyan);
 
   const eventRef = database.ref("events/" + eventuid + "/runners");
   runnerUidArray.forEach((runneruid) => {
