@@ -65,22 +65,22 @@ export class EventDetails extends Component {
     }
 }
 EventDetails.propTypes = {
-    addRunnersToEvent: PropTypes.func.isRequired,
-    newTime: PropTypes.func.isRequired,
-    eventRunners: PropTypes.object.isRequired,
-    selectedEvent: PropTypes.string.isRequired,
-    times: PropTypes.object.isRequired,
-    runners: PropTypes.object.isRequired,
-    events: PropTypes.object.isRequired,
-  };
-  const mapStateToProps = function(state){
-    return {
-      runners: state.events.runners,
-      selectedEvent: state.events.selectedEvent,
-      times: state.events.times,
-      rehydrated: state._persist.rehydrated,
-      events: state.events.events
-    }
+  addRunnersToEvent: PropTypes.func.isRequired,
+  newTime: PropTypes.func.isRequired,
+  eventRunners: PropTypes.object.isRequired,
+  selectedEvent: PropTypes.string.isRequired,
+  times: PropTypes.object.isRequired,
+  runners: PropTypes.object.isRequired,
+  events: PropTypes.object.isRequired,
+};
+const mapStateToProps = function(state){
+  return {
+    runners: state.events.runners,
+    selectedEvent: state.events.selectedEvent,
+    times: state.events.times,
+    rehydrated: state._persist.rehydrated,
+    events: state.events.events
   }
+}
 
 export default connect(mapStateToProps, {newTime, addRunnersToEvent}) (EventDetails)
