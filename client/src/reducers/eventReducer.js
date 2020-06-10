@@ -28,13 +28,17 @@ export default function(state = initialState, action) {
         times: {...state.times, [action.eventUID]: action.payload}//this is wrong
       }
     case RUNNERS_ADDED:
+      const euid = action.payload.eventuid;
+      const runnersAdded = action.payload.runnersAdded;
       const newState = {
-        ...state.events[action.payload.eventuid],
-        runners: {
-          ...state.events[action.payload.eventuid].runners,
-          ...action.payload.runnersAdded,
-        }
+        ...state,
       }
+      newState.events[euid].runners = {
+        ...newState.events[euid].runners,
+        ...runnersAdded
+      }
+      console.log("newstate");
+      console.log(newState);
       return newState;
     default:
       return state;

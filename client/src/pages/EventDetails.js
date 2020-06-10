@@ -31,25 +31,26 @@ export class EventDetails extends Component {
       }
 
     render() {
-
-        if(!this.props.selectedEvent || !this.props.events){
-            return null;
-          }
-
-        let runnersInEvent = [];
-
-        if(this.props.events[this.props.selectedEvent].hasOwnProperty('runners') === true){
-            for(const runner in this.props.events[this.props.selectedEvent].runners){
-                if(this.props.events[this.props.selectedEvent].runners.hasOwnProperty(runner)){
-                    runnersInEvent.push(
-                        <React.Fragment key = {runner}>
-                            <EventRunnerCard runner = {this.props.events[this.props.selectedEvent].runners[runner]} />
-                        </React.Fragment>
-                    )
-                }
-            }
+      if(!this.props.selectedEvent || !this.props.events){
+          return null;
         }
-        
+
+      let runnersInEvent = [];
+
+      if(this.props.events[this.props.selectedEvent].hasOwnProperty('runners') === true){
+          console.log(this.props.events[this.props.selectedEvent].runners);
+          console.log(this.props.rehydrated);
+          for(const runner in this.props.events[this.props.selectedEvent].runners){
+              if(this.props.events[this.props.selectedEvent].runners.hasOwnProperty(runner)){
+                  runnersInEvent.push(
+                      <React.Fragment key = {runner}>
+                          <EventRunnerCard runner = {this.props.events[this.props.selectedEvent].runners[runner]} />
+                      </React.Fragment>
+                  )
+              }
+          }
+      }
+
 
         return (
             <Container>
@@ -65,23 +66,21 @@ export class EventDetails extends Component {
     }
 }
 EventDetails.propTypes = {
-    addRunnersToEvent: PropTypes.func.isRequired,
-    newTime: PropTypes.func.isRequired,
-    eventRunners: PropTypes.object.isRequired,
-    selectedEvent: PropTypes.string.isRequired,
-    times: PropTypes.object.isRequired,
-    runners: PropTypes.object.isRequired,
-    events: PropTypes.object.isRequired,
-  };
-  const mapStateToProps = function(state){
-    return {
-      runners: state.events.runners,
-      selectedEvent: state.events.selectedEvent,
-      times: state.events.times,
-      rehydrated: state._persist.rehydrated,
-      events: state.events.events,
-    }
+  addRunnersToEvent: PropTypes.func.isRequired,
+  newTime: PropTypes.func.isRequired,
+  selectedEvent: PropTypes.string.isRequired,
+  times: PropTypes.object,
+  events: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = function(state){
+  return {
+    selectedEvent: state.events.selectedEvent,
+    times: state.events.times,
+    rehydrated: state._persist.rehydrated,
+    events: state.events.events,
   }
+}
 
 
 export default connect(mapStateToProps, {newTime, addRunnersToEvent}) (EventDetails)

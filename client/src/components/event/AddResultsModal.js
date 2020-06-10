@@ -76,8 +76,8 @@ export class AddResultsModal extends Component {
 }
 AddResultsModal.propTypes = {
     selectedEvent: PropTypes.string.isRequired,
-    selectedTeam: PropTypes.string.isRequired,
-    selectedRunner: PropTypes.string.isRequired,
+    selectedTeam: PropTypes.string,
+    selectedRunner: PropTypes.string,
     runners: PropTypes.object.isRequired,
     events: PropTypes.object.isRequired,
     newTime: PropTypes.func.isRequired,
@@ -86,7 +86,7 @@ const mapStateToProps = function(state){
     return {
         runners: state.runners.runners,
         eventRunners: state.events.runners,
-        selectedRunner:state.events.runners.selectedRunner,
+        selectedRunner:state.events.selectedRunner,
         selectedEvent: state.events.selectedEvent,
         events: state.events.events
     }
