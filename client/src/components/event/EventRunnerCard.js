@@ -6,7 +6,7 @@ export class EventRunnerCard extends Component {
         return (
             <Card style = {{width: '65%', height: '10%', orientation: 'horizontal'}}>
                 <Card.Body>
-                    <Card.Title>Runner Name</Card.Title>
+                    <Card.Title>{this.props.runner.name}</Card.Title>
                     <Card.Subtitle>00:00</Card.Subtitle>
                     <Button variant = "outline-primary" onClick = {this.handleEdit}>Edit</Button>
                     <Button variant = "outline-primary" onClick = {this.handleDelete}>Delete</Button>
