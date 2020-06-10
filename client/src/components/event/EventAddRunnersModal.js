@@ -3,6 +3,7 @@ import { Modal, Form } from '../../../node_modules/react-bootstrap'
 import { cookie } from '../../../node_modules/react-cookies'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
+import { addRunnersToEvent } from "../../actions/eventActions";
 
 export class EventAddRunnersModal extends Component {
     constructor(props){
@@ -52,7 +53,7 @@ export class EventAddRunnersModal extends Component {
             user: cookie.load('user'),
             runners: this.state.runners
         }
-        this.props.addEventRunners(runnersData, this.props.teamUID);//need to pass in selectedTeamUID here
+        this.props.addRunnersToEvent(runnersData, this.props.teamUID);//need to pass in selectedTeamUID here
         this.props.setShow();
     }
 
@@ -107,7 +108,7 @@ EventAddRunnersModal.propTypes = {
     selectedEvent: PropTypes.string.isRequired,
     runners: PropTypes.object.isRequired,
     events: PropTypes.object.isRequired,
-
+    addRunnersToEvent: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = function(state){
@@ -118,4 +119,4 @@ const mapStateToProps = function(state){
     }
 }
 
-export default connect(mapStateToProps, {}) (EventAddRunnersModal)
+export default connect(mapStateToProps, { addRunnersToEvent }) (EventAddRunnersModal)
