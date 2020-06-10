@@ -19,17 +19,19 @@ export class EventAddRunnersModal extends Component {
         console.log(e.target.checked)
         if(e.target.checked === true){
             let toAdd = e.target.value;
-            const toAddArray = [];
+            const toAddArray = [];//no point in this array, gets reset every time
             if(this.runnersToAddToFire === undefined){
                 toAddArray.push(toAdd);
             } else {
                 this.runnersToAddToFire.map((key) => toAddArray.push(key))
             }
             this.setState({
-                runnersToAddToFire: toAddArray //Aidan look right here
+                //runnersToAddToFire: this.state.runnersToAddToFire.concat([toAdd])
+               // runnersToAddToFire: toAddArray //Aidan look right here
+                //runnersToAddToFire:[...prevState.runnersToAddToFire, toAdd]
+                runnersToAddToFire:[1]//Set state either isn't running or something is wrong with our state
             })
-            console.log(toAddArray);
-            console.log(this.runneresToAddToFire);
+            console.log(this.state.runnersToAddToFire + " Array");
         } else if(this.runnersToAddToFire === undefined){
             console.log('still empty');
         } 
