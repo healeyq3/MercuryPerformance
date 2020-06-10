@@ -45,7 +45,7 @@ export class EventDetails extends Component {
     }
 }
 EventDetails.propTypes = {
-    addRunnerToEvent: PropTypes.func.isRequired,
+    addRunnersToEvent: PropTypes.func.isRequired,
     newTime: PropTypes.func.isRequired,
     eventRunners: PropTypes.object.isRequired,
     selectedEvent: PropTypes.object.isRequired,
