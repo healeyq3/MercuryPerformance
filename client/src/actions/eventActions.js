@@ -1,4 +1,4 @@
-import {GET_TEAM_EVENTS, NEW_EVENT, SET_EVENT} from './types';
+import {GET_TEAM_EVENTS, NEW_EVENT, SET_EVENT, NEW_TIME} from './types';
 import cookie from 'react-cookies'
 
 export function newEvent(eventData, selectedTeamUID){
@@ -21,6 +21,33 @@ export function newEvent(eventData, selectedTeamUID){
             type: NEW_EVENT,
             payload: event,
             eventUID: event.key
+          }))
+        .catch((error) => {
+          console.log(error);
+        })
+    }
+  }
+  export function newTime(timeData, selectedTeamUID, runnerUID){
+    return async function(dispatch) {
+      console.log("Creating new time");
+      await fetch('/events/' + runnerUID + '/new', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          timeData,
+          idToken: cookie.load('idToken'),
+          selectedTeamUID: selectedTeamUID,
+          runnerUID:runnerUID
+        })
+      })
+        .then(res => res.json())
+        .then(time =>
+          dispatch({
+            type: NEW_TIME,
+            payload: time,
+            timeUID: time.key
           }))
         .catch((error) => {
           console.log(error);
