@@ -10,13 +10,11 @@ export default function(state = initialState, action) {
     case GET_TEAMS:
       return {
         ...state,
-        selectedTeam: "",
         teams: action.payload,
       };
     case NEW_TEAM:
       return {
         ...state,
-        selectedTeam: "",
         teams: {...state.teams, [action.teamUID]: action.payload}
       };
     case SET_TEAM:
