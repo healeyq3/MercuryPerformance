@@ -46,8 +46,6 @@ export class EventAddRunnersModal extends Component {
             }
         }
 
-        // for(const runnuid in this.props.events[this.props.selectedEvent].hasOwnProperty('runners'))
-
         return (
             <Modal show = {this.props.show} onHide = {this.props.setShow}>
             <Modal.Dialog>
