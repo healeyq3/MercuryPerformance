@@ -8,6 +8,7 @@ const teamUtilities = require("../firebaseUtilities/teamUtilities");
 router.post('/', getEvents);
 router.post('/new', createEvent);
 router.post('/addrunner', addRunner);
+router.post('/newtime', newTime);
 
 module.exports = router;
 
@@ -53,6 +54,33 @@ async function createEvent(req, res){
     res.end(JSON.stringify(event));
   }).catch((error) => {
     console.log("Error adding and fetching Events".red);
+    console.log(error);
+    res.end("{}");
+  })
+}
+
+
+//this needs work
+async function newTime(req, res){
+  if(!await authenticatePost(req, res)){
+    res.end();
+    return;
+  }
+
+  const data = req.body;
+  const finalTime = data.timeData.finalTime;
+  const splits = data.timeData.splits;
+
+  if(!await teamUtilities.doesUserOwnTeam(req)){
+    res.end("{}");
+    return;
+  }
+
+  eventUtilities.newTime(data.selectedTeamUID, finalTime, splits).then((time) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify(time));
+  }).catch((error) => {
+    console.log("Error adding and fetching times".red);
     console.log(error);
     res.end("{}");
   })
