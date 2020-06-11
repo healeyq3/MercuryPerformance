@@ -44,7 +44,7 @@ export class AddResultsModal extends Component {
     render() {
         return (
             <Modal show = {this.props.show} onHide = {this.props.setShow}>
-            <Modal.Dialog>
+            {/* <Modal.Dialog> */} 
                 <Modal.Header closeButton>Runner Name</Modal.Header>
                 <Modal.Body>
                     <Form>
@@ -69,7 +69,7 @@ export class AddResultsModal extends Component {
                         <Button variant = "primary" >⇨</Button>
                     </Form>
                 </Modal.Body>
-            </Modal.Dialog>
+            {/* </Modal.Dialog> */}
             </Modal>
         )
     }

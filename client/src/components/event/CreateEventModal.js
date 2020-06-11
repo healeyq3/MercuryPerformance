@@ -36,7 +36,7 @@ export class CreateEventModal extends Component {
     render() {
         return (
             <Modal show = {this.props.show} onHide = {this.props.setShow}>
-            <Modal.Dialog>
+            {/* <Modal.Dialog> */}
                 <Modal.Header closeButton>Create New Event</Modal.Header>
                 <Modal.Body>
                     <Form>
@@ -55,7 +55,7 @@ export class CreateEventModal extends Component {
                         <Button variant = "primary" onClick = {this.handleCreateEvent}>Add Event</Button>
                     </Form>
                 </Modal.Body>
-            </Modal.Dialog>
+            {/* </Modal.Dialog> */}
             </Modal>
         )
     }
