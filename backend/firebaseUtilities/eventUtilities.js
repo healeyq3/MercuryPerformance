@@ -3,13 +3,15 @@ const database = firebaseSetup.database;
 
 // -------------- Events ----------------
 
-async function createEvent(teamuid, name, date, location){
+async function createEvent(teamuid, name, date, location, distance, distanceUnit){
   const eventRef = await database.ref("events").push();
 
   const eventData = {
     name,
     date,
     location,
+    distance,
+    distanceUnit,
     key: eventRef.key.toString()
   }
 

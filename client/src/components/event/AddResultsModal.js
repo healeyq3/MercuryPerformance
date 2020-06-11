@@ -43,7 +43,7 @@ export class AddResultsModal extends Component {
     }
     render() {
         return (
-            <Modal show = {this.props.show} onHide = {this.props.setShow}>
+            <Modal show = {this.props.show} onHide = {this.props.setShow} size = 'lg'>
             {/* <Modal.Dialog> */} 
                 <Modal.Header closeButton>Runner Name</Modal.Header>
                 <Modal.Body>

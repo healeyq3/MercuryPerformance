@@ -44,13 +44,15 @@ async function createEvent(req, res){
   const name = data.eventData.name;
   const date = data.eventData.date;
   const location = data.eventData.location;
+  const distance = data.eventData.distance;
+  const distanceUnit = data.eventData.distanceUnit;
 
   if(!await teamUtilities.doesUserOwnTeam(req)){
     res.end("{}");
     return;
   }
 
-  eventUtilities.createEvent(data.selectedTeamUID, name, date, location).then((event) => {
+  eventUtilities.createEvent(data.selectedTeamUID, name, date, location, distance, distanceUnit).then((event) => {
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(event));
   }).catch((error) => {

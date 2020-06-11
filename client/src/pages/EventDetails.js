@@ -44,7 +44,7 @@ export class EventDetails extends Component {
               if(this.props.events[this.props.selectedEvent].runners.hasOwnProperty(runner)){
                   runnersInEvent.push(
                       <React.Fragment key = {runner}>
-                          <EventRunnerCard runner = {this.props.events[this.props.selectedEvent].runners[runner]} />
+                          <EventRunnerCard runner = {this.props.runners[runner]} />
                       </React.Fragment>
                   )
               }
@@ -75,6 +75,7 @@ EventDetails.propTypes = {
   selectedEvent: PropTypes.string.isRequired,
   times: PropTypes.object,
   events: PropTypes.object.isRequired,
+  runners: PropTypes.object.isRequired
 };
 
 const mapStateToProps = function(state){
@@ -83,6 +84,7 @@ const mapStateToProps = function(state){
     times: state.events.times,
     rehydrated: state._persist.rehydrated,
     events: state.events.events,
+    runners: state.runners.runners
   }
 }
 
