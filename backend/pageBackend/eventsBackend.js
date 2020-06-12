@@ -8,7 +8,7 @@ const teamUtilities = require("../firebaseUtilities/teamUtilities");
 router.post('/', getEvents);
 router.post('/new', createEvent);
 router.post('/addrunner', addRunner);
-router.post('/newtime', newTime);
+router.post('/newtime', newTime);//I don't think this is actually sending it to newTime
 
 module.exports = router;
 
@@ -63,22 +63,21 @@ async function createEvent(req, res){
 }
 
 
-//this needs work
-async function newTime(req, res){
+async function newTime(req, res){//doesn't run
+  console.log("In events backend")
   if(!await authenticatePost(req, res)){
     res.end();
     return;
   }
   console.log()
   const data = req.body;
-  const finalTime = data.timeData.finalTime;
+  const finalTime = data.timeData.finalTimeData;
   const splits = data.timeData.splits;
 
   if(!await teamUtilities.doesUserOwnTeam(req)){
     res.end("{}");
     return;
   }
-
   eventUtilities.newTime(data.timeData, data.selectedTeamUID, data.eventUID, data.runnerUID ).then((time) => {
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(time));
