@@ -3,13 +3,15 @@ const database = firebaseSetup.database;
 
 // -------------- Events ----------------
 
-async function createEvent(teamuid, name, date, location){
+async function createEvent(teamuid, name, date, location, distance, distanceUnit){
   const eventRef = await database.ref("events").push();
 
   const eventData = {
     name,
     date,
     location,
+    distance,
+    distanceUnit,
     key: eventRef.key.toString()
   }
 
@@ -88,14 +90,13 @@ async function addRunnerToEvent(eventuid, runnerUidArray){
   return runnersAdded;
 }
 
-function newTime(timeData, teamuid, eventuid, runneruid){
+function newTime(timeData, teamuid, eventuid, runneruid){//This probably needs work
+  console.log("Adding Time")
   console.log(timeData);
   console.log(eventuid);
-  // console.log("Adding runners".green + "(".cyan + runnerUidArray.toString().cyan + ")".cyan + " to team".green + "(".cyan + eventuid.cyan + ")".cyan);
   console.log("Time event id" + eventuid + " " + runneruid)
-  const eventRef = database.ref("events/" + eventuid + "/" + runneruid + "/times").child(timeData.key).set(timeData);
-
-  //await database.ref("teams/" + teamuid.toString() + "/events" + eventuid + "/" + runneruid).child(eventuid.toString()).set(eventuid)
+  const eventRef = database.ref("events/" + eventuid + "/runners/" + runneruid + "/times")
+  eventRef.child(timeData.key).set(timeData);
 }
 
 async function removeRunnerFromEvent(eventuid, runneruid){

@@ -77,7 +77,6 @@ export class AddRunner extends React.Component {
                 </Form.Group>
             </Form>
             <Modal show = {this.state.show} onHide = {this.showModal}>
-            <Modal.Dialog>
                 <Modal.Header closeButton>Add Runner</Modal.Header>
                 <Modal.Body>
                     <Form>
@@ -119,9 +118,6 @@ export class AddRunner extends React.Component {
                                 <option>Senior</option>
                             </Form.Control>
                         </Form.Group>
-                        <Form.Group>
-                            <Form.File id = "personalRecords" label = "Personal Records"></Form.File>
-                        </Form.Group>
                         <AddRunnerV02 handleChange = {this.handleChange}></AddRunnerV02>
                         <Button variant  = "primary" onClick = {this.handleCalculate}>Calculate</Button>
                         <Button variant = "primary" onClick = {this.handleAddRunner}>Add Runner</Button>
@@ -129,7 +125,6 @@ export class AddRunner extends React.Component {
                     <h3>Workout Pace: {this.state.workoutPace}</h3>
                     <h3>V02 Max: {this.state.v02max}</h3>
                 </Modal.Body>
-            </Modal.Dialog>
             </Modal>
         </Container>
     )

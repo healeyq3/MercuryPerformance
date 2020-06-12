@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import EventNavBar from '../components/event/EventNavBar'
 import EventRunnerCard from '../components/event/EventRunnerCard'
-import { Container } from 'react-bootstrap'
+import { Container, Col, Row } from 'react-bootstrap'
 import EventDetailsCard from '../components/event/EventDetailsCard'
 import EventAddRunnersModal from '../components/event/EventAddRunnersModal'
 import AddResultsModal from '../components/event/AddResultsModal'
@@ -44,7 +44,7 @@ export class EventDetails extends Component {
               if(this.props.events[this.props.selectedEvent].runners.hasOwnProperty(runner)){
                   runnersInEvent.push(
                       <React.Fragment key = {runner}>
-                          <EventRunnerCard runner = {this.props.events[this.props.selectedEvent].runners[runner]} />
+                          <EventRunnerCard runner = {this.props.runners[runner]} />
                       </React.Fragment>
                   )
               }
@@ -55,10 +55,14 @@ export class EventDetails extends Component {
         return (
             <Container>
                 <EventNavBar setShowRunner = {this.setShowRunner} setShowResults = {this.setShowResults}></EventNavBar>
-                <div className="card-deck">
-                {runnersInEvent}
-                <EventDetailsCard event = {this.props.events[this.props.selectedEvent]}></EventDetailsCard>
-                </div>
+                <Row>
+                  <Col>
+                    {runnersInEvent} 
+                  </Col>
+                  <EventDetailsCard event = {this.props.events[this.props.selectedEvent]}></EventDetailsCard>
+                </Row>
+               
+                
                 <EventAddRunnersModal show = {this.state.showRunner} setShow = {this.setShowRunner} teamUID = {this.props.selectedTeam}/>
                 <AddResultsModal show = {this.state.showResults} setShow = {this.setShowResults}></AddResultsModal>
             </Container>
@@ -71,6 +75,7 @@ EventDetails.propTypes = {
   selectedEvent: PropTypes.string.isRequired,
   times: PropTypes.object,
   events: PropTypes.object.isRequired,
+  runners: PropTypes.object.isRequired
 };
 
 const mapStateToProps = function(state){
@@ -79,6 +84,7 @@ const mapStateToProps = function(state){
     times: state.events.times,
     rehydrated: state._persist.rehydrated,
     events: state.events.events,
+    runners: state.runners.runners
   }
 }
 

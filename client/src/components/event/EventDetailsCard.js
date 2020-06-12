@@ -6,12 +6,12 @@ export class EventDetailsCard extends Component {
         return (
             <Card style = {{width: '25%', height: '25%'}}>
             <Card.Body>
-                <Card.Title>Event Name</Card.Title>
-                <Card.Subtitle>Hometown, USA</Card.Subtitle>
+                <Card.Title>{this.props.event.name}</Card.Title>
+                <Card.Subtitle>{this.props.event.location}</Card.Subtitle>
                 <p></p>
-                <Card.Subtitle>12/12/20</Card.Subtitle>
+                <Card.Subtitle>{this.props.event.date}</Card.Subtitle>
                 <p></p>
-                <Card.Subtitle>5 Kilometers</Card.Subtitle>
+        <Card.Subtitle>{this.props.event.distance}  {this.props.event.distanceUnit}</Card.Subtitle>
                 <Card.Link href = './eventdetails' onClick={() => this.props.onSelect(this.props.event)}>Edit</Card.Link>
             </Card.Body>
             </Card>

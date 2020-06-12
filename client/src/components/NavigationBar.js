@@ -22,7 +22,7 @@ class NavigationBar extends Component {
         return (
             <Container fluid>
                 <header className = "navBar">
-                    <Navbar className = "navBarNav" bg="light" expand="lg">
+                    <Navbar className = "navBarNav" bg="dark"  variant = 'dark' expand="lg">
                     <Navbar.Brand href="/" >Mercury</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
@@ -36,7 +36,7 @@ class NavigationBar extends Component {
                         <Nav.Link href="/login">Login</Nav.Link>
                         <Nav.Link href="/signup">Create Account</Nav.Link>
                         </Nav>
-                        <Button type = "submit" onClick = {this.logout}>Logout</Button>
+                        <Button type = "submit" variant = 'outline-primary' onClick = {this.logout}>Logout</Button>
                         </Navbar.Collapse>
                     </Navbar> 
                 </header>

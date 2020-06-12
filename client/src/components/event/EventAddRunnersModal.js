@@ -76,7 +76,7 @@ export class EventAddRunnersModal extends Component {
 
         return (
             <Modal show = {this.props.show} onHide = {this.props.setShow} onShow = {this.reset}>
-            <Modal.Dialog>
+            {/* <Modal.Dialog> */}
                 <Modal.Header closeButton>Add Runners</Modal.Header>
                 <Modal.Body>
                     <Form>
@@ -84,7 +84,7 @@ export class EventAddRunnersModal extends Component {
                         <Button variant = 'primary' onClick = {this.handleAddRunners}>Save Runners</Button>
                     </Form>
                 </Modal.Body>
-            </Modal.Dialog>
+            {/* </Modal.Dialog> */}
             </Modal>
         )
     }

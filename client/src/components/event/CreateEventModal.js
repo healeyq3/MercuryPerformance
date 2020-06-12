@@ -1,5 +1,5 @@
 import React, { Component } from '../../../node_modules/react'
-import { Modal, Form, Button } from '../../../node_modules/react-bootstrap';
+import { Modal, Form, Button, FormControl } from '../../../node_modules/react-bootstrap';
 import { connect } from '../../../node_modules/react-redux';
 import { newEvent } from '../../actions/eventActions';
 import cookie from '../../../node_modules/react-cookies';
@@ -20,6 +20,7 @@ export class CreateEventModal extends Component {
     
     handleChange(e){
         console.log("changed");
+        console.log(e.target.value);
         this.setState({ [e.target.name] : e.target.value});
     }
     handleCreateEvent = () => {
@@ -27,16 +28,20 @@ export class CreateEventModal extends Component {
             user: cookie.load('user'),
             name: this.state.name,
             date: this.state.date,
-            location: this.state.location
+            location: this.state.location,
+            distance: this.state.distance,
+            distanceUnit: this.state.distanceUnit
         }
         console.log(eventData.user.uid);
+        console.log(eventData);
         this.props.newEvent(eventData, this.props.teamUID);//need to pass in selectedTeamUID here
         this.props.setShow();
     }
+
     render() {
         return (
             <Modal show = {this.props.show} onHide = {this.props.setShow}>
-            <Modal.Dialog>
+            {/* <Modal.Dialog> */}
                 <Modal.Header closeButton>Create New Event</Modal.Header>
                 <Modal.Body>
                     <Form>
@@ -52,10 +57,29 @@ export class CreateEventModal extends Component {
                             <Form.Label>Location</Form.Label>
                             <Form.Control onChange = {this.handleChange} name = "location" type = "text" placeholder = "Enter Event Location"/>
                         </Form.Group>
+                        <Form.Group>
+                        <Form.Label>Event Distance</Form.Label>
+                            <FormControl
+                            placeholder="Enter numerical distance"
+                            onChange = {this.handleChange}
+                            name = 'distance'
+                            type = 'text'
+                            />
+                            <FormControl
+                            onChange = {this.handleChange}
+                            name = 'distanceUnit'
+                            as = 'select'
+                            > 
+                                <option hidden>Units</option>
+                                <option>Miles</option>
+                                <option>Kilometers</option>
+                                <option>Meters</option>
+                            </FormControl> 
+                        </Form.Group>
                         <Button variant = "primary" onClick = {this.handleCreateEvent}>Add Event</Button>
                     </Form>
                 </Modal.Body>
-            </Modal.Dialog>
+            {/* </Modal.Dialog> */}
             </Modal>
         )
     }
