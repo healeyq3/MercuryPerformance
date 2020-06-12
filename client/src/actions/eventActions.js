@@ -27,10 +27,10 @@ export function newEvent(eventData, selectedTeamUID){
       })
     }
   }
-  export function newTime(timeData, selectedTeamUID, eventUID, runnerUID){
+  export function newTime(timeData, selectedTeamUID, eventUID, runnerUID){//This runs to completion
     return async function(dispatch) {
       console.log("Creating new time");
-      await fetch('/events/newtime', {//method never gets to eventsBackend, link should be right but error-> "POST http://localhost:3000/events/addtime net::ERR_EMPTY_RESPONSE"
+      await fetch('/events/newtime', {//this is not actually going to the events backend, even though the link should be correct
         method: 'POST',
         headers: {
           'content-type': 'application/json'
@@ -42,7 +42,7 @@ export function newEvent(eventData, selectedTeamUID){
           selectedTeamUID: selectedTeamUID,
           runnerUID:runnerUID
         })
-      }).then(console.log("Awaited time fetch"))
+      })
         .then(res => res.json())
         .then(time =>
           dispatch({
@@ -50,6 +50,7 @@ export function newEvent(eventData, selectedTeamUID){
             payload: time,
             timeUID: time.key
           }))
+          .then(console.log("got to time backend"))
         .catch((error) => {
           console.log(error);
         })

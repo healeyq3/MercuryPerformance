@@ -61,9 +61,16 @@ export class AddResultsModal extends Component {
     }
 
     handleAddResults = () => {
+        const finalTimeData = {
+            distance: this.props.events[this.props.selectedEvent].distance,
+            units: this.props.events[this.props.selectedEvent].distanceUnit,
+            hours: this.state.finalTimeHours,
+            minutes: this.state.finalTimeMinutes,
+            seconds: this.state.finalTimeSeconds
+        }
         const timeData = {
             user: cookie.load('user'),
-            finalTime: this.state.finalTime,
+            finalTime: finalTimeData,
             splits: this.state.splits
         }
         this.props.newTime(timeData, this.props.selectedTeam, this.props.selectedTeam, this.props.selectedRunner);//needs to have selectedEventUID, and runnerUID
