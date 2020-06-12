@@ -90,7 +90,7 @@ async function addRunnerToEvent(eventuid, runnerUidArray){
   return runnersAdded;
 }
 
-function newTime(timeData, teamuid, eventuid, runneruid){//This definitely needs work
+function newTime(timeData, teamuid, eventuid, runneruid){//This probably needs work
   console.log("Adding Time")
   console.log(timeData);
   console.log(eventuid);
