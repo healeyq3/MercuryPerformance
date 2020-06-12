@@ -87,6 +87,17 @@ export class AddResultsModal extends Component {
         let kArr = [];
         let mArr = [];
         let meArr = [];
+
+        let runnersInEvent = [];
+
+        if(this.props.events[this.props.selectedEvent].hasOwnProperty('runners')){
+            for(const runner in this.props.events[this.props.selectedEvent].runners){
+                runnersInEvent.push(this.props.runners[runner]);
+            }
+        }
+
+        console.log(runnersInEvent);
+        
         for(const split in this.state.splits){
             if(this.state.splits[split].splitUnit==="Kilometers"){
             kArr.push(
@@ -157,6 +168,7 @@ export class AddResultsModal extends Component {
                                         {/* <Button variant = 'outline-primary' size = 'sm' onClick = {this.handleCalculate}>V02max</Button>
                                         <Form.Label>{this.state.v02max}</Form.Label> */}
                                         <Form.Label>V02max: {this.state.v02max}</Form.Label>
+                                        <Form.Label>↑</Form.Label>
                                     </Row>
                                     <Row>
                                         {/* <Button variant = 'outline-primary' size = 'sm' onClick = {this.handleCalculate}>Workout Pace</Button>
