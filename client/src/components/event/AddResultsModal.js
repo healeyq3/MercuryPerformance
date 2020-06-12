@@ -13,7 +13,7 @@ export class AddResultsModal extends Component {
             finalTime: '',
             splits:[],
             splitUnit: '',
-            splitDistance: '',//May be an easier way, could add to arrays when you add split in order to not limit # of splits
+            splitDistance: '',
             splitTimeHours:0,
             splitTimeMinutes:0,
             splitTimeSeconds:0
@@ -32,15 +32,9 @@ export class AddResultsModal extends Component {
                 splitTimeMinutes: this.state.splitTimeMinutes,
                 splitTimeSeconds: this.state.splitTimeSeconds
             }
-            console.log(splitData)
-            //this.setState({ splits: [...this.state.splits, splitData] })//doesn't work!
-           // this.setState((state) => ({ splits:[...state.splits, splitData]}));
             var newStateArr = this.state.splits.slice();
             newStateArr.push(splitData);
-            console.log(newStateArr);
             this.setState({splits:newStateArr});
-            //this.setState({splits:[1,2,3,4]})
-            console.log(this.state.splits)
     }
     handleAddResults = () => {
         const timeData = {
@@ -48,7 +42,6 @@ export class AddResultsModal extends Component {
             finalTime: this.state.finalTime,
             splits: this.state.splits
         }
-        console.log(timeData.user.uid);
         this.props.newTime(timeData, this.props.selectedTeam, this.props.selectedTeam, this.props.selectedRunner);//needs to have selectedEventUID, and runnerUID
         this.props.setShow();
     }
