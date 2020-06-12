@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import EventNavBar from '../components/event/EventNavBar'
 import EventRunnerCard from '../components/event/EventRunnerCard'
-import { Container, Col, Row } from 'react-bootstrap'
+import { Container, Col, Row, CardColumns } from 'react-bootstrap'
 import EventDetailsCard from '../components/event/EventDetailsCard'
 import EventAddRunnersModal from '../components/event/EventAddRunnersModal'
 import AddResultsModal from '../components/event/AddResultsModal'
@@ -44,7 +44,7 @@ export class EventDetails extends Component {
               if(this.props.events[this.props.selectedEvent].runners.hasOwnProperty(runner)){
                   runnersInEvent.push(
                       <React.Fragment key = {runner}>
-                          <EventRunnerCard runner = {this.props.runners[runner]} />
+                          <EventRunnerCard setShow = {this.setShowResults}runner = {this.props.runners[runner]} />
                       </React.Fragment>
                   )
               }
@@ -57,12 +57,12 @@ export class EventDetails extends Component {
                 <EventNavBar setShowRunner = {this.setShowRunner} setShowResults = {this.setShowResults}></EventNavBar>
                 <Row>
                   <Col>
+                  <CardColumns>
                     {runnersInEvent} 
+                  </CardColumns>
                   </Col>
                   <EventDetailsCard event = {this.props.events[this.props.selectedEvent]}></EventDetailsCard>
-                </Row>
-               
-                
+                  </Row>
                 <EventAddRunnersModal show = {this.state.showRunner} setShow = {this.setShowRunner} teamUID = {this.props.selectedTeam}/>
                 <AddResultsModal show = {this.state.showResults} setShow = {this.setShowResults}></AddResultsModal>
             </Container>
