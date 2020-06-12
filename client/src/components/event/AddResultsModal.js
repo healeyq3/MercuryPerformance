@@ -52,6 +52,8 @@ export class AddResultsModal extends Component {
                 <Modal.Body>
                     <Form>
                         <Row>
+                        <Col>
+                        <Row>
                             <Form.Label>Final Time</Form.Label>
                             <Col>
                                 <Form.Control onChange = {this.handleChange} name = "finalTime" type = "text" placeholder = 'Hours'/>
@@ -89,8 +91,13 @@ export class AddResultsModal extends Component {
                                     <Form.Control onChange = {this.handleChange} name = "splitTimeSeconds" type = "text" placeholder = "Seconds"></Form.Control>
                                 </Col>
                             </Row>
-                            <Button variant = "primary" onClick = {this.handleAddSplits}>Add Split</Button>
+                            <Button variant = "primary" onClick = {this.handleAddSplits}>Add Split</Button>  
                         </Form.Group>
+                        </Col>
+                        <Col>
+                            
+                        </Col>
+                        </Row>
                         <Button variant = "primary" >⇦</Button>
                         <Button variant = "primary" onClick = {this.handleAddResults}>Save Results</Button>
                         <Button variant = "primary" >⇨</Button>
