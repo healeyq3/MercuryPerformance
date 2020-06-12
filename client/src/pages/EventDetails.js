@@ -57,7 +57,7 @@ export class EventDetails extends Component {
                 <EventNavBar setShowRunner = {this.setShowRunner} setShowResults = {this.setShowResults}></EventNavBar>
                 <Row>
                   <Col>
-                    {runnersInEvent}
+                    {runnersInEvent} 
                   </Col>
                   <EventDetailsCard event = {this.props.events[this.props.selectedEvent]}></EventDetailsCard>
                 </Row>

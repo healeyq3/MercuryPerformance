@@ -1,15 +1,18 @@
 import React, { Component } from 'react'
-import { Card, Button } from 'react-bootstrap';
+import { Card, Button, Row } from 'react-bootstrap';
 
 export class EventRunnerCard extends Component {
     render() {
         return (
             <Card style = {{width: '65%', height: '10%', orientation: 'horizontal'}}>
                 <Card.Body>
-                    <Card.Title>{this.props.runner.name}</Card.Title>
-                    <Card.Subtitle>00:00</Card.Subtitle>
-                    <Button variant = "outline-primary" onClick = {this.handleEdit}>Edit</Button>
-                    <Button variant = "outline-primary" onClick = {this.handleDelete}>Delete</Button>
+                    <Row>
+                        <Card.Title>{this.props.runner.name}</Card.Title>
+                        <Card.Subtitle>{this.props.runner.finalTime}</Card.Subtitle>
+                        <Button variant = "outline-primary" onClick = {this.handleEdit}>Edit</Button>
+                        <Button variant = "outline-primary" onClick = {this.handleDelete}>Delete</Button>
+                    </Row>
+                    
                 </Card.Body>
             </Card>
         )
