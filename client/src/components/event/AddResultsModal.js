@@ -3,7 +3,7 @@ import { Modal, Form, Button, Row, Col } from 'react-bootstrap';
 import cookie from 'react-cookies';
 import { newTime } from '../../actions/eventActions'
 import { connect } from 'react-redux';
-import {  getV02max } from '../../math/V02max';
+import {  getV02max, getWorkoutPace } from '../../math/V02max';
 import PropTypes from 'prop-types';
 
 export class AddResultsModal extends Component {
@@ -20,10 +20,11 @@ export class AddResultsModal extends Component {
             splitTimeHours:0,
             splitTimeMinutes:0,
             splitTimeSeconds:0,
-            v02max: 0
+            v02max: 0,
+            workoutPace: ''
         }
         this.handleChange = this.handleChange.bind(this);
-        this.handleChangeFinal = this.handleChangeFinal.bind(this);
+        this.handleCalculate = this.handleCalculate.bind(this);
     }
     handleChange(e){
         this.setState({ [e.target.name] : e.target.value});
@@ -41,9 +42,8 @@ export class AddResultsModal extends Component {
             newStateArr.push(splitData);
             this.setState({splits:newStateArr});
     }
-
-    handleChangeFinal(e){
-        this.setState({ [e.target.name] : e.target.value});
+    
+    handleCalculate = () => {
         const data = {
             distance: this.props.events[this.props.selectedEvent].distance,
             units: this.props.events[this.props.selectedEvent].distanceUnit,
@@ -51,15 +51,15 @@ export class AddResultsModal extends Component {
             minutes: this.state.finalTimeMinutes,
             seconds: this.state.finalTimeSeconds
         }
-        console.log(this.props.events[this.props.selectedEvent].distance);
-        console.log(this.props.events[this.props.selectedEvent].distanceUnit);
         console.log(data);
+        let data1 = getWorkoutPace(data)
         let data2 = getV02max(data);
         this.setState({
-            v02max:data2
+            v02max: data2,
+            workoutPace: data1
         });
     }
-
+    
     handleAddResults = () => {
         const finalTimeData = {
             distance: this.props.events[this.props.selectedEvent].distance,
@@ -115,13 +115,13 @@ export class AddResultsModal extends Component {
                             <Row>
                                 <Form.Label>Final Time</Form.Label>
                                 <Col>
-                                    <Form.Control onChange = {this.handleChangeFinal} name = "finalTimeHours" type = "text" placeholder = 'Hours'/>
+                                    <Form.Control onChange = {this.handleChange} name = "finalTimeHours" type = "text" placeholder = 'Hours'/>
                                 </Col>
                                 <Col>
-                                    <Form.Control onChange = {this.handleChangeFinal} name = "finalTimeMinutes" type = "text" placeholder = 'Minutes'/>
+                                    <Form.Control onChange = {this.handleChange} name = "finalTimeMinutes" type = "text" placeholder = 'Minutes'/>
                                 </Col>
                                 <Col>
-                                    <Form.Control onChange = {this.handleChangeFinal} name = "finalTimeSeconds" type = "text" placeholder = 'Seconds'/>
+                                    <Form.Control onChange = {this.handleChange} name = "finalTimeSeconds" type = "text" placeholder = 'Seconds'/>
                                 </Col>
                             </Row>
                             <Form.Group>
@@ -150,9 +150,19 @@ export class AddResultsModal extends Component {
                                         <Form.Control onChange = {this.handleChange} name = "splitTimeSeconds" type = "text" placeholder = "Seconds"></Form.Control>
                                     </Col>
                                 </Row>
-                                <Button variant = "primary" onClick = {this.handleAddSplits}>Add Split</Button> 
+                                <Button variant = "primary" onClick = {this.handleAddSplits} size = 'sm'>Add Split</Button> 
                                 <Form.Group>
-                                    <Form.Label>V02max: {this.state.v02max}</Form.Label>  
+                                <Button variant = 'outline-primary' size = 'sm' onClick = {this.handleCalculate}>Calculate</Button>
+                                    <Row>
+                                        {/* <Button variant = 'outline-primary' size = 'sm' onClick = {this.handleCalculate}>V02max</Button>
+                                        <Form.Label>{this.state.v02max}</Form.Label> */}
+                                        <Form.Label>V02max: {this.state.v02max}</Form.Label>
+                                    </Row>
+                                    <Row>
+                                        {/* <Button variant = 'outline-primary' size = 'sm' onClick = {this.handleCalculate}>Workout Pace</Button>
+                                        <Form.Label>{this.state.workoutPace}</Form.Label> */}
+                                        <Form.Label>Workout Pace: {this.state.workoutPace}</Form.Label>
+                                    </Row>   
                                 </Form.Group> 
                             </Form.Group>
                         </Col>

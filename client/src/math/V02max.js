@@ -40,10 +40,11 @@ function convertMeToMi(distance) {
 function getTime(data){
     let time = 0;
     if(data.hours != null){
-        console.log('hours was logged');
+        console.log(`hours` + data.hours);
         time += (data.hours * 3600);
     }
     if(data.minutes != null){
+        console.log(`minutes` + data.minutes)
         time += (data.minutes * 60);
     }
     if(data.seconds != null){
