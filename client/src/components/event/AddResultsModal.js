@@ -87,16 +87,6 @@ export class AddResultsModal extends Component {
         let kArr = [];
         let mArr = [];
         let meArr = [];
-
-        let runnersInEvent = [];
-
-        if(this.props.events[this.props.selectedEvent].hasOwnProperty('runners')){
-            for(const runner in this.props.events[this.props.selectedEvent].runners){
-                runnersInEvent.push(this.props.runners[runner]);
-            }
-        }
-
-        console.log(runnersInEvent);
         
         for(const split in this.state.splits){
             if(this.state.splits[split].splitUnit==="Kilometers"){
