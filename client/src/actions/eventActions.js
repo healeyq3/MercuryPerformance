@@ -50,7 +50,7 @@ export function newEvent(eventData, selectedTeamUID){
             payload: time,
             timeUID: time.key
           }))
-          .then(console.log("got to time backend"))
+          .then(console.log("eventActions ran to completion"))
         .catch((error) => {
           console.log(error);
         })

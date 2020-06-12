@@ -64,7 +64,7 @@ async function createEvent(req, res){
 
 
 async function newTime(req, res){//doesn't run
-  console.log("in events backend")
+  console.log("In events backend")
   if(!await authenticatePost(req, res)){
     res.end();
     return;
