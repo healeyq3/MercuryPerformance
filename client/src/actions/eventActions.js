@@ -1,61 +1,64 @@
-import {GET_TEAM_EVENTS, NEW_EVENT, SET_EVENT, NEW_TIME, RUNNERS_ADDED} from './types';
+import {GET_TEAM_EVENTS, NEW_EVENT, SET_EVENT, NEW_TIME, RUNNERS_ADDED, SELECT_RUNNER} from './types';
 import cookie from 'react-cookies'
 
 export function newEvent(eventData, selectedTeamUID){
-    return async function(dispatch) {
-      console.log("Creating new event");
-      await fetch('/events/new', {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json'
-        },
-        body: JSON.stringify({
-          eventData,
-          idToken: cookie.load('idToken'),
-          selectedTeamUID: selectedTeamUID
-        })
+  return async function(dispatch) {
+    console.log("Creating new event");
+    await fetch('/events/new', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        eventData,
+        idToken: cookie.load('idToken'),
+        selectedTeamUID: selectedTeamUID
       })
+    })
+    .then(res => res.json())
+    .then(event =>
+      dispatch({
+        type: NEW_EVENT,
+        payload: event,
+        eventUID: event.key
+      }))
+    .catch((error) => {
+      console.log(error);
+    })
+  }
+}
+
+export function newTime(timeData, selectedTeamUID, eventUID, runnerUID){//This runs to completion
+  console.log("TeamUID: "+selectedTeamUID);
+  return async function(dispatch) {
+    console.log("Creating new time");
+    await fetch('/events/newtime', {//this is not actually going to the events backend, even though the link should be correct
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        timeData,
+        idToken: cookie.load('idToken'),
+        eventUID: eventUID,
+        selectedTeamUID: selectedTeamUID,
+        runnerUID: runnerUID
+      })
+    })
       .then(res => res.json())
-      .then(event =>
+      .then(function(time) {
+        console.log("Got time back : ");
+        console.log(time);
         dispatch({
-          type: NEW_EVENT,
-          payload: event,
-          eventUID: event.key
-        }))
+          type: NEW_TIME,
+          payload: time,
+          timeUID: time.key
+        })})
       .catch((error) => {
         console.log(error);
       })
-    }
   }
-  export function newTime(timeData, selectedTeamUID, eventUID, runnerUID){//This runs to completion
-    return async function(dispatch) {
-      console.log("Creating new time");
-      await fetch('/events/newtime', {//this is not actually going to the events backend, even though the link should be correct
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json'
-        },
-        body: JSON.stringify({
-          timeData,
-          idToken: cookie.load('idToken'),
-          eventUID: eventUID,
-          selectedTeamUID: selectedTeamUID,
-          runnerUID:runnerUID
-        })
-      })
-        .then(res => res.json())
-        .then(time =>
-          dispatch({
-            type: NEW_TIME,
-            payload: time,
-            timeUID: time.key
-          }))
-          .then(console.log("eventActions ran to completion"))
-        .catch((error) => {
-          console.log(error);
-        })
-    }
-  }
+}
 
 export function getTeamEvents(selectedTeamUID) {
   return async function(dispatch){
@@ -108,5 +111,14 @@ export function addRunnersToEvent(runnerUidArray, eventuid){
         payload: runnersAddedObject
       })
     );
+  }
+}
+
+export function selectRunner(selectedRunnerUID){
+  return function(dispatch){
+    dispatch({
+      type: SELECT_RUNNER,
+      payload: selectedRunnerUID
+    })
   }
 }

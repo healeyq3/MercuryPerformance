@@ -1,8 +1,9 @@
-import {GET_TEAM_EVENTS, NEW_EVENT, SET_EVENT, NEW_TIME, RUNNERS_ADDED} from '../actions/types';
+import {GET_TEAM_EVENTS, NEW_EVENT, SET_EVENT, NEW_TIME, RUNNERS_ADDED, SELECT_RUNNER} from '../actions/types';
 
 const initialState = {
   events: {},
   selectedEvent: '',
+  selectedRunner: '',
 };
 
 export default function(state = initialState, action) {
@@ -37,9 +38,13 @@ export default function(state = initialState, action) {
         ...newState.events[euid].runners,
         ...runnersAdded
       }
-      console.log("newstate");
-      console.log(newState);
+
       return newState;
+    case SELECT_RUNNER:
+      return{
+        ...state,
+        selectedRunner: action.payload
+      }
     default:
       return state;
   }

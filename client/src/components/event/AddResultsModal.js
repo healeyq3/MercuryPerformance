@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Modal, Form, Button, Row, Col } from 'react-bootstrap';
-import cookie from 'react-cookies';
-import { newTime } from '../../actions/eventActions'
+import { newTime, selectRunner } from '../../actions/eventActions'
 import { connect } from 'react-redux';
 import {  getV02max, getWorkoutPace } from '../../math/V02max';
 import PropTypes from 'prop-types';
@@ -21,28 +20,37 @@ export class AddResultsModal extends Component {
             splitTimeMinutes:0,
             splitTimeSeconds:0,
             v02max: 0,
+            runnerIndex: 0,
+            selectedRunnerName: "",
             workoutPace: ''
         }
+
         this.handleChange = this.handleChange.bind(this);
+        this.handleChangeFinal = this.handleChangeFinal.bind(this);
+        this.incrementRunnerDown = this.incrementRunnerDown.bind(this);
+        this.incrementRunnerUp = this.incrementRunnerUp.bind(this);
+        this.setCurrentRunner = this.setCurrentRunner.bind(this);
         this.handleCalculate = this.handleCalculate.bind(this);
+
+        this.setCurrentRunner();
     }
     handleChange(e){
         this.setState({ [e.target.name] : e.target.value});
     }
 
     handleAddSplits = () => {
-            const splitData = {
-                splitDistance: this.state.splitDistance,
-                splitUnit:this.state.splitUnit,
-                splitTimeHours: this.state.splitTimeHours,
-                splitTimeMinutes: this.state.splitTimeMinutes,
-                splitTimeSeconds: this.state.splitTimeSeconds
-            }
-            var newStateArr = this.state.splits.slice();
-            newStateArr.push(splitData);
-            this.setState({splits:newStateArr});
+        const splitData = {
+            splitDistance: this.state.splitDistance,
+            splitUnit:this.state.splitUnit,
+            splitTimeHours: this.state.splitTimeHours,
+            splitTimeMinutes: this.state.splitTimeMinutes,
+            splitTimeSeconds: this.state.splitTimeSeconds
+        }
+        const newStateArr = this.state.splits.slice();
+        newStateArr.push(splitData);
+        this.setState({splits:newStateArr});
     }
-    
+
     handleCalculate = () => {
         const data = {
             distance: this.props.events[this.props.selectedEvent].distance,
@@ -59,7 +67,7 @@ export class AddResultsModal extends Component {
             workoutPace: data1
         });
     }
-    
+
     handleAddResults = () => {
         const finalTimeData = {
             distance: this.props.events[this.props.selectedEvent].distance,
@@ -69,12 +77,41 @@ export class AddResultsModal extends Component {
             seconds: this.state.finalTimeSeconds
         }
         const timeData = {
-            user: cookie.load('user'),
             finalTime: finalTimeData,
             splits: this.state.splits
         }
         this.props.newTime(timeData, this.props.selectedTeam, this.props.selectedTeam, this.props.selectedRunner);//needs to have selectedEventUID, and runnerUID
         this.props.setShow();
+    }
+
+    incrementRunnerUp(){
+        if(this.state.runnerIndex ===  Object.keys(this.props.events[this.props.selectedEvent].runners).length - 1){
+            this.state.runnerIndex=0;
+        } else {
+            this.state.runnerIndex++;
+        }
+
+        this.setCurrentRunner();
+    }
+
+    incrementRunnerDown(){
+        if(this.state.runnerIndex===0){
+            this.state.runnerIndex = Object.keys(this.props.events[this.props.selectedEvent].runners).length - 1;
+        } else {
+            this.state.runnerIndex--;
+        }
+
+        this.setCurrentRunner();
+    }
+
+    setCurrentRunner(){
+        if(this.props.events[this.props.selectedEvent].runners && Object.keys(this.props.events[this.props.selectedEvent].runners).length>0){
+            this.props.selectRunner(this.props.events[this.props.selectedEvent].runners[Object.keys(this.props.runners)[this.state.runnerIndex]].runneruid);
+            this.state.selectedRunnerName = this.props.runners[this.props.selectedRunner].name;
+        } else {
+            this.props.selectRunner("");
+            this.state.selectedRunnerName = "";
+        }
     }
 
     reset = () => {
@@ -87,6 +124,7 @@ export class AddResultsModal extends Component {
         let kArr = [];
         let mArr = [];
         let meArr = [];
+
         for(const split in this.state.splits){
             if(this.state.splits[split].splitUnit==="Kilometers"){
             kArr.push(
@@ -107,7 +145,7 @@ export class AddResultsModal extends Component {
         return (
             <Modal show = {this.props.show} onHide = {this.props.setShow} onShow = {this.reset} size = 'lg'>
             {/* <Modal.Dialog> */} 
-                <Modal.Header closeButton>Runner Name</Modal.Header>
+                <Modal.Header closeButton>{this.state.selectedRunnerName}</Modal.Header>
                 <Modal.Body>
                     <Form>
                         <Row>
@@ -141,28 +179,29 @@ export class AddResultsModal extends Component {
                                 </Row>
                                 <Row>
                                     <Col>
-                                        <Form.Control onChange = {this.handleChange} name = "splitTimeHours" type = "text" placeholder = "Hours"></Form.Control>
+                                        <Form.Control onChange = {this.handleChange} name = "splitTimeHours" type = "text" placeholder = "Hours"/>
                                     </Col>
                                     <Col>
-                                        <Form.Control onChange = {this.handleChange} name = "splitTimeMinutes" type = "text" placeholder = "Minutes"></Form.Control>
+                                        <Form.Control onChange = {this.handleChange} name = "splitTimeMinutes" type = "text" placeholder = "Minutes"/>
                                     </Col>
                                     <Col>
-                                        <Form.Control onChange = {this.handleChange} name = "splitTimeSeconds" type = "text" placeholder = "Seconds"></Form.Control>
+                                        <Form.Control onChange = {this.handleChange} name = "splitTimeSeconds" type = "text" placeholder = "Seconds"/>
                                     </Col>
                                 </Row>
-                                <Button variant = "primary" onClick = {this.handleAddSplits} size = 'sm'>Add Split</Button> 
+                                <Button variant = "primary" onClick = {this.handleAddSplits} size = 'sm'>Add Split</Button>
                                 <Form.Group>
                                 <Button variant = 'outline-primary' size = 'sm' onClick = {this.handleCalculate}>Calculate</Button>
                                     <Row>
                                         {/* <Button variant = 'outline-primary' size = 'sm' onClick = {this.handleCalculate}>V02max</Button>
                                         <Form.Label>{this.state.v02max}</Form.Label> */}
                                         <Form.Label>V02max: {this.state.v02max}</Form.Label>
+                                        <Form.Label>↑</Form.Label>
                                     </Row>
                                     <Row>
                                         {/* <Button variant = 'outline-primary' size = 'sm' onClick = {this.handleCalculate}>Workout Pace</Button>
                                         <Form.Label>{this.state.workoutPace}</Form.Label> */}
                                         <Form.Label>Workout Pace: {this.state.workoutPace}</Form.Label>
-                                    </Row>   
+                                    </Row>
                                 </Form.Group> 
                             </Form.Group>
                         </Col>
@@ -184,9 +223,9 @@ export class AddResultsModal extends Component {
                             </Row>
                         </Col>
                         </Row>
-                        <Button variant = "primary" >⇦</Button>
+                        <Button variant = "primary" onClick = {this.incrementRunnerDown}>⇦</Button>
                         <Button variant = "primary" onClick = {this.handleAddResults}>Save Results</Button>
-                        <Button variant = "primary" >⇨</Button>
+                        <Button variant = "primary" onClick = {this.incrementRunnerUp}>⇨</Button>
                     </Form>
                 </Modal.Body>
             {/* </Modal.Dialog> */}
@@ -201,15 +240,19 @@ AddResultsModal.propTypes = {
     runners: PropTypes.object.isRequired,
     events: PropTypes.object.isRequired,
     newTime: PropTypes.func.isRequired,
+    selectRunner: PropTypes.func.isRequired,
+    rehydrated: PropTypes.bool.isRequired,
 }
 const mapStateToProps = function(state){
     return {
         runners: state.runners.runners,
         eventRunners: state.events.runners,
-        selectedRunner:state.events.selectedRunner,
+        selectedRunner: state.events.selectedRunner,
+        selectedTeam: state.teams.selectedTeam,
         selectedEvent: state.events.selectedEvent,
-        events: state.events.events
+        events: state.events.events,
+        rehydrated: state._persist.rehydrated
     }
 }
 
-export default connect(mapStateToProps, { newTime }) (AddResultsModal);
+export default connect(mapStateToProps, { newTime, selectRunner }) (AddResultsModal);

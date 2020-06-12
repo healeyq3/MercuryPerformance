@@ -91,9 +91,7 @@ async function addRunnerToEvent(eventuid, runnerUidArray){
 }
 
 function newTime(timeData, teamuid, eventuid, runneruid){//This probably needs work
-  console.log("Adding Time")
-  console.log(timeData);
-  console.log(eventuid);
+  //runneruid is undefined
   console.log("Time event id" + eventuid + " " + runneruid)
   const eventRef = database.ref("events/" + eventuid + "/runners/" + runneruid + "/times")
   eventRef.child(timeData.key).set(timeData);
