@@ -26,7 +26,6 @@ export class AddResultsModal extends Component {
         }
 
         this.handleChange = this.handleChange.bind(this);
-        this.handleChangeFinal = this.handleChangeFinal.bind(this);
         this.incrementRunnerDown = this.incrementRunnerDown.bind(this);
         this.incrementRunnerUp = this.incrementRunnerUp.bind(this);
         this.setCurrentRunner = this.setCurrentRunner.bind(this);
@@ -86,9 +85,13 @@ export class AddResultsModal extends Component {
 
     incrementRunnerUp(){
         if(this.state.runnerIndex ===  Object.keys(this.props.events[this.props.selectedEvent].runners).length - 1){
-            this.state.runnerIndex=0;
+            this.setState((state, props) => ({
+                runnerIndex: 0
+            }));
         } else {
-            this.state.runnerIndex++;
+            this.setState((state, props) => ({
+                runnerIndex: state.runnerIndex + 1
+            }));
         }
 
         this.setCurrentRunner();
@@ -96,9 +99,13 @@ export class AddResultsModal extends Component {
 
     incrementRunnerDown(){
         if(this.state.runnerIndex===0){
-            this.state.runnerIndex = Object.keys(this.props.events[this.props.selectedEvent].runners).length - 1;
+            this.setState({
+                runnerIndex : Object.keys(this.props.events[this.props.selectedEvent].runners).length - 1
+            })
         } else {
-            this.state.runnerIndex--;
+            this.setState((state) => ({
+                runnerIndex: state.runnerIndex - 1
+            }));
         }
 
         this.setCurrentRunner();
@@ -107,10 +114,15 @@ export class AddResultsModal extends Component {
     setCurrentRunner(){
         if(this.props.events[this.props.selectedEvent].runners && Object.keys(this.props.events[this.props.selectedEvent].runners).length>0){
             this.props.selectRunner(this.props.events[this.props.selectedEvent].runners[Object.keys(this.props.runners)[this.state.runnerIndex]].runneruid);
-            this.state.selectedRunnerName = this.props.runners[this.props.selectedRunner].name;
+
+            this.setState({
+                selectedRunnerName : this.props.runners[this.props.selectRunner].name
+            })
         } else {
             this.props.selectRunner("");
-            this.state.selectedRunnerName = "";
+            this.setState({
+                selectedRunnerName: ''
+            })
         }
     }
 
