@@ -61,14 +61,20 @@ export class AddResultsModal extends Component {
                             </Col>
                         </Row>
                         <Form.Group>
-                            <Form.Label>Splits (optional)</Form.Label>
-                            <Form.Control onChange = {this.handleChange} name = "splitDistance" type = "text" placeholder = "Distance" />
-                            <Form.Control onChange = {this.handleChange} name = "splitUnit" as = "select">
-                                <option hidden>Units</option>
-                                <option>Miles</option>
-                                <option>Kilometers</option>
-                                <option>Meters</option>
-                            </Form.Control>
+                            <Row>
+                                <Form.Label>Splits (optional)</Form.Label>
+                                <Col>
+                                    <Form.Control onChange = {this.handleChange} name = "splitDistance" type = "text" placeholder = "Distance" />
+                                </Col>
+                                <Col>
+                                    <Form.Control onChange = {this.handleChange} name = "splitUnit" as = "select">
+                                    <option hidden>Units</option>
+                                    <option>Miles</option>
+                                    <option>Kilometers</option>
+                                    <option>Meters</option>
+                                    </Form.Control>
+                                </Col>
+                            </Row>
                             <Row>
                                 <Col>
                                     <Form.Control onChange = {this.handleChange} name = "splitTimeHours" type = "text" placeholder = "Hours"></Form.Control>
