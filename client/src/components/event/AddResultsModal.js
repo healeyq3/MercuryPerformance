@@ -4,7 +4,6 @@ import { newTime, selectRunner } from '../../actions/eventActions'
 import { connect } from 'react-redux';
 import {  getV02max, getWorkoutPace } from '../../math/V02max';
 import PropTypes from 'prop-types';
-import {newRunner} from "../../actions/runnerActions";
 
 export class AddResultsModal extends Component {
     constructor(props){
@@ -84,29 +83,36 @@ export class AddResultsModal extends Component {
     }
 
     incrementRunnerUp(){
+        let newRunnerIndex;
         if(this.state.runnerIndex === (Object.keys(this.props.events[this.props.selectedEvent].runners).length - 1)){
-            this.state.runnerIndex = 0;
+            newRunnerIndex = 0;
         } else {
-            this.state.runnerIndex += 1;
+            newRunnerIndex = this.state.runnerIndex + 1;
         }
-        console.log("New runner index is "+this.state.runnerIndex);
 
-        this.setCurrentRunner();
+        this.setState({
+            runnerIndex: newRunnerIndex
+        })
+
+        this.setCurrentRunner(newRunnerIndex);
     }
 
     incrementRunnerDown(){
+        let newRunnerIndex;
         if(this.state.runnerIndex === 0){
-            this.state.runnerIndex = Object.keys(this.props.events[this.props.selectedEvent].runners).length - 1;
+            newRunnerIndex = Object.keys(this.props.events[this.props.selectedEvent].runners).length - 1;
         } else {
-            this.state.runnerIndex -= 1;
+            newRunnerIndex = this.state.runnerIndex - 1;
         }
-        console.log("New runner index is "+this.state.runnerIndex);
 
-        this.setCurrentRunner();
+        this.setState({
+            runnerIndex: newRunnerIndex
+        })
+        this.setCurrentRunner(newRunnerIndex);
     }
 
-    setCurrentRunner(){
-        const runnerKey = Object.keys(this.props.events[this.props.selectedEvent].runners)[this.state.runnerIndex];
+    setCurrentRunner(newRunnerIndex){
+        const runnerKey = Object.keys(this.props.events[this.props.selectedEvent].runners)[newRunnerIndex];
         this.props.selectRunner(runnerKey);
     }
 
