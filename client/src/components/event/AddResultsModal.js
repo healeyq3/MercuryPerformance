@@ -14,7 +14,9 @@ export class AddResultsModal extends Component {
             splits:[],
             splitUnit: '',
             splitDistance: '',//May be an easier way, could add to arrays when you add split in order to not limit # of splits
-            splitTime:''
+            splitTimeHours:0,
+            splitTimeMinutes:0,
+            splitTimeSeconds:0
         }
         this.handleChange = this.handleChange.bind(this);
     }
@@ -25,8 +27,9 @@ export class AddResultsModal extends Component {
     handleAddSplits = () => {
             const splitData = {
                 splitDistance: this.state.splitDistance,
-                splitTime: this.state.splitTime,
-                splitUnit: this.state.splitUnit
+                splitTimeHours: this.state.splitTimeHours,
+                splitTimeMinutes: this.state.splitTimeMinutes,
+                splitTimeSeconds: this.state.splitTimeSeconds
             }
             console.log(splitData)
             this.setState((state) => ({ splits:[...this.state.splits, splitData]}));
