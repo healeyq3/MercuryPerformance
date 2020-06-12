@@ -14,7 +14,7 @@ export class EventRunnerCard extends Component {
                         <Col></Col>
                         <Col>
                         <Button variant = "outline-primary" onClick = {this.props.setShow}>Edit</Button>
-                        <Button variant = "outline-primary" onClick = {this.handleDelete}>Delete</Button>
+                        <Button variant = "outline-secondary" onClick = {this.handleDelete}>🗑</Button>
                         </Col>
                     </Row>
                     
