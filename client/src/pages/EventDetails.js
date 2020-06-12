@@ -6,7 +6,7 @@ import EventDetailsCard from '../components/event/EventDetailsCard'
 import EventAddRunnersModal from '../components/event/EventAddRunnersModal'
 import AddResultsModal from '../components/event/AddResultsModal'
 import PropTypes from 'prop-types';
-import { newTime, addRunnersToEvent } from '../actions/eventActions';
+import { newTime, addRunnersToEvent, selectRunner } from '../actions/eventActions';
 import { connect } from 'react-redux';
 
 export class EventDetails extends Component {
@@ -20,15 +20,21 @@ export class EventDetails extends Component {
         // this.props.getTeamEvents();
     }
     setShowRunner = e => {
-        this.setState({
-            showRunner: !this.state.showRunner
-        })
-      }
-      setShowResults = e => {
-        this.setState({
-            showResults: !this.state.showResults
-        })
-      }
+      this.setState({
+          showRunner: !this.state.showRunner
+      })
+    }
+
+    setShowResults = e => {
+      this.setState({
+          showResults: !this.state.showResults
+      })
+    }
+
+    setSelectedRunner = runner => {
+      console.log("Printing runner");
+      console.log(runner);
+    }
 
     render() {
       if(!this.props.selectedEvent || !this.props.events){
@@ -54,17 +60,17 @@ export class EventDetails extends Component {
 
         return (
             <Container>
-                <EventNavBar setShowRunner = {this.setShowRunner} setShowResults = {this.setShowResults}></EventNavBar>
+                <EventNavBar setShowRunner = {this.setShowRunner} setShowResults = {this.setShowResults}/>
                 <Row>
                   <Col>
                     {runnersInEvent} 
                   </Col>
-                  <EventDetailsCard event = {this.props.events[this.props.selectedEvent]}></EventDetailsCard>
+                  <EventDetailsCard event = {this.props.events[this.props.selectedEvent]}/>
                 </Row>
                
                 
                 <EventAddRunnersModal show = {this.state.showRunner} setShow = {this.setShowRunner} teamUID = {this.props.selectedTeam}/>
-                <AddResultsModal show = {this.state.showResults} setShow = {this.setShowResults}></AddResultsModal>
+                <AddResultsModal show = {this.state.showResults} setShow = {this.setShowResults}/>
             </Container>
         )
     }
@@ -72,10 +78,11 @@ export class EventDetails extends Component {
 EventDetails.propTypes = {
   addRunnersToEvent: PropTypes.func.isRequired,
   newTime: PropTypes.func.isRequired,
+  selectRunner: PropTypes.func.isRequired,
   selectedEvent: PropTypes.string.isRequired,
   times: PropTypes.object,
   events: PropTypes.object.isRequired,
-  runners: PropTypes.object.isRequired
+  runners: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = function(state){
@@ -89,4 +96,4 @@ const mapStateToProps = function(state){
 }
 
 
-export default connect(mapStateToProps, {newTime, addRunnersToEvent}) (EventDetails)
+export default connect(mapStateToProps, {newTime, addRunnersToEvent, selectRunner}) (EventDetails)
