@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Modal, Form, Button, Col, Row } from 'react-bootstrap';
+import { Modal, Form, Button, Row, Col } from 'react-bootstrap';
 import cookie from 'react-cookies';
 import { newTime } from '../../actions/eventActions'
 import { connect } from 'react-redux';
@@ -48,10 +48,18 @@ export class AddResultsModal extends Component {
                 <Modal.Header closeButton>Runner Name</Modal.Header>
                 <Modal.Body>
                     <Form>
-                        <Form.Group>
+                        <Row>
                             <Form.Label>Final Time</Form.Label>
-                            <Form.Control onChange = {this.handleChange} name = "finalTime" type = "text" placeholder = "00:00:00"/>
-                        </Form.Group>
+                            <Col>
+                                <Form.Control onChange = {this.handleChange} name = "finalTime" type = "text" placeholder = 'Hours'/>
+                            </Col>
+                            <Col>
+                                <Form.Control onChange = {this.handleChange} name = "finalTime" type = "text" placeholder = 'Minutes'/>
+                            </Col>
+                            <Col>
+                                <Form.Control onChange = {this.handleChange} name = "finalTime" type = "text" placeholder = 'Seconds'/>
+                            </Col>
+                        </Row>
                         <Form.Group>
                             <Form.Label>Splits (optional)</Form.Label>
                             <Form.Control onChange = {this.handleChange} name = "splitDistance" type = "text" placeholder = "Distance" />
