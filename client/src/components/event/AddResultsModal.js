@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Modal, Form, Button } from 'react-bootstrap';
+import { Modal, Form, Button, Col, Row } from 'react-bootstrap';
 import cookie from 'react-cookies';
 import { newTime } from '../../actions/eventActions'
 import { connect } from 'react-redux';
@@ -61,7 +61,17 @@ export class AddResultsModal extends Component {
                                 <option>Kilometers</option>
                                 <option>Meters</option>
                             </Form.Control>
-                            <Form.Control onChange = {this.handleChange} name = "splitTime" type = "text" placeholder = "00:00:00"></Form.Control>
+                            <Row>
+                                <Col>
+                                    <Form.Control onChange = {this.handleChange} name = "splitTimeHours" type = "text" placeholder = "Hours"></Form.Control>
+                                </Col>
+                                <Col>
+                                    <Form.Control onChange = {this.handleChange} name = "splitTimeMinutes" type = "text" placeholder = "Minutes"></Form.Control>
+                                </Col>
+                                <Col>
+                                    <Form.Control onChange = {this.handleChange} name = "splitTimeSeconds" type = "text" placeholder = "Seconds"></Form.Control>
+                                </Col>
+                            </Row>
                             <Button variant = "primary" onClick = {this.handleAddSplits}>Add Split</Button>
                         </Form.Group>
                         <Button variant = "primary" >⇦</Button>
