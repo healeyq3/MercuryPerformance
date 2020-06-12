@@ -67,7 +67,7 @@ async function newTime(req, res){
     res.end();
     return;
   }
-  console.log()
+  console.log("sdkjnkjagnkj");
   const data = req.body;
   const finalTime = data.timeData.finalTime;
   const splits = data.timeData.splits;

@@ -37,8 +37,7 @@ export default function(state = initialState, action) {
         ...newState.events[euid].runners,
         ...runnersAdded
       }
-      console.log("newstate");
-      console.log(newState);
+
       return newState;
     default:
       return state;
