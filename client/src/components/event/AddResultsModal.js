@@ -84,38 +84,30 @@ export class AddResultsModal extends Component {
     }
 
     incrementRunnerUp(){
-        console.log("----");
-        console.log(Object.keys(this.props.runners));
-        let newRunnerIndex;
-        if(this.state.runnerIndex ===  Object.keys(this.props.events[this.props.selectedEvent].runners).length - 1){
-            newRunnerIndex = 0;
+        if(this.state.runnerIndex === (Object.keys(this.props.events[this.props.selectedEvent].runners).length - 1)){
+            this.state.runnerIndex = 0;
         } else {
-            newRunnerIndex = this.state.runnerIndex + 1;
+            this.state.runnerIndex += 1;
         }
-        console.log(newRunnerIndex);
+        console.log("New runner index is "+this.state.runnerIndex);
 
-        this.setState({
-            runnerIndex: newRunnerIndex
-        })
-
-        const newRunnerKey = Object.keys(this.props.events[this.props.selectedEvent].runners)[this.state.runnerIndex]
-        this.props.selectRunner(newRunnerKey);
+        this.setCurrentRunner();
     }
 
     incrementRunnerDown(){
-        let newRunnerIndex;
-        if(this.state.runnerIndex===0){
-            newRunnerIndex = Object.keys(this.props.events[this.props.selectedEvent].runners).length - 1;
+        if(this.state.runnerIndex === 0){
+            this.state.runnerIndex = Object.keys(this.props.events[this.props.selectedEvent].runners).length - 1;
         } else {
-            newRunnerIndex = this.state.runnerIndex - 1;
+            this.state.runnerIndex -= 1;
         }
-        console.log(newRunnerIndex);
+        console.log("New runner index is "+this.state.runnerIndex);
 
-        this.setState({
-            runnerIndex : newRunnerIndex
-        })
-        const newRunnerKey = Object.keys(this.props.events[this.props.selectedEvent].runners)[this.state.runnerIndex]
-        this.props.selectRunner(newRunnerKey);
+        this.setCurrentRunner();
+    }
+
+    setCurrentRunner(){
+        const runnerKey = Object.keys(this.props.events[this.props.selectedEvent].runners)[this.state.runnerIndex];
+        this.props.selectRunner(runnerKey);
     }
 
     reset = () => {
@@ -147,12 +139,12 @@ export class AddResultsModal extends Component {
             }
         }
 
-        const currentRunnerName = this.props.runners[this.props.selectedRunner].name;
-        console.log(currentRunnerName);
+        const selectedRunnerName = this.props.runners[this.props.selectedRunner].name;
+
         return (
             <Modal show = {this.props.show} onHide = {this.props.setShow} onShow = {this.reset} size = 'lg'>
             {/* <Modal.Dialog> */} 
-                <Modal.Header closeButton>{currentRunnerName}</Modal.Header>
+                <Modal.Header closeButton>{selectedRunnerName}</Modal.Header>
                 <Modal.Body>
                     <Form>
                         <Row>
