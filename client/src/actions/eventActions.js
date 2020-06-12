@@ -42,7 +42,7 @@ export function newEvent(eventData, selectedTeamUID){
           selectedTeamUID: selectedTeamUID,
           runnerUID:runnerUID
         })
-      })
+      }).then(console.log("Awaited time fetch"))
         .then(res => res.json())
         .then(time =>
           dispatch({
