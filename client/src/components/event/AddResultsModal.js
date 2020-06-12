@@ -27,12 +27,19 @@ export class AddResultsModal extends Component {
     handleAddSplits = () => {
             const splitData = {
                 splitDistance: this.state.splitDistance,
+                splitUnit:this.state.splitUnit,
                 splitTimeHours: this.state.splitTimeHours,
                 splitTimeMinutes: this.state.splitTimeMinutes,
                 splitTimeSeconds: this.state.splitTimeSeconds
             }
             console.log(splitData)
-            this.setState((state) => ({ splits:[...state.splits, splitData]}));
+            //this.setState({ splits: [...this.state.splits, splitData] })//doesn't work!
+           // this.setState((state) => ({ splits:[...state.splits, splitData]}));
+            var newStateArr = this.state.splits.slice();
+            newStateArr.push(splitData);
+            console.log(newStateArr);
+            this.setState({splits:newStateArr});
+            //this.setState({splits:[1,2,3,4]})
             console.log(this.state.splits)
     }
     handleAddResults = () => {
@@ -46,12 +53,25 @@ export class AddResultsModal extends Component {
         this.props.setShow();
     }
     render() {
-        let splitArr = [];
+        let kArr = [];
+        let mArr = [];
+        let meArr = [];
         for(const split in this.state.splits){
-            console.log("SPLIT " + split.splitUnit)
-            splitArr.push(
-            <h6>{split.splitDistance} {split.splitUnit}- {split.splitTimeHours}:{split.splitTimeMinutes}:{split.splitTimeSeconds}</h6>
+            if(this.state.splits[split].splitUnit==="Kilometers"){
+            kArr.push(
+            <h6>{this.state.splits[split].splitDistance}- {this.state.splits[split].splitTimeHours}:{this.state.splits[split].splitTimeMinutes}:{this.state.splits[split].splitTimeSeconds}</h6>
             )
+            }
+            else if(this.state.splits[split].splitUnit==="Miles"){
+                mArr.push(
+                    <h6>{this.state.splits[split].splitDistance}- {this.state.splits[split].splitTimeHours}:{this.state.splits[split].splitTimeMinutes}:{this.state.splits[split].splitTimeSeconds}</h6>
+                )
+            }
+            else{
+                meArr.push(
+                    <h6>{this.state.splits[split].splitDistance}- {this.state.splits[split].splitTimeHours}:{this.state.splits[split].splitTimeMinutes}:{this.state.splits[split].splitTimeSeconds}</h6>
+                )
+            }
         }
         return (
             <Modal show = {this.props.show} onHide = {this.props.setShow} size = 'lg'>
@@ -104,7 +124,20 @@ export class AddResultsModal extends Component {
                         </Col>
                         <Col>
                             <h5>Splits:</h5>
-                            {splitArr}
+                            <Row>
+                                <Col>
+                                <h6>KM:</h6>
+                                {kArr}
+                                </Col>
+                                <Col>
+                                <h6>Miles:</h6>
+                                {mArr}
+                                </Col>
+                                <Col>
+                                <h6>Meters:</h6>
+                                {meArr}
+                                </Col>
+                            </Row>
                         </Col>
                         </Row>
                         <Button variant = "primary" >⇦</Button>
