@@ -32,7 +32,8 @@ export class AddResultsModal extends Component {
                 splitTimeSeconds: this.state.splitTimeSeconds
             }
             console.log(splitData)
-            this.setState((state) => ({ splits:[...this.state.splits, splitData]}));
+            this.setState((state) => ({ splits:[...state.splits, splitData]}));
+            console.log(this.state.splits)
     }
     handleAddResults = () => {
         const timeData = {
@@ -45,6 +46,13 @@ export class AddResultsModal extends Component {
         this.props.setShow();
     }
     render() {
+        let splitArr = [];
+        for(const split in this.state.splits){
+            console.log("SPLIT " + split.splitUnit)
+            splitArr.push(
+            <h6>{split.splitDistance} {split.splitUnit}- {split.splitTimeHours}:{split.splitTimeMinutes}:{split.splitTimeSeconds}</h6>
+            )
+        }
         return (
             <Modal show = {this.props.show} onHide = {this.props.setShow} size = 'lg'>
             {/* <Modal.Dialog> */} 
@@ -95,7 +103,8 @@ export class AddResultsModal extends Component {
                         </Form.Group>
                         </Col>
                         <Col>
-                            
+                            <h5>Splits:</h5>
+                            {splitArr}
                         </Col>
                         </Row>
                         <Button variant = "primary" >⇦</Button>
