@@ -4,6 +4,7 @@ import { newTime, selectRunner } from '../../actions/eventActions'
 import { connect } from 'react-redux';
 import {  getV02max, getWorkoutPace } from '../../math/V02max';
 import PropTypes from 'prop-types';
+import {newRunner} from "../../actions/runnerActions";
 
 export class AddResultsModal extends Component {
     constructor(props){
@@ -21,17 +22,16 @@ export class AddResultsModal extends Component {
             splitTimeSeconds:0,
             v02max: 0,
             runnerIndex: 0,
-            selectedRunnerName: "",
             workoutPace: ''
         }
+
+        const newRunnerKey = Object.keys(this.props.runners)[0]
+        this.props.selectRunner(newRunnerKey);
 
         this.handleChange = this.handleChange.bind(this);
         this.incrementRunnerDown = this.incrementRunnerDown.bind(this);
         this.incrementRunnerUp = this.incrementRunnerUp.bind(this);
-        this.setCurrentRunner = this.setCurrentRunner.bind(this);
         this.handleCalculate = this.handleCalculate.bind(this);
-
-        this.setCurrentRunner();
     }
     handleChange(e){
         this.setState({ [e.target.name] : e.target.value});
@@ -84,46 +84,38 @@ export class AddResultsModal extends Component {
     }
 
     incrementRunnerUp(){
+        console.log("----");
+        console.log(Object.keys(this.props.runners));
+        let newRunnerIndex;
         if(this.state.runnerIndex ===  Object.keys(this.props.events[this.props.selectedEvent].runners).length - 1){
-            this.setState((state, props) => ({
-                runnerIndex: 0
-            }));
+            newRunnerIndex = 0;
         } else {
-            this.setState((state, props) => ({
-                runnerIndex: state.runnerIndex + 1
-            }));
+            newRunnerIndex = this.state.runnerIndex + 1;
         }
+        console.log(newRunnerIndex);
 
-        this.setCurrentRunner();
+        this.setState({
+            runnerIndex: newRunnerIndex
+        })
+
+        const newRunnerKey = Object.keys(this.props.events[this.props.selectedEvent].runners)[this.state.runnerIndex]
+        this.props.selectRunner(newRunnerKey);
     }
 
     incrementRunnerDown(){
+        let newRunnerIndex;
         if(this.state.runnerIndex===0){
-            this.setState({
-                runnerIndex : Object.keys(this.props.events[this.props.selectedEvent].runners).length - 1
-            })
+            newRunnerIndex = Object.keys(this.props.events[this.props.selectedEvent].runners).length - 1;
         } else {
-            this.setState((state) => ({
-                runnerIndex: state.runnerIndex - 1
-            }));
+            newRunnerIndex = this.state.runnerIndex - 1;
         }
+        console.log(newRunnerIndex);
 
-        this.setCurrentRunner();
-    }
-
-    setCurrentRunner(){
-        if(this.props.events[this.props.selectedEvent].runners && Object.keys(this.props.events[this.props.selectedEvent].runners).length>0){
-            this.props.selectRunner(this.props.events[this.props.selectedEvent].runners[Object.keys(this.props.runners)[this.state.runnerIndex]].runneruid);
-
-            this.setState({
-                selectedRunnerName : this.props.runners[this.props.selectRunner].name
-            })
-        } else {
-            this.props.selectRunner("");
-            this.setState({
-                selectedRunnerName: ''
-            })
-        }
+        this.setState({
+            runnerIndex : newRunnerIndex
+        })
+        const newRunnerKey = Object.keys(this.props.events[this.props.selectedEvent].runners)[this.state.runnerIndex]
+        this.props.selectRunner(newRunnerKey);
     }
 
     reset = () => {
@@ -154,10 +146,13 @@ export class AddResultsModal extends Component {
                 )
             }
         }
+
+        const currentRunnerName = this.props.runners[this.props.selectedRunner].name;
+        console.log(currentRunnerName);
         return (
             <Modal show = {this.props.show} onHide = {this.props.setShow} onShow = {this.reset} size = 'lg'>
             {/* <Modal.Dialog> */} 
-                <Modal.Header closeButton>{this.state.selectedRunnerName}</Modal.Header>
+                <Modal.Header closeButton>{currentRunnerName}</Modal.Header>
                 <Modal.Body>
                     <Form>
                         <Row>
