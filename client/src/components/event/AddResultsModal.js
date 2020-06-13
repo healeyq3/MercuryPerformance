@@ -84,6 +84,7 @@ export class AddResultsModal extends Component {
     }
 
     incrementRunnerUp(){
+        this.reset();
         console.log("----");
         console.log(Object.keys(this.props.runners));
         let newRunnerIndex;
@@ -103,6 +104,7 @@ export class AddResultsModal extends Component {
     }
 
     incrementRunnerDown(){
+        this.reset();
         let newRunnerIndex;
         if(this.state.runnerIndex===0){
             newRunnerIndex = Object.keys(this.props.events[this.props.selectedEvent].runners).length - 1;
@@ -120,7 +122,7 @@ export class AddResultsModal extends Component {
 
     reset = () => {
         this.setState({
-            v02max: 0
+            splits: []
         })
     }
 

@@ -13,6 +13,7 @@ import TeamSelect from './pages/TeamSelect';
 import Events from './pages/Events';
 import EventDetails from './pages/EventDetails'
 import ComingSoon from './pages/ComingSoon';
+import Workouts from './pages/Workouts';
 
 //Components
 import NavigationBar from './components/NavigationBar';
@@ -37,6 +38,7 @@ class App extends Component {
                 <AuthRoute2 exact path = '/comingsoon' component = {ComingSoon} authenticated = {cookie.load('idToken')}/>
                 <AuthRoute3 exact path = '/events' component = {Events} authenticated = {cookie.load('idToken')} team = {cookie.load('selectedTeam')}/>
                 <AuthRoute3 exact path = '/eventdetails' component = {EventDetails} authenticated = {cookie.load('idToken')} team = {cookie.load('selectedTeam')}/>
+                <AuthRoute3 exact path = '/workouts' component = {Workouts} authenticated = {cookie.load('idToken')} team = {cookie.load('selectedTeam')} />
               </Switch>
             </div>
           </Router>
