@@ -24,6 +24,7 @@ export class AddResultsModal extends Component {
             workoutPace: ''
         }
 
+        this.baseState = this.state;
         const newRunnerKey = Object.keys(this.props.runners)[0]
         this.props.selectRunner(newRunnerKey);
 
@@ -121,9 +122,7 @@ export class AddResultsModal extends Component {
     }
 
     reset = () => {
-        this.setState({
-            splits: []
-        })
+        this.setState(this.baseState);
     }
 
     render() {
@@ -156,7 +155,7 @@ export class AddResultsModal extends Component {
             {/* <Modal.Dialog> */} 
                 <Modal.Header closeButton>{selectedRunnerName}</Modal.Header>
                 <Modal.Body>
-                    <Form>
+                    <Form >
                         <Row>
                         <Col>
                             <Row>

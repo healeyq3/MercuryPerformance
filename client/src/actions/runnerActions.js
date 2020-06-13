@@ -33,7 +33,7 @@ export function newRunner(runnerData, selectedTeamUID){
       body: JSON.stringify({
         runnerData,
         idToken: cookie.load('idToken'),
-        teamUID: selectedTeamUID
+        selectedTeamUID: selectedTeamUID
       })
     })
       .then(res => res.json())
