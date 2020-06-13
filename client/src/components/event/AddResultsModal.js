@@ -4,6 +4,7 @@ import { newTime, selectRunner } from '../../actions/eventActions'
 import { connect } from 'react-redux';
 import {  getV02max, getWorkoutPace } from '../../math/V02max';
 import PropTypes from 'prop-types';
+import { stringToNumber } from '../../math/TimeConversions';
 
 export class AddResultsModal extends Component {
     constructor(props){
@@ -200,16 +201,12 @@ export class AddResultsModal extends Component {
                                 <Form.Group>
                                 <Button variant = 'outline-primary' size = 'sm' onClick = {this.handleCalculate}>Calculate</Button>
                                     <Row>
-                                        {/* <Button variant = 'outline-primary' size = 'sm' onClick = {this.handleCalculate}>V02max</Button>
-                                        <Form.Label>{this.state.v02max}</Form.Label> */}
                                         <Form.Label>V02max: {this.state.v02max}</Form.Label>
-                                        {this.state.v02max > this.props.runners[this.props.selectedRunner].v02 ? <h4 style = {{color: 'green'}}>↑</h4> : <h4 style = {{color: 'red'}}>↓</h4>}
-                                        {/* <Form.Label>{this.state.v02max > this.props.runners[this.props.selectedRunner].v02 ? '↑'.fontcolor('green') : '↓'}</Form.Label> */}
+                                        {this.state.v02max > this.props.runners[this.props.selectedRunner].v02 ? <React.Fragment><h4 style = {{color: 'green'}}>↑</h4><Button variant = 'outline-success' size = 'sm'>Update</Button></React.Fragment> : <React.Fragment><h4 style = {{color: 'red'}}>↓</h4><Button variant = 'outline-danger' size = 'sm'>Update</Button></React.Fragment>}
                                     </Row>
                                     <Row>
-                                        {/* <Button variant = 'outline-primary' size = 'sm' onClick = {this.handleCalculate}>Workout Pace</Button>
-                                        <Form.Label>{this.state.workoutPace}</Form.Label> */}
                                         <Form.Label>Workout Pace: {this.state.workoutPace}</Form.Label>
+                                        {stringToNumber(this.state.workoutPace) < stringToNumber(this.props.runners[this.props.selectedRunner].wPace) ? <React.Fragment><h4 style = {{color: 'green'}}>↑</h4><Button variant = 'outline-success' size = 'sm'>Update</Button></React.Fragment> : <React.Fragment><h4 style = {{color: 'red'}}>↓</h4><Button variant = 'outline-danger' size = 'sm'>Update</Button></React.Fragment>}
                                     </Row>
                                 </Form.Group> 
                             </Form.Group>

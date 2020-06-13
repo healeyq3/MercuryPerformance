@@ -3,7 +3,6 @@ import cookie from 'react-cookies'
 import fire from '../Fire'
 
 //Bootstrap
-import { Container } from 'react-bootstrap';
 import { Navbar, Nav, Button } from 'react-bootstrap';
 import { withRouter } from "react-router-dom";
 
@@ -20,7 +19,6 @@ class NavigationBar extends Component {
     
     render() {
         return (
-            // <Container fluid>
                 <header className = "navBar">
                     <Navbar className = "navBarNav" bg="dark"  variant = 'dark' expand="lg">
                     <Navbar.Brand href="/" >Mercury</Navbar.Brand>
@@ -40,7 +38,6 @@ class NavigationBar extends Component {
                         </Navbar.Collapse>
                     </Navbar> 
                 </header>
-            // </Container>
         )
     }
 }
