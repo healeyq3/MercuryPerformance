@@ -229,9 +229,11 @@ export class AddResultsModal extends Component {
                             </Row>
                         </Col>
                         </Row>
-                        <Button variant = "primary" onClick = {this.incrementRunnerDown}>⇦</Button>
-                        <Button variant = "primary" onClick = {this.handleAddResults}>Save Results</Button>
-                        <Button variant = "primary" onClick = {this.incrementRunnerUp}>⇨</Button>
+                        <Row className = 'justify-content-md-center'>
+                            <Button variant = "primary" onClick = {this.incrementRunnerDown}>⇦</Button>
+                            <Button variant = "primary" onClick = {this.handleAddResults}>Save Results</Button>
+                            <Button variant = "primary" onClick = {this.incrementRunnerUp}>⇨</Button>
+                        </Row>
                     </Form>
                 </Modal.Body>
             {/* </Modal.Dialog> */}
