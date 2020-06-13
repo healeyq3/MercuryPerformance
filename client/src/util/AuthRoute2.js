@@ -1,7 +1,5 @@
 import React from 'react'
 import { Route, Redirect} from 'react-router-dom';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types'
 
 const AuthRoute2 = ({component: Component, authenticated, ...rest}) => (
     <Route
@@ -12,15 +10,4 @@ const AuthRoute2 = ({component: Component, authenticated, ...rest}) => (
     />
 );
 
-
-AuthRoute2.propTypes = {
-    selectedTeam: PropTypes.string
-}
-
-const mapStateToProps = function(state) {
-    return {
-        selectedTeam: state.teams.selectedTeam
-    }
-}
-
-export default connect(mapStateToProps, {}) (AuthRoute2)
+export default (AuthRoute2)

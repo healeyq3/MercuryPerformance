@@ -28,7 +28,7 @@ class App extends Component {
       <Provider store={store}>
         <div className="App">
           <Router>
-            <NavigationBar />
+            {cookie.load('idToken') == null ? <React.Fragment></React.Fragment> : <NavigationBar />}
             <div className = "container">
               <Switch>
                 <AuthRoute exact path = '/login' component = {Login} authenticated = {cookie.load('idToken')}/>
