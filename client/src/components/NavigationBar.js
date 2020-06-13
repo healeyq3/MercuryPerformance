@@ -3,7 +3,7 @@ import cookie from 'react-cookies'
 import fire from '../Fire'
 
 //Bootstrap
-import { Navbar, Nav, Button } from 'react-bootstrap';
+import { Navbar, Nav, Button, NavDropdown } from 'react-bootstrap';
 import { withRouter } from "react-router-dom";
 
 class NavigationBar extends Component {
@@ -25,17 +25,17 @@ class NavigationBar extends Component {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className = "navBarItems">
-                        <Nav.Link href="/">Home</Nav.Link>
-                        <Nav.Link href="/comingsoon">Calendar</Nav.Link>
-                        <Nav.Link href="./workouts">Workouts</Nav.Link>
-                        <Nav.Link href="./events">Events</Nav.Link>
-                        <Nav.Link href="/teamselect">Select Team</Nav.Link>
-                        <Nav.Link href="/comingsoon">Settings</Nav.Link>
-                        <Nav.Link href="/login">Login</Nav.Link>
-                        <Nav.Link href="/signup">Create Account</Nav.Link>
+                            <Nav.Link href="/">Home</Nav.Link>
+                            <Nav.Link href="/comingsoon">Calendar</Nav.Link>
+                            <Nav.Link href="./workouts">Workouts</Nav.Link>
+                            <Nav.Link href="./events">Events</Nav.Link>
+                            <NavDropdown title = "Settings">
+                                <NavDropdown.Item href="/teamselect">Select Team</NavDropdown.Item>
+                                <NavDropdown.Item href="/comingsoon">Settings</NavDropdown.Item>
+                                <NavDropdown.Item onClick = {this.logout}>Logout</NavDropdown.Item>
+                            </NavDropdown>
                         </Nav>
-                        <Button type = "submit" variant = 'outline-primary' onClick = {this.logout}>Logout</Button>
-                        </Navbar.Collapse>
+                    </Navbar.Collapse>
                     </Navbar> 
                 </header>
         )
