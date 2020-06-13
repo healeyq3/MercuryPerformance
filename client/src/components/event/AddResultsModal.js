@@ -203,7 +203,8 @@ export class AddResultsModal extends Component {
                                         {/* <Button variant = 'outline-primary' size = 'sm' onClick = {this.handleCalculate}>V02max</Button>
                                         <Form.Label>{this.state.v02max}</Form.Label> */}
                                         <Form.Label>V02max: {this.state.v02max}</Form.Label>
-                                        <Form.Label>↑</Form.Label>
+                                        {this.state.v02max > this.props.runners[this.props.selectedRunner].v02 ? <h4 style = {{color: 'green'}}>↑</h4> : <h4 style = {{color: 'red'}}>↓</h4>}
+                                        {/* <Form.Label>{this.state.v02max > this.props.runners[this.props.selectedRunner].v02 ? '↑'.fontcolor('green') : '↓'}</Form.Label> */}
                                     </Row>
                                     <Row>
                                         {/* <Button variant = 'outline-primary' size = 'sm' onClick = {this.handleCalculate}>Workout Pace</Button>
