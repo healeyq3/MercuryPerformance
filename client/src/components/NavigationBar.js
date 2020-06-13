@@ -3,7 +3,7 @@ import cookie from 'react-cookies'
 import fire from '../Fire'
 
 //Bootstrap
-import { Navbar, Nav, Button, NavDropdown } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { withRouter } from "react-router-dom";
 
 class NavigationBar extends Component {
@@ -18,26 +18,24 @@ class NavigationBar extends Component {
     }
     
     render() {
-        return (
-                <header className = "navBar">
-                    <Navbar className = "navBarNav" bg="dark"  variant = 'dark' expand="lg">
-                    <Navbar.Brand href="/" >Mercury</Navbar.Brand>
-                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                    <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className = "navBarItems">
-                            <Nav.Link href="/">Home</Nav.Link>
-                            <Nav.Link href="/comingsoon">Calendar</Nav.Link>
-                            <Nav.Link href="./workouts">Workouts</Nav.Link>
-                            <Nav.Link href="./events">Events</Nav.Link>
-                            <NavDropdown title = "Settings">
-                                <NavDropdown.Item href="/teamselect">Select Team</NavDropdown.Item>
-                                <NavDropdown.Item href="/comingsoon">Settings</NavDropdown.Item>
-                                <NavDropdown.Item onClick = {this.logout}>Logout</NavDropdown.Item>
-                            </NavDropdown>
-                        </Nav>
-                    </Navbar.Collapse>
-                    </Navbar> 
-                </header>
+        return (   
+            <Navbar className = "navBarNav" bg="dark"  variant = 'dark' expand="lg">
+            <Navbar.Brand href="/" >Mercury</Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+                <Nav className = "navBarItems">
+                    <Nav.Link href="/">Home</Nav.Link>
+                    <Nav.Link href="/comingsoon">Calendar</Nav.Link>
+                    <Nav.Link href="./workouts">Workouts</Nav.Link>
+                    <Nav.Link href="./events">Events</Nav.Link>
+                    <NavDropdown title = "Settings">
+                        <NavDropdown.Item href="/teamselect">Select Team</NavDropdown.Item>
+                        <NavDropdown.Item href="/comingsoon">Settings</NavDropdown.Item>
+                        <NavDropdown.Item onClick = {this.logout}>Logout</NavDropdown.Item>
+                    </NavDropdown>
+                </Nav>
+            </Navbar.Collapse>
+            </Navbar> 
         )
     }
 }

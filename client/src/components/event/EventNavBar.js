@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 //Bootstrap
 import { Container } from 'react-bootstrap';
-import { Navbar, Nav } from 'react-bootstrap';
+import {  Nav } from 'react-bootstrap';
 import { withRouter } from "react-router-dom";
 
 export class EventNavBar extends Component {
