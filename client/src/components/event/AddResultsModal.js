@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Modal, Form, Button, Row, Col } from 'react-bootstrap';
+import { Modal, Form, Button, Row, Col, ButtonGroup } from 'react-bootstrap';
 import { newTime, selectRunner } from '../../actions/eventActions'
 import { connect } from 'react-redux';
 import {  getV02max, getWorkoutPace } from '../../math/V02max';
@@ -134,7 +134,7 @@ export class AddResultsModal extends Component {
         for(const split in this.state.splits){
             if(this.state.splits[split].splitUnit==="Kilometers"){
             kArr.push(
-            <h6>{this.state.splits[split].splitDistance}- {this.state.splits[split].splitTimeHours}:{this.state.splits[split].splitTimeMinutes}:{this.state.splits[split].splitTimeSeconds}</h6>
+            <h6>{this.state.splits[split].splitDistance} - {this.state.splits[split].splitTimeHours}:{this.state.splits[split].splitTimeMinutes}:{this.state.splits[split].splitTimeSeconds}</h6>
             )
             }
             else if(this.state.splits[split].splitUnit==="Miles"){
@@ -198,8 +198,9 @@ export class AddResultsModal extends Component {
                                     </Col>
                                 </Row>
                                 <Button variant = "primary" onClick = {this.handleAddSplits} size = 'sm'>Add Split</Button>
+                                <Button variant = 'outline-primary' size = 'sm' onClick = {this.handleCalculate}>Calculate Runner Analysis</Button>
                                 <Form.Group>
-                                <Button variant = 'outline-primary' size = 'sm' onClick = {this.handleCalculate}>Calculate</Button>
+                                <br></br>
                                     <Row>
                                         <Form.Label>V02max: {this.state.v02max}</Form.Label>
                                         {this.state.v02max > this.props.runners[this.props.selectedRunner].v02 ? <React.Fragment><h4 style = {{color: 'green'}}>↑</h4><Button variant = 'outline-success' size = 'sm'>Update</Button></React.Fragment> : <React.Fragment><h4 style = {{color: 'red'}}>↓</h4><Button variant = 'outline-danger' size = 'sm'>Update</Button></React.Fragment>}
@@ -230,9 +231,12 @@ export class AddResultsModal extends Component {
                         </Col>
                         </Row>
                         <Row className = 'justify-content-md-center'>
-                            <Button variant = "primary" onClick = {this.incrementRunnerDown}>⇦</Button>
-                            <Button variant = "primary" onClick = {this.handleAddResults}>Save Results</Button>
-                            <Button variant = "primary" onClick = {this.incrementRunnerUp}>⇨</Button>
+                            <ButtonGroup className = 'mb-2'>
+                                <Button variant = "outline-secondary" onClick = {this.incrementRunnerDown}>⇦</Button>
+                                <Button variant = "outline-secondary" onClick = {this.handleAddResults}>Save Results</Button>
+                                <Button variant = "outline-secondary" onClick = {this.incrementRunnerUp}>⇨</Button>
+                            </ButtonGroup>
+                            
                         </Row>
                     </Form>
                 </Modal.Body>
