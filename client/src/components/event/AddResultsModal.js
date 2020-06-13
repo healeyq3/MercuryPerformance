@@ -79,7 +79,7 @@ export class AddResultsModal extends Component {
             finalTime: finalTimeData,
             splits: this.state.splits
         }
-        this.props.newTime(timeData, this.props.selectedTeam, this.props.selectedTeam, this.props.selectedRunner);//needs to have selectedEventUID, and runnerUID
+        this.props.newTime(timeData, this.props.selectedTeam, this.props.selectedEvent, this.props.selectedRunner);//needs to have selectedEventUID, and runnerUID
         this.props.setShow();
     }
 

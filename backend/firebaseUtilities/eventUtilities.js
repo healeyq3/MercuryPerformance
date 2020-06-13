@@ -90,11 +90,23 @@ async function addRunnerToEvent(eventuid, runnerUidArray){
   return runnersAdded;
 }
 
-function newTime(timeData, teamuid, eventuid, runneruid){//This probably needs work
-  //runneruid is undefined
+async function newTime(timeData, teamuid, eventuid, runneruid){//This probably needs work
   console.log("Time event id" + eventuid + " " + runneruid)
-  const eventRef = database.ref("events/" + eventuid + "/runners/" + runneruid + "/times")
-  eventRef.child(timeData.key).set(timeData);
+
+  const eventRef = await database.ref('events/' + eventuid + '/runners/' + runneruid + '/times').push()
+
+  const eventData = {
+    timeData,
+    key: eventRef.key.toString()
+  }
+
+  eventRef.set(eventData).then(async () => {
+    console.log("Successfully added times to the runner".red + runneruid.blue);
+  }).catch((err) => {
+    console.log("Unable to create event".red + name.blue)
+  })
+
+  // eventRef.child(timeData.key).set(timeData);
 }
 
 async function removeRunnerFromEvent(eventuid, runneruid){
