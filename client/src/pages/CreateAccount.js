@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import fire from '../Fire';
 
-import { Container, Form, Button } from 'react-bootstrap';
+import { Container, Form, Button, Navbar, Col, Card } from 'react-bootstrap';
 // eslint-disable-next-line
 import cookieParser from 'cookie-parser';
 import cookie from 'react-cookies';
@@ -56,11 +56,17 @@ class CreateAccount extends Component {
     
     render() {
         return (
-            <Container fluid>
-                <h1 className = "MercuryLogin">Mercury</h1>
-                <h2>Create Account</h2>
-                <div>
+            <Container fluid className = "text-center">
+                 <Navbar className = "navBarNav" bg="dark"  variant = 'dark' expand="lg">
+                <Container>
+                <Navbar.Brand href="/login" >Mercury</Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />  
+                </Container>
+            </Navbar>
+            <Card className = "text-center">
+                <Card.Header>Create Account</Card.Header>
                 <Form id = "createAccountForm" action = "/">
+                    <Col>
                      <Form.Group controlId = "controlInput2">
                         <Form.Label>Full Name</Form.Label>
                          <Form.Control
@@ -91,11 +97,12 @@ class CreateAccount extends Component {
                             name = "password"
                         />
                     </Form.Group>
+                    </Col>
                      <Form.Group controlId = "enter">
                          <Button onClick = {this.createAccount} type = "submit">Create</Button>
                      </Form.Group>
                     </Form>
-                </div>
+                </Card>
             </Container>
         )
     }
