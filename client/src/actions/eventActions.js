@@ -44,11 +44,12 @@ export function newTime(timeData, selectedTeamUID, eventUID, runnerUID){//This r
         selectedTeamUID: selectedTeamUID,
         runnerUID: runnerUID
       })
-    }).then((forPayload) => {
-        dispatch({
-          type: NEW_TIME,
-          payload: forPayload
-        })})
+    }).then((res) => res.json())
+      .then((forPayload) => {
+      dispatch({
+        type: NEW_TIME,
+        payload: forPayload
+      })})
   }
 }
 

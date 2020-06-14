@@ -93,11 +93,11 @@ async function addRunnerToEvent(eventuid, runnerUidArray){
 function newTime(timeData, eventuid, selectedteamuid, runneruid){
   console.log("Time event id" + eventuid + " " + runneruid)
   const eventTimeRef = database.ref("events/" + eventuid + "/runners/" + runneruid + "/times")
-  eventTimeRef.set(timeData).then(() => {
-
-  }).catch((error) => {
+  eventTimeRef.set(timeData).catch((error) => {
     console.log(error);
   });
+
+  return timeData;
 }
 
 async function removeRunnerFromEvent(eventuid, runneruid){

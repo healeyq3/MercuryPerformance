@@ -30,10 +30,10 @@ export default function(state = initialState, action) {
       const newerState = {
         ...state
       }
-      console.log('runners: ' + newerState.events[eventuid].runners);
+
       newerState.events[eventuid].runners[runneruid].times = {
         ...newerState.events[eventuid].runners[runneruid].times,
-        ...timeData
+        ...timeData.finalTime
       }
       return newerState;
     case RUNNERS_ADDED:

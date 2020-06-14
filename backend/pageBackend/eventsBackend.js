@@ -85,13 +85,18 @@ async function newTime(req, res){
   const timeData = data.timeData;
   const eventUID = data.eventUID;
   const runnerUID = data.runnerUID;
+  const selectedTeamUID = data.selectedTeamUID;
 
-  eventUtilities.newTime(timeData, eventUID, data.selectedTeamUID, runnerUID);
-  res.end(JSON.stringify({
+  eventUtilities.newTime(timeData, eventUID, selectedTeamUID, runnerUID);
+
+  const toSend = {
     eventUID,
     runnerUID,
     timeData
-  }));
+  }
+  console.log("-----".yellow);
+  console.log(toSend);
+  res.end(JSON.stringify(toSend));
 }
 
 async function addRunner(req, res){
