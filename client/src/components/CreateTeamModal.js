@@ -35,10 +35,10 @@ export class CreateTeamModal extends React.Component {
     render() {
         return (
             <Modal show = {this.props.show} onHide = {this.props.setShow}>
-            <Modal.Dialog>
+           
                 <Modal.Header closeButton>Create New Team</Modal.Header>
                 <Modal.Body>
-                    <Form>
+                    <Form className = "text-center">
                         <Form.Group>
                             <Form.Label>Team Name</Form.Label>
                             <Form.Control onChange = {this.handleChange} name = "teamName" type = "text" placeholder = "Enter Team Name"/>
@@ -61,7 +61,7 @@ export class CreateTeamModal extends React.Component {
                         <Button variant = "primary" onClick = {this.handleCreateTeam}>Add Team</Button>
                     </Form>
                 </Modal.Body>
-            </Modal.Dialog>
+           
             </Modal>
         )
     }
