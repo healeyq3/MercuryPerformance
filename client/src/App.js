@@ -20,6 +20,7 @@ import NavigationBar from './components/NavigationBar';
 import AuthRoute from './util/AuthRoute.js';
 import AuthRoute2 from './util/AuthRoute2';
 import AuthRoute3 from './util/AuthRoute3';
+import { OpeningBar } from './components/OpeningBar';
 
 
 class App extends Component {
@@ -28,7 +29,7 @@ class App extends Component {
       <Provider store={store}>
         <div className="App">
           <Router>
-            {cookie.load('idToken') == null ? <React.Fragment></React.Fragment> : <NavigationBar />}
+            {cookie.load('idToken') == null ? <OpeningBar></OpeningBar> : <NavigationBar />}
             <div className = "container">
               <Switch>
                 <AuthRoute exact path = '/login' component = {Login} authenticated = {cookie.load('idToken')}/>

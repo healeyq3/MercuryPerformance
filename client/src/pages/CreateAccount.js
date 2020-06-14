@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import fire from '../Fire';
 
-import { Container, Form, Button, Navbar, Col, Card } from 'react-bootstrap';
+import { Container, Form, Button, Col, Card } from 'react-bootstrap';
 // eslint-disable-next-line
 import cookieParser from 'cookie-parser';
 import cookie from 'react-cookies';
@@ -57,12 +57,6 @@ class CreateAccount extends Component {
     render() {
         return (
             <Container fluid className = "text-center">
-                 <Navbar className = "navBarNav" bg="dark"  variant = 'dark' expand="lg">
-                <Container>
-                <Navbar.Brand href="/login" >Mercury</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />  
-                </Container>
-            </Navbar>
             <Card className = "text-center">
                 <Card.Header>Create Account</Card.Header>
                 <Form id = "createAccountForm" action = "/">

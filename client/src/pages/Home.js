@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { newRunner, getTeamRunners, setRunner } from '../actions/runnerActions';
-import  { Container } from 'react-bootstrap'
+import  { Container, Row, Col } from 'react-bootstrap'
 import { connect } from 'react-redux';
 import ExistingRunnerCard from '../components/ExistingRunnerCard';
 import  AddRunner from '../components/AddRunner';
@@ -45,6 +45,20 @@ class Home extends Component {
         <Container fluid>
             <h2 id = "teamNameHome">{this.props.teams[this.props.selectedTeam].teamName}</h2>
             <AddRunner teamUID = {this.props.selectedTeam}/>
+            <Row>
+              <Col>
+              <h4>Name</h4>
+              </Col>
+              <Col>
+              <h4>Year</h4>
+              </Col>
+              <Col>
+              <h4>V02 Max</h4>
+              </Col>
+              <Col>
+              <h4>Experience</h4>
+              </Col>
+            </Row>
             {runnerArr}
         </Container>
     )
