@@ -149,7 +149,7 @@ export class AddResultsModal extends Component {
             }
         }
 
-        const selectedRunnerName = this.props.runners[this.props.selectedRunner].name;
+        const selectedRunnerName = this.props.runners[this.props.selectedRunner].name; //something is fucking up here
 
         return (
             <Modal show = {this.props.show} onHide = {this.props.setShow} onShow = {this.reset} size = 'lg'>
