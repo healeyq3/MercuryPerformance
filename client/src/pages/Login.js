@@ -5,7 +5,7 @@ import cookie from 'react-cookies'
 import { withRouter } from "react-router-dom";
 
 //Bootstrap
-import {Button, Navbar, Row, Form, Col, Card, Container} from 'react-bootstrap';
+import {Button, Row, Form, Col, Card, Container} from 'react-bootstrap';
 
 class Login extends Component {
     constructor(props){
@@ -52,12 +52,6 @@ class Login extends Component {
     render() {
         return (
             <Container fluid className = "text-center">
-            <Navbar className = "navBarNav" bg="dark"  variant = 'dark' expand="lg">
-                <Container>
-                <Navbar.Brand href="/login" >Mercury</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />  
-                </Container>
-            </Navbar>
             <Card className = "text-center">
                 <Card.Header>Login</Card.Header>
                 <Form>
