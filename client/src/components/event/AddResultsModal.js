@@ -38,6 +38,23 @@ export class AddResultsModal extends Component {
         this.setState({ [e.target.name] : e.target.value});
     }
 
+    sortSplits = () => {
+        if(this.state.splits.length > 0){
+            for(let i = 0; i < this.state.splits.length - 1 ; i++){
+                if(this.state.splits[i].splitDistance > this.state.splits[i + 1].splitDistance){
+                    const first = this.state.splits[i];
+                    const second = this.state.splits[i+1];
+                    const newStateArr = this.state.splits.slice();
+                    newStateArr[i] = second;
+                    newStateArr[i+1] = first;
+                    this.setState({
+                        splits: newStateArr
+                    });
+                }
+            }
+        }
+    }
+
     handleAddSplits = () => {
         const splitData = {
             splitDistance: this.state.splitDistance,
@@ -164,6 +181,7 @@ export class AddResultsModal extends Component {
         let mArr = [];
         let meArr = [];
 
+        this.sortSplits();
         for(const split in this.state.splits){
             if(this.state.splits[split].splitUnit==="Kilometers"){
             kArr.push(
