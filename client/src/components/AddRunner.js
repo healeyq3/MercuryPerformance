@@ -24,6 +24,8 @@ export class AddRunner extends React.Component {
             initialSeconds:0,
             v02max:0
         }
+
+        this.baseState = this.state; //doesn't work because the show stuff is in here
         this.handleChange = this.handleChange.bind(this);
         // this.handleAddRunner = this.handleAddRunner.bind(this);
     }
@@ -68,6 +70,13 @@ export class AddRunner extends React.Component {
         });
     }
 
+    reset = () => {
+        this.setState({
+            v02max: 0,
+            workoutPace: ''
+        });
+    }
+
     render(){
     return (
         <Container fluid>
@@ -76,7 +85,7 @@ export class AddRunner extends React.Component {
                     <Button onClick={e => {this.showModal();}}>Add Runner</Button>
                 </Form.Group>
             </Form>
-            <Modal show = {this.state.show} onHide = {this.showModal}>
+            <Modal show = {this.state.show} onShow = {this.reset} onHide = {this.showModal}>
                 <Modal.Header closeButton>Add Runner</Modal.Header>
                 <Modal.Body>
                     <Form>

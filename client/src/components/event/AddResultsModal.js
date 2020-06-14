@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { Modal, Form, Button, Row, Col } from 'react-bootstrap';
+import { Modal, Form, Button, Row, Col, ButtonGroup } from 'react-bootstrap';
 import { newTime, selectRunner } from '../../actions/eventActions'
 import { connect } from 'react-redux';
 import {  getV02max, getWorkoutPace } from '../../math/V02max';
 import PropTypes from 'prop-types';
+import { stringToNumber } from '../../math/TimeConversions';
 
 export class AddResultsModal extends Component {
     constructor(props){
@@ -24,6 +25,7 @@ export class AddResultsModal extends Component {
             workoutPace: ''
         }
 
+        this.baseState = this.state;
         const newRunnerKey = Object.keys(this.props.runners)[0]
         this.props.selectRunner(newRunnerKey);
 
@@ -83,6 +85,9 @@ export class AddResultsModal extends Component {
     }
 
     incrementRunnerUp(){
+        this.reset();
+        console.log("----");
+        console.log(Object.keys(this.props.runners));
         let newRunnerIndex;
         if(this.state.runnerIndex === (Object.keys(this.props.events[this.props.selectedEvent].runners).length - 1)){
             newRunnerIndex = 0;
@@ -98,6 +103,7 @@ export class AddResultsModal extends Component {
     }
 
     incrementRunnerDown(){
+        this.reset();
         let newRunnerIndex;
         if(this.state.runnerIndex === 0){
             newRunnerIndex = Object.keys(this.props.events[this.props.selectedEvent].runners).length - 1;
@@ -117,9 +123,7 @@ export class AddResultsModal extends Component {
     }
 
     reset = () => {
-        this.setState({
-            v02max: 0
-        })
+        this.setState(this.baseState);
     }
 
     render() {
@@ -130,7 +134,7 @@ export class AddResultsModal extends Component {
         for(const split in this.state.splits){
             if(this.state.splits[split].splitUnit==="Kilometers"){
             kArr.push(
-            <h6>{this.state.splits[split].splitDistance}- {this.state.splits[split].splitTimeHours}:{this.state.splits[split].splitTimeMinutes}:{this.state.splits[split].splitTimeSeconds}</h6>
+            <h6>{this.state.splits[split].splitDistance} - {this.state.splits[split].splitTimeHours}:{this.state.splits[split].splitTimeMinutes}:{this.state.splits[split].splitTimeSeconds}</h6>
             )
             }
             else if(this.state.splits[split].splitUnit==="Miles"){
@@ -145,14 +149,14 @@ export class AddResultsModal extends Component {
             }
         }
 
-        const selectedRunnerName = this.props.runners[this.props.selectedRunner].name;
+        const selectedRunnerName = this.props.runners[this.props.selectedRunner].name; //something is fucking up here
 
         return (
             <Modal show = {this.props.show} onHide = {this.props.setShow} onShow = {this.reset} size = 'lg'>
             {/* <Modal.Dialog> */} 
                 <Modal.Header closeButton>{selectedRunnerName}</Modal.Header>
                 <Modal.Body>
-                    <Form>
+                    <Form >
                         <Row>
                         <Col>
                             <Row>
@@ -194,18 +198,16 @@ export class AddResultsModal extends Component {
                                     </Col>
                                 </Row>
                                 <Button variant = "primary" onClick = {this.handleAddSplits} size = 'sm'>Add Split</Button>
+                                <Button variant = 'outline-primary' size = 'sm' onClick = {this.handleCalculate}>Calculate Runner Analysis</Button>
                                 <Form.Group>
-                                <Button variant = 'outline-primary' size = 'sm' onClick = {this.handleCalculate}>Calculate</Button>
+                                <br></br>
                                     <Row>
-                                        {/* <Button variant = 'outline-primary' size = 'sm' onClick = {this.handleCalculate}>V02max</Button>
-                                        <Form.Label>{this.state.v02max}</Form.Label> */}
                                         <Form.Label>V02max: {this.state.v02max}</Form.Label>
-                                        <Form.Label>↑</Form.Label>
+                                        {this.state.v02max > this.props.runners[this.props.selectedRunner].v02 ? <React.Fragment><h4 style = {{color: 'green'}}>↑</h4><Button variant = 'outline-success' size = 'sm'>Update</Button></React.Fragment> : <React.Fragment><h4 style = {{color: 'red'}}>↓</h4><Button variant = 'outline-danger' size = 'sm'>Update</Button></React.Fragment>}
                                     </Row>
                                     <Row>
-                                        {/* <Button variant = 'outline-primary' size = 'sm' onClick = {this.handleCalculate}>Workout Pace</Button>
-                                        <Form.Label>{this.state.workoutPace}</Form.Label> */}
                                         <Form.Label>Workout Pace: {this.state.workoutPace}</Form.Label>
+                                        {stringToNumber(this.state.workoutPace) < stringToNumber(this.props.runners[this.props.selectedRunner].wPace) ? <React.Fragment><h4 style = {{color: 'green'}}>↑</h4><Button variant = 'outline-success' size = 'sm'>Update</Button></React.Fragment> : <React.Fragment><h4 style = {{color: 'red'}}>↓</h4><Button variant = 'outline-danger' size = 'sm'>Update</Button></React.Fragment>}
                                     </Row>
                                 </Form.Group> 
                             </Form.Group>
@@ -228,9 +230,14 @@ export class AddResultsModal extends Component {
                             </Row>
                         </Col>
                         </Row>
-                        <Button variant = "primary" onClick = {this.incrementRunnerDown}>⇦</Button>
-                        <Button variant = "primary" onClick = {this.handleAddResults}>Save Results</Button>
-                        <Button variant = "primary" onClick = {this.incrementRunnerUp}>⇨</Button>
+                        <Row className = 'justify-content-md-center'>
+                            <ButtonGroup className = 'mb-2'>
+                                <Button variant = "outline-secondary" onClick = {this.incrementRunnerDown}>⇦</Button>
+                                <Button variant = "outline-secondary" onClick = {this.handleAddResults}>Save Results</Button>
+                                <Button variant = "outline-secondary" onClick = {this.incrementRunnerUp}>⇨</Button>
+                            </ButtonGroup>
+                            
+                        </Row>
                     </Form>
                 </Modal.Body>
             {/* </Modal.Dialog> */}

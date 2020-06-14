@@ -61,6 +61,7 @@ export class EventDetails extends Component {
         return (
             <Container>
                 <EventNavBar setShowRunner = {this.setShowRunner} setShowResults = {this.setShowResults}/>
+                <br></br>
                 <Row>
                   <Col>
                   <CardColumns>
