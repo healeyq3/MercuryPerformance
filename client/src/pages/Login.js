@@ -5,7 +5,7 @@ import cookie from 'react-cookies'
 import { withRouter } from "react-router-dom";
 
 //Bootstrap
-import {Button, Container, Row, Form, Col} from 'react-bootstrap';
+import {Button, Navbar, Row, Form, Col, Card, Container} from 'react-bootstrap';
 
 class Login extends Component {
     constructor(props){
@@ -51,11 +51,17 @@ class Login extends Component {
 
     render() {
         return (
-            <Container fluid>
-                <header className = "MercuryLogin">
-                    <h1 className = "MercuryLogin">Mercury</h1>
-                </header>
+            <Container fluid className = "text-center">
+            <Navbar className = "navBarNav" bg="dark"  variant = 'dark' expand="lg">
+                <Container>
+                <Navbar.Brand href="/login" >Mercury</Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />  
+                </Container>
+            </Navbar>
+            <Card className = "text-center">
+                <Card.Header>Login</Card.Header>
                 <Form>
+                    <Col>
                     <Form.Group controlId = 'formBasicEmail'>
                         <Form.Label>Email Address:</Form.Label>
                         <Form.Control
@@ -76,19 +82,25 @@ class Login extends Component {
                         name = "password"
                         />
                     </Form.Group>
+                    </Col>
                     <Row className = "justify-content-left">
                         <Col>
-
                             <Button
                             onClick = {this.login} 
                             type = 'submit' 
                             variant = "dark" >Login</Button>
-                            <Button variant = "light">
-                                <Link to = "./signup">Create Account</Link>
-                            </Button>
                         </Col>
                     </Row>
                 </Form>
+                <p>
+
+                </p>
+            </Card>
+            <Row className = "justify-content-left">
+                        <Col>
+                        <Link to = "./signup">New User</Link>
+                        </Col>
+                    </Row>
                 
             </Container>
         )
