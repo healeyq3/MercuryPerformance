@@ -33,7 +33,7 @@ export default function(state = initialState, action) {
 
       newerState.events[eventuid].runners[runneruid].times = {
         ...newerState.events[eventuid].runners[runneruid].times,
-        ...timeData.finalTime
+        ...timeData
       }
       return newerState;
     case RUNNERS_ADDED:
