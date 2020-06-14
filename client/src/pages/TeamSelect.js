@@ -28,6 +28,7 @@ class TeamSelect extends Component {
     this.props.setTeam(team.key);
     cookie.save('selectedTeam', team.key, { path: '/'});
     console.log("team selected");
+    window.location.href="./"
   }
 
   setShow = e => {
