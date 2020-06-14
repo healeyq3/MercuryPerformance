@@ -44,11 +44,11 @@ export class CreateTeamModal extends React.Component {
                             <Form.Control onChange = {this.handleChange} name = "teamName" type = "text" placeholder = "Enter Team Name"/>
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>Year (optional)</Form.Label>
+                            <Form.Label>Year</Form.Label>
                             <Form.Control onChange = {this.handleChange} name = "teamYear" type = "text" placeholder = "ex: 2020" />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>Team level</Form.Label>
+                            <Form.Label>Team Level</Form.Label>
                             <Form.Control onChange = {this.handleChange} name = "teamLevel" as = "select">
                                 <option hidden>Level</option>
                                 <option>Middle School</option>
