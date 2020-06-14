@@ -82,8 +82,16 @@ async function newTime(req, res){
   console.log(data.runnerUID);
   console.log(data.selectedTeamUID);
 
-  eventUtilities.newTime(data.timeData, data.eventUID, data.selectedTeamUID, data.runnerUID);
-  res.end();
+  const timeData = data.timeData;
+  const eventUID = data.eventUID;
+  const runnerUID = data.runnerUID;
+
+  eventUtilities.newTime(timeData, eventUID, data.selectedTeamUID, runnerUID);
+  res.end(JSON.stringify({
+    eventUID,
+    runnerUID,
+    timeData
+  }));
 }
 
 async function addRunner(req, res){

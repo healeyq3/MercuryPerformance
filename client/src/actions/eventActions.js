@@ -44,10 +44,10 @@ export function newTime(timeData, selectedTeamUID, eventUID, runnerUID){//This r
         selectedTeamUID: selectedTeamUID,
         runnerUID: runnerUID
       })
-    }).then(() => {
+    }).then((forPayload) => {
         dispatch({
           type: NEW_TIME,
-          payload: timeData.finalTime
+          payload: forPayload
         })})
   }
 }

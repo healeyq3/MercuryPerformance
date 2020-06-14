@@ -84,8 +84,8 @@ export class AddResultsModal extends Component {
         this.props.setShow();
     }
 
-    incrementRunnerUp(){
-        this.reset();
+    async incrementRunnerUp(){
+        
         console.log("----");
         console.log(Object.keys(this.props.runners));
         let newRunnerIndex;
@@ -99,11 +99,12 @@ export class AddResultsModal extends Component {
             runnerIndex: newRunnerIndex
         })
 
-        this.setCurrentRunner(newRunnerIndex);
+        await this.setCurrentRunner(newRunnerIndex);
+        console.log(this.props.selectedRunner);
+        this.reset();
     }
 
-    incrementRunnerDown(){
-        this.reset();
+     async incrementRunnerDown(){
         let newRunnerIndex;
         if(this.state.runnerIndex === 0){
             newRunnerIndex = Object.keys(this.props.events[this.props.selectedEvent].runners).length - 1;
@@ -114,7 +115,10 @@ export class AddResultsModal extends Component {
         this.setState({
             runnerIndex: newRunnerIndex
         })
-        this.setCurrentRunner(newRunnerIndex);
+        
+        await this.setCurrentRunner(newRunnerIndex);
+         
+        this.reset();
     }
 
     setCurrentRunner(newRunnerIndex){
@@ -123,7 +127,36 @@ export class AddResultsModal extends Component {
     }
 
     reset = () => {
-        this.setState(this.baseState);
+        console.log("Current Runner" + this.state.runnerIndex);
+        let initialReduxSplits = [];
+        let initialHours = 0;
+        let initialMinutes = 0;
+        let initialSeconds = 0;
+        if(this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].hasOwnProperty('times') && this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].times.hasOwnProperty('finalTime')){
+            initialHours = this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].times.finalTime.hours;
+            initialMinutes = this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].times.finalTime.minutes;
+            initialSeconds = this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].times.finalTime.seconds;
+        }
+        this.setState({
+            finalTimeHours : initialHours,
+            finalTimeMinutes : initialMinutes,
+            finalTimeSeconds : initialSeconds
+        })
+        if(this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].hasOwnProperty('times') && this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].times.hasOwnProperty('splits') && this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].times.splits.hasOwnProperty('0')){
+            console.log('passed if');
+            initialReduxSplits = this.state.splits.concat(this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].times.splits);
+            console.log(initialReduxSplits);
+        }
+        this.setState({
+            splits: initialReduxSplits
+        })
+        this.setState({
+            vo2max: 0,
+            workoutPace : '',
+            splitUnit : '',
+            splitDistance : ''
+
+        })
     }
 
     render() {
@@ -162,13 +195,13 @@ export class AddResultsModal extends Component {
                             <Row>
                                 <Form.Label>Final Time</Form.Label>
                                 <Col>
-                                    <Form.Control onChange = {this.handleChange} name = "finalTimeHours" type = "text" placeholder = 'Hours'/>
+                                    <Form.Control onChange = {this.handleChange} name = "finalTimeHours" type = "text" placeholder = 'Hours' value = {this.state.finalTimeHours}/>
                                 </Col>
                                 <Col>
-                                    <Form.Control onChange = {this.handleChange} name = "finalTimeMinutes" type = "text" placeholder = 'Minutes'/>
+                                    <Form.Control onChange = {this.handleChange} name = "finalTimeMinutes" type = "text" placeholder = 'Minutes' value = {this.state.finalTimeMinutes}/>
                                 </Col>
                                 <Col>
-                                    <Form.Control onChange = {this.handleChange} name = "finalTimeSeconds" type = "text" placeholder = 'Seconds'/>
+                                    <Form.Control onChange = {this.handleChange} name = "finalTimeSeconds" type = "text" placeholder = 'Seconds' value = {this.state.finalTimeSeconds}/>
                                 </Col>
                             </Row>
                             <Form.Group>
