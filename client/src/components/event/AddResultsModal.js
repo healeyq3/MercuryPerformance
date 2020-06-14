@@ -86,18 +86,17 @@ export class AddResultsModal extends Component {
     }
 
     handleAddResults = () => {
-        const finalTimeData = {
+        const timeData = {
             distance: this.props.events[this.props.selectedEvent].distance,
             units: this.props.events[this.props.selectedEvent].distanceUnit,
             hours: this.state.finalTimeHours,
             minutes: this.state.finalTimeMinutes,
             seconds: this.state.finalTimeSeconds
         }
-        const timeData = {
-            finalTime: finalTimeData,
+        const splitsData = {
             splits: this.state.splits
         }
-        this.props.newTime(timeData, this.props.selectedTeam, this.props.selectedEvent, this.props.selectedRunner);//needs to have selectedEventUID, and runnerUID
+        this.props.newTime(timeData, splitsData, this.props.selectedTeam, this.props.selectedEvent, this.props.selectedRunner);//needs to have selectedEventUID, and runnerUID
         this.props.setShow();
     }
 
