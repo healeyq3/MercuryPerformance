@@ -44,19 +44,11 @@ export function newTime(timeData, selectedTeamUID, eventUID, runnerUID){//This r
         selectedTeamUID: selectedTeamUID,
         runnerUID: runnerUID
       })
-    })
-      .then(res => res.json())
-      .then(function(time) {
-        console.log("Got time back : ");
-        console.log(time);
+    }).then(() => {
         dispatch({
           type: NEW_TIME,
-          payload: time,
-          timeUID: time.key
+          payload: timeData.finalTime
         })})
-      .catch((error) => {
-        console.log(error);
-      })
   }
 }
 

@@ -90,11 +90,14 @@ async function addRunnerToEvent(eventuid, runnerUidArray){
   return runnersAdded;
 }
 
-function newTime(timeData, teamuid, eventuid, runneruid){//This probably needs work
-  //runneruid is undefined
+function newTime(timeData, eventuid, selectedteamuid, runneruid){
   console.log("Time event id" + eventuid + " " + runneruid)
-  const eventRef = database.ref("events/" + eventuid + "/runners/" + runneruid + "/times")
-  eventRef.child(timeData.key).set(timeData);
+  const eventTimeRef = database.ref("events/" + eventuid + "/runners/" + runneruid + "/times")
+  eventTimeRef.set(timeData.finalTime).then(() => {
+
+  }).catch((error) => {
+    console.log(error);
+  });
 }
 
 async function removeRunnerFromEvent(eventuid, runneruid){

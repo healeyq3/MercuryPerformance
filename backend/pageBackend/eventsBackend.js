@@ -76,14 +76,14 @@ async function newTime(req, res){
 
   const data = req.body;
 
-  eventUtilities.newTime(data.timeData, data.selectedTeamUID, data.eventUID, data.runnerUID).then((time) => {
-    res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(time));
-  }).catch((error) => {
-    console.log("Error adding and fetching times".red);
-    console.log(error);
-    res.end("{}");
-  })
+  console.log("Beginning newTime post".yellow);
+  console.log(data.timeData);
+  console.log(data.eventUID);
+  console.log(data.runnerUID);
+  console.log(data.selectedTeamUID);
+
+  eventUtilities.newTime(data.timeData, data.eventUID, data.selectedTeamUID, data.runnerUID);
+  res.end();
 }
 
 async function addRunner(req, res){

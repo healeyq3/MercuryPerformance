@@ -26,7 +26,7 @@ export default function(state = initialState, action) {
     case NEW_TIME:
       return{
         ...state,
-        times: {...state.times, [action.eventUID]: action.payload}//this is wrong
+        // times: {...state.times, [action.eventUID]: action.payload}//this is wrong
       }
     case RUNNERS_ADDED:
       const euid = action.payload.eventuid;
