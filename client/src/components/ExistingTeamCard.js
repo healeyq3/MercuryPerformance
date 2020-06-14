@@ -10,10 +10,10 @@ export class ExistingTeamCard extends Component {
                 <Card.Subtitle>{this.props.team.year}</Card.Subtitle>
                 <Row>
                 <Col>
-                <Card.Link href = './' onClick={() => this.props.onSelect(this.props.team)}>Edit Team</Card.Link>
+                <Card.Link style = {{cursor:"auto"}} href = './' onClick={() => this.props.onSelect(this.props.team)}>Edit Team</Card.Link>
                 </Col>
                 <Col>
-                <Card.Link>🗑</Card.Link>
+                <Card.Link style = {{cursor:"auto"}}>🗑</Card.Link>
                 </Col>
                 </Row>
             </Card.Body>

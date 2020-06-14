@@ -1,16 +1,22 @@
 import React, { Component } from '../../../node_modules/react'
-import { Card } from '../../../node_modules/react-bootstrap';
+import { Card, Row, Col } from '../../../node_modules/react-bootstrap';
 
 export class ExistingEventCard extends Component {
     render() {
         return (
-            <Card style = {{width: '100%', height: '10%'}}>
+            <Card style = {{width: '100%', height: '10%', cursor: "pointer"}} tag="a" onClick={() => this.props.onSelect(this.props.event)}>
                 <Card.Body>
-                    <Card.Title>{this.props.event.name}</Card.Title>
-                    <Card.Subtitle>{this.props.event.location}</Card.Subtitle>
-                    <p></p>
-                    <Card.Subtitle>{this.props.event.date}</Card.Subtitle>
-                    <Card.Link href = './eventdetails' onClick={() => this.props.onSelect(this.props.event)}>Select Event</Card.Link>
+                    <Row>
+                       <Col>
+                            <p>{this.props.event.date}</p>
+                        </Col> 
+                        <Col>
+                            <Card.Title>{this.props.event.name}</Card.Title>
+                        </Col>
+                        <Col>
+                        <p>{this.props.event.location}</p>
+                        </Col>
+                    </Row>
                 </Card.Body>
             </Card>
         )

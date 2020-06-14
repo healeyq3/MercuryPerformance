@@ -21,6 +21,7 @@ class Home extends Component {
 
   setSelectedRunner(runner){
     this.props.setRunner(runner.key)
+    window.location.href="./events"
   }
 
   render() {

@@ -4,7 +4,7 @@ import { Card, Row, Col, Button } from 'react-bootstrap';
 export class ExistingRunnerCard extends Component {
     render() {
         return (
-            <Card style = {{width: '100%', height: '10%'}}>
+            <Card style = {{width: '100%', height: '10%', cursor: "pointer"}} tag="a" onClick = {() => this.props.onSelect(this.props.runner)}>
                 <Card.Body>
                     <Row>
                         <Col>
@@ -19,10 +19,9 @@ export class ExistingRunnerCard extends Component {
                     <Col>
                     <p>Experience</p>
                     </Col>
-                    <Button variant = "outline-primary">Edit</Button>
-                    <Button variant = "outline-secondary">🗑</Button>
+                    <Button variant = "outline-primary" style = {{cursor:"auto"}}>Edit</Button>
+                    <Button variant = "outline-secondary" style = {{cursor:"auto"}}>🗑</Button>
                     </Row>
-                    <Card.Link href = './events' onClick = {() => this.props.onSelect(this.props.runner)}> Select Runner </Card.Link>
                 </Card.Body>
             </Card>
         )

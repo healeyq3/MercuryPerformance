@@ -37,6 +37,7 @@ export class Events extends Component {
     setSelectedEvent(event){
       this.props.setEvent(event.key);
       console.log("event selected ");
+      window.location.href='./eventdetails'
     }
 
     render(){
