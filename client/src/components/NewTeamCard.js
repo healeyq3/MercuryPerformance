@@ -10,9 +10,11 @@ export class AddNewTeam extends Component {
     
     render() {
         return (
-        <Card style = {{width: '18%', height: '18%'}}>
+        <Card style = {{width: '18%', height: '18%'}} className = "text-center">
             <Card.Body>
-                <Button onClick= {() => this.props.onClick()}>New Team</Button>
+            <Card.Title>New Team</Card.Title>
+                <Button onClick= {() => this.props.onClick()}>+</Button>
+                <br></br>
             </Card.Body>
         </Card>
         )
