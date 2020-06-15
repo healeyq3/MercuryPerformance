@@ -24,10 +24,18 @@ export default function(state = initialState, action) {
         selectedEvent: action.payload
       }
     case NEW_TIME:
-      return{
-        ...state,
-        // times: {...state.times, [action.eventUID]: action.payload}//this is wrong
+      const eventuid = action.payload.eventUID;
+      const runneruid = action.payload.runnerUID;
+      const timeData = action.payload.timeData;
+      const newerState = {
+        ...state
       }
+
+      newerState.events[eventuid].runners[runneruid].times = {
+        ...newerState.events[eventuid].runners[runneruid].times,
+        ...timeData.finalTime
+      }
+      return newerState;
     case RUNNERS_ADDED:
       const euid = action.payload.eventuid;
       const runnersAdded = action.payload.runnersAdded;
@@ -38,7 +46,6 @@ export default function(state = initialState, action) {
         ...newState.events[euid].runners,
         ...runnersAdded
       }
-
       return newState;
     case SELECT_RUNNER:
       return{

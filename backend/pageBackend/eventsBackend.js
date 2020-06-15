@@ -82,8 +82,21 @@ async function newTime(req, res){
   console.log(data.runnerUID);
   console.log(data.selectedTeamUID);
 
-  eventUtilities.newTime(data.timeData, data.eventUID, data.selectedTeamUID, data.runnerUID);
-  res.end();
+  const timeData = data.timeData;
+  const splitsData = data.splitsData;
+  const eventUID = data.eventUID;
+  const runnerUID = data.runnerUID;
+  const selectedTeamUID = data.selectedTeamUID;
+
+  eventUtilities.newTime(timeData, splitsData, eventUID, selectedTeamUID, runnerUID);
+
+  const toSend = {
+    eventUID,
+    runnerUID,
+    timeData,
+    splitsData
+  }
+  res.end(JSON.stringify(toSend));
 }
 
 async function addRunner(req, res){

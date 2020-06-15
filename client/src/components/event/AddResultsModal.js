@@ -38,6 +38,23 @@ export class AddResultsModal extends Component {
         this.setState({ [e.target.name] : e.target.value});
     }
 
+    sortSplits = () => {
+        if(this.state.splits.length > 0){
+            for(let i = 0; i < this.state.splits.length - 1 ; i++){
+                if(this.state.splits[i].splitDistance > this.state.splits[i + 1].splitDistance){
+                    const first = this.state.splits[i];
+                    const second = this.state.splits[i+1];
+                    const newStateArr = this.state.splits.slice();
+                    newStateArr[i] = second;
+                    newStateArr[i+1] = first;
+                    this.setState({
+                        splits: newStateArr
+                    });
+                }
+            }
+        }
+    }
+
     handleAddSplits = () => {
         const splitData = {
             splitDistance: this.state.splitDistance,
@@ -69,23 +86,22 @@ export class AddResultsModal extends Component {
     }
 
     handleAddResults = () => {
-        const finalTimeData = {
+        const timeData = {
             distance: this.props.events[this.props.selectedEvent].distance,
             units: this.props.events[this.props.selectedEvent].distanceUnit,
             hours: this.state.finalTimeHours,
             minutes: this.state.finalTimeMinutes,
             seconds: this.state.finalTimeSeconds
         }
-        const timeData = {
-            finalTime: finalTimeData,
+        const splitsData = {
             splits: this.state.splits
         }
-        this.props.newTime(timeData, this.props.selectedTeam, this.props.selectedEvent, this.props.selectedRunner);//needs to have selectedEventUID, and runnerUID
+        this.props.newTime(timeData, splitsData, this.props.selectedTeam, this.props.selectedEvent, this.props.selectedRunner);//needs to have selectedEventUID, and runnerUID
         this.props.setShow();
     }
 
-    incrementRunnerUp(){
-        this.reset();
+    async incrementRunnerUp(){
+        
         console.log("----");
         console.log(Object.keys(this.props.runners));
         let newRunnerIndex;
@@ -99,11 +115,12 @@ export class AddResultsModal extends Component {
             runnerIndex: newRunnerIndex
         })
 
-        this.setCurrentRunner(newRunnerIndex);
+        await this.setCurrentRunner(newRunnerIndex);
+        console.log(this.props.selectedRunner);
+        this.reset();
     }
 
-    incrementRunnerDown(){
-        this.reset();
+     async incrementRunnerDown(){
         let newRunnerIndex;
         if(this.state.runnerIndex === 0){
             newRunnerIndex = Object.keys(this.props.events[this.props.selectedEvent].runners).length - 1;
@@ -114,7 +131,10 @@ export class AddResultsModal extends Component {
         this.setState({
             runnerIndex: newRunnerIndex
         })
-        this.setCurrentRunner(newRunnerIndex);
+        
+        await this.setCurrentRunner(newRunnerIndex);
+         
+        this.reset();
     }
 
     setCurrentRunner(newRunnerIndex){
@@ -123,7 +143,36 @@ export class AddResultsModal extends Component {
     }
 
     reset = () => {
-        this.setState(this.baseState);
+        console.log("Current Runner" + this.state.runnerIndex);
+        let initialReduxSplits = [];
+        let initialHours = 0;
+        let initialMinutes = 0;
+        let initialSeconds = 0;
+        if(this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].hasOwnProperty('times') && this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].times.hasOwnProperty('finalTime')){
+            initialHours = this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].times.finalTime.hours;
+            initialMinutes = this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].times.finalTime.minutes;
+            initialSeconds = this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].times.finalTime.seconds;
+        }
+        this.setState({
+            finalTimeHours : initialHours,
+            finalTimeMinutes : initialMinutes,
+            finalTimeSeconds : initialSeconds
+        })
+        if(this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].hasOwnProperty('times') && this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].times.hasOwnProperty('splits') && this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].times.splits.hasOwnProperty('0')){
+            console.log('passed if');
+            initialReduxSplits = this.state.splits.concat(this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].times.splits);
+            console.log(initialReduxSplits);
+        }
+        this.setState({
+            splits: initialReduxSplits
+        })
+        this.setState({
+            vo2max: 0,
+            workoutPace : '',
+            splitUnit : '',
+            splitDistance : ''
+
+        })
     }
 
     render() {
@@ -131,6 +180,7 @@ export class AddResultsModal extends Component {
         let mArr = [];
         let meArr = [];
 
+        this.sortSplits();
         for(const split in this.state.splits){
             if(this.state.splits[split].splitUnit==="Kilometers"){
             kArr.push(
@@ -162,13 +212,13 @@ export class AddResultsModal extends Component {
                             <Row>
                                 <Form.Label>Final Time</Form.Label>
                                 <Col>
-                                    <Form.Control onChange = {this.handleChange} name = "finalTimeHours" type = "text" placeholder = 'Hours'/>
+                                    <Form.Control onChange = {this.handleChange} name = "finalTimeHours" type = "text" placeholder = 'Hours' value = {this.state.finalTimeHours}/>
                                 </Col>
                                 <Col>
-                                    <Form.Control onChange = {this.handleChange} name = "finalTimeMinutes" type = "text" placeholder = 'Minutes'/>
+                                    <Form.Control onChange = {this.handleChange} name = "finalTimeMinutes" type = "text" placeholder = 'Minutes' value = {this.state.finalTimeMinutes}/>
                                 </Col>
                                 <Col>
-                                    <Form.Control onChange = {this.handleChange} name = "finalTimeSeconds" type = "text" placeholder = 'Seconds'/>
+                                    <Form.Control onChange = {this.handleChange} name = "finalTimeSeconds" type = "text" placeholder = 'Seconds' value = {this.state.finalTimeSeconds}/>
                                 </Col>
                             </Row>
                             <Form.Group>

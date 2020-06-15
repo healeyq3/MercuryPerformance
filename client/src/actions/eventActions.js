@@ -28,7 +28,7 @@ export function newEvent(eventData, selectedTeamUID){
   }
 }
 
-export function newTime(timeData, selectedTeamUID, eventUID, runnerUID){//This runs to completion
+export function newTime(timeData, splitsData, selectedTeamUID, eventUID, runnerUID){//This runs to completion
   console.log("TeamUID: "+selectedTeamUID);
   return async function(dispatch) {
     console.log("Creating new time");
@@ -39,16 +39,18 @@ export function newTime(timeData, selectedTeamUID, eventUID, runnerUID){//This r
       },
       body: JSON.stringify({
         timeData,
+        splitsData,
         idToken: cookie.load('idToken'),
         eventUID: eventUID,
         selectedTeamUID: selectedTeamUID,
         runnerUID: runnerUID
       })
-    }).then(() => {
-        dispatch({
-          type: NEW_TIME,
-          payload: timeData.finalTime
-        })})
+    }).then((res) => res.json())
+      .then((forPayload) => {
+      dispatch({
+        type: NEW_TIME,
+        payload: forPayload
+      })})
   }
 }
 
