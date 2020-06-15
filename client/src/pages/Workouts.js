@@ -1,8 +1,23 @@
 import React, { Component } from 'react'
 import { Container, Nav, Card, Row, Col } from 'react-bootstrap'
 import ExistingWorkoutCard from '../components/workout/ExistingWorkoutCard'
+import CreateWorkoutModal from '../components/workout/CreateWorkoutModal';
 
 export class Workouts extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+          show: false,
+          reloaded:false
+        }
+    }
+
+    setShow = e => {
+        this.setState({
+            show: !this.state.show
+        })
+      }
+      
     render() {
         return (
             <Container>
@@ -22,13 +37,14 @@ export class Workouts extends Component {
                 </Card>
                 </Col>
                 <Col>
-                <Card className = "text-center" tag="a" onClick style = {{cursor:"pointer"}}>
+                <Card className = "text-center" tag="a" onClick = {this.setShow} style = {{cursor:"pointer"}}>
                     <p></p>
                     <Card.Title>New Workout</Card.Title>
                     <p></p>
                 </Card>
                 </Col>
             </Row>
+            <CreateWorkoutModal setShow = {this.setShow} show = {this.state.show}></CreateWorkoutModal>
             </Container>
         )
     }
