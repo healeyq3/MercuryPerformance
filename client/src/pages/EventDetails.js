@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import EventNavBar from '../components/event/EventNavBar'
 import EventRunnerCard from '../components/event/EventRunnerCard'
-import { Container, Col, Row, CardColumns, Card, Form } from 'react-bootstrap'
+import { Container, Col, Row, Card, Form } from 'react-bootstrap'
 import EventDetailsCard from '../components/event/EventDetailsCard'
 import EventAddRunnersModal from '../components/event/EventAddRunnersModal'
 import AddResultsModal from '../components/event/AddResultsModal'
@@ -64,9 +64,10 @@ export class EventDetails extends Component {
                 <br></br>
                 <Row>
                   <Col>
-                  <CardColumns>
+                  <Card className = "text-center">
+                  <Card.Header>Runners</Card.Header>
                     {runnersInEvent}
-                  </CardColumns>
+                  </Card>
                   </Col>
                   <EventDetailsCard event = {this.props.events[this.props.selectedEvent]}/>
                 </Row>
