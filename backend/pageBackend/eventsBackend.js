@@ -83,19 +83,19 @@ async function newTime(req, res){
   console.log(data.selectedTeamUID);
 
   const timeData = data.timeData;
+  const splitsData = data.splitsData;
   const eventUID = data.eventUID;
   const runnerUID = data.runnerUID;
   const selectedTeamUID = data.selectedTeamUID;
 
-  eventUtilities.newTime(timeData, eventUID, selectedTeamUID, runnerUID);
+  eventUtilities.newTime(timeData, splitsData, eventUID, selectedTeamUID, runnerUID);
 
   const toSend = {
     eventUID,
     runnerUID,
-    timeData
+    timeData,
+    splitsData
   }
-  console.log("-----".yellow);
-  console.log(toSend);
   res.end(JSON.stringify(toSend));
 }
 
