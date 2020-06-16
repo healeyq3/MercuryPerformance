@@ -14,6 +14,7 @@ import Events from './pages/Events';
 import EventDetails from './pages/EventDetails'
 import ComingSoon from './pages/ComingSoon';
 import Workouts from './pages/Workouts';
+import WorkoutDetails from './pages/WorkoutDetails';
 
 //Components
 import NavigationBar from './components/NavigationBar';
@@ -21,6 +22,7 @@ import AuthRoute from './util/AuthRoute.js';
 import AuthRoute2 from './util/AuthRoute2';
 import AuthRoute3 from './util/AuthRoute3';
 import { OpeningBar } from './components/OpeningBar';
+
 
 
 class App extends Component {
@@ -40,6 +42,7 @@ class App extends Component {
                 <AuthRoute3 exact path = '/events' component = {Events} authenticated = {cookie.load('idToken')} team = {cookie.load('selectedTeam')}/>
                 <AuthRoute3 exact path = '/eventdetails' component = {EventDetails} authenticated = {cookie.load('idToken')} team = {cookie.load('selectedTeam')}/>
                 <AuthRoute3 exact path = '/workouts' component = {Workouts} authenticated = {cookie.load('idToken')} team = {cookie.load('selectedTeam')} />
+                <AuthRoute3 exact path = '/workoutdetails' component = {WorkoutDetails} authenticated = {cookie.load('idToken')} team = {cookie.load('selectedTeam')} />
               </Switch>
             </div>
           </Router>
