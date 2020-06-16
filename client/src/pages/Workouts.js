@@ -17,6 +17,11 @@ export class Workouts extends Component {
             show: !this.state.show
         })
       }
+    setSelectedWorkout(workout){
+        //this.props.setEvent(event.key);
+        console.log("workout selected ");
+        window.location.href='./workoutdetails'
+      }
       
     render() {
         return (
@@ -32,8 +37,8 @@ export class Workouts extends Component {
                 <Col>
                 <Card className = "text-center">
                     <Card.Header>All Workouts</Card.Header>
-                    <ExistingWorkoutCard></ExistingWorkoutCard>
-                    <ExistingWorkoutCard></ExistingWorkoutCard>
+                    <ExistingWorkoutCard onSelect = {this.setSelectedWorkout}></ExistingWorkoutCard>
+                    <ExistingWorkoutCard onSelect = {this.setSelectedWorkout}></ExistingWorkoutCard>
                 </Card>
                 </Col>
                 <Col>

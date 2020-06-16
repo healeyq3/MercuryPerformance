@@ -68,4 +68,4 @@ export class AddWorkoutModal extends Component {
     }
 }
 
-export default connect(null, {  }) (AddWorkoutModal);
+export default connect(null, { /*newWorkout*/ }) (AddWorkoutModal);
