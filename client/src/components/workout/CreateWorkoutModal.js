@@ -9,7 +9,7 @@ export class AddWorkoutModal extends Component {
 
         this.state = {
             name: '',
-            date: '',
+            type: '',
             location: '',
         }
         this.handleChange = this.handleChange.bind(this);
@@ -24,7 +24,7 @@ export class AddWorkoutModal extends Component {
         const workoutData = {
             user: cookie.load('user'),
             name: this.state.name,
-            date: this.state.date,
+            type: this.state.type,
             location: this.state.location,
         }
         this.props.setShow();
@@ -41,8 +41,19 @@ export class AddWorkoutModal extends Component {
                             <Form.Control onChange = {this.handleChange} name = "name" type = "text" placeholder = "Enter Workout Name"/>
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>Date</Form.Label>
-                            <Form.Control onChange = {this.handleChange} name = "date" type = "date"/>
+                            <Form.Label>Type of Run</Form.Label>
+                            <Form.Control onChange = {this.handleChange} name = "type" as = "select">
+                                <option hidden>Type</option>
+                                <option>Long Run</option>
+                                <option>Recovery Run</option>
+                                <option>Brick Run</option>
+                                <option>Interval Run</option>
+                                <option>Temp Run</option>
+                                <option>Hill Repeats</option>
+                                <option>Strides</option>
+                                <option>Time Trial</option>
+                                <option>Other</option>
+                                </Form.Control>
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Location</Form.Label>
