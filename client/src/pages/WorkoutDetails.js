@@ -21,6 +21,11 @@ export class WorkoutDetails extends Component {
                     <WorkoutBlueprintDayCard></WorkoutBlueprintDayCard>
                     <WorkoutBlueprintDayCard></WorkoutBlueprintDayCard>
                 </Card>
+                <Card className = "text-center" tag="a" onClick = {this.setShow} style = {{cursor:"pointer"}}>
+                    <p></p>
+                    <Card.Title>New Date</Card.Title>
+                    <p></p>
+                </Card>
                 </Col>
                 <Col>
                 <Row>
