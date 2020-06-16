@@ -83,6 +83,11 @@ export class AddResultsModal extends Component {
             v02max: data2,
             workoutPace: data1
         });
+    };
+
+    handleSave = () => {
+        this.handleAddResults();
+        this.props.setShow();
     }
 
     handleAddResults = () => {
@@ -97,11 +102,10 @@ export class AddResultsModal extends Component {
             splits: this.state.splits
         }
         this.props.newTime(timeData, splitsData, this.props.selectedTeam, this.props.selectedEvent, this.props.selectedRunner);//needs to have selectedEventUID, and runnerUID
-        this.props.setShow();
     }
 
     async incrementRunnerUp(){
-        
+        this.handleAddResults();
         console.log("----");
         console.log(Object.keys(this.props.runners));
         let newRunnerIndex;
@@ -121,6 +125,7 @@ export class AddResultsModal extends Component {
     }
 
      async incrementRunnerDown(){
+        this.handleAddResults();
         let newRunnerIndex;
         if(this.state.runnerIndex === 0){
             newRunnerIndex = Object.keys(this.props.events[this.props.selectedEvent].runners).length - 1;
@@ -143,24 +148,24 @@ export class AddResultsModal extends Component {
     }
 
     reset = () => {
-        console.log("Current Runner" + this.state.runnerIndex);
+        console.log("Reset called");
         let initialReduxSplits = [];
         let initialHours = 0;
         let initialMinutes = 0;
         let initialSeconds = 0;
-        if(this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].hasOwnProperty('times') && this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].times.hasOwnProperty('finalTime')){
-            initialHours = this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].times.finalTime.hours;
-            initialMinutes = this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].times.finalTime.minutes;
-            initialSeconds = this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].times.finalTime.seconds;
+        if(this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].hasOwnProperty('time')){
+            initialHours = this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].time.hours;
+            initialMinutes = this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].time.minutes;
+            initialSeconds = this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].time.seconds;
         }
         this.setState({
             finalTimeHours : initialHours,
             finalTimeMinutes : initialMinutes,
             finalTimeSeconds : initialSeconds
         })
-        if(this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].hasOwnProperty('times') && this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].times.hasOwnProperty('splits') && this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].times.splits.hasOwnProperty('0')){
+        if(this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].hasOwnProperty('splits')){
             console.log('passed if');
-            initialReduxSplits = this.state.splits.concat(this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].times.splits);
+            initialReduxSplits = this.state.splits.concat(this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].splits);
             console.log(initialReduxSplits);
         }
         this.setState({
@@ -173,6 +178,7 @@ export class AddResultsModal extends Component {
             splitDistance : ''
 
         })
+        console.log("reset finished");
     }
 
     render() {
