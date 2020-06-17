@@ -162,12 +162,19 @@ export class AddResultsModal extends Component {
             finalTimeHours : initialHours,
             finalTimeMinutes : initialMinutes,
             finalTimeSeconds : initialSeconds
-        })
+        });
+        console.log("splits before call");
+        console.log(initialReduxSplits);
+        console.log()
         if(this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].hasOwnProperty('splits')){
             console.log('passed if');
-            initialReduxSplits = this.state.splits.concat(this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].splits);
+            console.log("splits" + initialReduxSplits);
+            console.log("redux splits")
+            console.log(this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].splits);
+            initialReduxSplits = this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].splits;
             console.log(initialReduxSplits);
-        }
+        };
+        console.log('splits after call' + initialReduxSplits);
         this.setState({
             splits: initialReduxSplits
         })
