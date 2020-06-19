@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Modal, Form, Button } from '../../../node_modules/react-bootstrap';
 import { connect } from '../../../node_modules/react-redux';
+import { newWorkoutBlueprint } from '../../actions/workoutActions';
 import cookie from '../../../node_modules/react-cookies';
 
 export class AddWorkoutModal extends Component {
@@ -25,8 +26,8 @@ export class AddWorkoutModal extends Component {
             user: cookie.load('user'),
             name: this.state.name,
             type: this.state.type,
-            location: this.state.location,
         }
+        this.props.newWorkoutBlueprint(workoutData, this.props.teamUID);
         this.props.setShow();
     }
     render() {
@@ -59,7 +60,7 @@ export class AddWorkoutModal extends Component {
                             <Form.Label>Location</Form.Label>
                             <Form.Control onChange = {this.handleChange} name = "location" type = "text" placeholder = "Enter Event Location"/>
                         </Form.Group>
-                        <Button variant = "primary" onClick = {this.handleCreateEvent}>Create Workout</Button>
+                        <Button variant = "primary" onClick = {this.handleCreateWorkout}>Create Workout</Button>
                     </Form>
                 </Modal.Body>
             {/* </Modal.Dialog> */}
@@ -68,4 +69,4 @@ export class AddWorkoutModal extends Component {
     }
 }
 
-export default connect(null, { /*newWorkout*/ }) (AddWorkoutModal);
+export default connect(null, { newWorkoutBlueprint }) (AddWorkoutModal);

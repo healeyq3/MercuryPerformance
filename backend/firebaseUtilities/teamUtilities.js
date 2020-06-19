@@ -63,7 +63,7 @@ async function doesUserOwnTeam(req){
   const teamuid = req.body.selectedTeamUID;
 
   if(!teamuid){
-    console.log("teamuid not passed for events - returning null".red);
+    console.log("teamuid not passed - returning null".red);
     return false;
   }
   const teamRef = database.ref("users/"+useruid+"/teams");
