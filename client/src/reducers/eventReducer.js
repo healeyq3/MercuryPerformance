@@ -27,11 +27,11 @@ export default function(state = initialState, action) {
       const eventuid = action.payload.eventUID;
       const runneruid = action.payload.runnerUID;
       const timeData = action.payload.timeData;
-      const splitData = action.payload.splitsData;
+      const splitsArray = action.payload.splitsArray;
       console.log("timeData:")
       console.log(timeData);
       console.log('splitData');
-      console.log(splitData);
+      console.log(splitsArray);
       const newerState = {
         ...state
       }
@@ -42,7 +42,7 @@ export default function(state = initialState, action) {
       } 
       newerState.events[eventuid].runners[runneruid].splits = {
         ...newerState.events[eventuid].runners[runneruid].splits,
-        ...splitData
+        ...splitsArray
       }
       return newerState;
     case RUNNERS_ADDED:
