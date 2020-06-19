@@ -276,7 +276,7 @@ export class AddResultsModal extends Component {
                                     </Row>
                                     <Row>
                                         <Form.Label>Workout Pace: {this.state.workoutPace}</Form.Label>
-                                        {stringToNumber(this.state.workoutPace) < stringToNumber(this.props.runners[this.props.selectedRunner].wPace) ? <React.Fragment><h4 style = {{color: 'green'}}>↑</h4><Button variant = 'outline-success' size = 'sm'>Update</Button></React.Fragment> : <React.Fragment><h4 style = {{color: 'red'}}>↓</h4><Button variant = 'outline-danger' size = 'sm'>Update</Button></React.Fragment>}
+                                        {stringToNumber(this.state.workoutPace) < stringToNumber(this.props.runners[this.props.selectedRunner].wPace) ? <React.Fragment><h4 style = {{color: 'green'}}>↑</h4><Button variant = 'outline-success' size = 'sm' onClick = {this.handleUpdateWPace}>Update</Button></React.Fragment> : <React.Fragment><h4 style = {{color: 'red'}}>↓</h4><Button variant = 'outline-danger' size = 'sm' onClick = {this.handleUpdateWPace}>Update</Button></React.Fragment>}
                                     </Row>
                                 </Form.Group> 
                             </Form.Group>
