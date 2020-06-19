@@ -185,10 +185,13 @@ export class AddResultsModal extends Component {
             splits: initialReduxSplits
         })
         this.setState({
-            vo2max: 0,
+            v02max: 0,
             workoutPace : '',
             splitUnit : '',
-            splitDistance : ''
+            splitDistance : '',
+            splitTimeHours:0,
+            splitTimeMinutes:0,
+            splitTimeSeconds:0,
 
         })
         console.log("reset finished");
@@ -244,7 +247,7 @@ export class AddResultsModal extends Component {
                                 <Row>
                                     <Form.Label>Splits (optional)</Form.Label>
                                     <Col>
-                                        <Form.Control onChange = {this.handleChange} name = "splitDistance" type = "text" placeholder = "Distance" />
+                                        <Form.Control onChange = {this.handleChange} name = "splitDistance" type = "text" placeholder = "Distance" value = {this.state.splitDistance}/>
                                     </Col>
                                     <Col>
                                         <Form.Control onChange = {this.handleChange} name = "splitUnit" as = "select">
@@ -257,13 +260,13 @@ export class AddResultsModal extends Component {
                                 </Row>
                                 <Row>
                                     <Col>
-                                        <Form.Control onChange = {this.handleChange} name = "splitTimeHours" type = "text" placeholder = "Hours"/>
+                                        <Form.Control onChange = {this.handleChange} name = "splitTimeHours" type = "text" placeholder = "Hours" value = {this.state.splitTimeHours}/>
                                     </Col>
                                     <Col>
-                                        <Form.Control onChange = {this.handleChange} name = "splitTimeMinutes" type = "text" placeholder = "Minutes"/>
+                                        <Form.Control onChange = {this.handleChange} name = "splitTimeMinutes" type = "text" placeholder = "Minutes" value = {this.state.splitTimeMinutes}/>
                                     </Col>
                                     <Col>
-                                        <Form.Control onChange = {this.handleChange} name = "splitTimeSeconds" type = "text" placeholder = "Seconds"/>
+                                        <Form.Control onChange = {this.handleChange} name = "splitTimeSeconds" type = "text" placeholder = "Seconds" value = {this.state.splitTimeSeconds}/>
                                     </Col>
                                 </Row>
                                 <Button variant = "primary" onClick = {this.handleAddSplits} size = 'sm'>Add Split</Button>
