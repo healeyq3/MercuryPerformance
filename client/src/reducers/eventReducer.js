@@ -39,11 +39,11 @@ export default function(state = initialState, action) {
       newerState.events[eventuid].runners[runneruid].time = {
         ...newerState.events[eventuid].runners[runneruid].time,
         ...timeData
-      } //look up how to replace an array in redux
-      // newerState.events[eventuid].runners[runneruid].splits = {
-      //   ...newerState.events[eventuid].runners[runneruid].splits,
-      //   ...splitData
-      // }
+      } 
+      newerState.events[eventuid].runners[runneruid].splits = {
+        ...newerState.events[eventuid].runners[runneruid].splits,
+        ...splitData
+      }
       return newerState;
     case RUNNERS_ADDED:
       const euid = action.payload.eventuid;
