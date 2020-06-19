@@ -1,4 +1,4 @@
-import { GET_TEAM_RUNNERS, NEW_RUNNER, SET_RUNNER } from '../actions/types';
+import { GET_TEAM_RUNNERS, NEW_RUNNER, SET_RUNNER, UPDATE_RUNNER } from '../actions/types';
 
 const initialState = {
   runners: {},
@@ -21,6 +21,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         selectedRunner: action.payload
+      }
+    case UPDATE_RUNNER:
+      return {
+        ...state,
+        runners: {...state.runners, [action.runnerUID]: action.payload}
       }
     default:
       return state;

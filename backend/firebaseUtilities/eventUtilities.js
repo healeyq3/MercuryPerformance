@@ -90,16 +90,16 @@ async function addRunnerToEvent(eventuid, runnerUidArray){
   return runnersAdded;
 }
 
-function newTime(timeData, splitData, eventuid, selectedteamuid, runneruid){
+async function newTime(timeData, splitData, eventuid, selectedteamuid, runneruid){
   console.log("Time event id" + eventuid + " " + runneruid)
-  const eventTimeRef = database.ref("events/" + eventuid + "/runners/" + runneruid + "/time")
-  const eventSplitRef = database.ref("events/" + eventuid + "/runners/" + runneruid + "/splits")
-  eventTimeRef.set(timeData).catch((error) => {
+  const eventTimeRef = await database.ref("events/" + eventuid + "/runners/" + runneruid + "/time")
+  const eventSplitRef = await database.ref("events/" + eventuid + "/runners/" + runneruid + "/splits")
+  await eventTimeRef.set(timeData).catch((error) => {
     console.log(error);
   });
   if(splitData.splits){
     console.log(splitData.splits);
-    eventSplitRef.set(splitData.splits).catch((error) => {
+    await eventSplitRef.set(splitData.splits).catch((error) => {
       console.log(error);
     });
   }

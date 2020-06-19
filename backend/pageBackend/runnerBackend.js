@@ -7,6 +7,7 @@ const teamUtilities = require("../firebaseUtilities/teamUtilities");
 
 router.post('/', getRunners);
 router.post('/new', createRunner);
+router.post('/update', updateRunner);
 
 module.exports = router;
 
@@ -59,4 +60,26 @@ async function createRunner(req, res){
     console.log("Error adding and fetching Runners".red);
     console.log(error);
   });
+}
+
+async function updateRunner(req, res){
+  if(!await authenticatePost(req, res)){
+    res.end();
+    return;
+  }
+
+  const data = req.body;
+  const runnerUID = data.runnerUID;
+  const toUpdate = data.toUpdate;
+  const newValue = data.newValue;
+
+runnerUtilities.updateRunner(runnerUID, toUpdate, newValue).then((runner) => {
+  res.setHeader('Content-Type', 'application/json');
+  const runnerJson = JSON.stringify(runner);
+  res.end(runnerJson);
+}).catch((err) => {
+  console.log("Error updating and fetching the runner".red);
+  console.log(err);
+})
+
 }

@@ -7,6 +7,7 @@ export const SET_TEAM = 'SET_TEAM';
 export const NEW_RUNNER = 'NEW_RUNNER';
 export const GET_TEAM_RUNNERS = 'GET_TEAM_RUNNERS';
 export const SET_RUNNER = 'SET_RUNNER';
+export const UPDATE_RUNNER  = 'UPDATE_RUNNER';
 
 // ----------- EVENT ACTIONS ---------------
 export const NEW_EVENT = 'NEW_EVENT';

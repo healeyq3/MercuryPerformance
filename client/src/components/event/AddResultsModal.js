@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Modal, Form, Button, Row, Col, ButtonGroup } from 'react-bootstrap';
-import { newTime, selectRunner } from '../../actions/eventActions'
+import { newTime, selectRunner } from '../../actions/eventActions';
+import { updateRunner } from '../../actions/runnerActions';
 import { connect } from 'react-redux';
 import {  getV02max, getWorkoutPace } from '../../math/V02max';
 import PropTypes from 'prop-types';
@@ -66,6 +67,20 @@ export class AddResultsModal extends Component {
         const newStateArr = this.state.splits.slice();
         newStateArr.push(splitData);
         this.setState({splits:newStateArr});
+    }
+
+    handleUpdateV02 = () => {
+        const newV02 = this.state.v02max;
+        const runner = this.props.selectedRunner;
+        const toUpdate = 'v02'
+        this.props.updateRunner(runner, toUpdate, newV02);
+    }
+
+    handleUpdateWPace = () => {
+        const newWPace = this.state.workoutPace;
+        const runner = this.props.selectedRunner;
+        const toUpdate = 'wPace';
+        this.props.updateRunner(runner, toUpdate, newWPace);
     }
 
     handleCalculate = () => {
@@ -163,18 +178,9 @@ export class AddResultsModal extends Component {
             finalTimeMinutes : initialMinutes,
             finalTimeSeconds : initialSeconds
         });
-        console.log("splits before call");
-        console.log(initialReduxSplits);
-        console.log()
         if(this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].hasOwnProperty('splits')){
-            console.log('passed if');
-            console.log("splits" + initialReduxSplits);
-            console.log("redux splits")
-            console.log(this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].splits);
             initialReduxSplits = this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].splits;
-            console.log(initialReduxSplits);
         };
-        console.log('splits after call' + initialReduxSplits);
         this.setState({
             splits: initialReduxSplits
         })
@@ -266,7 +272,7 @@ export class AddResultsModal extends Component {
                                 <br></br>
                                     <Row>
                                         <Form.Label>V02max: {this.state.v02max}</Form.Label>
-                                        {this.state.v02max > this.props.runners[this.props.selectedRunner].v02 ? <React.Fragment><h4 style = {{color: 'green'}}>↑</h4><Button variant = 'outline-success' size = 'sm'>Update</Button></React.Fragment> : <React.Fragment><h4 style = {{color: 'red'}}>↓</h4><Button variant = 'outline-danger' size = 'sm'>Update</Button></React.Fragment>}
+                                        {this.state.v02max > this.props.runners[this.props.selectedRunner].v02 ? <React.Fragment><h4 style = {{color: 'green'}}>↑</h4><Button variant = 'outline-success' size = 'sm' onClick = {this.handleUpdateV02}>Update</Button></React.Fragment> : <React.Fragment><h4 style = {{color: 'red'}}>↓</h4><Button variant = 'outline-danger' size = 'sm' onClick = {this.handleUpdateV02}>Update</Button></React.Fragment>}
                                     </Row>
                                     <Row>
                                         <Form.Label>Workout Pace: {this.state.workoutPace}</Form.Label>
@@ -317,6 +323,7 @@ AddResultsModal.propTypes = {
     newTime: PropTypes.func.isRequired,
     selectRunner: PropTypes.func.isRequired,
     rehydrated: PropTypes.bool.isRequired,
+    updateRunner : PropTypes.func.isRequired
 }
 const mapStateToProps = function(state){
     return {
@@ -330,4 +337,4 @@ const mapStateToProps = function(state){
     }
 }
 
-export default connect(mapStateToProps, { newTime, selectRunner }) (AddResultsModal);
+export default connect(mapStateToProps, { newTime, selectRunner, updateRunner }) (AddResultsModal);

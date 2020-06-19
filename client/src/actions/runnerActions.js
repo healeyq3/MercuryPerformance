@@ -1,4 +1,4 @@
-import {GET_TEAM_RUNNERS, NEW_RUNNER, SET_RUNNER} from './types';
+import {GET_TEAM_RUNNERS, NEW_RUNNER, SET_RUNNER, UPDATE_RUNNER} from './types';
 import cookie from 'react-cookies'
 
 export function getTeamRunners(selectedTeamUID) {
@@ -55,5 +55,32 @@ export function setRunner(runner){
       type: SET_RUNNER,
       payload: runner
     })
+  }
+}
+
+export function updateRunner(runnerUID, toUpdate, newValue){
+  return async function(dispatch){
+    await fetch('/runners/update', {
+      method: 'POST',
+      headers: {
+        'content-type' : 'application/json'
+      },
+      body: JSON.stringify({
+        idToken: cookie.load('idToken'),
+        runnerUID: runnerUID,
+        toUpdate,
+        newValue
+      })
+    })
+      .then(res => res.json())
+      .then(runner => 
+        dispatch({
+          type: UPDATE_RUNNER,
+          payload: runner,
+          runnerUID: runner.key
+        })
+      ).catch((err) => {
+        console.log(err)
+      })
   }
 }

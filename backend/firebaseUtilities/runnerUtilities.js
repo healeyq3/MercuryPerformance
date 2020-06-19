@@ -62,6 +62,26 @@ async function addRunnerToTeam(teamuid, runneruid){
     });
 }
 
+async function updateRunner(runnerUID, toUpdate, newValue){
+  const runnerRef = await database.ref("runners/" + runnerUID);
+  await runnerRef.child(toUpdate).set(newValue).catch((error) => {
+    console.log("Error updating the runner in firebase")
+    console.log(error)
+  });
+  let runnerToReturn;
+  await database.ref('runners/' + runnerUID).once('value').then((runnerSnapshot) => {
+      runnerToReturn = runnerSnapshot.val();
+      console.log('---');
+      console.log(runnerSnapshot.val());
+  })
+
+  console.log('Successfully Returned');
+  console.log(runnerToReturn);
+  return runnerToReturn;
+
+}
+
 module.exports.getTeamRunners = getTeamRunners;
 module.exports.createRunner = createRunner;
 module.exports.addRunnerToTeam = addRunnerToTeam;
+module.exports.updateRunner = updateRunner;
