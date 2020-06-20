@@ -30,7 +30,7 @@ export class WorkoutDetails extends Component {
                 <Col>
                 <Row>
                 <Card>
-                    <Card.Header>Graph</Card.Header>
+                    <Card.Header className = "text-center">Graph</Card.Header>
                 </Card>
                 </Row>
                 <Row>
