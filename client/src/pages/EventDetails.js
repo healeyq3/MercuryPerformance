@@ -50,7 +50,7 @@ export class EventDetails extends Component {
               if(this.props.events[this.props.selectedEvent].runners.hasOwnProperty(runner)){
                   runnersInEvent.push(
                       <React.Fragment key = {runner}>
-                          <EventRunnerCard setShow = {this.setShowResults}runner = {this.props.runners[runner]} />
+                          <EventRunnerCard setShow = {this.setShowResults}runner = {this.props.runners[runner]} time = {this.props.events[this.props.selectedEvent].runners[runner].time} />
                       </React.Fragment>
                   )
               }
