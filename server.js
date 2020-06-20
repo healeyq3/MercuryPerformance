@@ -12,6 +12,7 @@ const authentication = require("./backend/pageBackend/authenticationRoutes");
 const teamBackend = require("./backend/pageBackend/teamBackend");
 const runnerBackend = require("./backend/pageBackend/runnerBackend");
 const eventsBackend = require("./backend/pageBackend/eventsBackend");
+const workoutsBackend = require('./backend/pageBackend/workoutsBackend');
 
 app.use(logger("dev"));
 
@@ -30,6 +31,7 @@ app.use("/login", authentication);
 app.use("/runners", runnerBackend);
 app.use("/teams", teamBackend);
 app.use("/events", eventsBackend);
+app.use('/workouts', workoutsBackend);
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
 

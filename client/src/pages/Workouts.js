@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import { Container, Nav, Card, Row, Col } from 'react-bootstrap'
 import ExistingWorkoutCard from '../components/workout/ExistingWorkoutCard'
 import CreateWorkoutModal from '../components/workout/CreateWorkoutModal';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getWorkoutBlueprints, setBlueprint } from '../actions/workoutActions';
 
 export class Workouts extends Component {
     constructor(props){
@@ -10,6 +13,15 @@ export class Workouts extends Component {
           show: false,
           reloaded:false
         }
+
+        this.setSelectedBlueprint = this.setSelectedBlueprint.bind(this);
+    }
+
+    componentDidUpdate(prevProps){
+        if(prevProps.rehydrated === false){
+            console.log("Workouts need - passing: " + this.props.selectedTeam);
+            this.props.getWorkoutBlueprints(this.props.selectedTeam);
+        }
     }
 
     setShow = e => {
@@ -17,13 +29,30 @@ export class Workouts extends Component {
             show: !this.state.show
         })
       }
-    setSelectedWorkout(workout){
-        //this.props.setEvent(event.key);
+    setSelectedBlueprint(blueprint){
+        this.props.setBlueprint(blueprint.key);
         console.log("workout selected ");
         window.location.href='./workoutdetails'
       }
       
     render() {
+        if(!this.props.selectedTeam){
+            return null;
+        }
+
+
+        let cardItems = [];
+        for(const blueprint in this.props.blueprints){
+            if(this.props.blueprints.hasOwnProperty(blueprint)){
+                cardItems.push(
+                    <React.Fragment key = {blueprint}>
+                        <ExistingWorkoutCard onSelect = {this.setSelectedBlueprint} blueprint = {this.props.blueprints[blueprint]} />
+                    </React.Fragment>
+                )
+            }
+        }
+
+
         return (
             <Container>
             <Container fluid>
@@ -37,8 +66,7 @@ export class Workouts extends Component {
                 <Col>
                 <Card className = "text-center">
                     <Card.Header>All Workouts</Card.Header>
-                    <ExistingWorkoutCard onSelect = {this.setSelectedWorkout}></ExistingWorkoutCard>
-                    <ExistingWorkoutCard onSelect = {this.setSelectedWorkout}></ExistingWorkoutCard>
+                    {cardItems}
                 </Card>
                 </Col>
                 <Col>
@@ -49,10 +77,28 @@ export class Workouts extends Component {
                 </Card>
                 </Col>
             </Row>
-            <CreateWorkoutModal setShow = {this.setShow} show = {this.state.show}></CreateWorkoutModal>
+            <CreateWorkoutModal setShow = {this.setShow} show = {this.state.show} teamUID = {this.props.selectedTeam}></CreateWorkoutModal>
             </Container>
         )
     }
 }
 
-export default Workouts
+
+Workouts.propTypes = {
+    blueprints: PropTypes.object.isRequired,
+    selectedTeam: PropTypes.string.isRequired,
+    rehydrated: PropTypes.bool.isRequired,
+    getWorkoutBlueprints: PropTypes.func.isRequired,
+    setBlueprint: PropTypes.func.isRequired
+}
+
+const mapStateToProps = function(state){
+    return {
+        blueprints: state.workouts.blueprints,
+        selectedTeam: state.teams.selectedTeam,
+        rehydrated: state._persist.rehydrated,
+        selectedBlueprint: state.workouts.selectedBlueprint
+    }
+}
+
+export default connect(mapStateToProps, { getWorkoutBlueprints, setBlueprint }) (Workouts)
