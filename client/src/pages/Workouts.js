@@ -4,7 +4,7 @@ import ExistingWorkoutCard from '../components/workout/ExistingWorkoutCard'
 import CreateWorkoutModal from '../components/workout/CreateWorkoutModal';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {getWorkoutBlueprints} from '../actions/workoutActions';
+import { getWorkoutBlueprints, setBlueprint } from '../actions/workoutActions';
 
 export class Workouts extends Component {
     constructor(props){
@@ -13,6 +13,8 @@ export class Workouts extends Component {
           show: false,
           reloaded:false
         }
+
+        this.setSelectedBlueprint = this.setSelectedBlueprint.bind(this);
     }
 
     componentDidUpdate(prevProps){
@@ -27,8 +29,8 @@ export class Workouts extends Component {
             show: !this.state.show
         })
       }
-    setSelectedBlueprint(workout){
-        //this.props.setEvent(event.key);
+    setSelectedBlueprint(blueprint){
+        this.props.setBlueprint(blueprint.key);
         console.log("workout selected ");
         window.location.href='./workoutdetails'
       }
@@ -86,15 +88,17 @@ Workouts.propTypes = {
     blueprints: PropTypes.object.isRequired,
     selectedTeam: PropTypes.string.isRequired,
     rehydrated: PropTypes.bool.isRequired,
-    getWorkoutBlueprints: PropTypes.func.isRequired
+    getWorkoutBlueprints: PropTypes.func.isRequired,
+    setBlueprint: PropTypes.func.isRequired
 }
 
 const mapStateToProps = function(state){
     return {
         blueprints: state.workouts.blueprints,
         selectedTeam: state.teams.selectedTeam,
-        rehydrated: state._persist.rehydrated
+        rehydrated: state._persist.rehydrated,
+        selectedBlueprint: state.workouts.selectedBlueprint
     }
 }
 
-export default connect(mapStateToProps, { getWorkoutBlueprints }) (Workouts)
+export default connect(mapStateToProps, { getWorkoutBlueprints, setBlueprint }) (Workouts)

@@ -21,3 +21,4 @@ export const SELECT_RUNNER =  'SELECT_RUNNER';
 //  ----------- WORKOUT ACTIONS ---------------
 export const NEW_BLUEPRINT = 'NEW_BLUEPRINT';
 export const GET_BLUEPRINTS = 'GET_BLUEPRINTS';
+export const SET_BLUEPRINT = 'SET_BLUEPRINT';

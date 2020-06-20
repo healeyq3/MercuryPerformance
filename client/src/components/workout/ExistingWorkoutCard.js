@@ -4,7 +4,7 @@ import {Row, Col, Card, Button} from 'react-bootstrap'
 export class ExistingWorkoutCard extends Component {
     render() {
         return (
-            <Card tag="a" onClick={() => this.props.onSelect(null)} style = {{cursor:"pointer"}}>
+            <Card tag="a" onClick={() => this.props.onSelect(this.props.blueprint)} style = {{cursor:"pointer"}}>
                     <Row>
                         <Col>
                             <Card.Title>{this.props.blueprint.name}</Card.Title>

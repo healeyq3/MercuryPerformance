@@ -1,7 +1,8 @@
-import {GET_BLUEPRINTS, NEW_BLUEPRINT} from '../actions/types';
+import {GET_BLUEPRINTS, NEW_BLUEPRINT, SET_BLUEPRINT} from '../actions/types';
 
 const initialState = {
-    blueprints: {}
+    blueprints: {},
+    selectedBlueprint: ''
 }
 
 export default function(state = initialState, action){
@@ -15,6 +16,11 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 blueprints: {...state.blueprints, [action.blueprintUID]: action.payload}
+            }
+        case SET_BLUEPRINT:
+            return {
+                ...state,
+                selectedBlueprint: action.payload
             }
         default:
             return state;

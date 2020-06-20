@@ -1,4 +1,4 @@
-import { GET_BLUEPRINTS, NEW_BLUEPRINT } from './types';
+import { GET_BLUEPRINTS, NEW_BLUEPRINT, SET_BLUEPRINT } from './types';
 import cookie from 'react-cookies';
 
 export function getWorkoutBlueprints(selectedTeamUID){
@@ -48,5 +48,14 @@ export function newWorkoutBlueprint(blueprintData, selectedTeamUID){
             .catch(err => {
                 console.log(`error in workoutActions: ${err}`)
             })
+    }
+}
+
+export function setBlueprint(blueprint){
+    return function(dispatch){
+        dispatch({
+            type: SET_BLUEPRINT,
+            payload: blueprint
+        })
     }
 }
