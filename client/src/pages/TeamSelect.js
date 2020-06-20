@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getTeams, newTeam, setTeam } from '../actions/teamActions';
@@ -8,13 +8,15 @@ import NewTeamCard from '../components/NewTeamCard';
 import CreateTeamModal from '../components/CreateTeamModal';
 import {Row} from 'react-bootstrap';
 import cookie from 'react-cookies';
+import { Redirect } from "react-router-dom";
 
-class TeamSelect extends Component {
+class TeamSelect extends React.Component {
   constructor(props){
     super(props);
     this.state = {
       show: false,
-      reloaded:false
+      reloaded: false,
+      toTeamHome: false
     }
 
     this.setSelectedTeam = this.setSelectedTeam.bind(this);
@@ -25,10 +27,12 @@ class TeamSelect extends Component {
   }
 
   setSelectedTeam(team){
+    this.props.getTeamRunners(team.key);
     this.props.setTeam(team.key);
     cookie.save('selectedTeam', team.key, { path: '/'});
-    console.log("team selected");
-    window.location.href="./"
+    this.setState({
+      toTeamHome: true
+    })
   }
 
   setShow = e => {
@@ -38,6 +42,10 @@ class TeamSelect extends Component {
   }
 
   render() {
+    if(this.state.toTeamHome){
+      return <Redirect to='/' />
+    }
+
     let cardItems = [];
     for (const teamuid in this.props.teams) {
       if (this.props.teams.hasOwnProperty(teamuid)) {
