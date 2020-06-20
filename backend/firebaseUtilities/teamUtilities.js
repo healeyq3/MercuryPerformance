@@ -38,7 +38,6 @@ async function addTeamToUser(useruid, teamuid, role){
 }
 
 async function getUserTeams(useruid){
-  const startTime = Date.now();
   const teamsRef = database.ref("users/"+useruid+"/teams");
   let teams = {};
   await teamsRef.once("value").then(async (snapshot) => {
@@ -53,8 +52,6 @@ async function getUserTeams(useruid){
       });
     }
   });
-
-  console.log("Finished Get Teams - ".green + (Date.now() - startTime).toString().cyan + "ms".cyan);
   return teams;
 }
 

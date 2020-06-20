@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Container, Nav, Row, Col, Card } from 'react-bootstrap'
 import WorkoutBlueprintDayCard from '../components/workout/WorkoutBlueprintDayCard'
 import WorkoutDetailsCard from '../components/workout/WorkoutDetailsCard'
+import ExistingWorkoutGraph from '../components/workout/ExistingWorkoutGraph'
 
 export class WorkoutDetails extends Component {
     render() {
@@ -29,9 +30,7 @@ export class WorkoutDetails extends Component {
                 </Col>
                 <Col>
                 <Row>
-                <Card>
-                    <Card.Header>Graph</Card.Header>
-                </Card>
+                <ExistingWorkoutGraph></ExistingWorkoutGraph>
                 </Row>
                 <Row>
                     <WorkoutDetailsCard></WorkoutDetailsCard>

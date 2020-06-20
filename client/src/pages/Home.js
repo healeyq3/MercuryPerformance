@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { newRunner, getTeamRunners, setRunner } from '../actions/runnerActions';
+import {setTeam} from "../actions/teamActions";
 import  { Container, Row, Col } from 'react-bootstrap'
 import { connect } from 'react-redux';
 import ExistingRunnerCard from '../components/ExistingRunnerCard';
@@ -14,7 +15,6 @@ class Home extends Component {
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if(prevProps.rehydrated === false){
-      console.log('CDU reached and teamUID is: ' + this.props.selectedTeam);
       this.props.getTeamRunners(this.props.selectedTeam);
     }
   }
@@ -75,6 +75,8 @@ Home.propTypes = {
 };
   
 const mapStateToProps = function(state){
+  console.log("Home mapping");
+  console.dir(state);
   return {
     runners: state.runners.runners,
     selectedTeam: state.teams.selectedTeam,
@@ -83,4 +85,4 @@ const mapStateToProps = function(state){
     rehydrated: state._persist.rehydrated,
   }
 }
-export default connect(mapStateToProps, { newRunner, getTeamRunners, setRunner }) (Home);
+export default connect(mapStateToProps, { newRunner, getTeamRunners, setRunner, setTeam }) (Home);
