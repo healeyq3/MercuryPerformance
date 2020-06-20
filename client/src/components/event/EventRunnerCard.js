@@ -3,7 +3,6 @@ import { Card, Button, Row, Col } from 'react-bootstrap';
 
 export class EventRunnerCard extends Component {
     render() {
-        console.log(this.props.time)
         let hour;
         let min;
         let seconds;
