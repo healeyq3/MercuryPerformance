@@ -1,25 +1,24 @@
 import React, { Component } from 'react'
 import  { Card } from 'react-bootstrap'
-import { VictoryBar, VictoryChart } from 'victory';
+import { VictoryArea, VictoryChart } from 'victory';
 
 export class ExistingWorkoutGraph extends Component {
     render() {
         const data = [
-            {quarter: 1, earnings: 13000},
-            {quarter: 2, earnings: 16500},
-            {quarter: 3, earnings: 14250},
-            {quarter: 4, earnings: 19000}
+            {x: 0, y: 30, fill:'#c43b55'},
+            {x: 2, y: 30, fill:'#c43b55'},
+            {x: 2, y: 80, fill:'#c43b55'},
+            {x: 4, y: 100, fill:'#c43b55'}
           ];
         return (
             <Card>
                 <Card.Header className = "text-center">Graph</Card.Header>
                 <Card.Body>
-                <VictoryChart domainPadding={20}>
-                    <VictoryBar
+                <VictoryChart domainPadding={20}> 
+                <VictoryArea
+                    style={{ data: { fill: data[0].fill} }}
                     data={data}
-                    x="quarter"
-                    y="earnings"
-                    />
+                />
                 </VictoryChart>
                 </Card.Body>
             </Card>
