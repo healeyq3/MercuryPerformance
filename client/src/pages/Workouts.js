@@ -27,7 +27,7 @@ export class Workouts extends Component {
             show: !this.state.show
         })
       }
-    setSelectedWorkout(workout){
+    setSelectedBlueprint(workout){
         //this.props.setEvent(event.key);
         console.log("workout selected ");
         window.location.href='./workoutdetails'
@@ -37,6 +37,19 @@ export class Workouts extends Component {
         if(!this.props.selectedTeam){
             return null;
         }
+
+
+        let cardItems = [];
+        for(const blueprint in this.props.blueprints){
+            if(this.props.blueprints.hasOwnProperty(blueprint)){
+                cardItems.push(
+                    <React.Fragment key = {blueprint}>
+                        <ExistingWorkoutCard onSelect = {this.setSelectedBlueprint} blueprint = {this.props.blueprints[blueprint]} />
+                    </React.Fragment>
+                )
+            }
+        }
+
 
         return (
             <Container>
@@ -51,8 +64,7 @@ export class Workouts extends Component {
                 <Col>
                 <Card className = "text-center">
                     <Card.Header>All Workouts</Card.Header>
-                    <ExistingWorkoutCard onSelect = {this.setSelectedWorkout}></ExistingWorkoutCard>
-                    <ExistingWorkoutCard onSelect = {this.setSelectedWorkout}></ExistingWorkoutCard>
+                    {cardItems}
                 </Card>
                 </Col>
                 <Col>
