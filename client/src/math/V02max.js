@@ -6,7 +6,8 @@ function getV02max(data) {
     const pMax = getPercentMax(time); //works
     const velocity = getVelocity(distance, time);
     const v02 = getV02(velocity);
-    return v02 / pMax;
+    let val= v02 / pMax;
+    return val.toFixed(2);
 }
 
 function getWorkoutPace(data){
@@ -101,7 +102,9 @@ function getVelocity(distance, time){
 }
 
 function getV02(v){
-    const toReturn = -4.6 + (.182258 * (v)) + (.000104 * Math.pow(v, 2));
+    let toReturn = -4.6 + (.182258 * (v)) + (.000104 * Math.pow(v, 2));
+    //toReturn = toReturn.toFixed(2);
+    //console.log(toReturn + "AAAAAA")
     return toReturn;
 }
 export { getWorkoutPace, getV02max };
