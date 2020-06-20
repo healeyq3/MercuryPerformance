@@ -43,7 +43,8 @@ async function createBlueprint(teamuid, name, type, location){
     }
 
     blueprintRef.set(blueprintData).then(async () => {
-        console.log("Successfully created the blueprint".green + name.blue);
+        console.log("Successfully created the blueprint ".green + name.blue);
+        console.log(teamuid);
         await addBlueprintToTeam(teamuid, blueprintRef.key)
     }).catch(err => {
         console.log('Unable to create blueprint'.red + name.blue);
@@ -54,7 +55,7 @@ async function createBlueprint(teamuid, name, type, location){
 }
 
 async function addBlueprintToTeam(teamuid, blueprintuid){
-    await database.ref('teams/' + teamuid.toString() + 'blueprints').child(blueprintuid.toString()).set(blueprintuid)
+    await database.ref('teams/' + teamuid.toString() + '/blueprints').child(blueprintuid.toString()).set(blueprintuid)
     .then(() => {
         console.log("Successfully added blueprint ".green + blueprintuid.green + ' to '.green + teamuid.toString().green);
     }).catch(err => {

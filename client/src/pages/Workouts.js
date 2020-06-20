@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import { Container, Nav, Card, Row, Col } from 'react-bootstrap'
 import ExistingWorkoutCard from '../components/workout/ExistingWorkoutCard'
 import CreateWorkoutModal from '../components/workout/CreateWorkoutModal';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import {getWorkoutBlueprints} from '../actions/workoutActions';
 
 export class Workouts extends Component {
     constructor(props){
@@ -9,6 +12,13 @@ export class Workouts extends Component {
         this.state = {
           show: false,
           reloaded:false
+        }
+    }
+
+    componentDidUpdate(prevProps){
+        if(prevProps.rehydrated === false){
+            console.log("Workouts need - passing: " + this.props.selectedTeam);
+            this.props.getWorkoutBlueprints(this.props.selectedTeam);
         }
     }
 
@@ -24,6 +34,10 @@ export class Workouts extends Component {
       }
       
     render() {
+        if(!this.props.selectedTeam){
+            return null;
+        }
+
         return (
             <Container>
             <Container fluid>
@@ -49,10 +63,26 @@ export class Workouts extends Component {
                 </Card>
                 </Col>
             </Row>
-            <CreateWorkoutModal setShow = {this.setShow} show = {this.state.show}></CreateWorkoutModal>
+            <CreateWorkoutModal setShow = {this.setShow} show = {this.state.show} teamUID = {this.props.selectedTeam}></CreateWorkoutModal>
             </Container>
         )
     }
 }
 
-export default Workouts
+
+Workouts.propTypes = {
+    blueprints: PropTypes.object.isRequired,
+    selectedTeam: PropTypes.string.isRequired,
+    rehydrated: PropTypes.bool.isRequired,
+    getWorkoutBlueprints: PropTypes.func.isRequired
+}
+
+const mapStateToProps = function(state){
+    return {
+        blueprints: state.workouts.blueprints,
+        selectedTeam: state.teams.selectedTeam,
+        rehydrated: state._persist.rehydrated
+    }
+}
+
+export default connect(mapStateToProps, { getWorkoutBlueprints }) (Workouts)
