@@ -1,11 +1,19 @@
 import React, { Component } from 'react'
-import { Col, Row, Card, Form } from 'react-bootstrap'
+import { Col, Row, Card, Form, Container, Nav } from 'react-bootstrap'
 import WorkoutDateRunnerCard from '../components/workout/WorkoutDateRunnerCard'
 
 export class WorkoutDateDetails extends Component {
     render() {
         
         return (
+            <Container>
+            <Container fluid>
+                <Nav fill variant="tabs" className="justify-content-center">
+                <Nav.Item>
+                    <Nav.Link href = "./workoutdatedetails">Date</Nav.Link>
+                </Nav.Item>
+                </Nav>
+            </Container>
             <Row>
             <Col>
                 <Card className = "text-center">
@@ -34,6 +42,7 @@ export class WorkoutDateDetails extends Component {
                 </Card>
             </Col>
             </Row>
+            </Container>
         )
     }
 }
