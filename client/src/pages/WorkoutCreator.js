@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Row, Card, Col, Form, Button} from 'react-bootstrap'
+import { Row, Card, Col, Form } from 'react-bootstrap'
 import WarmupPopover from '../components/workout/WarmupPopover'
 import { CooldownPopover } from '../components/workout/CooldownPopover'
+import RepPopover from '../components/workout/RepPopover'
 
 export class WorkoutCreator extends Component {
     render() {
@@ -20,12 +21,12 @@ export class WorkoutCreator extends Component {
                                 <Form.Label>Add Warmup</Form.Label>
                                 </Form.Group>
                                 <WarmupPopover></WarmupPopover>
-                            
+                            <p></p>
                             <Form.Group>
                                 <Form.Label>Add Rep</Form.Label>
-                                <Form.Control onChange = {this.handleChange} name = "name" type = "text" placeholder = "Enter Workout Name"/>
-                                <Button>Add</Button>
                             </Form.Group>
+                            <RepPopover></RepPopover>
+                            <p></p>
                             <Form.Group>
                                 <Form.Label>Add Cooldown</Form.Label>
                             </Form.Group>
