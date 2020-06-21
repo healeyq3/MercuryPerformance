@@ -15,6 +15,7 @@ import EventDetails from './pages/EventDetails'
 import ComingSoon from './pages/ComingSoon';
 import Workouts from './pages/Workouts';
 import WorkoutDetails from './pages/WorkoutDetails';
+import WorkoutDateDetails from './pages/WorkoutDateDetails';
 
 //Components
 import NavigationBar from './components/NavigationBar';
@@ -43,6 +44,7 @@ class App extends Component {
                 <AuthRoute3 exact path = '/eventdetails' component = {EventDetails} authenticated = {cookie.load('idToken')} team = {cookie.load('selectedTeam')}/>
                 <AuthRoute3 exact path = '/workouts' component = {Workouts} authenticated = {cookie.load('idToken')} team = {cookie.load('selectedTeam')} />
                 <AuthRoute3 exact path = '/workoutdetails' component = {WorkoutDetails} authenticated = {cookie.load('idToken')} team = {cookie.load('selectedTeam')} />
+                <AuthRoute3 exact path = '/workoutdatedetails' component = {WorkoutDateDetails} authenticated = {cookie.load('idToken')} team = {cookie.load('selectedTeam')} />
               </Switch>
             </div>
           </Router>
