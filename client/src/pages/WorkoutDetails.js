@@ -5,6 +5,10 @@ import WorkoutDetailsCard from '../components/workout/WorkoutDetailsCard'
 import ExistingWorkoutGraph from '../components/workout/ExistingWorkoutGraph'
 
 export class WorkoutDetails extends Component {
+    setDate(){
+        window.location.href="./workoutdatedetails"
+        console.log("clicked")
+    }
     render() {
         return (
             <Container>
@@ -19,8 +23,8 @@ export class WorkoutDetails extends Component {
                 <Col>
                 <Card className = "text-center">
                     <Card.Header>Workout Dates</Card.Header>
-                    <WorkoutBlueprintDayCard></WorkoutBlueprintDayCard>
-                    <WorkoutBlueprintDayCard></WorkoutBlueprintDayCard>
+                    <WorkoutBlueprintDayCard onSelect = {this.setDate}></WorkoutBlueprintDayCard>
+                    <WorkoutBlueprintDayCard onSelect = {this.setDate}></WorkoutBlueprintDayCard>
                 </Card>
                 <Card className = "text-center" tag="a" onClick = {this.setShow} style = {{cursor:"pointer"}}>
                     <p></p>

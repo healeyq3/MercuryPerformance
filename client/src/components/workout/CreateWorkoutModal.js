@@ -10,8 +10,7 @@ export class AddWorkoutModal extends Component {
 
         this.state = {
             name: '',
-            type: '',
-            location: '',
+            type: ''
         }
         this.handleChange = this.handleChange.bind(this);
     }
@@ -29,6 +28,7 @@ export class AddWorkoutModal extends Component {
         }
         this.props.newWorkoutBlueprint(workoutData, this.props.teamUID);
         this.props.setShow();
+        window.location.href='./workoutcreator'
     }
     render() {
         return (
@@ -49,16 +49,12 @@ export class AddWorkoutModal extends Component {
                                 <option>Recovery Run</option>
                                 <option>Brick Run</option>
                                 <option>Interval Run</option>
-                                <option>Temp Run</option>
+                                <option>Tempo Run</option>
                                 <option>Hill Repeats</option>
                                 <option>Strides</option>
                                 <option>Time Trial</option>
                                 <option>Other</option>
                                 </Form.Control>
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Location</Form.Label>
-                            <Form.Control onChange = {this.handleChange} name = "location" type = "text" placeholder = "Enter Event Location"/>
                         </Form.Group>
                         <Button variant = "primary" onClick = {this.handleCreateWorkout}>Create Workout</Button>
                     </Form>
