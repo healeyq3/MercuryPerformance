@@ -18,6 +18,7 @@ export default function(state = initialState, action) {
         teams: {...state.teams, [action.teamUID]: action.payload}
       };
     case SET_TEAM:
+      console.log("Setting team "+action.payload);
       return {
         ...state,
         selectedTeam: action.payload
