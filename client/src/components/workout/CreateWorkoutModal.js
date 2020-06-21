@@ -28,6 +28,7 @@ export class AddWorkoutModal extends Component {
         }
         this.props.newWorkoutBlueprint(workoutData, this.props.teamUID);
         this.props.setShow();
+        window.location.href='./workoutcreator'
     }
     render() {
         return (
