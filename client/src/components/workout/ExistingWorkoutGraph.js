@@ -6,7 +6,7 @@ import {
     YAxis,
     VerticalGridLines,
     HorizontalGridLines,
-    VerticalRectSeries, ChartLabel
+    VerticalRectSeries
   } from 'react-vis';
 import { distanceToTime, totalMinutes } from '../../math/TimeConversions';
 
