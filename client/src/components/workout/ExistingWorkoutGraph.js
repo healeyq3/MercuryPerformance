@@ -23,7 +23,6 @@ export class ExistingWorkoutGraph extends Component {
         if(t.distanceUnit!==undefined){
           newTime = distanceToTime(t.distance, t.distanceUnit, averagePace /(t.percent/100))
           time += newTime
-          
           DATA.push({x0:start, x:time, y:t.percent})
           DATA.map(el => ({x0: el.x0 , x: el.x, y: el.y}));
           start +=newTime
@@ -37,14 +36,12 @@ export class ExistingWorkoutGraph extends Component {
           start +=newTime
         }
       }
-     // console.log(time)
-
         return (
             // <Card>
             //     <Card.Header className = "text-center">Graph</Card.Header>
             //     <Card.Body>
                 <XYPlot
-        xDomain={[0, 15+time]}
+        xDomain={[0, 50+time]}
         yDomain={[0, 150]}
         // xType="time"
         width={700}
@@ -52,8 +49,8 @@ export class ExistingWorkoutGraph extends Component {
       >
         <VerticalGridLines />
         <HorizontalGridLines />
-        <XAxis />
-        <YAxis />
+        <XAxis title = "Minutes"/>
+        <YAxis title = "V02 Max"/>
         <VerticalRectSeries data={DATA} style={{stroke: '#fff'}} />
       </XYPlot>
             //     </Card.Body>
@@ -61,10 +58,5 @@ export class ExistingWorkoutGraph extends Component {
         )
     }
 }
-
-
-  
-
-
 
 export default ExistingWorkoutGraph

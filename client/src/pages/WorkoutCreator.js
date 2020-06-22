@@ -16,7 +16,6 @@ import RepsCard from '../components/workout/RepsCard';
 export class WorkoutCreator extends Component {
     constructor(props){
         super(props);
-
         this.state = {
             name:'',
             reps:[],
@@ -56,9 +55,6 @@ export class WorkoutCreator extends Component {
             this.props.history.push('/workoutcreator')
             return <Redirect to='/workouts' />
           }
-        
-       
-
         return (
             <Row>
                 <Col sm = {4}>
@@ -128,7 +124,6 @@ export class WorkoutCreator extends Component {
                     ))}
                 </Card>
                 </Col>
-                
             </Row>
         )
     }
