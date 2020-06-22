@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {addWorkoutToTeam, getAllWorkoutBlueprints, getWorkoutBlueprints, setBlueprint} from '../actions/workoutActions';
 import ImportWorkoutDropdown from "../components/workout/ImportWorkoutDropdown";
-import { getWorkoutBlueprints, setBlueprint } from '../actions/workoutActions';
 import { Redirect } from "react-router-dom";
 
 export class Workouts extends Component {
