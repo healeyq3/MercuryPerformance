@@ -16,11 +16,12 @@ export class ExistingWorkoutGraph extends Component {
       let start = 0;
       let DATA = [];
       let newTime = 0;
+      let averagePace = this.props.team.hasOwnProperty('averageWPace') === true ? this.props.team.averageWPace : 6.5
       for(const rep in this.props.reps){
         let t = this.props.reps[rep];
         console.log(t)
         if(t.distanceUnit!==undefined){
-          newTime = distanceToTime(t.distance, t.distanceUnit, 6.5 /(t.percent/100))
+          newTime = distanceToTime(t.distance, t.distanceUnit, averagePace /(t.percent/100))
           time += newTime
           
           DATA.push({x0:start, x:time, y:t.percent})

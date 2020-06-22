@@ -118,7 +118,7 @@ export class WorkoutCreator extends Component {
                     </Card>
                 </Col>
                 <Col>
-                <ExistingWorkoutGraph reps = {this.state.reps}></ExistingWorkoutGraph>
+                <ExistingWorkoutGraph team = {this.props.teams[this.props.selectedTeam]} reps = {this.state.reps}></ExistingWorkoutGraph>
                 <Card className = 'text-center'>
                     {/* {this.state.reps.map((rep, i) => (
                         < 
@@ -136,7 +136,8 @@ export class WorkoutCreator extends Component {
 WorkoutCreator.propTypes = {
     selectedTeam: PropTypes.string.isRequired,
     rehydrated: PropTypes.bool.isRequired,
-    setBlueprint: PropTypes.func.isRequired
+    setBlueprint: PropTypes.func.isRequired,
+    teams: PropTypes.object.isRequired
 }
 
 const mapStateToProps = function(state){
@@ -144,7 +145,8 @@ const mapStateToProps = function(state){
         blueprints: state.workouts.blueprints,
         selectedTeam: state.teams.selectedTeam,
         rehydrated: state._persist.rehydrated,
-        selectedBlueprint: state.workouts.selectedBlueprint
+        selectedBlueprint: state.workouts.selectedBlueprint,
+        teams: state.teams.teams
     }
 }
 
