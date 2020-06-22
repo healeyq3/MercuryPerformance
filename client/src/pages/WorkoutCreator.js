@@ -10,6 +10,7 @@ import { newWorkoutBlueprint, setBlueprint } from '../actions/workoutActions'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import RepCard from '../components/workout/RepCard';
+import { Redirect } from "react-router-dom";
 
 export class WorkoutCreator extends Component {
     constructor(props){
@@ -17,7 +18,8 @@ export class WorkoutCreator extends Component {
 
         this.state = {
             name:'',
-            reps:[]
+            reps:[],
+            toWorkoutHome: false
         }
         this.handleChange = this.handleChange.bind(this);
     }
@@ -34,6 +36,9 @@ export class WorkoutCreator extends Component {
             reps: this.state.reps
         }
         this.props.newWorkoutBlueprint(workoutData, this.props.selectedTeam);
+        this.setState({
+            toWorkoutHome: true
+          })
     }
 
     handleCreate = (repData) => {
@@ -46,6 +51,10 @@ export class WorkoutCreator extends Component {
         if(!this.props.selectedTeam){
             return null;
         }
+        if(this.state.toWorkoutHome){
+            this.props.history.push('/workoutcreator')
+            return <Redirect to='/workouts' />
+          }
         
         let repItems = [];
 
