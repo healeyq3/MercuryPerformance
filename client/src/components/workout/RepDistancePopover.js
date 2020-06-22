@@ -11,6 +11,7 @@ export class RepDistancePopover extends Component {
             percent: 0,
             distance: 0,
             distanceUnit:'',
+            reps:1
         }
         this.handleChange = this.handleChange.bind(this);
     }
@@ -26,7 +27,9 @@ export class RepDistancePopover extends Component {
             distance:this.state.distance,
             distanceUnit:this.state.distanceUnit
         }
-        this.props.addArr(repData)
+        for(var i= 0; i<this.state.reps; i++){
+            this.props.addArr(repData)
+        }
     }
     render() {
         return (
@@ -54,6 +57,12 @@ export class RepDistancePopover extends Component {
                                     <option>Kilometers</option>
                                     <option>Meters</option>
                                 </Form.Control>
+                                <Form.Control
+                                    type = "text"
+                                    placeholder = "Reps"
+                                    name = "reps"
+                                    onChange = {this.handleChange}
+                                            />
                                 <Button variant = "primary" onClick = {this.handleCreateRep}>Add</Button>
                                 </Form>
                 </Popover.Content>
