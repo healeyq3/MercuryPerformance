@@ -25,9 +25,7 @@ export class Workouts extends Component {
     }
 
     setShow = e => {
-        this.setState({
-            show: !this.state.show
-        })
+        window.location.href="./workoutcreator"
       }
     setSelectedBlueprint(blueprint){
         this.props.setBlueprint(blueprint.key);
@@ -77,7 +75,6 @@ export class Workouts extends Component {
                 </Card>
                 </Col>
             </Row>
-            <CreateWorkoutModal setShow = {this.setShow} show = {this.state.show} teamUID = {this.props.selectedTeam}></CreateWorkoutModal>
             </Container>
         )
     }
