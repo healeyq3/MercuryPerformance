@@ -31,7 +31,7 @@ export class WorkoutCreator extends Component {
             user: cookie.load('user'),
             name: this.state.name,
         }
-        this.props.newWorkoutBlueprint(workoutData, this.props.teamUID);
+        this.props.newWorkoutBlueprint(workoutData, this.props.selectedTeam);
     }
     render() {
         if(!this.props.selectedTeam){
