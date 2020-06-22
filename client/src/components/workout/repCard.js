@@ -79,7 +79,7 @@ const cardTarget = {
   },
 }
 
-class repCard extends React.Component {
+class RepCard extends React.Component {
   static propTypes = {
     connectDragSource: PropTypes.func.isRequired,
     connectDropTarget: PropTypes.func.isRequired,
@@ -121,4 +121,4 @@ export default flow(
   DropTarget('card', cardTarget, (connect) => ({
     connectDropTarget: connect.dropTarget(),
   }))
-)(repCard);
+)(RepCard);
