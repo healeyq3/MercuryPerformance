@@ -10,7 +10,7 @@ import cookie from 'react-cookies';
 import { newWorkoutBlueprint, setBlueprint } from '../actions/workoutActions'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import RepCard from '../components/workout/repCard';
+import RepCard from '../components/workout/RepCard';
 
 export class WorkoutCreator extends Component {
     constructor(props){
