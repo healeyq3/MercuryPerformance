@@ -54,13 +54,13 @@ export class RepDurationPopover extends Component {
                                             <Form.Control
                                     type = "text"
                                     placeholder = "Minutes"
-                                    name = "Minutes"
+                                    name = "minutes"
                                     onChange = {this.handleChange}
                                             />
                                             <Form.Control
                                     type = "text"
                                     placeholder = "Seconds"
-                                    name = "Seconds"
+                                    name = "seconds"
                                     onChange = {this.handleChange}
                                             />
                                 <Button variant = "primary" onClick = {this.handleCreateRep}>Add</Button>
