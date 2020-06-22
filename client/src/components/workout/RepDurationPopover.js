@@ -1,7 +1,35 @@
 import React, { Component } from 'react'
 import {Popover, OverlayTrigger, Button, Form} from 'react-bootstrap'
+import cookie from 'react-cookies';
+import { connect } from 'react-redux';
 
 export class RepDurationPopover extends Component {
+    constructor(props){
+        super(props);
+
+        this.state = {
+            percent: 50,
+            hours: 0,
+            minutes:0,
+            seconds:0,
+        }
+        this.handleChange = this.handleChange.bind(this);
+    }
+    handleChange(e){
+        console.log("changed");
+        console.log(e.target.value);
+        this.setState({ [e.target.name] : e.target.value});
+    }
+    handleCreateRep = () => {
+        const repData = {
+            user: cookie.load('user'),
+            percent: this.state.percent,
+            hours: this.state.hours,
+            minutes: this.state.minutes,
+            seconds:this.state.seconds
+        }
+        //this.props.newTeam(teamData);
+    }
     render() {
         return (
             <OverlayTrigger trigger="click" placement="right" overlay={
@@ -43,4 +71,4 @@ export class RepDurationPopover extends Component {
     }
 }
 
-export default RepDurationPopover
+export default connect(null, {  }) (RepDurationPopover);

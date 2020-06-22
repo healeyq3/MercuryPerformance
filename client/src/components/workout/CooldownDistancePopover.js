@@ -1,7 +1,33 @@
 import React, { Component } from 'react'
 import {Popover, OverlayTrigger, Button, Form} from 'react-bootstrap'
+import cookie from 'react-cookies';
+import { connect } from 'react-redux';
 
 export class CooldownDistancePopover extends Component {
+    constructor(props){
+        super(props);
+
+        this.state = {
+            percent: '',
+            distance: '',
+            distanceUnit:'',
+        }
+        this.handleChange = this.handleChange.bind(this);
+    }
+    handleChange(e){
+        console.log("changed");
+        console.log(e.target.value);
+        this.setState({ [e.target.name] : e.target.value});
+    }
+    handleCreateCooldown = () => {
+        const repData = {
+            user: cookie.load('user'),
+            percent: this.state.percent,
+            distance:this.state.distance,
+            distanceUnit:this.state.distanceUnit
+        }
+        //this.props.newTeam(teamData);
+    }
     render() {
         return (
             <OverlayTrigger trigger="click" placement="right" overlay={
@@ -38,4 +64,4 @@ export class CooldownDistancePopover extends Component {
     }
 }
 
-export default CooldownDistancePopover
+export default connect(null, {  }) (CooldownDistancePopover);

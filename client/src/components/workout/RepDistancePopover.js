@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import {Popover, OverlayTrigger, Button, Form} from 'react-bootstrap'
+import cookie from 'react-cookies';
+import { connect } from 'react-redux';
 
-export class RepPopover extends Component {
+export class RepDistancePopover extends Component {
     constructor(props){
         super(props);
 
@@ -16,6 +18,15 @@ export class RepPopover extends Component {
         console.log("changed");
         console.log(e.target.value);
         this.setState({ [e.target.name] : e.target.value});
+    }
+    handleCreateRep = () => {
+        const repData = {
+            user: cookie.load('user'),
+            percent: this.state.percent,
+            distance:this.state.distance,
+            distanceUnit:this.state.distanceUnit
+        }
+        //this.props.newTeam(teamData);
     }
     render() {
         return (
@@ -53,4 +64,4 @@ export class RepPopover extends Component {
     }
 }
 
-export default RepPopover
+export default connect(null, {  }) (RepDistancePopover);
