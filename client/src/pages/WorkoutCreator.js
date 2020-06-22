@@ -112,7 +112,7 @@ export class WorkoutCreator extends Component {
                             <Col/>
                             </Row>
                             <p/>
-                            <Button variant = "primary" onClick = {this.handleCreateWorkout}>Save</Button>
+                            <Button variant = "primary" onClick = {this.handleCreateWorkout}>Create</Button>
                         </Form>
                         </Card.Body>
                     </Card>
