@@ -6,7 +6,6 @@ import RepDistancePopover from '../components/workout/RepDistancePopover'
 import CooldownDurationPopover from '../components/workout/CooldownDurationPopover'
 import WarmupDurationPopover from '../components/workout/WarmupDurationPopover'
 import RepDurationPopover from '../components/workout/RepDurationPopover'
-import cookie from 'react-cookies';
 import { newWorkoutBlueprint, setBlueprint } from '../actions/workoutActions'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
