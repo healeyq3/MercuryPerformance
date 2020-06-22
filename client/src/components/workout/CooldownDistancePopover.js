@@ -9,8 +9,8 @@ export class CooldownDistancePopover extends Component {
 
         this.state = {
             type:"cooldown",
-            percent: '',
-            distance: '',
+            percent: 0,
+            distance: 0,
             distanceUnit:'',
         }
         this.handleChange = this.handleChange.bind(this);
@@ -23,6 +23,7 @@ export class CooldownDistancePopover extends Component {
     handleCreateCooldown = () => {
         const repData = {
             user: cookie.load('user'),
+            type:this.state.type,
             percent: this.state.percent,
             distance:this.state.distance,
             distanceUnit:this.state.distanceUnit
@@ -39,7 +40,7 @@ export class CooldownDistancePopover extends Component {
                          <Form.Control
                                     type = "text"
                                     placeholder = "% of V02 Max"
-                                    name = "v02"
+                                    name = "percent"
                                     onChange = {this.handleChange}
                                             />
                                 <Form.Control
