@@ -6,11 +6,12 @@ import RepDistancePopover from '../components/workout/RepDistancePopover'
 import CooldownDurationPopover from '../components/workout/CooldownDurationPopover'
 import WarmupDurationPopover from '../components/workout/WarmupDurationPopover'
 import RepDurationPopover from '../components/workout/RepDurationPopover'
-import cookie from 'react-cookies';
 import { newWorkoutBlueprint, setBlueprint } from '../actions/workoutActions'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import RepCard from '../components/workout/RepCard';
+import { Redirect } from "react-router-dom";
+import ExistingWorkoutGraph from '../components/workout/ExistingWorkoutGraph'
 
 export class WorkoutCreator extends Component {
     constructor(props){
@@ -18,7 +19,8 @@ export class WorkoutCreator extends Component {
 
         this.state = {
             name:'',
-            reps:[]
+            reps:[],
+            toWorkoutHome: false
         }
         this.handleChange = this.handleChange.bind(this);
     }
@@ -35,6 +37,9 @@ export class WorkoutCreator extends Component {
             reps: this.state.reps
         }
         this.props.newWorkoutBlueprint(workoutData, this.props.selectedTeam);
+        this.setState({
+            toWorkoutHome: true
+          })
     }
 
     handleCreate = (repData) => {
@@ -47,8 +52,12 @@ export class WorkoutCreator extends Component {
         if(!this.props.selectedTeam){
             return null;
         }
+        if(this.state.toWorkoutHome){
+            this.props.history.push('/workoutcreator')
+            return <Redirect to='/workouts' />
+          }
         
-        let repItems = [];
+       
 
         return (
             <Row>
@@ -110,6 +119,7 @@ export class WorkoutCreator extends Component {
                     </Card>
                 </Col>
                 <Col>
+                <ExistingWorkoutGraph></ExistingWorkoutGraph>
                 <Card className = 'text-center'>
                     {this.state.reps.map((rep, i) => (
                         <RepCard 
