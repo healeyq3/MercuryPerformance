@@ -3,13 +3,20 @@ import { Container, Nav, Row, Col, Card } from 'react-bootstrap'
 import WorkoutBlueprintDayCard from '../components/workout/WorkoutBlueprintDayCard'
 import WorkoutDetailsCard from '../components/workout/WorkoutDetailsCard'
 import ExistingWorkoutGraph from '../components/workout/ExistingWorkoutGraph'
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 export class WorkoutDetails extends Component {
     setDate(){
         window.location.href="./workoutdatedetails"
         console.log("clicked")
     }
+
     render() {
+        if(!this.props.selectedTeam || !this.props.selectedBlueprint){
+            return null;
+        }
+
         return (
             <Container>
             <Container fluid>
@@ -42,7 +49,7 @@ export class WorkoutDetails extends Component {
                 </Col>
                 <Col>
                 <Row>
-                <ExistingWorkoutGraph></ExistingWorkoutGraph>
+                <ExistingWorkoutGraph team = {this.props.teams[this.props.selectedTeam]} reps = {this.props.blueprints[this.props.selectedBlueprint].reps}></ExistingWorkoutGraph>
                 </Row>
                 <Row>
                     <WorkoutDetailsCard></WorkoutDetailsCard>
@@ -54,4 +61,21 @@ export class WorkoutDetails extends Component {
     }
 }
 
-export default WorkoutDetails
+WorkoutDetails.propTypes = {
+    selectedTeam: PropTypes.string.isRequired,
+    rehydrated: PropTypes.bool.isRequired,
+    teams: PropTypes.object.isRequired,
+    blueprints: PropTypes.object.isRequired,
+    selectedBlueprint: PropTypes.string.isRequired
+}
+
+const mapStateToProps = function(state){
+    return {
+        teams: state.teams.teams,
+        selectedTeam: state.teams.selectedTeam,
+        blueprints: state.workouts.blueprints,
+        selectedBlueprint: state.workouts.selectedBlueprint
+    }
+}
+
+export default connect(mapStateToProps, { }) (WorkoutDetails)
