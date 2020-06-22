@@ -18,10 +18,9 @@ function secondsToMinutes(seconds){
 }
 
 function totalMinutes(hours, minutes, seconds){
-    let toRet = 0.0
-    toRet +=minutes
-    toRet += seconds/60
-    toRet += hours*60
+    let toRet = Number(minutes)
+    toRet += Number(seconds)/60
+    toRet += Number(hours)*60
     return toRet
 }
 

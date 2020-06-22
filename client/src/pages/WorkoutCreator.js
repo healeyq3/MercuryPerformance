@@ -118,7 +118,7 @@ export class WorkoutCreator extends Component {
                     </Card>
                 </Col>
                 <Col>
-                <ExistingWorkoutGraph></ExistingWorkoutGraph>
+                <ExistingWorkoutGraph reps = {this.state.reps}></ExistingWorkoutGraph>
                 <Card className = 'text-center'>
                     {/* {this.state.reps.map((rep, i) => (
                         < 
@@ -127,7 +127,7 @@ export class WorkoutCreator extends Component {
                     ))} */}
                 </Card>
                 </Col>
-                <Col/>
+                
             </Row>
         )
     }

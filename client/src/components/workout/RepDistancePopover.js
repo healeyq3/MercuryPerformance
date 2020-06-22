@@ -48,7 +48,7 @@ export class RepDistancePopover extends Component {
                                     onChange = {this.handleChange}
                                             />
                                     
-                                <Form.Control onChange = {this.handleChange} name = "unit" as = "select">
+                                <Form.Control onChange = {this.handleChange} name = "distanceUnit" as = "select">
                                     <option hidden>Units</option>
                                     <option>Miles</option>
                                     <option>Kilometers</option>
