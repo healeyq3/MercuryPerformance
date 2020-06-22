@@ -10,6 +10,8 @@ import {Row} from 'react-bootstrap';
 import cookie from 'react-cookies';
 import { Redirect } from "react-router-dom";
 
+import "../css/teamselect.css"
+
 class TeamSelect extends React.Component {
   constructor(props){
     super(props);
@@ -59,11 +61,10 @@ class TeamSelect extends React.Component {
     }
 
     return (
-      <div>
-        <h1>Teams</h1>
-        <Row > 
+      <div className = "teamselect-container">
+        <Row className="teamselect-cardcontainer">
           {cardItems}
-          <NewTeamCard onClick = {this.setShow} />
+          <NewTeamCard className = "teamselect-teamcard" onClick = {this.setShow} />
         </Row>
         <CreateTeamModal setShow = {this.setShow} show = {this.state.show} />
       </div>

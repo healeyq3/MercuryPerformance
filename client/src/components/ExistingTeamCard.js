@@ -4,7 +4,7 @@ export class ExistingTeamCard extends Component {
     
     render() {
         return (
-        <Card style = {{width: '18%', height: '18%', cursor: "pointer"}} className = "text-center" tag="a" onClick={() => this.props.onSelect(this.props.team)} href = './'>
+        <Card className = "teamselect-teamcard" tag="a" onClick={() => this.props.onSelect(this.props.team)} href = './'>
             <Card.Body>
                 <Card.Title>{this.props.team.teamName}</Card.Title>
                 <Card.Subtitle>{this.props.team.year}</Card.Subtitle>

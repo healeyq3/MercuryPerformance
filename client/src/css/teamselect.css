@@ -1,0 +1,25 @@
+.teamselect-container{
+    display: flex;
+    align-items: center;
+    background: gray;
+}
+
+.teamselect-cardcontainer{
+    justify-content: center;
+    flex: 1;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.teamselect-teamcard{
+    margin: 1%;
+    width: 12%;
+    height: 24%;
+    cursor: pointer;
+    transition: 0.3s;
+    text-align: center;
+}
+
+.teamselect-teamcard:hover{
+    background: #D5D5D5;
+}
