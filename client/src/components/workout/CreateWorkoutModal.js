@@ -14,15 +14,15 @@ export class AddWorkoutModal extends Component {
         }
         this.handleChange = this.handleChange.bind(this);
     }
+
     handleChange(e){
         console.log("changed");
         console.log(e.target.value);
         this.setState({ [e.target.name] : e.target.value});
     }
+
     handleCreateWorkout = () => {
-        // eslint-disable-next-line 
         const workoutData = {
-            user: cookie.load('user'),
             name: this.state.name,
             type: this.state.type,
         }

@@ -23,7 +23,6 @@ export class CooldownDurationPopover extends Component {
     }
     handleCreateCooldown = () => {
         const repData = {
-            user: cookie.load('user'),
             type:this.state.type,
             percent: this.state.percent,
             hours: this.state.hours,

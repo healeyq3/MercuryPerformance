@@ -22,33 +22,33 @@ export class WorkoutCreator extends Component {
         }
         this.handleChange = this.handleChange.bind(this);
     }
+
     handleChange(e){
         console.log("changed");
         console.log(e.target.value);
         this.setState({ [e.target.name] : e.target.value});
     }
+
     handleCreateWorkout = () => {
-        // eslint-disable-next-line 
         const workoutData = {
-            user: cookie.load('user'),
             name: this.state.name,
+            reps: this.state.reps
         }
         this.props.newWorkoutBlueprint(workoutData, this.props.selectedTeam);
     }
+
     handleCreate = (repData) => {
         let arr = this.state.reps
         arr.push(repData)
         this.setState({reps:arr})
-        console.log(this.state.reps)
-        //this.props.newTeam(teamData);
     }
+
     render() {
         if(!this.props.selectedTeam){
             return null;
         }
         
         let repItems = [];
-
 
         return (
             <Row>
@@ -61,49 +61,49 @@ export class WorkoutCreator extends Component {
                                 <Form.Label>Workout Name</Form.Label>
                                 <Form.Control onChange = {this.handleChange} name = "name" type = "text" placeholder = "Enter Workout Name"/>
                             </Form.Group>
-                                <p></p>
+                                <p/>
                             <Form.Group>
                                 <Form.Label>Add Warmup</Form.Label>
                                 </Form.Group>
                                 <Row>
-                                <Col></Col>
+                                <Col/>
                             <Col>
-                            <WarmupDistancePopover addArr = {this.handleCreate}></WarmupDistancePopover>
+                            <WarmupDistancePopover addArr = {this.handleCreate}/>
                             </Col>
                             <Col>
-                            <WarmupDurationPopover addArr = {this.handleCreate}></WarmupDurationPopover>
+                            <WarmupDurationPopover addArr = {this.handleCreate}/>
                             </Col>
-                            <Col></Col>
+                            <Col/>
                             </Row>
-                            <p></p>
+                            <p/>
                             <Form.Group>
                                 <Form.Label>Add Rep</Form.Label>
                             </Form.Group>
                             <Row>
-                                <Col></Col>
+                                <Col/>
                             <Col>
-                            <RepDistancePopover addArr = {this.handleCreate}></RepDistancePopover>
+                            <RepDistancePopover addArr = {this.handleCreate}/>
                             </Col>
                             <Col>
-                            <RepDurationPopover addArr = {this.handleCreate}></RepDurationPopover>
+                            <RepDurationPopover addArr = {this.handleCreate}/>
                             </Col>
-                            <Col></Col>
+                            <Col/>
                             </Row>
-                            <p></p>
+                            <p/>
                             <Form.Group>
                                 <Form.Label>Add Cooldown</Form.Label>
                             </Form.Group>
                             <Row>
-                                <Col></Col>
+                                <Col/>
                             <Col>
-                            <CooldownDistancePopover addArr = {this.handleCreate}></CooldownDistancePopover>
+                            <CooldownDistancePopover addArr = {this.handleCreate}/>
                             </Col>
                             <Col>
-                            <CooldownDurationPopover addArr = {this.handleCreate}></CooldownDurationPopover>
+                            <CooldownDurationPopover addArr = {this.handleCreate}/>
                             </Col>
-                            <Col></Col>
+                            <Col/>
                             </Row>
-                            <p></p>
+                            <p/>
                             <Button variant = "primary" onClick = {this.handleCreateWorkout}>Save</Button>
                         </Form>
                         </Card.Body>
@@ -118,7 +118,7 @@ export class WorkoutCreator extends Component {
                     ))}
                 </Card>
                 </Col>
-                <Col></Col>
+                <Col/>
             </Row>
         )
     }
