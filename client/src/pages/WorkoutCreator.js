@@ -10,7 +10,8 @@ import { newWorkoutBlueprint, setBlueprint } from '../actions/workoutActions'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from "react-router-dom";
-import ExistingWorkoutGraph from '../components/workout/ExistingWorkoutGraph'
+import ExistingWorkoutGraph from '../components/workout/ExistingWorkoutGraph';
+import RepsCard from '../components/workout/RepsCard';
 
 export class WorkoutCreator extends Component {
     constructor(props){
@@ -60,7 +61,7 @@ export class WorkoutCreator extends Component {
 
         return (
             <Row>
-                <Col>
+                <Col sm = {4}>
                     <Card className= "text-center">
                         <Card.Header>New Workout</Card.Header>
                         <Card.Body>
@@ -69,7 +70,6 @@ export class WorkoutCreator extends Component {
                                 <Form.Label>Workout Name</Form.Label>
                                 <Form.Control onChange = {this.handleChange} name = "name" type = "text" placeholder = "Enter Workout Name"/>
                             </Form.Group>
-                                <p/>
                             <Form.Group>
                                 <Form.Label>Add Warmup</Form.Label>
                                 </Form.Group>
@@ -117,14 +117,15 @@ export class WorkoutCreator extends Component {
                         </Card.Body>
                     </Card>
                 </Col>
-                <Col>
+                <Col sm = {8}>
                 <ExistingWorkoutGraph team = {this.props.teams[this.props.selectedTeam]} reps = {this.state.reps}></ExistingWorkoutGraph>
+                <br />
                 <Card className = 'text-center'>
-                    {/* {this.state.reps.map((rep, i) => (
-                        < 
+                    {this.state.reps.map((rep) => (
+                        <RepsCard 
                         rep = {rep}
                         />
-                    ))} */}
+                    ))}
                 </Card>
                 </Col>
                 

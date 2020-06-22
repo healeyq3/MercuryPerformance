@@ -40,15 +40,15 @@ export class ExistingWorkoutGraph extends Component {
      // console.log(time)
 
         return (
-            <Card>
-                <Card.Header className = "text-center">Graph</Card.Header>
-                <Card.Body>
+            // <Card>
+            //     <Card.Header className = "text-center">Graph</Card.Header>
+            //     <Card.Body>
                 <XYPlot
         xDomain={[0, 15+time]}
         yDomain={[0, 150]}
         // xType="time"
-        width={400}
-        height={300}
+        width={700}
+        height={400}
       >
         <VerticalGridLines />
         <HorizontalGridLines />
@@ -56,8 +56,8 @@ export class ExistingWorkoutGraph extends Component {
         <YAxis />
         <VerticalRectSeries data={DATA} style={{stroke: '#fff'}} />
       </XYPlot>
-                </Card.Body>
-            </Card>
+            //     </Card.Body>
+            // </Card>
         )
     }
 }
