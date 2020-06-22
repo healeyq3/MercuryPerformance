@@ -8,12 +8,13 @@ const teamUtilities = require('../firebaseUtilities/teamUtilities')
 router.post('/blueprints', getBlueprints);
 router.post('/getallblueprints', getAllBlueprints);
 router.post('/newblueprint', newBlueprint);
+router.post('/addblueprint', addBlueprint);
 
 module.exports = router;
 
 async function getBlueprints(req, res){
     if(!await authenticatePost(req, res)){
-        res.end();
+        res.end("{}");
         return;
     }
     
@@ -35,7 +36,7 @@ async function getBlueprints(req, res){
 
 async function getAllBlueprints(req, res){
   if(!await authenticatePost(req, res)){
-    res.end();
+      res.end("{}");
     return;
   }
   console.log("Running getALlB")
@@ -50,29 +51,53 @@ async function getAllBlueprints(req, res){
 
 async function newBlueprint(req, res){
     if(!await authenticatePost(req, res)){
-        res.end();
-        return;
-      }
-
-      if(!await teamUtilities.doesUserOwnTeam(req)){
         res.end("{}");
         return;
-      }
+    }
 
-      const data = req.body;
-      const name = data.blueprintData.name;
-      const reps = data.blueprintData.reps;
+    if(!await teamUtilities.doesUserOwnTeam(req)){
+        res.end("{}");
+        return;
+    }
 
-      console.log("Executing blueprint backend");
-      console.log(data.blueprintData);
+    const data = req.body;
+    const name = data.blueprintData.name;
+    const reps = data.blueprintData.reps;
 
-      workoutUtilities.createBlueprint(req.session.useruid, data.selectedTeamUID, name, reps).then(blueprint => {
-          res.setHeader('Content-Type', 'application/json');
-          res.end(JSON.stringify(blueprint));
-      }).catch(err => {
-          console.log("Error adding and fetching the new blueprint".red);
-          console.log(err);
-          res.end("{}");
-      })
+    console.log("Executing blueprint backend");
+    console.log(data.blueprintData);
 
+    workoutUtilities.createBlueprint(req.session.useruid, data.selectedTeamUID, name, reps).then(blueprint => {
+      res.setHeader('Content-Type', 'application/json');
+      res.end(JSON.stringify(blueprint));
+    }).catch(err => {
+      console.log("Error adding and fetching the new blueprint".red);
+      console.log(err);
+      res.end("{}");
+    })
+}
+
+async function addBlueprint(req, res){
+    console.log("Runningnheaa");
+    if(!await authenticatePost(req, res)){
+        res.end("{}");
+        return;
+    }
+
+    if(!await teamUtilities.doesUserOwnTeam(req)){
+        res.end("{}");
+        return;
+    }
+
+    if(!req.body.selectedTeamUID || !req.body.blueprintuid){
+        res.end("{}");
+        return;
+    }
+
+    workoutUtilities.addBlueprintToTeam(req.body.selectedTeamUID, req.body.blueprintuid);
+    const toSend = JSON.stringify({
+        teamuid: req.body.selectedTeamUID, blueprintuid: req.body.blueprintuid
+    });
+    console.log(toSend);
+    res.end(toSend);
 }

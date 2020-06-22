@@ -103,5 +103,6 @@ async function addBlueprintToUser(useruid, blueprintuid){
 
 
 module.exports.getBlueprints = getBlueprints;
+module.exports.addBlueprintToTeam = addBlueprintToTeam;
 module.exports.getAllBlueprints = getAllBlueprints;
 module.exports.createBlueprint = createBlueprint;

@@ -1,4 +1,4 @@
-import {GET_TEAMS, NEW_TEAM, SET_TEAM} from '../actions/types';
+import {ADD_BLUEPRINT_TEAM, GET_TEAMS, NEW_TEAM, SET_TEAM} from '../actions/types';
 
 const initialState = {
   teams: {},
@@ -23,6 +23,20 @@ export default function(state = initialState, action) {
         ...state,
         selectedTeam: action.payload
       };
+
+    case ADD_BLUEPRINT_TEAM:
+      console.log("do we also run this?")
+      return {
+        ...state,
+        teams: {...state.teams, [action.payload.teamuid]: {
+            ...state.teams[action.payload.teamuid],
+            blueprints: {
+              ...state.teams[action.payload.teamuid].blueprints,
+              [action.payload.blueprintuid]: action.payload.blueprintuid
+            }
+          }
+        }
+      }
     default:
       return state;
   }

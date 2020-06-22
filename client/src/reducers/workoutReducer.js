@@ -1,4 +1,4 @@
-import {GET_ALL_BLUEPRINTS, GET_BLUEPRINTS, NEW_BLUEPRINT, SET_BLUEPRINT} from '../actions/types';
+import {ADD_BLUEPRINT_TEAM, GET_ALL_BLUEPRINTS, GET_BLUEPRINTS, NEW_BLUEPRINT, SET_BLUEPRINT} from '../actions/types';
 
 const initialState = {
     blueprints: {},
@@ -18,7 +18,6 @@ export default function(state = initialState, action){
                 ...state,
                 allBlueprints: action.payload
             }
-            break;
         case NEW_BLUEPRINT:
             return {
                 ...state,
@@ -28,6 +27,14 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 selectedBlueprint: action.payload
+            }
+        case ADD_BLUEPRINT_TEAM:
+            return {
+                ...state,
+                blueprints: {
+                    ...state.blueprints,
+                    [action.payload.blueprintuid]: state.allBlueprints[action.payload.blueprintuid]
+                }
             }
         default:
             return state;

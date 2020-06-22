@@ -203,3 +203,7 @@
 .btn-import{
     margin-top: 2%;
 }
+
+.btn-import:disabled{
+    cursor: default;
+}

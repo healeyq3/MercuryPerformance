@@ -3,7 +3,7 @@ import {Container, Nav, Card, Row, Col, Modal} from 'react-bootstrap'
 import ExistingWorkoutCard from '../components/workout/ExistingWorkoutCard'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {getAllWorkoutBlueprints, getWorkoutBlueprints, setBlueprint} from '../actions/workoutActions';
+import {addWorkoutToTeam, getAllWorkoutBlueprints, getWorkoutBlueprints, setBlueprint} from '../actions/workoutActions';
 import ImportWorkoutDropdown from "../components/workout/ImportWorkoutDropdown";
 
 export class Workouts extends Component {
@@ -16,9 +16,10 @@ export class Workouts extends Component {
         }
 
         this.setSelectedBlueprint = this.setSelectedBlueprint.bind(this);
+        this.importWorkoutBlueprint = this.importWorkoutBlueprint.bind(this);
     }
 
-    componentDidUpdate(prevProps){
+    componentDidUpdate(prevProps, prevState, ss){
         if(prevProps.rehydrated === false){
             console.log("Workouts need - passing: " + this.props.selectedTeam);
             this.props.getWorkoutBlueprints(this.props.selectedTeam);
@@ -42,6 +43,11 @@ export class Workouts extends Component {
       });
     };
 
+    importWorkoutBlueprint(blueprintuid){
+        console.log("executing here");
+        this.props.addWorkoutToTeam(blueprintuid, this.props.selectedTeam);
+    }
+
     setSelectedBlueprint(blueprint){
       this.props.setBlueprint(blueprint.key);
       console.log("workout selected ");
@@ -52,6 +58,8 @@ export class Workouts extends Component {
         if(!this.props.selectedTeam){
             return null;
         }
+
+        console.log("Rerendering");
 
         let cardItems = [];
         for(const blueprint in this.props.blueprints){
@@ -97,7 +105,7 @@ export class Workouts extends Component {
                 </Col>
             </Row>
               <Modal show = {this.state.showImport} onHide = {this.showImportModal}>
-                <ImportWorkoutDropdown allBlueprints = {this.props.allBlueprints}/>
+                <ImportWorkoutDropdown importWorkoutBlueprint = {this.importWorkoutBlueprint} allBlueprints = {this.props.allBlueprints} blueprints = {this.props.blueprints}/>
               </Modal>
             </Container>
         )
@@ -112,11 +120,13 @@ Workouts.propTypes = {
     rehydrated: PropTypes.bool.isRequired,
     getWorkoutBlueprints: PropTypes.func.isRequired,
     getAllWorkoutBlueprints: PropTypes.func.isRequired,
-    setBlueprint: PropTypes.func.isRequired
+    setBlueprint: PropTypes.func.isRequired,
+    addWorkoutToTeam: PropTypes.func.isRequired
 }
 
 const mapStateToProps = function(state){
     return {
+        teams: state.teams.teams,
         blueprints: state.workouts.blueprints,
         allBlueprints: state.workouts.allBlueprints,
         selectedTeam: state.teams.selectedTeam,
@@ -125,4 +135,4 @@ const mapStateToProps = function(state){
     }
 }
 
-export default connect(mapStateToProps, { getWorkoutBlueprints, getAllWorkoutBlueprints, setBlueprint }) (Workouts)
+export default connect(mapStateToProps, { getWorkoutBlueprints, getAllWorkoutBlueprints, setBlueprint, addWorkoutToTeam }) (Workouts)

@@ -10,7 +10,7 @@ export class ImportWorkoutDropdown extends React.Component {
 
     this.state = {
       selected: "",
-      disableImportBtn: false
+      disableImportBtn: true
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -23,6 +23,7 @@ export class ImportWorkoutDropdown extends React.Component {
 
   handleImportWorkout(){
     console.log("Importing "+this.state.selected);
+    this.props.importWorkoutBlueprint(this.state.selected);
   }
 
   render(){
@@ -31,15 +32,18 @@ export class ImportWorkoutDropdown extends React.Component {
     }
 
     let options = [];
-
     let workoutUids = Object.keys(this.props.allBlueprints);
     for(const index in workoutUids){
+      if(this.props.blueprints[workoutUids[index]]){
+        continue;
+      }
       options.push({
         workoutuid: workoutUids[index],
         label: this.props.allBlueprints[workoutUids[index]].name
       })
     }
 
+    console.log("Button should be disabled: "+this.state.disableImportBtn);
     return (
       <Container fluid>
         <Modal.Header closeButton>Import Workout</Modal.Header>
@@ -50,6 +54,9 @@ export class ImportWorkoutDropdown extends React.Component {
                 if(selected[0]){
                   console.log("Setting to " + selected[0].workoutuid);
                   this.setState({selected: selected[0].workoutuid});
+                  this.setState({
+                    disableImportBtn: false
+                  })
                 } else {
                   this.setState({
                     disableImportBtn: true
@@ -61,7 +68,7 @@ export class ImportWorkoutDropdown extends React.Component {
               options = {options}
             />
           </Fragment>
-          <Button id = "import-workout-btn" className = "btn-import" variant = "primary" onClick = {this.handleImportWorkout}>Import Workout</Button>
+          <Button disabled = {this.state.disableImportBtn} id = "import-workout-btn" className = "btn-import" variant = "primary" onClick = {this.handleImportWorkout}>Import Workout</Button>
         </Modal.Body>
       </Container>
     )

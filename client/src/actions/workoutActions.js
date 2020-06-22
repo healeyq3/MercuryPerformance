@@ -1,4 +1,4 @@
-import { GET_BLUEPRINTS, GET_ALL_BLUEPRINTS, NEW_BLUEPRINT, SET_BLUEPRINT } from './types';
+import { GET_BLUEPRINTS, GET_ALL_BLUEPRINTS, NEW_BLUEPRINT, SET_BLUEPRINT, ADD_BLUEPRINT_TEAM } from './types';
 import cookie from 'react-cookies';
 
 export function getWorkoutBlueprints(selectedTeamUID){
@@ -14,7 +14,8 @@ export function getWorkoutBlueprints(selectedTeamUID){
             })
         })
         .then(res => res.json())
-        .then(blueprints =>
+        .then(
+            blueprints =>
             dispatch({
                 type: GET_BLUEPRINTS,
                 payload: blueprints
@@ -69,6 +70,32 @@ export function newWorkoutBlueprint(blueprintData, selectedTeamUID){
                 payload: blueprint,
                 blueprintUID: blueprint.key
             }))
+            .catch(err => {
+                console.log(`error in workoutActions: ${err}`)
+            })
+    }
+}
+
+export function addWorkoutToTeam(blueprintuid, selectedTeamUID){
+    return async function(dispatch) {
+        console.log("Is this even running");
+        await fetch('/workouts/addblueprint', {
+            method: 'POST',
+            headers: {
+                'content-type' : 'application/json'
+            },
+            body: JSON.stringify({
+                blueprintuid,
+                selectedTeamUID,
+                idToken: cookie.load('idToken')
+            })
+        })
+            .then(res => res.json())
+            .then(blueprint =>
+                dispatch({
+                    type: ADD_BLUEPRINT_TEAM,
+                    payload: blueprint
+                }))
             .catch(err => {
                 console.log(`error in workoutActions: ${err}`)
             })
