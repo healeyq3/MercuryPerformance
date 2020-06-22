@@ -6,6 +6,7 @@ const { authenticatePost } = require('../firebaseUtilities/authenticationUtiliti
 const teamUtilities = require('../firebaseUtilities/teamUtilities')
 
 router.post('/blueprints', getBlueprints);
+router.post('/getallblueprints', getAllBlueprints);
 router.post('/newblueprint', newBlueprint);
 
 module.exports = router;
@@ -30,7 +31,21 @@ async function getBlueprints(req, res){
         console.log(err);
         res.end('{}');
     });
+}
 
+async function getAllBlueprints(req, res){
+  if(!await authenticatePost(req, res)){
+    res.end();
+    return;
+  }
+  console.log("Running getALlB")
+  workoutUtilities.getAllBlueprints(req.session.useruid).then((blueprints) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify(blueprints));
+  }).catch(err => {
+    console.log(err);
+    res.end('{}');
+  });
 }
 
 async function newBlueprint(req, res){
@@ -51,7 +66,7 @@ async function newBlueprint(req, res){
       console.log("Executing blueprint backend");
       console.log(data.blueprintData);
 
-      workoutUtilities.createBlueprint(data.selectedTeamUID, name, reps).then(blueprint => {
+      workoutUtilities.createBlueprint(req.session.useruid, data.selectedTeamUID, name, reps).then(blueprint => {
           res.setHeader('Content-Type', 'application/json');
           res.end(JSON.stringify(blueprint));
       }).catch(err => {

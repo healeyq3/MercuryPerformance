@@ -127,7 +127,7 @@ export class AddRunner extends React.Component {
                                 <option>Senior</option>
                             </Form.Control>
                         </Form.Group>
-                        <AddRunnerV02 handleChange = {this.handleChange}></AddRunnerV02>
+                        <AddRunnerV02 handleChange = {this.handleChange}/>
                         <Button variant  = "primary" onClick = {this.handleCalculate}>Calculate</Button>
                         <Button variant = "primary" onClick = {this.handleAddRunner}>Add Runner</Button>
                     </Form> 

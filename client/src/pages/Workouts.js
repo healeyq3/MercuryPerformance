@@ -1,16 +1,18 @@
 import React, { Component } from 'react'
-import { Container, Nav, Card, Row, Col } from 'react-bootstrap'
+import {Container, Nav, Card, Row, Col, Modal} from 'react-bootstrap'
 import ExistingWorkoutCard from '../components/workout/ExistingWorkoutCard'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getWorkoutBlueprints, setBlueprint } from '../actions/workoutActions';
+import {getAllWorkoutBlueprints, getWorkoutBlueprints, setBlueprint} from '../actions/workoutActions';
+import ImportWorkoutDropdown from "../components/workout/ImportWorkoutDropdown";
 
 export class Workouts extends Component {
     constructor(props){
         super(props);
         this.state = {
           show: false,
-          reloaded:false
+          showImport: false,
+          reloaded: false
         }
 
         this.setSelectedBlueprint = this.setSelectedBlueprint.bind(this);
@@ -23,20 +25,33 @@ export class Workouts extends Component {
         }
     }
 
-    setShow = e => {
-        window.location.href="./workoutcreator"
-      }
+    setShowCreateWorkout = e => {
+      window.location.href="./workoutcreator"
+    }
+
+    setShowImportWorkout = e => {
+      this.props.getAllWorkoutBlueprints();
+      this.setState({
+        showImport: true
+      })
+    }
+
+    showImportModal = e => {
+      this.setState({
+        showImport: !this.state.showImport
+      });
+    };
+
     setSelectedBlueprint(blueprint){
-        this.props.setBlueprint(blueprint.key);
-        console.log("workout selected ");
-        window.location.href='./workoutdetails'
-      }
+      this.props.setBlueprint(blueprint.key);
+      console.log("workout selected ");
+      window.location.href='./workoutdetails'
+    }
       
     render() {
         if(!this.props.selectedTeam){
             return null;
         }
-
 
         let cardItems = [];
         for(const blueprint in this.props.blueprints){
@@ -49,6 +64,7 @@ export class Workouts extends Component {
             }
         }
 
+        console.log(this.props);
 
         return (
             <Container>
@@ -62,19 +78,27 @@ export class Workouts extends Component {
             <Row>
                 <Col>
                 <Card className = "text-center">
-                    <Card.Header>All Workouts</Card.Header>
+                    <Card.Header>Team Workouts</Card.Header>
                     {cardItems}
                 </Card>
                 </Col>
                 <Col>
-                <Card className = "text-center" tag="a" onClick = {this.setShow} style = {{cursor:"pointer"}}>
-                    <p></p>
+                <Card className = "text-center" tag="a" onClick = {this.setShowCreateWorkout} style = {{cursor:"pointer"}}>
+                    <p/>
                     <Card.Title>New Workout</Card.Title>
                     
-                    <p></p>
+                    <p/>
+                </Card>
+                <Card className = "text-center" tag="a" onClick={e => {this.setShowImportWorkout();}} style = {{cursor:"pointer"}}>
+                    <p/>
+                    <Card.Title>Import Workout</Card.Title>
+                    <p/>
                 </Card>
                 </Col>
             </Row>
+              <Modal show = {this.state.showImport} onHide = {this.showImportModal}>
+                <ImportWorkoutDropdown allBlueprints = {this.props.allBlueprints}/>
+              </Modal>
             </Container>
         )
     }
@@ -83,19 +107,22 @@ export class Workouts extends Component {
 
 Workouts.propTypes = {
     blueprints: PropTypes.object.isRequired,
+    allBlueprints: PropTypes.object,
     selectedTeam: PropTypes.string.isRequired,
     rehydrated: PropTypes.bool.isRequired,
     getWorkoutBlueprints: PropTypes.func.isRequired,
+    getAllWorkoutBlueprints: PropTypes.func.isRequired,
     setBlueprint: PropTypes.func.isRequired
 }
 
 const mapStateToProps = function(state){
     return {
         blueprints: state.workouts.blueprints,
+        allBlueprints: state.workouts.allBlueprints,
         selectedTeam: state.teams.selectedTeam,
         rehydrated: state._persist.rehydrated,
         selectedBlueprint: state.workouts.selectedBlueprint
     }
 }
 
-export default connect(mapStateToProps, { getWorkoutBlueprints, setBlueprint }) (Workouts)
+export default connect(mapStateToProps, { getWorkoutBlueprints, getAllWorkoutBlueprints, setBlueprint }) (Workouts)

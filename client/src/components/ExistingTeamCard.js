@@ -3,6 +3,9 @@ import { Card, Row, Col } from 'react-bootstrap';
 export class ExistingTeamCard extends Component {
     
     render() {
+        if(!this.props.team){
+            return null;
+        }
         const runnerCount = (this.props.team.runners) ? Object.keys(this.props.team.runners).length : 0;
         return (
         <Card className = "teamselect-teamcard" tag="a" onClick={() => this.props.onSelect(this.props.team)} href = './'>
