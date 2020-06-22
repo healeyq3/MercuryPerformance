@@ -55,8 +55,6 @@ export class Workouts extends Component {
                 )
             }
         }
-
-
         return (
             <Container>
             <Container fluid>
@@ -86,7 +84,6 @@ export class Workouts extends Component {
         )
     }
 }
-
 
 Workouts.propTypes = {
     blueprints: PropTypes.object.isRequired,

@@ -15,7 +15,6 @@ import ExistingWorkoutGraph from '../components/workout/ExistingWorkoutGraph'
 export class WorkoutCreator extends Component {
     constructor(props){
         super(props);
-
         this.state = {
             name:'',
             reps:[],
@@ -55,9 +54,6 @@ export class WorkoutCreator extends Component {
             this.props.history.push('/workoutcreator')
             return <Redirect to='/workouts' />
           }
-        
-       
-
         return (
             <Row>
                 <Col>
@@ -127,7 +123,6 @@ export class WorkoutCreator extends Component {
                     ))} */}
                 </Card>
                 </Col>
-                
             </Row>
         )
     }
