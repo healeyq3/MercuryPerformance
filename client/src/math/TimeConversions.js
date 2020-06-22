@@ -13,6 +13,10 @@ function totalTheTime(minutes, seconds) {
     return toReturn;
 }
 
+function secondsToMinutes(seconds){
+    return (seconds / 60);
+}
+
 function totalMinutes(hours, minutes, seconds){
     let toRet = 0.0
     toRet +=minutes
@@ -34,4 +38,4 @@ function distanceToTime(distance, unit, avPace){
     return d
 }
 
-export { stringToNumber, totalTheTime, distanceToTime, totalMinutes };
+export { stringToNumber, totalTheTime, distanceToTime, totalMinutes, secondsToMinutes };

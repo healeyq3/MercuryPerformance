@@ -9,7 +9,6 @@ import RepDurationPopover from '../components/workout/RepDurationPopover'
 import { newWorkoutBlueprint, setBlueprint } from '../actions/workoutActions'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import RepCard from '../components/workout/RepCard';
 import { Redirect } from "react-router-dom";
 import ExistingWorkoutGraph from '../components/workout/ExistingWorkoutGraph'
 
@@ -121,11 +120,11 @@ export class WorkoutCreator extends Component {
                 <Col>
                 <ExistingWorkoutGraph></ExistingWorkoutGraph>
                 <Card className = 'text-center'>
-                    {this.state.reps.map((rep, i) => (
-                        <RepCard 
+                    {/* {this.state.reps.map((rep, i) => (
+                        < 
                         rep = {rep}
                         />
-                    ))}
+                    ))} */}
                 </Card>
                 </Col>
                 <Col/>

@@ -23,6 +23,7 @@ export default function(state = initialState, action) {
         ...state,
         selectedTeam: action.payload
       };
+    
     default:
       return state;
   }
