@@ -21,8 +21,8 @@ export class WorkoutDetails extends Component {
                 <Nav fill variant="tabs" className="justify-content-center">
                 <Nav.Item>
                     <Row className = "justify-content-center">
-                    <Nav.Link href = "./workoutdetails">Edit Blueprint</Nav.Link>
-                    <Nav.Link href = "./workoutdetails">Delete</Nav.Link>
+                    <Nav.Link href = "./workoutcreator">Edit Blueprint</Nav.Link>
+                    <Nav.Link href = "./workouts">Delete</Nav.Link>
                     </Row>
                 </Nav.Item>
                 </Nav>
