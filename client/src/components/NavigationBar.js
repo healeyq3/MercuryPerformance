@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
 import cookie from 'react-cookies'
 import fire from '../Fire'
-
-//Bootstrap
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { withRouter } from "react-router-dom";
 
 class NavigationBar extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            gotoLogin: false
+        }
+    }
     logout = () => {
         cookie.remove('idToken', { path: "/" });
         cookie.remove('user', { path: "/" });
         fire.auth().signOut().then(() => {
-            this.props.history.push('/');
             window.location.reload();
         });
 
