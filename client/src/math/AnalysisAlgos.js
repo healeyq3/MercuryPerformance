@@ -12,5 +12,22 @@ function getAverageTeamPace(runners){
     let average = totalTime/numberOfTimes;
     return secondsToMinutes(average);
 }
+function getPredictedTimes(runners){
+    let max = 0;
+    let min= 100000;
+    let pace = 0;
+    for(const runner in runners){
+        if(runners[runner].hasOwnProperty('wPace')){
+            pace = runners[runner].wPace.stringToNumber;
+            if(max<runners[runner].wPace){
+                max = runners[runner].wPace;
+            }
+            if(min>runners[runner].wPace){
+                min = runners[runner].wPace
+            }
+        }
+    }
+    return max + "," + min
+}
 
-export { getAverageTeamPace };
+export { getAverageTeamPace, getPredictedTimes };
