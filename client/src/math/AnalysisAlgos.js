@@ -27,7 +27,7 @@ function getPredictedTimes(runners){
             }
         }
     }
-    {/*max = max/60;
+    max = max/60;
     let decM = max -Math.floor(max);
     max = max.toFixed(0)
     decM = decM * 60;
@@ -43,8 +43,7 @@ function getPredictedTimes(runners){
     if(decMi<10){
         decMi = "0" + decMi
     }
-return max + ":" + decM + "-" + min + ":" + decMi*/}
-return max + "-" + min;
+return max + ":" + decM + "-" + min + ":" + decMi
 }
 
 export { getAverageTeamPace, getPredictedTimes };

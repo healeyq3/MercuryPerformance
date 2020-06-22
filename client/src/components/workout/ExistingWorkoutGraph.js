@@ -17,8 +17,6 @@ export class ExistingWorkoutGraph extends Component {
       let start = 0;
       let DATA = [];
       let newTime = 0;
-     // let pace = getPredictedTimes(this.props.team.runners)
-      //console.log(pace)
       let averagePace = this.props.team.hasOwnProperty('averageWPace') === true ? this.props.team.averageWPace : 6.5
       for(const rep in this.props.reps){
         let t = this.props.reps[rep];
