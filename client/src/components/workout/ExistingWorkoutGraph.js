@@ -37,24 +37,19 @@ export class ExistingWorkoutGraph extends Component {
         }
       }
         return (
-            // <Card>
-            //     <Card.Header className = "text-center">Graph</Card.Header>
-            //     <Card.Body>
-                <XYPlot
-        xDomain={[0, 50+time]}
-        yDomain={[0, 150]}
-        // xType="time"
-        width={700}
-        height={400}
-      >
-        <VerticalGridLines />
-        <HorizontalGridLines />
-        <XAxis title = "Minutes"/>
-        <YAxis title = "V02 Max"/>
-        <VerticalRectSeries data={DATA} style={{stroke: '#fff'}} />
-      </XYPlot>
-            //     </Card.Body>
-            // </Card>
+          <XYPlot
+            xDomain={[0, 50+time]}
+            yDomain={[0, 150]}
+            // xType="time"
+            width={700}
+            height={400}
+          >
+            <VerticalGridLines />
+            <HorizontalGridLines />
+            <XAxis title = "Minutes"/>
+            <YAxis title = "V02 Max"/>
+            <VerticalRectSeries data={DATA} style={{stroke: '#fff'}} />
+          </XYPlot>
         )
     }
 }
