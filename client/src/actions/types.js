@@ -2,6 +2,7 @@
 export const GET_TEAMS = 'GET_TEAMS';
 export const NEW_TEAM = 'NEW_TEAM';
 export const SET_TEAM = 'SET_TEAM';
+export const UPDATE_TEAM = 'UPDATE_TEAM';
 
 // ----------- RUNNER ACTIONS ---------------
 export const NEW_RUNNER = 'NEW_RUNNER';
