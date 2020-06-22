@@ -7,8 +7,9 @@ import CooldownDurationPopover from '../components/workout/CooldownDurationPopov
 import WarmupDurationPopover from '../components/workout/WarmupDurationPopover'
 import RepDurationPopover from '../components/workout/RepDurationPopover'
 import cookie from 'react-cookies';
-import { newWorkoutBlueprint } from '../actions/workoutActions'
+import { newWorkoutBlueprint, setBlueprint } from '../actions/workoutActions'
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 export class WorkoutCreator extends Component {
     constructor(props){
@@ -31,7 +32,7 @@ export class WorkoutCreator extends Component {
             user: cookie.load('user'),
             name: this.state.name,
         }
-        this.props.newWorkoutBlueprint(workoutData, this.props.teamUID);
+        this.props.newWorkoutBlueprint(workoutData, this.props.selectedTeam);
     }
     handleCreate = (repData) => {
         let arr = this.state.reps
@@ -41,6 +42,10 @@ export class WorkoutCreator extends Component {
         //this.props.newTeam(teamData);
     }
     render() {
+        if(!this.props.selectedTeam){
+            return null;
+        }
+        
         return (
             <Row>
                 <Col>
@@ -106,4 +111,19 @@ export class WorkoutCreator extends Component {
     }
 }
 
-export default connect(null, { newWorkoutBlueprint }) (WorkoutCreator);
+WorkoutCreator.propTypes = {
+    selectedTeam: PropTypes.string.isRequired,
+    rehydrated: PropTypes.bool.isRequired,
+    setBlueprint: PropTypes.func.isRequired
+}
+
+const mapStateToProps = function(state){
+    return {
+        blueprints: state.workouts.blueprints,
+        selectedTeam: state.teams.selectedTeam,
+        rehydrated: state._persist.rehydrated,
+        selectedBlueprint: state.workouts.selectedBlueprint
+    }
+}
+
+export default connect(mapStateToProps, {  newWorkoutBlueprint, setBlueprint }) (WorkoutCreator);
