@@ -52,25 +52,8 @@ export class ExistingWorkoutGraph extends Component {
       >
         <VerticalGridLines />
         <HorizontalGridLines />
-        <XAxis/>
-        <ChartLabel
-    text="Estimated Minutes"
-    className="alt-x-label"
-    includeMargin={false}
-    xPercent={0.31}
-    yPercent={1.201}
-    />
-    <ChartLabel
-    text="V02 Max"
-    className="alt-y-label"
-    includeMargin={true}
-    xPercent={.15}
-    yPercent={-.09}
-    style={{
-      textAnchor: 'end'
-    }}
-    />
-        <YAxis />
+        <XAxis title = "Minutes"/>
+        <YAxis title = "V02 Max"/>
         <VerticalRectSeries data={DATA} style={{stroke: '#fff'}} />
       </XYPlot>
                 </Card.Body>
