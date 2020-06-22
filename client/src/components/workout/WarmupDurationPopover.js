@@ -23,7 +23,6 @@ export class WarmupDurationPopover extends Component {
     }
     handleCreateWarmup = () => {
         const repData = {
-            user: cookie.load('user'),
             type:this.state.type,
             percent: this.state.percent,
             hours: this.state.hours,
