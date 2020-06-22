@@ -13,8 +13,17 @@ function totalTheTime(minutes, seconds) {
     return toReturn;
 }
 
+function totalMinutes(hours, minutes, seconds){
+    let toRet = 0.0
+    toRet +=minutes
+    toRet += seconds/60
+    toRet += hours*60
+    return toRet
+}
+
 function distanceToTime(distance, unit, avPace){
-    let d = distance
+    let d = 0.0
+    d = distance
     if(unit==="Kilometers"){
         d = convertKToM(d);
     }
@@ -25,4 +34,4 @@ function distanceToTime(distance, unit, avPace){
     return d
 }
 
-export { stringToNumber, totalTheTime, distanceToTime };
+export { stringToNumber, totalTheTime, distanceToTime, totalMinutes };
