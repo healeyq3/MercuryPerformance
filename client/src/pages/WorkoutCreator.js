@@ -57,7 +57,6 @@ export class WorkoutCreator extends Component {
                                 <Form.Label>Workout Name</Form.Label>
                                 <Form.Control onChange = {this.handleChange} name = "name" type = "text" placeholder = "Enter Workout Name"/>
                             </Form.Group>
-                                <Button variant = "primary" onClick = {this.handleCreateWorkout}>Save</Button>
                                 <p></p>
                             <Form.Group>
                                 <Form.Label>Add Warmup</Form.Label>
@@ -100,6 +99,8 @@ export class WorkoutCreator extends Component {
                             </Col>
                             <Col></Col>
                             </Row>
+                            <p></p>
+                            <Button variant = "primary" onClick = {this.handleCreateWorkout}>Save</Button>
                         </Form>
                         </Card.Body>
                     </Card>
