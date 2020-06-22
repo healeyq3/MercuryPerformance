@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import ExistingRunnerCard from '../components/ExistingRunnerCard';
 import  AddRunner from '../components/AddRunner';
 import PropTypes from 'prop-types';
+import { getAverageTeamPace } from '../math/AnalysisAlgos';
 
 class Home extends Component {
   constructor(props){
@@ -24,6 +25,10 @@ class Home extends Component {
     window.location.href="./events"
   }
 
+  calculateAverageTeamPace(){
+    
+  }
+
   render() {
     if(!this.props.selectedTeam){
       return null;
@@ -40,6 +45,8 @@ class Home extends Component {
         )
       }
     }
+        
+    console.log(getAverageTeamPace(this.props.runners));
 
     return (
         <Container fluid>

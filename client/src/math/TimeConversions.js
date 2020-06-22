@@ -12,4 +12,8 @@ function totalTheTime(minutes, seconds) {
     return toReturn;
 }
 
-export { stringToNumber };
+function secondsToMinutes(seconds){
+    return (seconds / 60);
+}
+
+export { stringToNumber, secondsToMinutes };
