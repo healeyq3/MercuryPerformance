@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Card } from 'react-bootstrap'
+import { Card, Row, Col } from 'react-bootstrap'
 import {
     XYPlot,
     XAxis,
     YAxis,
     VerticalGridLines,
     HorizontalGridLines,
-    VerticalRectSeries
+    VerticalRectSeries, ChartLabel
   } from 'react-vis';
 import { distanceToTime, totalMinutes } from '../../math/TimeConversions';
 
@@ -43,7 +43,7 @@ export class ExistingWorkoutGraph extends Component {
                 <Card.Header className = "text-center">Graph</Card.Header>
                 <Card.Body>
                 <XYPlot
-        xDomain={[0, 15+time]}
+        xDomain={[0, 50+time]}
         yDomain={[0, 150]}
         // xType="time"
         width={400}
@@ -51,7 +51,24 @@ export class ExistingWorkoutGraph extends Component {
       >
         <VerticalGridLines />
         <HorizontalGridLines />
-        <XAxis />
+        <XAxis/>
+        <ChartLabel
+    text="Estimated Minutes"
+    className="alt-x-label"
+    includeMargin={false}
+    xPercent={0.31}
+    yPercent={1.201}
+    />
+    <ChartLabel
+    text="V02 Max"
+    className="alt-y-label"
+    includeMargin={true}
+    xPercent={.15}
+    yPercent={-.09}
+    style={{
+      textAnchor: 'end'
+    }}
+    />
         <YAxis />
         <VerticalRectSeries data={DATA} style={{stroke: '#fff'}} />
       </XYPlot>
