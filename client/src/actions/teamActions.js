@@ -1,4 +1,4 @@
-import {GET_TEAMS, NEW_TEAM, SET_TEAM} from './types';
+import {GET_TEAMS, NEW_TEAM, SET_TEAM, UPDATE_TEAM} from './types';
 import cookie from 'react-cookies'
 
 export function getTeams() {
@@ -51,5 +51,32 @@ export function setTeam(team){
       type: SET_TEAM,
       payload: team
     })
+  }
+}
+
+export function updateTeam(teamUID, toUpdate, newValue){
+  return async function(dispatch){
+    await fetch('/teams/update', {
+      method: 'POST',
+      headers: {
+        'content-type' : 'application/json'
+      },
+      body: JSON.stringify({
+        idToken: cookie.load('idToken'),
+        teamUID: teamUID,
+        toUpdate,
+        newValue
+      })
+    })
+      .then(res => res.json())
+      .then(team => 
+        dispatch({
+          type: UPDATE_TEAM,
+          payload: team,
+          teamUID: team.key
+        })
+      ).catch((err) => {
+        console.log(err)
+      })
   }
 }

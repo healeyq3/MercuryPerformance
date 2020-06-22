@@ -6,6 +6,7 @@ const { authenticatePost } = require("../firebaseUtilities/authenticationUtiliti
 
 router.post('/', getTeams);
 router.post('/new', createTeam);
+router.post('/update', updateTeam);
 
 module.exports = router;
 
@@ -44,4 +45,26 @@ async function createTeam(req, res){
     console.log(error);
     res.end("{}");
   })
+}
+
+async function updateTeam(req, res){
+  if(!await authenticatePost(req, res)){
+    res.end();
+    return;
+  }
+
+  const data = req.body;
+  const teamUID = data.teamUID;
+  const toUpdate = data.toUpdate;
+  const newValue = data.newValue;
+
+teamUtilities.updateTeam(teamUID, toUpdate, newValue).then((team) => {
+  res.setHeader('Content-Type', 'application/json');
+  const teamJson = JSON.stringify(team);
+  res.end(teamJson);
+}).catch((err) => {
+  console.log("Error updating and fetching the team".red);
+  console.log(err);
+})
+
 }

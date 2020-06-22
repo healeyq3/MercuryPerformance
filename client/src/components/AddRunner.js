@@ -51,6 +51,7 @@ export class AddRunner extends React.Component {
         }
         console.log(runnerData);
         this.props.newRunner(runnerData, this.props.teamUID);
+        this.props.onSelect();
         this.showModal();
     }
 

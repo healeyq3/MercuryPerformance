@@ -69,7 +69,27 @@ async function doesUserOwnTeam(req){
   });
 }
 
+async function updateTeam(teamUID, toUpdate, newValue){
+  const teamRef = await database.ref("teams/" + teamUID);
+  await teamRef.child(toUpdate).set(newValue).catch((error) => {
+    console.log("Error updating the team in firebase")
+    console.log(error)
+  });
+  let teamToReturn;
+  await database.ref('teams/' + teamUID).once('value').then((teamSnapshot) => {
+      teamToReturn = teamSnapshot.val();
+      console.log('---');
+      console.log(teamSnapshot.val());
+  })
+
+  console.log('Successfully Returned');
+  console.log(teamToReturn);
+  return teamToReturn;
+
+}
+
 module.exports.createTeam = createTeam;
 module.exports.addTeamToUser = addTeamToUser;
 module.exports.getUserTeams = getUserTeams;
 module.exports.doesUserOwnTeam = doesUserOwnTeam;
+module.exports.updateTeam = updateTeam
