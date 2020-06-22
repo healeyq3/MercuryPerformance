@@ -22,7 +22,7 @@ function distanceToTime(distance, unit, avPace){
         d = convertMeToMi(d);
     }
     d = d * (avPace)
-    return null
+    return d
 }
 
 export { stringToNumber, totalTheTime, distanceToTime };
