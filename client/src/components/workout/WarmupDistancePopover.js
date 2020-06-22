@@ -22,7 +22,6 @@ export class WarmupDistancePopover extends Component {
     }
     handleCreateWarmup = () => {
         const repData = {
-            user: cookie.load('user'),
             type:this.state.type,
             percent: this.state.percent,
             distance:this.state.distance,

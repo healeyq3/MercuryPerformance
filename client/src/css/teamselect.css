@@ -1,0 +1,30 @@
+.teamselect-container{
+    display: flex;
+    align-items: center;
+}
+
+.teamselect-cardcontainer{
+    justify-content: center;
+    flex: 1;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.teamselect-teamcard{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 1%;
+    width: 12%;
+    cursor: pointer;
+    transition: 0.5s;
+    text-align: center;
+}
+
+.teamselect-teamcard:hover{
+    background: #D5D5D5;
+}
+
+.teamselect-runnercount{
+    font-size: 25px;
+}

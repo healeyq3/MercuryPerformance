@@ -1,0 +1,36 @@
+.login-container {
+    margin-top: 1%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-supplementalbuttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.card-style {
+    width: 50%;
+    justify-self: center;
+}
+
+.btn-flat {
+    background-color: gray;
+    color: white;
+}
+
+.formHeader {
+    font: 21px Open-Sans, sans-serif;
+    color: gray;
+    margin-bottom: 1%;
+}
+
+.formInputHeader {
+    text-align: left;
+    font: 19px Open-Sans, sans-serif;
+    color: darkblue;
+}

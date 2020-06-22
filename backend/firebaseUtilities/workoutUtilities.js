@@ -3,8 +3,6 @@ const database = firebaseSetup.database;
 
 
 // -------------- Workouts ----------------
-
-
 async function getBlueprints(teamuid) {
     const startTime = Date.now();
     const teamBlueprintsRef = await database.ref('teams/' + teamuid.toString() + '/blueprints');
@@ -33,11 +31,12 @@ async function getBlueprints(teamuid) {
     return blueprints;
 }
 
-async function createBlueprint(teamuid, name){
+async function createBlueprint(teamuid, name, reps){
     const blueprintRef = await database.ref('blueprints').push();
 
     const blueprintData = {
-        name, 
+        name,
+        reps,
         key: blueprintRef.key.toString()
     }
 

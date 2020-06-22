@@ -4,6 +4,8 @@ import fire from '../Fire';
 import cookie from 'react-cookies'
 import { withRouter } from "react-router-dom";
 
+import '../css/login.css';
+
 //Bootstrap
 import {Button, Row, Form, Col, Card, Container} from 'react-bootstrap';
 
@@ -51,28 +53,28 @@ class Login extends Component {
 
     render() {
         return (
-            <Container fluid className = "text-center">
-            <Card className = "text-center">
-                <Card.Header>Login</Card.Header>
+            <Container fluid className = "login-container">
+            <Card className = "card-style">
+                <Card.Header className = "formHeader">Login</Card.Header>
                 <Form>
                     <Col>
-                    <Form.Group controlId = 'formBasicEmail'>
-                        <Form.Label>Email Address:</Form.Label>
+                    <Form.Group className = "formInputHeader" controlId = 'formBasicEmail'>
+                        <Form.Label>Email Address</Form.Label>
                         <Form.Control
                             type = "email"
-                            placeholder = "Enter Email"
+                            placeholder = "johndoe@gmail.com"
                             onChange = {this.handleChange}
                             value = {this.state.email}
                             name = "email"
                         />
                     </Form.Group>
-                    <Form.Group controlId = "formBasicPassword">
-                        <Form.Label>Password:</Form.Label>
+                    <Form.Group className = "formInputHeader" controlId = "formBasicPassword">
+                        <Form.Label>Password</Form.Label>
                         <Form.Control
                         type = "password"
                         value = {this.state.password}
                         onChange = {this.handleChange}
-                        placeholder = "Enter Password"
+                        placeholder = "password"
                         name = "password"
                         />
                     </Form.Group>
@@ -82,7 +84,7 @@ class Login extends Component {
                             <Button
                             onClick = {this.login} 
                             type = 'submit' 
-                            variant = "dark" >Login</Button>
+                            variant = "flat" >Login</Button>
                         </Col>
                     </Row>
                 </Form>
@@ -90,11 +92,14 @@ class Login extends Component {
 
                 </p>
             </Card>
-            <Row className = "justify-content-left">
-                        <Col>
-                        <Link to = "./signup">New User</Link>
-                        </Col>
-                    </Row>
+            <Row className = "login-supplementalbuttons">
+              <Col>
+                <Link to = "">Forgot Password?</Link>
+              </Col>
+              <Col>
+              <Link to = "./signup">New User</Link>
+              </Col>
+            </Row>
                 
             </Container>
         )

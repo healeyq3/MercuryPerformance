@@ -46,8 +46,12 @@ async function newBlueprint(req, res){
 
       const data = req.body;
       const name = data.blueprintData.name;
+      const reps = data.blueprintData.reps;
 
-      workoutUtilities.createBlueprint(data.selectedTeamUID, name).then(blueprint => {
+      console.log("Executing blueprint backend");
+      console.log(data.blueprintData);
+
+      workoutUtilities.createBlueprint(data.selectedTeamUID, name, reps).then(blueprint => {
           res.setHeader('Content-Type', 'application/json');
           res.end(JSON.stringify(blueprint));
       }).catch(err => {
