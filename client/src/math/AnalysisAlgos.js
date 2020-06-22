@@ -19,15 +19,15 @@ function getPredictedTimes(runners){
     for(const runner in runners){
         if(runners[runner].hasOwnProperty('wPace')){
             pace = runners[runner].wPace.stringToNumber;
-            if(max<runners[runner].wPace){
+            if(max<pace){
                 max = runners[runner].wPace;
             }
-            if(min>runners[runner].wPace){
+            if(min>pace){
                 min = runners[runner].wPace
             }
         }
     }
-    return max + "," + min
+    return max + "-" + min
 }
 
 export { getAverageTeamPace, getPredictedTimes };
