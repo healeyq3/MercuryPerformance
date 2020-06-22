@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// eslint-disable-next-line
 import { Card } from 'react-bootstrap'
 import {
     XYPlot,
@@ -9,7 +10,6 @@ import {
     VerticalRectSeries
   } from 'react-vis';
 import { distanceToTime, totalMinutes } from '../../math/TimeConversions';
-import { getPredictedTimes } from '../../math/AnalysisAlgos';
 
 export class ExistingWorkoutGraph extends Component {
     render() {

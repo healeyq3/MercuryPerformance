@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import ExistingRunnerCard from '../components/ExistingRunnerCard';
 import  AddRunner from '../components/AddRunner';
 import PropTypes from 'prop-types';
-import { getAverageTeamPace, getPredictedTimes } from '../math/AnalysisAlgos';
+import { getAverageTeamPace } from '../math/AnalysisAlgos';
 
 class Home extends Component {
   constructor(props){
