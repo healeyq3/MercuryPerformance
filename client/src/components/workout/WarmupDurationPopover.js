@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {Popover, OverlayTrigger, Button, Form} from 'react-bootstrap'
 
-export class WarmupPopover extends Component {
+export class WarmupDurationPopover extends Component {
     render() {
         return (
             <OverlayTrigger trigger="click" placement="right" overlay={
@@ -17,25 +17,30 @@ export class WarmupPopover extends Component {
                                             />
                                 <Form.Control
                                     type = "text"
-                                    placeholder = "Value"
-                                    name = "value"
+                                    placeholder = "Hours"
+                                    name = "hours"
                                     onChange = {this.props.handleChange}
                                             />
-                                    
-                                <Form.Control onChange = {this.props.handleChange} name = "distanceUnit" as = "select">
-                                    <option hidden>Units</option>
-                                    <option>Miles</option>
-                                    <option>Kilometers</option>
-                                    <option>Meters</option>
-                                </Form.Control>
+                                            <Form.Control
+                                    type = "text"
+                                    placeholder = "Minutes"
+                                    name = "Minutes"
+                                    onChange = {this.props.handleChange}
+                                            />
+                                            <Form.Control
+                                    type = "text"
+                                    placeholder = "Seconds"
+                                    name = "Seconds"
+                                    onChange = {this.props.handleChange}
+                                            />
                                 <Button>Add</Button>
                                 </Form>
                 </Popover.Content>
                 </Popover>}>
-          <Button >Add</Button>
+          <Button>Duration</Button>
         </OverlayTrigger>
         )
     }
 }
 
-export default WarmupPopover
+export default WarmupDurationPopover

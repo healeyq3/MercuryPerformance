@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
 import { Row, Card, Col, Form } from 'react-bootstrap'
-import WarmupPopover from '../components/workout/WarmupPopover'
-import { CooldownPopover } from '../components/workout/CooldownPopover'
-import RepPopover from '../components/workout/RepPopover'
+import WarmupDistancePopover from '../components/workout/WarmupDistancePopover'
+import { CooldownDistancePopover } from '../components/workout/CooldownDistancePopover'
+import RepDistancePopover from '../components/workout/RepDistancePopover'
+import CooldownDurationPopover from '../components/workout/CooldownDurationPopover'
+import WarmupDurationPopover from '../components/workout/WarmupDurationPopover'
+import RepDurationPopover from '../components/workout/RepDurationPopover'
 
 export class WorkoutCreator extends Component {
     render() {
@@ -20,17 +23,44 @@ export class WorkoutCreator extends Component {
                             <Form.Group>
                                 <Form.Label>Add Warmup</Form.Label>
                                 </Form.Group>
-                                <WarmupPopover></WarmupPopover>
+                                <Row>
+                                <Col></Col>
+                            <Col>
+                            <WarmupDistancePopover></WarmupDistancePopover>
+                            </Col>
+                            <Col>
+                            <WarmupDurationPopover></WarmupDurationPopover>
+                            </Col>
+                            <Col></Col>
+                            </Row>
                             <p></p>
                             <Form.Group>
                                 <Form.Label>Add Rep</Form.Label>
                             </Form.Group>
-                            <RepPopover></RepPopover>
+                            <Row>
+                                <Col></Col>
+                            <Col>
+                            <RepDistancePopover></RepDistancePopover>
+                            </Col>
+                            <Col>
+                            <RepDurationPopover></RepDurationPopover>
+                            </Col>
+                            <Col></Col>
+                            </Row>
                             <p></p>
                             <Form.Group>
                                 <Form.Label>Add Cooldown</Form.Label>
                             </Form.Group>
-                            <CooldownPopover></CooldownPopover>
+                            <Row>
+                                <Col></Col>
+                            <Col>
+                            <CooldownDistancePopover></CooldownDistancePopover>
+                            </Col>
+                            <Col>
+                            <CooldownDurationPopover></CooldownDurationPopover>
+                            </Col>
+                            <Col></Col>
+                            </Row>
                         </Form>
                         </Card.Body>
                     </Card>
