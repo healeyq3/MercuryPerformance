@@ -28,7 +28,7 @@ class NavigationBar extends Component {
                     <Nav.Link href="/comingsoon">Calendar</Nav.Link>
                     <Nav.Link href="./workouts">Workouts</Nav.Link>
                     <Nav.Link href="./events">Events</Nav.Link>
-                    <NavDropdown title = "Settings">
+                    <NavDropdown title = "Settings" id="navDropDown">
                         <NavDropdown.Item href="/teamselect">Select Team</NavDropdown.Item>
                         <NavDropdown.Item href="/comingsoon">Settings</NavDropdown.Item>
                         <NavDropdown.Item onClick = {this.logout}>Logout</NavDropdown.Item>
