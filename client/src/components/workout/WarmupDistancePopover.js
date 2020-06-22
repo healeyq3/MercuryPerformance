@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import {Popover, OverlayTrigger, Button, Form} from 'react-bootstrap'
 
-export class RepPopover extends Component {
+export class WarmupDistancePopover extends Component {
     render() {
         return (
             <OverlayTrigger trigger="click" placement="right" overlay={
                 <Popover id="popover-basic" className = "text-center">
-                <Popover.Title as="h3">Add Rep</Popover.Title>
+                <Popover.Title as="h3">Add Warmup</Popover.Title>
                 <Popover.Content>
                     <Form>
                          <Form.Control
@@ -17,8 +17,8 @@ export class RepPopover extends Component {
                                             />
                                 <Form.Control
                                     type = "text"
-                                    placeholder = "Value"
-                                    name = "value"
+                                    placeholder = "Distance"
+                                    name = "distance"
                                     onChange = {this.props.handleChange}
                                             />
                                     
@@ -32,10 +32,10 @@ export class RepPopover extends Component {
                                 </Form>
                 </Popover.Content>
                 </Popover>}>
-          <Button >Add</Button>
+          <Button >Distance</Button>
         </OverlayTrigger>
         )
     }
 }
 
-export default RepPopover
+export default WarmupDistancePopover
