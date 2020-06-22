@@ -7,6 +7,8 @@ import CooldownDurationPopover from '../components/workout/CooldownDurationPopov
 import WarmupDurationPopover from '../components/workout/WarmupDurationPopover'
 import RepDurationPopover from '../components/workout/RepDurationPopover'
 import cookie from 'react-cookies';
+import { newWorkoutBlueprint } from '../actions/workoutActions'
+import { connect } from 'react-redux';
 
 export class WorkoutCreator extends Component {
     constructor(props){
@@ -96,4 +98,4 @@ export class WorkoutCreator extends Component {
     }
 }
 
-export default WorkoutCreator
+export default connect(null, { newWorkoutBlueprint }) (WorkoutCreator);

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Container, Nav, Card, Row, Col } from 'react-bootstrap'
 import ExistingWorkoutCard from '../components/workout/ExistingWorkoutCard'
-import CreateWorkoutModal from '../components/workout/CreateWorkoutModal';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getWorkoutBlueprints, setBlueprint } from '../actions/workoutActions';
