@@ -41,27 +41,27 @@ export class WarmupDurationPopover extends Component {
                                     type = "text"
                                     placeholder = "% of V02 Max"
                                     name = "v02"
-                                    onChange = {this.props.handleChange}
+                                    onChange = {this.handleChange}
                                             />
                                 <Form.Control
                                     type = "text"
                                     placeholder = "Hours"
                                     name = "hours"
-                                    onChange = {this.props.handleChange}
+                                    onChange = {this.handleChange}
                                             />
                                             <Form.Control
                                     type = "text"
                                     placeholder = "Minutes"
                                     name = "Minutes"
-                                    onChange = {this.props.handleChange}
+                                    onChange = {this.handleChange}
                                             />
                                             <Form.Control
                                     type = "text"
                                     placeholder = "Seconds"
                                     name = "Seconds"
-                                    onChange = {this.props.handleChange}
+                                    onChange = {this.handleChange}
                                             />
-                                <Button>Add</Button>
+                                <Button variant = "primary" onClick = {this.handleCreateWarmup}>Add</Button>
                                 </Form>
                 </Popover.Content>
                 </Popover>}>

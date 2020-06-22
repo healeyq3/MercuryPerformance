@@ -39,22 +39,22 @@ export class CooldownDistancePopover extends Component {
                                     type = "text"
                                     placeholder = "% of V02 Max"
                                     name = "v02"
-                                    onChange = {this.props.handleChange}
+                                    onChange = {this.handleChange}
                                             />
                                 <Form.Control
                                     type = "text"
                                     placeholder = "Distance"
                                     name = "distance"
-                                    onChange = {this.props.handleChange}
+                                    onChange = {this.handleChange}
                                             />
                                     
-                                <Form.Control onChange = {this.props.handleChange} name = "distanceUnit" as = "select">
+                                <Form.Control onChange = {this.handleChange} name = "distanceUnit" as = "select">
                                     <option hidden>Units</option>
                                     <option>Miles</option>
                                     <option>Kilometers</option>
                                     <option>Meters</option>
                                 </Form.Control>
-                                <Button>Add</Button>
+                                <Button variant = "primary" onClick = {this.handleCreateCooldown}>Add</Button>
                                 </Form>
                 </Popover.Content>
                 </Popover>}>

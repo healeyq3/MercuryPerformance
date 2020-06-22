@@ -39,22 +39,22 @@ export class RepDistancePopover extends Component {
                                     type = "text"
                                     placeholder = "% of V02 Max"
                                     name = "percent"
-                                    onChange = {this.props.handleChange}
+                                    onChange = {this.handleChange}
                                             />
                                 <Form.Control
                                     type = "text"
                                     placeholder = "Distance"
                                     name = "distance"
-                                    onChange = {this.props.handleChange}
+                                    onChange = {this.handleChange}
                                             />
                                     
-                                <Form.Control onChange = {this.props.handleChange} name = "unit" as = "select">
+                                <Form.Control onChange = {this.handleChange} name = "unit" as = "select">
                                     <option hidden>Units</option>
                                     <option>Miles</option>
                                     <option>Kilometers</option>
                                     <option>Meters</option>
                                 </Form.Control>
-                                <Button>Add</Button>
+                                <Button variant = "primary" onClick = {this.handleCreateRep}>Add</Button>
                                 </Form>
                 </Popover.Content>
                 </Popover>}>
