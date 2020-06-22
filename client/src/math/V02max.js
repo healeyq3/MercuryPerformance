@@ -107,4 +107,4 @@ function getV02(v){
     //console.log(toReturn + "AAAAAA")
     return toReturn;
 }
-export { getWorkoutPace, getV02max };
+export { getWorkoutPace, getV02max, convertMeToMi, convertKToM };

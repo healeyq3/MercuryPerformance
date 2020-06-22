@@ -1,3 +1,4 @@
+import { convertKToM, convertMeToMi} from './V02max'
 function stringToNumber(prevString) {
     const toSubString = prevString.indexOf(':');
     const minutes = parseFloat(prevString.substring(0, toSubString));
@@ -12,4 +13,16 @@ function totalTheTime(minutes, seconds) {
     return toReturn;
 }
 
-export { stringToNumber };
+function distanceToTime(distance, unit, avPace){
+    let d = distance
+    if(unit==="Kilometers"){
+        d = convertKToM(d);
+    }
+    else if(unit==="Meters"){
+        d = convertMeToMi(d);
+    }
+    d = d * (avPace)
+    return null
+}
+
+export { stringToNumber, totalTheTime, distanceToTime };
