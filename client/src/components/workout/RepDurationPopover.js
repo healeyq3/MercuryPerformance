@@ -8,6 +8,7 @@ export class RepDurationPopover extends Component {
         super(props);
 
         this.state = {
+            type:"rep",
             percent: 50,
             hours: 0,
             minutes:0,
@@ -28,7 +29,7 @@ export class RepDurationPopover extends Component {
             minutes: this.state.minutes,
             seconds:this.state.seconds
         }
-        //this.props.newTeam(teamData);
+        this.props.addArr(repData)
     }
     render() {
         return (

@@ -8,6 +8,7 @@ export class CooldownDistancePopover extends Component {
         super(props);
 
         this.state = {
+            type:"cooldown",
             percent: '',
             distance: '',
             distanceUnit:'',
@@ -26,7 +27,7 @@ export class CooldownDistancePopover extends Component {
             distance:this.state.distance,
             distanceUnit:this.state.distanceUnit
         }
-        //this.props.newTeam(teamData);
+        this.props.addArr(repData)
     }
     render() {
         return (

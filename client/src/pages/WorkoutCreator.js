@@ -15,7 +15,8 @@ export class WorkoutCreator extends Component {
         super(props);
 
         this.state = {
-            name:''
+            name:'',
+            reps:[]
         }
         this.handleChange = this.handleChange.bind(this);
     }
@@ -31,6 +32,13 @@ export class WorkoutCreator extends Component {
             name: this.state.name,
         }
         this.props.newWorkoutBlueprint(workoutData, this.props.teamUID);
+    }
+    handleCreate = (repData) => {
+        let arr = this.state.reps
+        arr.push(repData)
+        this.setState({reps:arr})
+        console.log(this.state.reps)
+        //this.props.newTeam(teamData);
     }
     render() {
         return (
@@ -52,10 +60,10 @@ export class WorkoutCreator extends Component {
                                 <Row>
                                 <Col></Col>
                             <Col>
-                            <WarmupDistancePopover></WarmupDistancePopover>
+                            <WarmupDistancePopover addArr = {this.handleCreate}></WarmupDistancePopover>
                             </Col>
                             <Col>
-                            <WarmupDurationPopover></WarmupDurationPopover>
+                            <WarmupDurationPopover addArr = {this.handleCreate}></WarmupDurationPopover>
                             </Col>
                             <Col></Col>
                             </Row>
@@ -66,10 +74,10 @@ export class WorkoutCreator extends Component {
                             <Row>
                                 <Col></Col>
                             <Col>
-                            <RepDistancePopover></RepDistancePopover>
+                            <RepDistancePopover addArr = {this.handleCreate}></RepDistancePopover>
                             </Col>
                             <Col>
-                            <RepDurationPopover></RepDurationPopover>
+                            <RepDurationPopover addArr = {this.handleCreate}></RepDurationPopover>
                             </Col>
                             <Col></Col>
                             </Row>
@@ -80,10 +88,10 @@ export class WorkoutCreator extends Component {
                             <Row>
                                 <Col></Col>
                             <Col>
-                            <CooldownDistancePopover></CooldownDistancePopover>
+                            <CooldownDistancePopover addArr = {this.handleCreate}></CooldownDistancePopover>
                             </Col>
                             <Col>
-                            <CooldownDurationPopover></CooldownDurationPopover>
+                            <CooldownDurationPopover addArr = {this.handleCreate}></CooldownDurationPopover>
                             </Col>
                             <Col></Col>
                             </Row>

@@ -21,12 +21,13 @@ export class RepDistancePopover extends Component {
     }
     handleCreateRep = () => {
         const repData = {
+            type:"rep",
             user: cookie.load('user'),
             percent: this.state.percent,
             distance:this.state.distance,
             distanceUnit:this.state.distanceUnit
         }
-        //this.props.newTeam(teamData);
+        this.props.addArr(repData)
     }
     render() {
         return (
