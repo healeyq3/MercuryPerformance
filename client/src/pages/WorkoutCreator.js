@@ -10,6 +10,7 @@ import cookie from 'react-cookies';
 import { newWorkoutBlueprint, setBlueprint } from '../actions/workoutActions'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import RepCard from '../components/workout/RepCard';
 
 export class WorkoutCreator extends Component {
     constructor(props){
@@ -46,6 +47,9 @@ export class WorkoutCreator extends Component {
             return null;
         }
         
+        let repItems = [];
+
+
         return (
             <Row>
                 <Col>
@@ -105,7 +109,15 @@ export class WorkoutCreator extends Component {
                         </Card.Body>
                     </Card>
                 </Col>
-                <Col></Col>
+                <Col>
+                <Card className = 'text-center'>
+                    {this.state.reps.map((rep, i) => (
+                        <RepCard 
+                        rep = {rep}
+                        />
+                    ))}
+                </Card>
+                </Col>
                 <Col></Col>
             </Row>
         )
