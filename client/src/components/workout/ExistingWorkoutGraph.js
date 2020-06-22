@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Row, Col, Card, Button} from 'react-bootstrap'
+import { Card } from 'react-bootstrap'
 import {
     XYPlot,
     XAxis,
@@ -11,9 +11,6 @@ import {
 
 export class ExistingWorkoutGraph extends Component {
     render() {
-        const timestamp = new Date('May 23 2017').getTime();
-        const ONE_DAY = 86400000;
-        
         const DATA = [
           {x0: 0, x: 10, y: 67},
           {x0: 10, x: 20, y: 96},

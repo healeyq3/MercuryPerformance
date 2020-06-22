@@ -56,7 +56,7 @@ export class WorkoutCreator extends Component {
             return <Redirect to='/workouts' />
           }
         
-        let repItems = [];
+       
 
         return (
             <Row>

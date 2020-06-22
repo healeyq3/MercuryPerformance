@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import {Popover, OverlayTrigger, Button, Form} from 'react-bootstrap'
-import cookie from 'react-cookies';
 import { connect } from 'react-redux';
 
 export class WarmupDistancePopover extends Component {

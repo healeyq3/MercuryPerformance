@@ -4,7 +4,6 @@ import ExistingWorkoutCard from '../components/workout/ExistingWorkoutCard'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getWorkoutBlueprints, setBlueprint } from '../actions/workoutActions';
-import { distanceToTime } from '../math/TimeConversions';
 
 export class Workouts extends Component {
     constructor(props){

@@ -3,9 +3,6 @@ import {Card, Button} from 'react-bootstrap';
 
 
 export class AddNewTeam extends Component {
-    constructor(props){
-        super(props);
-    }
     
     render() {
         return (
