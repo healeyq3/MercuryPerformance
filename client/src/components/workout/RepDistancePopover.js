@@ -8,8 +8,9 @@ export class RepDistancePopover extends Component {
         super(props);
 
         this.state = {
-            percent: '',
-            distance: '',
+            type:"rep",
+            percent: 0,
+            distance: 0,
             distanceUnit:'',
         }
         this.handleChange = this.handleChange.bind(this);
@@ -21,8 +22,8 @@ export class RepDistancePopover extends Component {
     }
     handleCreateRep = () => {
         const repData = {
-            type:"rep",
             user: cookie.load('user'),
+            type:this.state.type,
             percent: this.state.percent,
             distance:this.state.distance,
             distanceUnit:this.state.distanceUnit

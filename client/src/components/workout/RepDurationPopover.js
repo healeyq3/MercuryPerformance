@@ -9,7 +9,7 @@ export class RepDurationPopover extends Component {
 
         this.state = {
             type:"rep",
-            percent: 50,
+            percent: 0,
             hours: 0,
             minutes:0,
             seconds:0,
@@ -24,6 +24,7 @@ export class RepDurationPopover extends Component {
     handleCreateRep = () => {
         const repData = {
             user: cookie.load('user'),
+            type:this.state.type,
             percent: this.state.percent,
             hours: this.state.hours,
             minutes: this.state.minutes,
@@ -41,7 +42,7 @@ export class RepDurationPopover extends Component {
                          <Form.Control
                                     type = "text"
                                     placeholder = "% of V02 Max"
-                                    name = "v02"
+                                    name = "percent"
                                     onChange = {this.handleChange}
                                             />
                                 <Form.Control
