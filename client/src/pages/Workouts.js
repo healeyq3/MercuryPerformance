@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {addWorkoutToTeam, getAllWorkoutBlueprints, getWorkoutBlueprints, setBlueprint} from '../actions/workoutActions';
 import ImportWorkoutDropdown from "../components/workout/ImportWorkoutDropdown";
+import { getWorkoutBlueprints, setBlueprint } from '../actions/workoutActions';
+import { Redirect } from "react-router-dom";
 
 export class Workouts extends Component {
     constructor(props){
@@ -12,7 +14,8 @@ export class Workouts extends Component {
         this.state = {
           show: false,
           showImport: false,
-          reloaded: false
+          reloaded: false,
+          toWorkoutCreator: false
         }
 
         this.setSelectedBlueprint = this.setSelectedBlueprint.bind(this);
@@ -26,6 +29,11 @@ export class Workouts extends Component {
         }
     }
 
+    setShow = e => {
+        this.setState({
+            toWorkoutCreator: true
+          })
+      }
     setShowCreateWorkout = e => {
       window.location.href="./workoutcreator"
     }
@@ -58,8 +66,10 @@ export class Workouts extends Component {
         if(!this.props.selectedTeam){
             return null;
         }
-
-        console.log("Rerendering");
+        if(this.state.toWorkoutCreator){
+            this.props.history.push('/workouts')
+            return <Redirect to='/workoutcreator' />
+          }
 
         let cardItems = [];
         for(const blueprint in this.props.blueprints){
@@ -71,9 +81,6 @@ export class Workouts extends Component {
                 )
             }
         }
-
-        console.log(this.props);
-
         return (
             <Container>
             <Container fluid>
@@ -111,7 +118,6 @@ export class Workouts extends Component {
         )
     }
 }
-
 
 Workouts.propTypes = {
     blueprints: PropTypes.object.isRequired,

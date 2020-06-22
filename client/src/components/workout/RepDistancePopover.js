@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import {Popover, OverlayTrigger, Button, Form} from 'react-bootstrap'
-import cookie from 'react-cookies';
 import { connect } from 'react-redux';
 
 export class RepDistancePopover extends Component {
@@ -12,6 +11,7 @@ export class RepDistancePopover extends Component {
             percent: 0,
             distance: 0,
             distanceUnit:'',
+            reps:1
         }
         this.handleChange = this.handleChange.bind(this);
     }
@@ -27,7 +27,9 @@ export class RepDistancePopover extends Component {
             distance:this.state.distance,
             distanceUnit:this.state.distanceUnit
         }
-        this.props.addArr(repData)
+        for(var i= 0; i<this.state.reps; i++){
+            this.props.addArr(repData)
+        }
     }
     render() {
         return (
@@ -49,12 +51,18 @@ export class RepDistancePopover extends Component {
                                     onChange = {this.handleChange}
                                             />
                                     
-                                <Form.Control onChange = {this.handleChange} name = "unit" as = "select">
+                                <Form.Control onChange = {this.handleChange} name = "distanceUnit" as = "select">
                                     <option hidden>Units</option>
                                     <option>Miles</option>
                                     <option>Kilometers</option>
                                     <option>Meters</option>
                                 </Form.Control>
+                                <Form.Control
+                                    type = "text"
+                                    placeholder = "Reps"
+                                    name = "reps"
+                                    onChange = {this.handleChange}
+                                            />
                                 <Button variant = "primary" onClick = {this.handleCreateRep}>Add</Button>
                                 </Form>
                 </Popover.Content>

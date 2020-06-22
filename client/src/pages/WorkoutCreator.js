@@ -6,19 +6,20 @@ import RepDistancePopover from '../components/workout/RepDistancePopover'
 import CooldownDurationPopover from '../components/workout/CooldownDurationPopover'
 import WarmupDurationPopover from '../components/workout/WarmupDurationPopover'
 import RepDurationPopover from '../components/workout/RepDurationPopover'
-import cookie from 'react-cookies';
 import { newWorkoutBlueprint, setBlueprint } from '../actions/workoutActions'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import RepCard from '../components/workout/repCard';
+import { Redirect } from "react-router-dom";
+import ExistingWorkoutGraph from '../components/workout/ExistingWorkoutGraph';
+import RepsCard from '../components/workout/RepsCard';
 
 export class WorkoutCreator extends Component {
     constructor(props){
         super(props);
-
         this.state = {
             name:'',
-            reps:[]
+            reps:[],
+            toWorkoutHome: false
         }
         this.handleChange = this.handleChange.bind(this);
     }
@@ -35,6 +36,9 @@ export class WorkoutCreator extends Component {
             reps: this.state.reps
         }
         this.props.newWorkoutBlueprint(workoutData, this.props.selectedTeam);
+        this.setState({
+            toWorkoutHome: true
+          })
     }
 
     handleCreate = (repData) => {
@@ -47,12 +51,13 @@ export class WorkoutCreator extends Component {
         if(!this.props.selectedTeam){
             return null;
         }
-        
-        let repItems = [];
-
+        if(this.state.toWorkoutHome){
+            this.props.history.push('/workoutcreator')
+            return <Redirect to='/workouts' />
+          }
         return (
             <Row>
-                <Col>
+                <Col sm = {4}>
                     <Card className= "text-center">
                         <Card.Header>New Workout</Card.Header>
                         <Card.Body>
@@ -61,7 +66,6 @@ export class WorkoutCreator extends Component {
                                 <Form.Label>Workout Name</Form.Label>
                                 <Form.Control onChange = {this.handleChange} name = "name" type = "text" placeholder = "Enter Workout Name"/>
                             </Form.Group>
-                                <p/>
                             <Form.Group>
                                 <Form.Label>Add Warmup</Form.Label>
                                 </Form.Group>
@@ -104,21 +108,22 @@ export class WorkoutCreator extends Component {
                             <Col/>
                             </Row>
                             <p/>
-                            <Button variant = "primary" onClick = {this.handleCreateWorkout}>Save</Button>
+                            <Button variant = "primary" onClick = {this.handleCreateWorkout}>Create</Button>
                         </Form>
                         </Card.Body>
                     </Card>
                 </Col>
-                <Col>
+                <Col sm = {8}>
+                <ExistingWorkoutGraph team = {this.props.teams[this.props.selectedTeam]} reps = {this.state.reps}></ExistingWorkoutGraph>
+                <br />
                 <Card className = 'text-center'>
-                    {this.state.reps.map((rep, i) => (
-                        <RepCard 
+                    {this.state.reps.map((rep) => (
+                        <RepsCard 
                         rep = {rep}
                         />
                     ))}
                 </Card>
                 </Col>
-                <Col/>
             </Row>
         )
     }
@@ -127,7 +132,8 @@ export class WorkoutCreator extends Component {
 WorkoutCreator.propTypes = {
     selectedTeam: PropTypes.string.isRequired,
     rehydrated: PropTypes.bool.isRequired,
-    setBlueprint: PropTypes.func.isRequired
+    setBlueprint: PropTypes.func.isRequired,
+    teams: PropTypes.object.isRequired
 }
 
 const mapStateToProps = function(state){
@@ -135,7 +141,8 @@ const mapStateToProps = function(state){
         blueprints: state.workouts.blueprints,
         selectedTeam: state.teams.selectedTeam,
         rehydrated: state._persist.rehydrated,
-        selectedBlueprint: state.workouts.selectedBlueprint
+        selectedBlueprint: state.workouts.selectedBlueprint,
+        teams: state.teams.teams
     }
 }
 

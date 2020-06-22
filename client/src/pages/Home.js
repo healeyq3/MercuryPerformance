@@ -1,16 +1,23 @@
 import React, { Component } from 'react'
 import { newRunner, getTeamRunners, setRunner } from '../actions/runnerActions';
-import {setTeam} from "../actions/teamActions";
+import {setTeam, updateTeam} from "../actions/teamActions";
 import  { Container, Row, Col } from 'react-bootstrap'
 import { connect } from 'react-redux';
 import ExistingRunnerCard from '../components/ExistingRunnerCard';
 import  AddRunner from '../components/AddRunner';
 import PropTypes from 'prop-types';
+import { getAverageTeamPace } from '../math/AnalysisAlgos';
 
 class Home extends Component {
   constructor(props){
     super(props);
     this.setSelectedRunner = this.setSelectedRunner.bind(this);
+    this.state = {
+      averagePace : 0
+    }
+
+    this.calculateAverageTeamPace = this.calculateAverageTeamPace.bind(this);
+
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -24,11 +31,18 @@ class Home extends Component {
     window.location.href="./events"
   }
 
+  calculateAverageTeamPace = () => {
+    const toUpdate = getAverageTeamPace(this.props.runners);
+    this.setState({
+      averagePace: toUpdate
+    });
+    this.props.updateTeam(this.props.selectedTeam, 'averageWPace', toUpdate);
+  }
+
   render() {
     if(!this.props.selectedTeam){
       return null;
     }
-
     let runnerArr = [];
 
     for (const runneruid in this.props.runners) {
@@ -40,11 +54,12 @@ class Home extends Component {
         )
       }
     }
+  
 
     return (
         <Container fluid>
             <h2 id = "teamNameHome">{this.props.teams[this.props.selectedTeam].teamName}</h2>
-            <AddRunner teamUID = {this.props.selectedTeam}/>
+            <AddRunner teamUID = {this.props.selectedTeam} onSelect = {this.calculateAverageTeamPace}/>
             <Row>
               <Col>
               <h4>Name</h4>
@@ -71,7 +86,8 @@ Home.propTypes = {
   teams: PropTypes.object.isRequired,
   selectedTeam: PropTypes.string.isRequired,
   runners: PropTypes.object.isRequired,
-  selectedRunner: PropTypes.string
+  selectedRunner: PropTypes.string,
+  updateTeam: PropTypes.func.isRequired
 };
   
 const mapStateToProps = function(state){
@@ -85,4 +101,4 @@ const mapStateToProps = function(state){
     rehydrated: state._persist.rehydrated,
   }
 }
-export default connect(mapStateToProps, { newRunner, getTeamRunners, setRunner, setTeam }) (Home);
+export default connect(mapStateToProps, { newRunner, getTeamRunners, setRunner, setTeam, updateTeam }) (Home);

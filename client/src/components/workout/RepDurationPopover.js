@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import {Popover, OverlayTrigger, Button, Form} from 'react-bootstrap'
-import cookie from 'react-cookies';
 import { connect } from 'react-redux';
 
 export class RepDurationPopover extends Component {
@@ -13,6 +12,7 @@ export class RepDurationPopover extends Component {
             hours: 0,
             minutes:0,
             seconds:0,
+            reps:1
         }
         this.handleChange = this.handleChange.bind(this);
     }
@@ -27,9 +27,11 @@ export class RepDurationPopover extends Component {
             percent: this.state.percent,
             hours: this.state.hours,
             minutes: this.state.minutes,
-            seconds:this.state.seconds
+            seconds:this.state.seconds,
         }
-        this.props.addArr(repData)
+        for(var i= 0; i<this.state.reps; i++){
+            this.props.addArr(repData)
+        }
     }
     render() {
         return (
@@ -53,13 +55,19 @@ export class RepDurationPopover extends Component {
                                             <Form.Control
                                     type = "text"
                                     placeholder = "Minutes"
-                                    name = "Minutes"
+                                    name = "minutes"
                                     onChange = {this.handleChange}
                                             />
                                             <Form.Control
                                     type = "text"
                                     placeholder = "Seconds"
-                                    name = "Seconds"
+                                    name = "seconds"
+                                    onChange = {this.handleChange}
+                                            />
+                                            <Form.Control
+                                    type = "text"
+                                    placeholder = "Reps"
+                                    name = "reps"
                                     onChange = {this.handleChange}
                                             />
                                 <Button variant = "primary" onClick = {this.handleCreateRep}>Add</Button>

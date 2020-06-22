@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import {Popover, OverlayTrigger, Button, Form} from 'react-bootstrap'
-import cookie from 'react-cookies';
 import { connect } from 'react-redux';
 
 export class CooldownDurationPopover extends Component {
@@ -53,13 +52,13 @@ export class CooldownDurationPopover extends Component {
                                             <Form.Control
                                     type = "text"
                                     placeholder = "Minutes"
-                                    name = "Minutes"
+                                    name = "minutes"
                                     onChange = {this.handleChange}
                                             />
                                             <Form.Control
                                     type = "text"
                                     placeholder = "Seconds"
-                                    name = "Seconds"
+                                    name = "seconds"
                                     onChange = {this.handleChange}
                                             />
                                 <Button variant = "primary" onClick = {this.handleCreateCooldown}>Add</Button>
