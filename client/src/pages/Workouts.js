@@ -70,6 +70,7 @@ export class Workouts extends Component {
                 <Card className = "text-center" tag="a" onClick = {this.setShow} style = {{cursor:"pointer"}}>
                     <p></p>
                     <Card.Title>New Workout</Card.Title>
+                    
                     <p></p>
                 </Card>
                 </Col>
