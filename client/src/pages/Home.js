@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import ExistingRunnerCard from '../components/ExistingRunnerCard';
 import  AddRunner from '../components/AddRunner';
 import PropTypes from 'prop-types';
-import { getAverageTeamPace } from '../math/AnalysisAlgos';
+import { getAverageTeamPace, getPredictedTimes } from '../math/AnalysisAlgos';
 
 class Home extends Component {
   constructor(props){
@@ -43,7 +43,6 @@ class Home extends Component {
     if(!this.props.selectedTeam){
       return null;
     }
-
     let runnerArr = [];
 
     for (const runneruid in this.props.runners) {
