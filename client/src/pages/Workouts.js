@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Container, Nav, Card, Row, Col } from 'react-bootstrap'
 import ExistingWorkoutCard from '../components/workout/ExistingWorkoutCard'
-import CreateWorkoutModal from '../components/workout/CreateWorkoutModal';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getWorkoutBlueprints, setBlueprint } from '../actions/workoutActions';
@@ -25,9 +24,7 @@ export class Workouts extends Component {
     }
 
     setShow = e => {
-        this.setState({
-            show: !this.state.show
-        })
+        window.location.href="./workoutcreator"
       }
     setSelectedBlueprint(blueprint){
         this.props.setBlueprint(blueprint.key);
@@ -77,7 +74,6 @@ export class Workouts extends Component {
                 </Card>
                 </Col>
             </Row>
-            <CreateWorkoutModal setShow = {this.setShow} show = {this.state.show} teamUID = {this.props.selectedTeam}></CreateWorkoutModal>
             </Container>
         )
     }

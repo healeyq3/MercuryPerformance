@@ -10,7 +10,7 @@ export class ExistingWorkoutCard extends Component {
                             <Card.Title>{this.props.blueprint.name}</Card.Title>
                         </Col>
                         <Col>
-                            <p>{this.props.blueprint.type}</p>
+                            
                         </Col>
                         <Col>
                             <p>Time</p>

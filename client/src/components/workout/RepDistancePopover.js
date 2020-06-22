@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import {Popover, OverlayTrigger, Button, Form} from 'react-bootstrap'
+import cookie from 'react-cookies';
+import { connect } from 'react-redux';
 
-export class RepPopover extends Component {
+export class RepDistancePopover extends Component {
     constructor(props){
         super(props);
 
@@ -17,6 +19,15 @@ export class RepPopover extends Component {
         console.log(e.target.value);
         this.setState({ [e.target.name] : e.target.value});
     }
+    handleCreateRep = () => {
+        const repData = {
+            user: cookie.load('user'),
+            percent: this.state.percent,
+            distance:this.state.distance,
+            distanceUnit:this.state.distanceUnit
+        }
+        //this.props.newTeam(teamData);
+    }
     render() {
         return (
             <OverlayTrigger trigger="click" placement="right" overlay={
@@ -28,22 +39,22 @@ export class RepPopover extends Component {
                                     type = "text"
                                     placeholder = "% of V02 Max"
                                     name = "percent"
-                                    onChange = {this.props.handleChange}
+                                    onChange = {this.handleChange}
                                             />
                                 <Form.Control
                                     type = "text"
                                     placeholder = "Distance"
                                     name = "distance"
-                                    onChange = {this.props.handleChange}
+                                    onChange = {this.handleChange}
                                             />
                                     
-                                <Form.Control onChange = {this.props.handleChange} name = "unit" as = "select">
+                                <Form.Control onChange = {this.handleChange} name = "unit" as = "select">
                                     <option hidden>Units</option>
                                     <option>Miles</option>
                                     <option>Kilometers</option>
                                     <option>Meters</option>
                                 </Form.Control>
-                                <Button>Add</Button>
+                                <Button variant = "primary" onClick = {this.handleCreateRep}>Add</Button>
                                 </Form>
                 </Popover.Content>
                 </Popover>}>
@@ -53,4 +64,4 @@ export class RepPopover extends Component {
     }
 }
 
-export default RepPopover
+export default connect(null, {  }) (RepDistancePopover);

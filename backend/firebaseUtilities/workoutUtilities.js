@@ -33,12 +33,11 @@ async function getBlueprints(teamuid) {
     return blueprints;
 }
 
-async function createBlueprint(teamuid, name, type, location){
+async function createBlueprint(teamuid, name){
     const blueprintRef = await database.ref('blueprints').push();
 
     const blueprintData = {
         name, 
-        type,
         key: blueprintRef.key.toString()
     }
 

@@ -46,9 +46,8 @@ async function newBlueprint(req, res){
 
       const data = req.body;
       const name = data.blueprintData.name;
-      const type = data.blueprintData.type;
 
-      workoutUtilities.createBlueprint(data.selectedTeamUID, name, type).then(blueprint => {
+      workoutUtilities.createBlueprint(data.selectedTeamUID, name).then(blueprint => {
           res.setHeader('Content-Type', 'application/json');
           res.end(JSON.stringify(blueprint));
       }).catch(err => {

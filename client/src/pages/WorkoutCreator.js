@@ -1,13 +1,37 @@
 import React, { Component } from 'react'
-import { Row, Card, Col, Form } from 'react-bootstrap'
+import { Row, Card, Col, Form, Button } from 'react-bootstrap'
 import WarmupDistancePopover from '../components/workout/WarmupDistancePopover'
 import { CooldownDistancePopover } from '../components/workout/CooldownDistancePopover'
 import RepDistancePopover from '../components/workout/RepDistancePopover'
 import CooldownDurationPopover from '../components/workout/CooldownDurationPopover'
 import WarmupDurationPopover from '../components/workout/WarmupDurationPopover'
 import RepDurationPopover from '../components/workout/RepDurationPopover'
+import cookie from 'react-cookies';
+import { newWorkoutBlueprint } from '../actions/workoutActions'
+import { connect } from 'react-redux';
 
 export class WorkoutCreator extends Component {
+    constructor(props){
+        super(props);
+
+        this.state = {
+            name:''
+        }
+        this.handleChange = this.handleChange.bind(this);
+    }
+    handleChange(e){
+        console.log("changed");
+        console.log(e.target.value);
+        this.setState({ [e.target.name] : e.target.value});
+    }
+    handleCreateWorkout = () => {
+        // eslint-disable-next-line 
+        const workoutData = {
+            user: cookie.load('user'),
+            name: this.state.name,
+        }
+        this.props.newWorkoutBlueprint(workoutData, this.props.teamUID);
+    }
     render() {
         return (
             <Row>
@@ -20,6 +44,8 @@ export class WorkoutCreator extends Component {
                                 <Form.Label>Workout Name</Form.Label>
                                 <Form.Control onChange = {this.handleChange} name = "name" type = "text" placeholder = "Enter Workout Name"/>
                             </Form.Group>
+                                <Button variant = "primary" onClick = {this.handleCreateWorkout}>Save</Button>
+                                <p></p>
                             <Form.Group>
                                 <Form.Label>Add Warmup</Form.Label>
                                 </Form.Group>
@@ -72,4 +98,4 @@ export class WorkoutCreator extends Component {
     }
 }
 
-export default WorkoutCreator
+export default connect(null, { newWorkoutBlueprint }) (WorkoutCreator);
