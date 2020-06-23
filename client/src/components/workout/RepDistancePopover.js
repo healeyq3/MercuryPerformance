@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Popover, OverlayTrigger, Button, Form} from 'react-bootstrap'
+import {Popover, OverlayTrigger, Button, Form, Row, Col} from 'react-bootstrap'
 import { connect } from 'react-redux';
 
 export class RepDistancePopover extends Component {
@@ -33,7 +33,7 @@ export class RepDistancePopover extends Component {
     }
     render() {
         return (
-            <OverlayTrigger trigger="click" placement="right" overlay={
+            <OverlayTrigger closeButton trigger="click" placement="right" overlay={
                 <Popover id="popover-basic" className = "text-center">
                 <Popover.Title as="h3">Add Rep</Popover.Title>
                 <Popover.Content>
@@ -63,7 +63,14 @@ export class RepDistancePopover extends Component {
                                     name = "reps"
                                     onChange = {this.handleChange}
                                             />
+                                <Row>
+                                <Col>
+                                <Button variant = "outline-secondary">Cancel</Button>
+                                </Col>
+                                <Col>
                                 <Button variant = "primary" onClick = {this.handleCreateRep}>Add</Button>
+                                </Col>
+                                </Row>
                                 </Form>
                 </Popover.Content>
                 </Popover>}>

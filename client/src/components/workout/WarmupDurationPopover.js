@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Popover, OverlayTrigger, Button, Form} from 'react-bootstrap'
+import {Popover, OverlayTrigger, Button, Form, Row, Col} from 'react-bootstrap'
 import { connect } from 'react-redux';
 
 export class WarmupDurationPopover extends Component {
@@ -61,7 +61,14 @@ export class WarmupDurationPopover extends Component {
                                     name = "seconds"
                                     onChange = {this.handleChange}
                                             />
+                                <Row>
+                                <Col>
+                                <Button variant = "outline-secondary">Cancel</Button>
+                                </Col>
+                                <Col>
                                 <Button variant = "primary" onClick = {this.handleCreateWarmup}>Add</Button>
+                                </Col>
+                                </Row>
                                 </Form>
                 </Popover.Content>
                 </Popover>}>

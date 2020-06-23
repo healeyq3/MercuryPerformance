@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Popover, OverlayTrigger, Button, Form} from 'react-bootstrap'
+import {Popover, OverlayTrigger, Button, Form, Row, Col} from 'react-bootstrap'
 import { connect } from 'react-redux';
 
 export class CooldownDistancePopover extends Component {
@@ -54,7 +54,14 @@ export class CooldownDistancePopover extends Component {
                                     <option>Kilometers</option>
                                     <option>Meters</option>
                                 </Form.Control>
+                                <Row>
+                                <Col>
+                                <Button variant = "outline-secondary">Cancel</Button>
+                                </Col>
+                                <Col>
                                 <Button variant = "primary" onClick = {this.handleCreateCooldown}>Add</Button>
+                                </Col>
+                                </Row>
                                 </Form>
                 </Popover.Content>
                 </Popover>}>

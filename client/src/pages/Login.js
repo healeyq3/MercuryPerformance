@@ -74,7 +74,7 @@ class Login extends Component {
                         type = "password"
                         value = {this.state.password}
                         onChange = {this.handleChange}
-                        placeholder = "password"
+                        placeholder = "Password"
                         name = "password"
                         />
                     </Form.Group>
