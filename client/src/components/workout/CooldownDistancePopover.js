@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import {Popover, OverlayTrigger, Button, Form, Row, Col} from 'react-bootstrap'
+import {Popover, Overlay, Button, Form, Row, Col, Container} from 'react-bootstrap'
 import { connect } from 'react-redux';
+import ReactDOM from 'react-dom';
 
 export class CooldownDistancePopover extends Component {
     constructor(props){
@@ -11,6 +12,7 @@ export class CooldownDistancePopover extends Component {
             percent: 0,
             distance: 0,
             distanceUnit:'',
+            show: false
         }
         this.handleChange = this.handleChange.bind(this);
     }
@@ -30,7 +32,9 @@ export class CooldownDistancePopover extends Component {
     }
     render() {
         return (
-            <OverlayTrigger trigger="click" placement="right" overlay={
+            <Container fluid>
+            <Button onClick={() => this.setState({show: !this.state.show})} ref={(button) => { this.target = button; }}>Distance</Button>
+            <Overlay show={this.state.show}  target={ReactDOM.findDOMNode(this.target)} placement="right">
                 <Popover id="popover-basic" className = "text-center">
                 <Popover.Title as="h3">Add Cooldown</Popover.Title>
                 <Popover.Content>
@@ -56,7 +60,7 @@ export class CooldownDistancePopover extends Component {
                                 </Form.Control>
                                 <Row>
                                 <Col>
-                                <Button variant = "outline-secondary">Cancel</Button>
+                                <Button variant = "outline-secondary" onClick={() => this.setState({show: !this.state.show})}>Cancel</Button>
                                 </Col>
                                 <Col>
                                 <Button variant = "primary" onClick = {this.handleCreateCooldown}>Add</Button>
@@ -64,9 +68,10 @@ export class CooldownDistancePopover extends Component {
                                 </Row>
                                 </Form>
                 </Popover.Content>
-                </Popover>}>
-          <Button>Distance</Button>
-        </OverlayTrigger>
+                </Popover>
+          
+        </Overlay>
+        </Container>
         )
     }
 }
