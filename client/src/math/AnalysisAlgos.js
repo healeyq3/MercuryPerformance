@@ -12,7 +12,7 @@ function getAverageTeamPace(runners){
     let average = totalTime/numberOfTimes;
     return secondsToMinutes(average);
 }
-function getPredictedTimes(runners){
+function getPredictedTimes(runners, percent){
     let max = 0;
     let min= 100000;
     let pace = 0;
@@ -27,6 +27,8 @@ function getPredictedTimes(runners){
             }
         }
     }
+    max = max/(percent/100)
+    min  = min/(percent/100)
     max = max/60;
     let decM = max -Math.floor(max);
     max = max.toFixed(0)
