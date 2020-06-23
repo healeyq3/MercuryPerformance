@@ -16,7 +16,6 @@ async function createEvent(teamuid, name, date, location, distance, distanceUnit
   }
 
   eventRef.set(eventData).then(async () => {
-    console.log("Successfully created event ".red + name.blue);
     await addEventToTeam(teamuid, eventRef.key);
   }).catch((err) => {
     console.log("Unable to create event ".red + name.blue);
@@ -29,7 +28,6 @@ async function createEvent(teamuid, name, date, location, distance, distanceUnit
 async function addEventToTeam(teamuid, eventuid){
   await database.ref("teams/" + teamuid.toString() + "/events").child(eventuid.toString()).set(eventuid)
     .then(() => {
-      console.log("Successfully added event ".red + eventuid.red +" to ".red + teamuid.toString().red);
     }).catch((err) => {
       console.log("Unable to add event ".red + eventuid.red +" to "+ teamuid.toString().red);
       console.log(err);
@@ -37,7 +35,6 @@ async function addEventToTeam(teamuid, eventuid){
 }
 
 async function getTeamEvents(teamuid){
-  const startTime = Date.now();
   const teamEventsRef = database.ref("teams/" + teamuid.toString() + "/events");
   let events = {};
 
@@ -60,29 +57,21 @@ async function getTeamEvents(teamuid){
     console.log("Error in getTeamEvents".red);
     console.log(error);
   })
-  console.log("Finished Get Events - ".green + (Date.now() - startTime).toString().cyan + "ms".cyan);
   return events;
 }
 
 async function addRunnerToEvent(eventuid, runnerUidArray){
-  console.log(runnerUidArray);
-  console.log(eventuid);
-
   let runnersAdded = {};
   const eventRef = database.ref("events/" + eventuid + "/runners");
   runnerUidArray.forEach((runneruid) => {
     //check if runner is already added
     eventRef.once("value").then((snapshot) => {
       if(!snapshot.hasChild(runneruid)) {
-        console.log("runneruid: " + runneruid);
         runnersAdded[runneruid] = {runneruid: runneruid};
         eventRef.child("" + runneruid).set({runneruid: runneruid}).then(() => {
-          console.log("Successfully added runner ".cyan + runneruid + " to ".cyan + eventuid);
         }).catch(() => {
           console.log("Error adding runner ".cyan + runneruid + " to ".cyan + eventuid);
         })
-      } else {
-        console.log("Did not add runner because runner already exists under event".yellow);
       }
     })
   });
@@ -91,14 +80,12 @@ async function addRunnerToEvent(eventuid, runnerUidArray){
 }
 
 async function newTime(timeData, splitData, eventuid, selectedteamuid, runneruid){
-  console.log("Time event id" + eventuid + " " + runneruid)
   const eventTimeRef = await database.ref("events/" + eventuid + "/runners/" + runneruid + "/time")
   const eventSplitRef = await database.ref("events/" + eventuid + "/runners/" + runneruid + "/splits")
   await eventTimeRef.set(timeData).catch((error) => {
     console.log(error);
   });
   if(splitData.splits){
-    console.log(splitData.splits);
     await eventSplitRef.set(splitData.splits).catch((error) => {
       console.log(error);
     });
@@ -106,7 +93,6 @@ async function newTime(timeData, splitData, eventuid, selectedteamuid, runneruid
 }
 
 async function removeRunnerFromEvent(eventuid, runneruid){
-  console.log("Removing runner".green + "(".cyan + runneruid.cyan + ")".cyan +" from team".green + "(".cyan + eventuid.cyan + ")".cyan);
   const eventRunnerRef = database.ref("events/"+eventuid+"/runners/"+runneruid);
 
   let successfulDelete = true;

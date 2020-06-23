@@ -3,7 +3,7 @@ import cookie from 'react-cookies';
 
 export function getWorkoutBlueprints(selectedTeamUID){
     return async function(dispatch) {
-        await fetch('/workouts/blueprints', {
+        await fetch('/api/workouts/blueprints', {
             method: 'POST',
             headers: {
                 'content-type' : 'application/json'
@@ -28,8 +28,7 @@ export function getWorkoutBlueprints(selectedTeamUID){
 
 export function getAllWorkoutBlueprints(){
     return async function(dispatch) {
-        console.log("rrr");
-        await fetch('/workouts/getallblueprints', {
+        await fetch('/api/workouts/getallblueprints', {
             method: 'POST',
             headers: {
                 'content-type' : 'application/json'
@@ -52,7 +51,7 @@ export function getAllWorkoutBlueprints(){
 
 export function newWorkoutBlueprint(blueprintData, selectedTeamUID){
     return async function(dispatch) {
-        await fetch('/workouts/newblueprint', {
+        await fetch('/api/workouts/newblueprint', {
             method: 'POST',
             headers: {
                 'content-type' : 'application/json'
@@ -78,8 +77,7 @@ export function newWorkoutBlueprint(blueprintData, selectedTeamUID){
 
 export function addWorkoutToTeam(blueprintuid, selectedTeamUID){
     return async function(dispatch) {
-        console.log("Is this even running");
-        await fetch('/workouts/addblueprint', {
+        await fetch('/api/workouts/addblueprint', {
             method: 'POST',
             headers: {
                 'content-type' : 'application/json'

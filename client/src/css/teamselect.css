@@ -1,9 +1,17 @@
-.teamselect-container{
+.teamselect-container {
+    text-align: center;
+}
+
+.teamselect-textheader{
+    margin-top: 1%;
+}
+
+.teamselect-cardcontainer{
     display: flex;
     align-items: center;
 }
 
-.teamselect-cardcontainer{
+.teamselect-rows{
     justify-content: center;
     flex: 1;
     flex-wrap: wrap;

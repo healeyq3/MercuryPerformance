@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
+import {Link, Redirect, withRouter} from 'react-router-dom';
 import fire from '../Fire';
 import cookie from 'react-cookies'
-import { withRouter } from "react-router-dom";
 
 import '../css/login.css';
 
@@ -16,7 +15,8 @@ class Login extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            gotoTeamSelect: false
         }
     }
 
@@ -34,7 +34,7 @@ class Login extends Component {
             cookie.save('idToken', idToken, { path: "/" });
             cookie.save('user', u.user, { path: "/" });
 
-            await fetch('/login', {
+            fetch('/api/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -42,16 +42,21 @@ class Login extends Component {
                 body: JSON.stringify({
                     idToken: idToken
                 })
-            });
+            }).then(() => {
+                this.setState({
+                    gotoTeamSelect: true
+                })
+            })
         }).catch((error) => {
             console.log(error);
         });
-
-        await this.props.history.push('/teamselect');
-        window.location.reload();
     }
 
     render() {
+        if(this.state.gotoTeamSelect){
+            return <Redirect to='/teamselect'/>
+        }
+
         return (
             <Container fluid className = "login-container">
             <Card className = "card-style">
@@ -82,7 +87,7 @@ class Login extends Component {
                     <Row className = "justify-content-left">
                         <Col>
                             <Button
-                            onClick = {this.login} 
+                            onClick = {(e) => this.login(e)}
                             type = 'submit' 
                             variant = "flat" >Login</Button>
                         </Col>

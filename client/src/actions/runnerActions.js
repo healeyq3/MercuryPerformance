@@ -3,7 +3,7 @@ import cookie from 'react-cookies'
 
 export function getTeamRunners(selectedTeamUID) {
   return async function(dispatch){
-    await fetch('/runners', {
+    await fetch('/api/runners', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
@@ -25,7 +25,7 @@ export function getTeamRunners(selectedTeamUID) {
 
 export function newRunner(runnerData, selectedTeamUID){
   return async function(dispatch) {
-    await fetch('/runners/new', {
+    await fetch('/api/runners/new', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
@@ -60,7 +60,7 @@ export function setRunner(runner){
 
 export function updateRunner(runnerUID, toUpdate, newValue){
   return async function(dispatch){
-    await fetch('/runners/update', {
+    await fetch('/api/runners/update', {
       method: 'POST',
       headers: {
         'content-type' : 'application/json'

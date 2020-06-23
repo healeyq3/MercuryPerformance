@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Switch} from 'react-router-dom';
 import './App.css';
 import { Provider } from 'react-redux';
 import cookie from 'react-cookies';
@@ -31,13 +31,13 @@ class App extends Component {
       <Provider store={store}>
         <div className="App">
           <Router>
-            {cookie.load('idToken') == null ? <OpeningBar></OpeningBar> : <NavigationBar />}
+            {cookie.load('idToken') == null ? <OpeningBar/> : <NavigationBar />}
             <div className = "container">
               <Switch>
                 <AuthRoute exact path = '/login' component = {Login} authenticated = {cookie.load('idToken')}/>
-                <AuthRoute3 exact path = '/' component = {Home} authenticated = {cookie.load('idToken')} team = {cookie.load('selectedTeam')}/>
+                <AuthRoute3 exact path = '/' component = {Home} team = {cookie.load('selectedTeam')}/>
                 <AuthRoute exact path = '/signup' component = {CreateAccount} authenticated = {cookie.load('idToken')}/>
-                <AuthRoute2 exact path = '/teamselect' component = {TeamSelect} authenticated = {cookie.load('idToken')}/>
+                <AuthRoute2 exact path = '/teamselect' component = {TeamSelect}/>
                 <AuthRoute2 exact path = '/comingsoon' component = {ComingSoon} authenticated = {cookie.load('idToken')}/>
                 <AuthRoute3 exact path = '/events' component = {Events} authenticated = {cookie.load('idToken')} team = {cookie.load('selectedTeam')}/>
                 <AuthRoute3 exact path = '/eventdetails' component = {EventDetails} authenticated = {cookie.load('idToken')} team = {cookie.load('selectedTeam')}/>

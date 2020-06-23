@@ -1,3 +1,5 @@
+import TeamSelect from "../../client/src/pages/TeamSelect";
+
 const express = require("express");
 const router = express.Router();
 const colors = require("colors");
@@ -16,13 +18,11 @@ async function getTeams(req, res){
     return;
   }
 
-  const startTime = Date.now();
   await teamUtilities.getUserTeams(req.session.useruid).then((teams) => {
     res.setHeader('Content-Type', 'application/json');
 
     const teamsJson = JSON.stringify(teams);
     res.end(teamsJson);
-    console.log("Done fetching teams - time: ".green + (Date.now() - startTime).toString().cyan + "ms".cyan);
   }).catch((error) => {
     console.log(error);
     res.end("{}");

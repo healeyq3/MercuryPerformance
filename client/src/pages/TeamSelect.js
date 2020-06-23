@@ -62,11 +62,15 @@ class TeamSelect extends React.Component {
 
     return (
       <div className = "teamselect-container">
-        <Row className="teamselect-cardcontainer">
-          {cardItems}
-          <NewTeamCard className = "teamselect-teamcard" onClick = {this.setShow} />
-        </Row>
-        <CreateTeamModal setShow = {this.setShow} show = {this.state.show} />
+        <h1 className = "teamselect-textheader">Select a Team</h1>
+        <hr/>
+        <div className = "teamselect-cardcontainer">
+          <Row className="teamselect-rows">
+            {cardItems}
+            <NewTeamCard className = "teamselect-teamcard" onClick = {this.setShow} />
+          </Row>
+          <CreateTeamModal setShow = {this.setShow} show = {this.state.show} />
+        </div>
       </div>
     );
   }
