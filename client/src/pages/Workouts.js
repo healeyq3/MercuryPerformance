@@ -53,6 +53,9 @@ export class Workouts extends Component {
     importWorkoutBlueprint(blueprintuid){
         console.log("executing here");
         this.props.addWorkoutToTeam(blueprintuid, this.props.selectedTeam);
+        this.setState({
+            showImport: false
+        })
     }
 
     setSelectedBlueprint(blueprint){
