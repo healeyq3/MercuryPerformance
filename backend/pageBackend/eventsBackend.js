@@ -20,7 +20,6 @@ async function getEvents(req, res){
 
   const data = req.body;
   if(!await teamUtilities.doesUserOwnTeam(req)){
-    console.log("User does not own team they tried to access".red);
     res.end("{}");
     return;
   }
@@ -76,20 +75,12 @@ async function newTime(req, res){
 
   const data = req.body;
 
-  console.log("Beginning newTime post".yellow);
-  console.log(data.timeData);
-  console.log(data.eventUID);
-  console.log(data.runnerUID);
-  console.log(data.selectedTeamUID);
-
   const timeData = data.timeData;
   const splitsData = data.splitsData;
   const eventUID = data.eventUID;
   const runnerUID = data.runnerUID;
   const selectedTeamUID = data.selectedTeamUID;
   const splitsArray = data.splitsData.splits;
-  console.log('splits: ')
-  console.log(data.splitsData.splits);
 
   eventUtilities.newTime(timeData, splitsData, eventUID, selectedTeamUID, runnerUID);
 
@@ -107,8 +98,6 @@ async function addRunner(req, res){
     res.end();
     return;
   }
-
-  console.log("Adding runner to event".green);
 
   const data = req.body;
   const runnerUidArray = data.runnerUidArray;

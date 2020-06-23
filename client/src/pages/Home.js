@@ -4,16 +4,18 @@ import {setTeam, updateTeam} from "../actions/teamActions";
 import  { Container, Row, Col } from 'react-bootstrap'
 import { connect } from 'react-redux';
 import ExistingRunnerCard from '../components/ExistingRunnerCard';
-import  AddRunner from '../components/AddRunner';
+// import  AddRunner from '../components/AddRunner';
 import PropTypes from 'prop-types';
 import { getAverageTeamPace } from '../math/AnalysisAlgos';
+import Redirect from "react-router-dom/es/Redirect";
 
 class Home extends Component {
   constructor(props){
     super(props);
     this.setSelectedRunner = this.setSelectedRunner.bind(this);
     this.state = {
-      averagePace : 0
+      averagePace : 0,
+      gotoEvents: false
     }
 
     this.calculateAverageTeamPace = this.calculateAverageTeamPace.bind(this);
@@ -28,7 +30,9 @@ class Home extends Component {
 
   setSelectedRunner(runner){
     this.props.setRunner(runner.key)
-    window.location.href="./events"
+    this.setState({
+      gotoEvents: true
+    })
   }
 
   calculateAverageTeamPace = () => {
@@ -43,6 +47,12 @@ class Home extends Component {
     if(!this.props.selectedTeam){
       return null;
     }
+
+    if(this.state.gotoEvents){
+      this.props.history.push("/")
+      return <Redirect to="/events"/>
+    }
+
     let runnerArr = [];
 
     for (const runneruid in this.props.runners) {
@@ -54,12 +64,11 @@ class Home extends Component {
         )
       }
     }
-  
 
     return (
         <Container fluid>
-            <h2 id = "teamNameHome">{this.props.teams[this.props.selectedTeam].teamName}</h2>
-            <AddRunner teamUID = {this.props.selectedTeam} onSelect = {this.calculateAverageTeamPace}/>
+            {/*<h2 id = "teamNameHome">{this.props.teams[this.props.selectedTeam].teamName}</h2>*/}
+            {/*<AddRunner teamUID = {this.props.selectedTeam} onSelect = {this.calculateAverageTeamPace}/>*/}
             <Row>
               <Col>
               <h4>Name</h4>

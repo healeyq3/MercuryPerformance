@@ -39,7 +39,7 @@ async function getAllBlueprints(req, res){
       res.end("{}");
     return;
   }
-  console.log("Running getALlB")
+
   workoutUtilities.getAllBlueprints(req.session.useruid).then((blueprints) => {
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(blueprints));
@@ -64,9 +64,6 @@ async function newBlueprint(req, res){
     const name = data.blueprintData.name;
     const reps = data.blueprintData.reps;
 
-    console.log("Executing blueprint backend");
-    console.log(data.blueprintData);
-
     workoutUtilities.createBlueprint(req.session.useruid, data.selectedTeamUID, name, reps).then(blueprint => {
       res.setHeader('Content-Type', 'application/json');
       res.end(JSON.stringify(blueprint));
@@ -78,7 +75,6 @@ async function newBlueprint(req, res){
 }
 
 async function addBlueprint(req, res){
-    console.log("Runningnheaa");
     if(!await authenticatePost(req, res)){
         res.end("{}");
         return;
@@ -98,6 +94,5 @@ async function addBlueprint(req, res){
     const toSend = JSON.stringify({
         teamuid: req.body.selectedTeamUID, blueprintuid: req.body.blueprintuid
     });
-    console.log(toSend);
     res.end(toSend);
 }

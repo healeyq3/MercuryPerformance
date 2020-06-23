@@ -4,7 +4,6 @@ const database = firebaseSetup.database;
 
 // -------------- Workouts ----------------
 async function getBlueprints(teamuid) {
-    const startTime = Date.now();
     const teamBlueprintsRef = await database.ref('teams/' + teamuid.toString() + '/blueprints');
     let blueprints = {};
 
@@ -27,12 +26,11 @@ async function getBlueprints(teamuid) {
         console.log('Error in getBlueprints'.red);
         console.log(err);
     })
-    console.log("Finished Get Blueprints - ".green + (Date.now() - startTime).toString().cyan + 'ms'.cyan);
+
     return blueprints;
 }
 
 async function getAllBlueprints(useruid) {
-    const startTime = Date.now();
     const userBlueprintsRef = await database.ref('users/' + useruid + '/blueprints');
     let blueprints = {};
 
@@ -55,7 +53,7 @@ async function getAllBlueprints(useruid) {
         console.log('Error in getBlueprints'.red);
         console.log(err);
     })
-    console.log("Finished Getting All Blueprints - ".green + (Date.now() - startTime).toString().cyan + 'ms'.cyan);
+
     return blueprints;
 }
 
@@ -69,8 +67,6 @@ async function createBlueprint(useruid, teamuid, name, reps){
     }
 
     blueprintRef.set(blueprintData).then(async () => {
-        console.log("Successfully created the blueprint ".green + name.blue);
-        console.log(teamuid);
         addBlueprintToTeam(teamuid, blueprintRef.key)
         addBlueprintToUser(useruid, blueprintRef.key);
     }).catch(err => {
@@ -84,7 +80,6 @@ async function createBlueprint(useruid, teamuid, name, reps){
 async function addBlueprintToTeam(teamuid, blueprintuid){
     await database.ref('teams/' + teamuid + '/blueprints').child(blueprintuid).set(blueprintuid)
     .then(() => {
-        console.log("Successfully added blueprint ".green + blueprintuid.green + ' to '.green + teamuid.toString().green);
     }).catch(err => {
         console.log("Unable to add blueprint ".red + blueprintuid.red + ' to '.red + teamuid.toString().red);
         console.log(err);
@@ -94,7 +89,6 @@ async function addBlueprintToTeam(teamuid, blueprintuid){
 async function addBlueprintToUser(useruid, blueprintuid){
     await database.ref('users/' + useruid + '/blueprints').child(blueprintuid).set(blueprintuid)
       .then(() => {
-          console.log("Successfully added blueprint ".green + blueprintuid.green + ' to '.green + useruid.toString().green);
       }).catch(err => {
           console.log("Unable to add blueprint ".red + blueprintuid.red + ' to '.red + useruid.toString().red);
           console.log(err);

@@ -4,7 +4,7 @@ import cookie from 'react-cookies'
 export function newEvent(eventData, selectedTeamUID){
   return async function(dispatch) {
     console.log("Creating new event");
-    await fetch('/events/new', {
+    await fetch('/api/events/new', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
@@ -32,7 +32,7 @@ export function newTime(timeData, splitsData, selectedTeamUID, eventUID, runnerU
   console.log("TeamUID: "+selectedTeamUID);
   return async function(dispatch) {
     console.log("Creating new time");
-    await fetch('/events/newtime', {//this is not actually going to the events backend, even though the link should be correct
+    await fetch('/api/events/newtime', {//this is not actually going to the events backend, even though the link should be correct
       method: 'POST',
       headers: {
         'content-type': 'application/json'
@@ -56,7 +56,7 @@ export function newTime(timeData, splitsData, selectedTeamUID, eventUID, runnerU
 
 export function getTeamEvents(selectedTeamUID) {
   return async function(dispatch){
-    await fetch('/events', {
+    await fetch('/api/events', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
@@ -87,7 +87,7 @@ export function setEvent(event){
 
 export function addRunnersToEvent(runnerUidArray, eventuid){
   return async function(dispatch){
-    await fetch('/events/addrunner', {
+    await fetch('/api/events/addrunner', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'

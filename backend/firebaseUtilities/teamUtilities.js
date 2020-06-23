@@ -2,8 +2,6 @@ const firebaseSetup = require("./firebaseSetup");
 const database = firebaseSetup.database;
 // -------------- Team ----------------
 async function createTeam(useruid, teamName, teamYear, teamLevel){
-  console.log("Creating team ".red + teamName.green);
-
   const teamRef = await database.ref("teams").push();
 
   const newTeam = {
@@ -16,7 +14,6 @@ async function createTeam(useruid, teamName, teamYear, teamLevel){
 
 
   teamRef.set(newTeam).then(() => {
-    console.log("Successfully created team ".red + teamName.blue);
     addTeamToUser(useruid, teamRef.key, "coach");
   }).catch((err) => {
     console.log("Unable to create team ".red + teamName.blue);
@@ -30,7 +27,6 @@ async function addTeamToUser(useruid, teamuid, role){
   database.ref("users/" + useruid + "/teams").child(teamuid.toString()).set({
     role : role
   }).then(() => {
-    console.log("Successfully added team ".red + teamuid.red +" to ".red + useruid.blue);
   }).catch((err) => {
     console.log("Unable to add team ".red + teamuid.red +" to ".red + useruid.blue);
     console.log(err);
@@ -75,15 +71,11 @@ async function updateTeam(teamUID, toUpdate, newValue){
     console.log("Error updating the team in firebase")
     console.log(error)
   });
-  let teamToReturn;
+  let teamToReturn = null;
   await database.ref('teams/' + teamUID).once('value').then((teamSnapshot) => {
       teamToReturn = teamSnapshot.val();
-      console.log('---');
-      console.log(teamSnapshot.val());
   })
 
-  console.log('Successfully Returned');
-  console.log(teamToReturn);
   return teamToReturn;
 
 }

@@ -34,7 +34,7 @@ class Login extends Component {
             cookie.save('idToken', idToken, { path: "/" });
             cookie.save('user', u.user, { path: "/" });
 
-            fetch('/login', {
+            fetch('/api/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -43,7 +43,6 @@ class Login extends Component {
                     idToken: idToken
                 })
             }).then(() => {
-
                 this.setState({
                     gotoTeamSelect: true
                 })

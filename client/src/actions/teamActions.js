@@ -3,7 +3,7 @@ import cookie from 'react-cookies'
 
 export function getTeams() {
   return async function(dispatch){
-    await fetch('/teams', {
+    await fetch('/api/teams', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
@@ -23,7 +23,7 @@ export function getTeams() {
 
 export function newTeam(teamData){
   return async function(dispatch) {
-    await fetch('/teams/new', {
+    await fetch('/api/teams/new', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
@@ -56,7 +56,7 @@ export function setTeam(team){
 
 export function updateTeam(teamUID, toUpdate, newValue){
   return async function(dispatch){
-    await fetch('/teams/update', {
+    await fetch('/api/teams/update', {
       method: 'POST',
       headers: {
         'content-type' : 'application/json'
