@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import {Popover, OverlayTrigger, Button, Form, Row, Col} from 'react-bootstrap'
+import {Popover, Overlay, Button, Form, Row, Col, Container} from 'react-bootstrap'
 import { connect } from 'react-redux';
+import ReactDOM from 'react-dom';
 
 export class RepDurationPopover extends Component {
     constructor(props){
@@ -12,7 +13,8 @@ export class RepDurationPopover extends Component {
             hours: 0,
             minutes:0,
             seconds:0,
-            reps:1
+            reps:1,
+            show: false
         }
         this.handleChange = this.handleChange.bind(this);
     }
@@ -35,7 +37,9 @@ export class RepDurationPopover extends Component {
     }
     render() {
         return (
-            <OverlayTrigger trigger="click" placement="right" overlay={
+            <Container fluid>
+                <Button onClick={() => this.setState({show: !this.state.show})} ref={(button) => { this.target = button; }}>Duration</Button>
+            <Overlay placement="right" show={this.state.show}  target={ReactDOM.findDOMNode(this.target)} >
                 <Popover id="popover-basic" className = "text-center">
                 <Popover.Title as="h3">Add Rep</Popover.Title>
                 <Popover.Content>
@@ -72,7 +76,7 @@ export class RepDurationPopover extends Component {
                                             />
                                 <Row>
                                 <Col>
-                                <Button variant = "outline-secondary">Cancel</Button>
+                                <Button variant = "outline-secondary" onClick={() => this.setState({show: !this.state.show})}>Cancel</Button>
                                 </Col>
                                 <Col>
                                 <Button variant = "primary" onClick = {this.handleCreateRep}>Add</Button>
@@ -80,9 +84,9 @@ export class RepDurationPopover extends Component {
                                 </Row>
                                 </Form>
                 </Popover.Content>
-                </Popover>}>
-          <Button>Duration</Button>
-        </OverlayTrigger>
+                </Popover>
+        </Overlay>
+        </Container>
         )
     }
 }
