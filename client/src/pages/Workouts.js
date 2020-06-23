@@ -76,7 +76,7 @@ export class Workouts extends Component {
                 cardItems.push(
                     <React.Fragment key = {blueprint}>
                         <ExistingWorkoutCard onSelect = {this.setSelectedBlueprint} blueprint = {this.props.blueprints[blueprint]} />
-                    </React.Fragment>
+                    </React.Fragment> 
                 )
             }
         }
@@ -103,6 +103,7 @@ export class Workouts extends Component {
                     
                     <p/>
                 </Card>
+                <br />
                 <Card className = "text-center" tag="a" onClick={e => {this.setShowImportWorkout();}} style = {{cursor:"pointer"}}>
                     <p/>
                     <Card.Title>Import Workout</Card.Title>
