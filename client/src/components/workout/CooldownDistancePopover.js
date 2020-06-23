@@ -69,7 +69,6 @@ export class CooldownDistancePopover extends Component {
                                 </Form>
                 </Popover.Content>
                 </Popover>
-          
         </Overlay>
         </Container>
         )
