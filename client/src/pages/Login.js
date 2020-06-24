@@ -57,7 +57,7 @@ class Login extends Component {
         }
 
         return (
-            <Container className = "login-container">
+            <Container className = "container-fluid">
                 <Card className = "login-card-style">
                     <div className="login-logo-container">
                     </div>
@@ -79,7 +79,7 @@ class Login extends Component {
                                 onChange={this.handleChange}
                                 value={this.state.password}
                                 name="password"
-                                // id="login-password-input"
+                                id="login-password-input"
                             />
                         </div>
                         <div className="login-submit-button-container">
