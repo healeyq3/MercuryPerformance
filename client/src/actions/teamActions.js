@@ -13,10 +13,17 @@ export function getTeams() {
       })
     })
       .then(res => res.json())
-      .then(teams => dispatch({
-        type: GET_TEAMS,
-        payload: teams
-      })
+        .then(function(teams){
+            console.log(teams);
+            dispatch({
+              type: GET_TEAMS,
+              payload: teams
+            })
+        }
+      // .then(teams => dispatch({
+      //   type: GET_TEAMS,
+      //   payload: teams
+      // })
     );
   }
 }

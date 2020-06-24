@@ -8,7 +8,7 @@ import NewTeamCard from '../components/NewTeamCard';
 import CreateTeamModal from '../components/CreateTeamModal';
 import {Row} from 'react-bootstrap';
 import cookie from 'react-cookies';
-import { Redirect } from "react-router-dom";
+import {Redirect} from "react-router-dom";
 
 import "../css/teamselect.css"
 
