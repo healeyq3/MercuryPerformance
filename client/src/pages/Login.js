@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
-import {Redirect, withRouter} from 'react-router-dom';
+import {Link, Redirect, withRouter} from 'react-router-dom';
 import fire from '../Fire';
 import cookie from 'react-cookies'
 import '../css/login.css';
 import logo from "../resources/mLogoV2.svg"
+import envelope from "../resources/mEnvelope.svg"
+import lock from "../resources/mLock.svg"
 //Bootstrap
 import {Form, Card, Container} from 'react-bootstrap';
 import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 
 class Login extends Component {
     constructor(props){
@@ -57,52 +60,53 @@ class Login extends Component {
             return <Redirect to='/teamselect'/>
         }
 
+        let disableLoginButton;
+        this.state.mercury_email.length > 0 && this.state.password.length > 0 && (this.state.mercury_email.indexOf("@") < this.state.mercury_email.indexOf(".")) ? disableLoginButton = false : disableLoginButton = true;
+
         return (
             <Container className = "login-container">
                 <Card className = "login-card-style">
                     <div className="login-logo-container">
                     </div>
                     <img className="login-logo" src = {logo} alt="logo"/>
-                    <h1 className="login-card-header">LOG IN</h1>
+                    <h1 className="login-card-header">Member Login</h1>
                     <Form className = "login-form">
                         <Col>
-                            <input
-                                className="form-input-login"
-                                type="email"
-                                placeholder="Email"
-                                onChange={this.handleChange}
-                                value={this.state.email}
-                                name="mercury_email"/>
-                            <input
-                                className="form-input-login"
-                                type="password"
-                                placeholder="Password"
-                                onChange={this.handleChange}
-                                value={this.state.password}
-                                name="password"
-                                id="login-password-input"
-                            />
+                            <Row className="justify-content-center mb-1">
+                                <input
+                                    className="form-input-login align-self-center"
+                                    type="email"
+                                    placeholder="Email"
+                                    onChange={this.handleChange}
+                                    value={this.state.email}
+                                    name="mercury_email"/>
+                                <img src={envelope} alt="envelope" className="login-envelope"/>
+                            </Row>
+                            <Row className="justify-content-center">
+                                <input
+                                    className="form-input-login align-self-center"
+                                    type="password"
+                                    placeholder="Password"
+                                    onChange={this.handleChange}
+                                    value={this.state.password}
+                                    name="password"
+                                    id="login-password-input"
+                                />
+                            <img src={lock} alt="lock" className="login-lock"/>
+                            </Row>
+                            <Row className="justify-content-center">
+                                <button
+                                    className="login-submit-button"
+                                    onClick = {(e) => this.login(e)}
+                                    type = 'submit'
+                                    disabled={disableLoginButton}>LOGIN
+                                </button>
+                            </Row>
                         </Col>
-                        <div className="login-submit-button-container">
-                            <button
-                                className="login-submit-button"
-                                onClick = {(e) => this.login(e)}
-                                type = 'submit'>Login
-                            </button>
-                        </div>
                     </Form>
-                    <p>
 
-                    </p>
+                    <Link to = "./signup" className="create-account-button">Create your Account ➔</Link>
                 </Card>
-                {/*<Row className = "login-supplementalbuttons">*/}
-                {/*  <Col>*/}
-                {/*    <Link to = "">Forgot Password?</Link>*/}
-                {/*  </Col>*/}
-                {/*  <Col>*/}
-                {/*  <Link to = "./signup">New User</Link>*/}
-                {/*  </Col>*/}
-                {/*</Row>*/}
             </Container>
         )
     }

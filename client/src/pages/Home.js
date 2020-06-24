@@ -8,7 +8,7 @@ import ExistingRunnerCard from '../components/ExistingRunnerCard';
 import PropTypes from 'prop-types';
 import { getAverageTeamPace } from '../math/AnalysisAlgos';
 import Redirect from "react-router-dom/es/Redirect";
-
+import "../css/home.css"
 class Home extends Component {
   constructor(props){
     super(props);
@@ -66,7 +66,7 @@ class Home extends Component {
     }
 
     return (
-        <Container fluid>
+        <Container fluid className="home-container">
             {/*<h2 id = "teamNameHome">{this.props.teams[this.props.selectedTeam].teamName}</h2>*/}
             {/*<AddRunner teamUID = {this.props.selectedTeam} onSelect = {this.calculateAverageTeamPace}/>*/}
             <Row>

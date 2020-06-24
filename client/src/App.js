@@ -32,7 +32,7 @@ class App extends Component {
         <div className="container" >
           <Router>
             { cookie.load('idToken') == null ? <OpeningBar/> : <NavigationBar />}
-            <div>
+            <div className="below-navbar-container">
               <Switch>
                 <AuthRoute exact path = '/login' component = {Login} authenticated = {cookie.load('idToken')}/>
                 <AuthRoute3 exact path = '/' component = {Home} team = {cookie.load('selectedTeam')}/>

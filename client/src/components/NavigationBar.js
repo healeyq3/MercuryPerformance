@@ -3,6 +3,7 @@ import cookie from 'react-cookies'
 import fire from '../Fire'
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { withRouter } from "react-router-dom";
+import "../css/navbar.css"
 
 class NavigationBar extends Component {
     constructor(props) {
@@ -23,7 +24,7 @@ class NavigationBar extends Component {
     
     render() {
         return (   
-            <Navbar className = "navBarNav" bg="dark"  variant = 'dark' expand="lg">
+            <Navbar fixed = "top" className = "navbar" bg="dark"  variant = 'dark'>
             <Navbar.Brand href="/" >Mercury</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">

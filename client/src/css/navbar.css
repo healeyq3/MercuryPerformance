@@ -2,3 +2,8 @@
     background-color: rgba(94,2,253,1);
     display: none;
 }
+
+.navbar {
+    width: 100vw;
+    height: 5vh;
+}

@@ -1,11 +1,14 @@
 .container {
   position: absolute;
+  display: flex;
+  justify-content: center;
   margin: auto auto 0 auto;
   top: 0;
   left: 0;
   min-width: 100vw;
+  min-height: 100vh;
 }
 
-.navbar {
-  height: 5vh;
+.below-navbar-container{
+  margin-top: 5vh;
 }
