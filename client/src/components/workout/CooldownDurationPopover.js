@@ -30,7 +30,8 @@ export class CooldownDurationPopover extends Component {
             minutes: this.state.minutes,
             seconds:this.state.seconds
         }
-        this.props.addArr(repData)
+        this.props.addArr(repData);
+        this.setState({show: !this.state.show})
     }
     render() {
         return (
