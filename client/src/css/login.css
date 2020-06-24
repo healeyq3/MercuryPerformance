@@ -5,6 +5,11 @@
     align-items: center;
     justify-content: center;
     min-height: 600px;
+    height: 100vh;
+    width: 100vw;
+    background-image: url("../resources/login-background-track.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .login-form{
@@ -96,7 +101,6 @@
 }
 
 .login-submit-button-container{
-    background: green;
     display: flex;
     justify-content: center;
     align-items: center;

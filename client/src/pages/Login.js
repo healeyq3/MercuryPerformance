@@ -6,6 +6,7 @@ import '../css/login.css';
 import logo from "../resources/mLogoV2.svg"
 //Bootstrap
 import {Form, Card, Container} from 'react-bootstrap';
+import Col from "react-bootstrap/Col";
 
 class Login extends Component {
     constructor(props){
@@ -57,14 +58,14 @@ class Login extends Component {
         }
 
         return (
-            <Container className = "container-fluid">
+            <Container className = "login-container">
                 <Card className = "login-card-style">
                     <div className="login-logo-container">
                     </div>
                     <img className="login-logo" src = {logo} alt="logo"/>
                     <h1 className="login-card-header">LOG IN</h1>
                     <Form className = "login-form">
-                        <div className="login-input-container">
+                        <Col>
                             <input
                                 className="form-input-login"
                                 type="email"
@@ -81,7 +82,7 @@ class Login extends Component {
                                 name="password"
                                 id="login-password-input"
                             />
-                        </div>
+                        </Col>
                         <div className="login-submit-button-container">
                             <button
                                 className="login-submit-button"

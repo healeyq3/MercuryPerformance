@@ -1,6 +1,9 @@
 .container {
+  position: absolute;
   margin: auto auto 0 auto;
-  height: 95vh;
+  top: 0;
+  left: 0;
+  min-width: 100vw;
 }
 
 .navbar {

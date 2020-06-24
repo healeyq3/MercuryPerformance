@@ -29,10 +29,10 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <div className="App">
+        <div className="container" >
           <Router>
             { cookie.load('idToken') == null ? <OpeningBar/> : <NavigationBar />}
-            <div className = "container">
+            <div>
               <Switch>
                 <AuthRoute exact path = '/login' component = {Login} authenticated = {cookie.load('idToken')}/>
                 <AuthRoute3 exact path = '/' component = {Home} team = {cookie.load('selectedTeam')}/>
