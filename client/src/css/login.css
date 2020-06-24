@@ -1,10 +1,14 @@
 .login-container {
-    margin-top: 1%;
     text-align: center;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    min-height: 600px;
+}
+
+.login-form{
+    width: 100%;
 }
 
 .login-supplementalbuttons {
@@ -13,9 +17,41 @@
     justify-content: center;
 }
 
-.card-style {
-    width: 50%;
-    justify-self: center;
+.login-card-style {
+    border-radius: 10px;
+    width: 450px;
+    height: 650px;
+    justify-content: center;
+    align-items: center;
+    background: rgb(0,135,180);
+    background: linear-gradient(0deg, rgba(0,135,180,1) 0%, rgba(96,0,255,1) 100%);
+}
+
+.login-card-header{
+    position: absolute;
+    top: 30%;
+    transform: translateY(-50%);
+    font: 30px Open-Sans, sans-serif;
+    color: white;
+}
+
+.login-logo-container{
+    position: absolute;
+    border-radius: 50%;
+    top: 15%;
+    height: 125px;
+    width: 125px;
+    transform: translateY(-50%);
+    background: white;
+    overflow: hidden;
+}
+
+.login-logo{
+    position: absolute;
+    top: 15%;
+    transform: translateY(-50%);
+    height: 90px;
+    width: 90px;
 }
 
 .btn-flat {
@@ -23,14 +59,65 @@
     color: white;
 }
 
-.formHeader {
-    font: 21px Open-Sans, sans-serif;
-    color: royalblue;
-    margin-bottom: 1%;
+.login-input-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-.formInputHeader {
+.form-input-login {
+    outline: none;
+    width: 75%;
     text-align: left;
-    font: 19px Open-Sans, sans-serif;
-    color: darkblue;
+    font: 15px Open-Sans, sans-serif;
+    background: transparent;
+    border: none;
+    border-bottom: solid 2px rgba(255,255,255,0.2);
+    padding: 10px 0;
+    margin-bottom: 15px;
+    color: white;
+}
+
+.form-input-login:focus{
+    border-bottom-color: rgba(255,255,255,1);
+    transition: all 0.5s ease-in-out;
+}
+
+.form-input-login::placeholder {
+    color: white;
+    opacity: 1;
+}
+
+.form-input-login:focus::placeholder{
+    transition: all 0.5s ease-in-out;
+    opacity: 0;
+}
+
+.login-submit-button{
+    width: 100px;
+    height: 36px;
+    border-radius: 18px;
+    background-color: white;
+    border: none;
+    box-shadow: none;
+    color: rgba(0, 35, 186, 0.8);
+    transition: all 0.5s linear;
+    transform: translateY(50px);
+}
+.login-submit-button:hover{
+    background-color: transparent;
+    border: solid 2px white;
+    transition: all 0.3s ease-in-out;
+    color: white;
+}
+.login-submit-button:focus{
+    outline: none;
+    color: rgba(0, 0, 0, 1);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, .4);
+}
+
+#login-password-input{
+    /*margin-bottom: 50px;*/
 }

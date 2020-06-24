@@ -31,7 +31,7 @@ class App extends Component {
       <Provider store={store}>
         <div className="App">
           <Router>
-            {cookie.load('idToken') == null ? <OpeningBar/> : <NavigationBar />}
+            { cookie.load('idToken') == null ? <OpeningBar/> : <NavigationBar />}
             <div className = "container">
               <Switch>
                 <AuthRoute exact path = '/login' component = {Login} authenticated = {cookie.load('idToken')}/>

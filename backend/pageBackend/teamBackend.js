@@ -1,5 +1,3 @@
-import TeamSelect from "../../client/src/pages/TeamSelect";
-
 const express = require("express");
 const router = express.Router();
 const colors = require("colors");
