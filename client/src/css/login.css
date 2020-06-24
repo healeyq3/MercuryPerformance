@@ -118,6 +118,8 @@
     color: white;
     transition: all 0.5s linear;
     transform: translateY(15px);
+    animation-name: failed-login;
+    animation-duration: 4s;
 }
 
 .login-submit-button:disabled{
@@ -126,6 +128,12 @@
 
 .login-submit-button:enabled{
     background-color: #05a0db;
+}
+
+.login-submit-button.failed-login{
+    background-color: darkred;
+    animation-name: shake;
+    animation-duration: 0.5s;
 }
 
 .login-submit-button:hover:enabled{
@@ -141,4 +149,22 @@
 
 .forgot-password-link{
     transform: translateY(15px);
+}
+
+@keyframes shake {
+    10%, 90% {
+        transform: translate3d(-1px, 15px, 0);
+    }
+
+    20%, 80% {
+        transform: translate3d(2px, 15px, 0);
+    }
+
+    30%, 50%, 70% {
+        transform: translate3d(-4px, 15px, 0);
+    }
+
+    40%, 60% {
+        transform: translate3d(4px, 15px, 0);
+    }
 }
