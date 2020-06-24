@@ -12,6 +12,7 @@ import PropTypes from 'prop-types';
 import { Redirect } from "react-router-dom";
 import ExistingWorkoutGraph from '../components/workout/ExistingWorkoutGraph';
 import RepsCard from '../components/workout/RepsCard';
+import { RepContainer } from '../components/workout/RepContainer';
 
 export class WorkoutCreator extends Component {
     constructor(props){
@@ -117,11 +118,12 @@ export class WorkoutCreator extends Component {
                 <ExistingWorkoutGraph team = {this.props.teams[this.props.selectedTeam]} reps = {this.state.reps}></ExistingWorkoutGraph>
                 <br />
                 <Card className = 'text-center'>
-                    {this.state.reps.map((rep) => (
+                    {/* {this.state.reps.map((rep) => (
                         <RepsCard 
                         rep = {rep}
                         />
-                    ))}
+                    ))} */}
+                    <RepContainer />
                 </Card>
                 </Col>
             </Row>
