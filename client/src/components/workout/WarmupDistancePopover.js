@@ -28,7 +28,8 @@ export class WarmupDistancePopover extends Component {
             distance:this.state.distance,
             distanceUnit:this.state.distanceUnit
         }
-        this.props.addArr(repData)
+        this.props.addArr(repData);
+        this.setState({show: !this.state.show});
     }
     render() {
         return (
