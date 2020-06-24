@@ -49,15 +49,20 @@ export class WorkoutCreator extends Component {
     }
 
     moveCard = (dragIndex, hoverIndex) => {
+        console.log("Called");
+        console.log(dragIndex);
+        console.log(hoverIndex)
         const dragRep = this.state.reps[dragIndex];
-        this.setState((state) => {
-            update(state.reps, {
-                $splice: [
-                    [dragIndex, 1],
-                    [hoverIndex, 0, dragRep],
-                ]
+        this.setState(
+            update(this.state, {
+                reps: {
+                    $splice: [
+                        [dragIndex, 1],
+                        [hoverIndex, 0, dragRep]
+                    ]
+                }
             })
-        })
+        )
         
     }
 
