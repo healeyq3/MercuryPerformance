@@ -1,19 +1,20 @@
 import React, { Component } from 'react'
 import fire from '../Fire';
-
-import { Container, Form, Button, Col, Card } from 'react-bootstrap';
-// eslint-disable-next-line
-import cookieParser from 'cookie-parser';
+import {Container, Form, Button, Col, Card, Row} from 'react-bootstrap';
 import cookie from 'react-cookies';
+import '../css/login.css'
+import stdlogo from "../resources/mLogoV2.svg";
+import envelope from "../resources/mEnvelope.svg";
 
 class CreateAccount extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            name: '',
-            email: '',
-            password: ''
+            mercury_name: '',
+            mercury_email: '',
+            password: '',
+            confirm_password: ''
         }
         this.handleChange = this.handleChange.bind(this);
         this.createAccount = this.createAccount.bind(this);
@@ -56,45 +57,53 @@ class CreateAccount extends Component {
     
     render() {
         return (
-            <Container fluid className = "text-center">
-            <Card className = "text-center">
-                <Card.Header>Create Account</Card.Header>
-                <Form id = "createAccountForm" action = "/">
-                    <Col>
-                     <Form.Group controlId = "controlInput2">
-                        <Form.Label>Full Name</Form.Label>
-                         <Form.Control
-                             type = "text"
-                             placeholder = "John Doe"
-                             onChange = {this.handleChange}
-                             value = {this.state.name}
-                             name = "name"
-                         />
-                    </Form.Group>
-                    <Form.Group controlId = "controlInput1">
-                        <Form.Label>Email Address</Form.Label>
-                        <Form.Control
-                            type = "email"
-                            placeholder = "name@gmail.com"
-                            onChange = {this.handleChange}
-                            value = {this.state.email}
-                            name = "email"
-                        />
-                    </Form.Group>
-                    <Form.Group controlId = "controlInput3">
-                        <Form.Label>Enter Password: </Form.Label>
-                        <Form.Control
-                            type = "password"
-                            value = {this.state.password}
-                            onChange = {this.handleChange}
-                            placeholder = "ex: 12345"
-                            name = "password"
-                        />
-                    </Form.Group>
-                    </Col>
-                     <Form.Group controlId = "enter">
-                         <Button onClick = {this.createAccount} type = "submit">Create</Button>
-                     </Form.Group>
+            <Container className = "login-container">
+                <Card className = "login-card-style">
+                    <img className="login-logo" src = {stdlogo} alt="logo"/>
+                    <h1 className="login-card-header">Create Account</h1>
+                    <Form className = "login-form">
+                        <Col>
+                            <Row className="justify-content-center mb-1">
+                                <input
+                                    className="form-input-login align-self-center"
+                                    type="name"
+                                    placeholder="Full Name"
+                                    onChange={this.handleChange}
+                                    value={this.state.mercury_name}
+                                    name="mercury_name"/>
+                                <img src={envelope} alt="envelope" className="login-envelope"/>
+                            </Row>
+                            <Row className="justify-content-center mb-1">
+                                <input
+                                    className="form-input-login align-self-center"
+                                    type="email"
+                                    placeholder="Email"
+                                    onChange={this.handleChange}
+                                    value={this.state.mercury_email}
+                                    name="mercury_email"/>
+                                <img src={envelope} alt="envelope" className="login-envelope"/>
+                            </Row>
+                            <Row className="justify-content-center mb-1">
+                                <input
+                                    className="form-input-login align-self-center"
+                                    type="password"
+                                    placeholder="Password"
+                                    onChange={this.handleChange}
+                                    value={this.state.password}
+                                    name="password"/>
+                                <img src={envelope} alt="envelope" className="login-envelope"/>
+                            </Row>
+                            <Row className="justify-content-center">
+                                <input
+                                    className="form-input-login align-self-center"
+                                    type="password"
+                                    placeholder="Confirm Password"
+                                    onChange={this.handleChange}
+                                    value={this.state.confirm_password}
+                                    name="confirm_password"/>
+                                <img src={envelope} alt="envelope" className="login-envelope"/>
+                            </Row>
+                        </Col>
                     </Form>
                 </Card>
             </Container>

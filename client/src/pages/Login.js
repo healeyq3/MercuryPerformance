@@ -85,50 +85,47 @@ class Login extends Component {
 
         return (
             <Container className = "login-container">
-            <Card className = "login-card-style">
-            <div className="login-logo-container">
-            </div>
-            <img className="login-logo" src = {stdlogo} alt="logo"/>
-            <h1 className="login-card-header">Coach Login</h1>
-        <Form className = "login-form">
-            <Col>
-            <Row className="justify-content-center mb-1">
-            <input
-        className="form-input-login align-self-center"
-        type="email"
-        placeholder="Email"
-        onChange={this.handleChange}
-        value={this.state.email}
-        name="mercury_email"/>
-            <img src={envelope} alt="envelope" className="login-envelope"/>
-            </Row>
-            <Row className="justify-content-center">
-            <input
-        className="form-input-login align-self-center"
-        type="password"
-        placeholder="Password"
-        onChange={this.handleChange}
-        value={this.state.password}
-        name="password"
-        id="login-password-input"
-            />
-            <img src={lock} alt="lock" className="login-lock"/>
-            </Row>
-            <Row className="justify-content-center">
-            <button
-        className={loginButtonClasses.join(' ')}
-        onClick = {(e) => this.login(e)}
-        type = 'submit'
-        disabled={disableLoginButton}>LOGIN
-            </button>
-            </Row>
-            </Col>
-            </Form>
-
-            <Link to = "./signup" className="create-account-button">Create your Account ➔</Link>
-        </Card>
-        </Container>
-    )
+                <Card className = "login-card-style">
+                    <img className="login-logo" src = {stdlogo} alt="logo"/>
+                    <h1 className="login-card-header">Coach Login</h1>
+                    <Form className = "login-form">
+                        <Col>
+                            <Row className="justify-content-center mb-1">
+                                <input
+                                    className="form-input-login align-self-center"
+                                    type="email"
+                                    placeholder="Email"
+                                    onChange={this.handleChange}
+                                    value={this.state.email}
+                                    name="mercury_email"/>
+                                <img src={envelope} alt="envelope" className="login-envelope"/>
+                            </Row>
+                            <Row className="justify-content-center">
+                                <input
+                                className="form-input-login align-self-center"
+                                type="password"
+                                placeholder="Password"
+                                onChange={this.handleChange}
+                                value={this.state.password}
+                                name="password"
+                                id="login-password-input"
+                                    />
+                                <img src={lock} alt="lock" className="login-lock"/>
+                            </Row>
+                            <Row className="justify-content-center">
+                                <button
+                                    className={loginButtonClasses.join(' ')}
+                                    onClick = {(e) => this.login(e)}
+                                    type = 'submit'
+                                    disabled={disableLoginButton}>LOGIN
+                                </button>
+                            </Row>
+                        </Col>
+                    </Form>
+                    <Link to = "./signup" className="create-account-button">Create your Account ➔</Link>
+                </Card>
+            </Container>
+        )
     }
 }
 
