@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 import { Redirect } from "react-router-dom";
 import ExistingWorkoutGraph from '../components/workout/ExistingWorkoutGraph';
 import RepsCard from '../components/workout/RepsCard';
-import { RepContainer } from '../components/workout/RepContainer';
+import update from 'immutability-helper'
 
 export class WorkoutCreator extends Component {
     constructor(props){
@@ -46,6 +46,19 @@ export class WorkoutCreator extends Component {
         let arr = this.state.reps
         arr.push(repData)
         this.setState({reps:arr})
+    }
+
+    moveCard = (dragIndex, hoverIndex) => {
+        const dragRep = this.state.reps[dragIndex];
+        this.setState((state) => {
+            update(state.reps, {
+                $splice: [
+                    [dragIndex, 1],
+                    [hoverIndex, 0, dragRep],
+                ]
+            })
+        })
+        
     }
 
     render() {
@@ -118,12 +131,13 @@ export class WorkoutCreator extends Component {
                 <ExistingWorkoutGraph team = {this.props.teams[this.props.selectedTeam]} reps = {this.state.reps}></ExistingWorkoutGraph>
                 <br />
                 <Card className = 'text-center'>
-                    {/* {this.state.reps.map((rep) => (
+                    {this.state.reps.map((rep, i) => (
                         <RepsCard 
                         rep = {rep}
+                        index = {i}
+                        moveCard = {this.moveCard}
                         />
-                    ))} */}
-                    <RepContainer />
+                    ))}
                 </Card>
                 </Col>
             </Row>
