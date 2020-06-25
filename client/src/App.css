@@ -9,7 +9,7 @@
   min-height: 100vh;
   padding-left: 0;
   padding-right: 0;
-  background-color: blue;
+  background-color: rgba(112,122,122,0.5);
 }
 
 .side-navigation{
@@ -22,7 +22,6 @@
 
 .main-page{
   flex-grow: 1;
-  background-color: blue;
   padding-left: 0;
 }
 

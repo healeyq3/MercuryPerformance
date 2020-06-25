@@ -3,6 +3,7 @@ import cookie from 'react-cookies'
 import fire from '../Fire'
 import {withRouter} from "react-router-dom";
 import "../css/navtop.css"
+import logo from '../resources/mLogoV2.svg'
 
 class NavigationTop extends Component {
     constructor(props) {
@@ -29,10 +30,10 @@ class NavigationTop extends Component {
         return (
             <div className="navigation-top-container">
                 <div className="logo-container">
-                    content
+                    <img src={logo} alt="logo" className="navbar-logo"/>
                 </div>
                 <div className="main-top-bar-container">
-                    content
+
                 </div>
             </div>
         )

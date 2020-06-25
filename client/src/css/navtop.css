@@ -12,9 +12,18 @@
     max-width: 220px;
     flex-grow: 1;
     height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navbar-logo{
+    height: 80px;
 }
 
 .main-top-bar-container{
     height: 100%;
     flex-grow: 1;
+    background-color: white;
 }
