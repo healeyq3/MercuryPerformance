@@ -48,7 +48,7 @@ export class RepDurationPopover extends Component {
                 this.props.addArr(repData)
                 this.props.addArr(restData)
             }
-            else if(this.state.restDuration!==0){
+            else if(this.state.restHours!==0 || this.state.restMinutes !==0 || this.state.restSeconds !== 0){
                 const restData = {
                     type:"Rest",
                     percent: this.state.restV02,

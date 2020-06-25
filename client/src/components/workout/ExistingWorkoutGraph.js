@@ -40,11 +40,13 @@ export class ExistingWorkoutGraph extends Component {
         }
         else{
           newTime = totalMinutes(t.hours, t.minutes, t.seconds)
-          console.log(newTime)
-          time +=newTime
-          DATA.push({x0:start, x:time, y:t.percent, color: 0})
-          // DATA.map(el => ({x0: el.x0 , x: el.x, y: el.y}));
-          start +=newTime
+          console.log(`newTime: ${newTime}`)
+          if(newTime !== 0) {
+            time +=newTime
+            DATA.push({x0:start, x:time, y:t.percent, color: c})
+            // DATA.map(el => ({x0: el.x0 , x: el.x, y: el.y}));
+            start +=newTime
+          }
         }
       }
       // const dataWithColor = DATA.map((d, i) => ({
