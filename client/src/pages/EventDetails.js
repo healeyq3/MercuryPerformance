@@ -8,6 +8,7 @@ import AddResultsModal from '../components/event/AddResultsModal'
 import PropTypes from 'prop-types';
 import { newTime, addRunnersToEvent, selectRunner } from '../actions/eventActions';
 import { connect } from 'react-redux';
+import '../css/eventdetails.css';
 
 export class EventDetails extends Component {
     constructor(props){
@@ -60,21 +61,20 @@ export class EventDetails extends Component {
 
         return (
             <Container>
-                <EventNavBar setShowRunner = {this.setShowRunner} setShowResults = {this.setShowResults}/>
-                <br></br>
+                <Col>
+                    <EventNavBar setShowRunner = {this.setShowRunner} setShowResults = {this.setShowResults}/>
+                    <br/>
+                    <Row>
+                        <Col>
+                            <Card className = "text-center">
+                                <Card.Header>Runners</Card.Header>
+                                {runnersInEvent}
+                            </Card>
+                        </Col>
+                    </Row>
+                </Col>
+                <EventDetailsCard event = {this.props.events[this.props.selectedEvent]}/>
                 <Row>
-                  <Col>
-                  <Card className = "text-center">
-                  <Card.Header>Runners</Card.Header>
-                    {runnersInEvent}
-                  </Card>
-                  </Col>
-                  <EventDetailsCard event = {this.props.events[this.props.selectedEvent]}/>
-                </Row>
-                <Row>
-                  <Col></Col>
-                  <Col></Col>
-                  <Col></Col>
                   <Col>
                   <Card className = "text-center">
                     <Card.Title>Notes</Card.Title>

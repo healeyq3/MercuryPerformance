@@ -221,7 +221,8 @@ export class AddResultsModal extends Component {
             }
         }
 
-        const selectedRunnerName = this.props.runners[this.props.selectedRunner].name; //something is fucking up here
+        let selectedRunnerName;
+        Object.keys(this.props.runners).length > 0 ? selectedRunnerName = this.props.runners[this.props.selectedRunner].name : selectedRunnerName = null;
 
         return (
             <Modal show = {this.props.show} onHide = {this.props.setShow} onShow = {this.reset} size = 'lg'>

@@ -4,7 +4,7 @@ import {setTeam, updateTeam} from "../actions/teamActions";
 import  { Container, Row, Col } from 'react-bootstrap'
 import { connect } from 'react-redux';
 import ExistingRunnerCard from '../components/ExistingRunnerCard';
-// import  AddRunner from '../components/AddRunner';
+import  AddRunner from '../components/AddRunner';
 import PropTypes from 'prop-types';
 import { getAverageTeamPace } from '../math/AnalysisAlgos';
 import Redirect from "react-router-dom/es/Redirect";
@@ -68,7 +68,7 @@ class Home extends Component {
     return (
         <Container fluid className="home-container">
             {/*<h2 id = "teamNameHome">{this.props.teams[this.props.selectedTeam].teamName}</h2>*/}
-            {/*<AddRunner teamUID = {this.props.selectedTeam} onSelect = {this.calculateAverageTeamPace}/>*/}
+            <AddRunner teamUID = {this.props.selectedTeam} onSelect = {this.calculateAverageTeamPace}/>
             <Row>
               <Col>
               <h4>Name</h4>
