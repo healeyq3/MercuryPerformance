@@ -5,7 +5,7 @@ import { CARD_REP } from '../../dragTypes/workoutcreatortypes'
 
 
 const RepsCard = React.forwardRef(
-   ({rep, isDragging, connectDragSource, connectDropTarget }, ref) => {
+   ({rep, isDragging, connectDragSource, connectDropTarget, index, onDelete }, ref) => {
        const elementRef = useRef(null)
        connectDragSource(elementRef)
        connectDropTarget(elementRef)
@@ -31,7 +31,7 @@ const RepsCard = React.forwardRef(
                     </Col>
                         <Row>
                             <Button variant = "outline-primary">Edit</Button>
-                            <Button variant = "outline-secondary">🗑</Button>
+                            <Button variant = "outline-secondary" onClick = {() => onDelete(index)}>🗑</Button>
                         </Row>
                     </Col>
                 </Row>

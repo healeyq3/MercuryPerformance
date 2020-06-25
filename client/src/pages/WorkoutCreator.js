@@ -23,6 +23,7 @@ export class WorkoutCreator extends Component {
             toWorkoutHome: false
         }
         this.handleChange = this.handleChange.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
     }
 
     handleChange(e){
@@ -46,6 +47,14 @@ export class WorkoutCreator extends Component {
         let arr = this.state.reps
         arr.push(repData)
         this.setState({reps:arr})
+    }
+
+    handleDelete(index){
+        let toReturn = this.state.reps;
+        toReturn.splice(index, 1);
+        this.setState({
+            reps: toReturn
+        })
     }
 
     moveCard = (dragIndex, hoverIndex) => {
@@ -141,6 +150,7 @@ export class WorkoutCreator extends Component {
                         rep = {rep}
                         index = {i}
                         moveCard = {this.moveCard}
+                        onDelete = {this.handleDelete}
                         />
                     ))}
                 </Card>
