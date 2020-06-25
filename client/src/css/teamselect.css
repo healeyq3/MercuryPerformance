@@ -1,9 +1,10 @@
 .teamselect-container {
-    height: 100vh;
+    background-color: red;
 }
 .teamselect-cardcontainer{
     display: flex;
     align-items: center;
+    flex-grow: 1;
 }
 
 .teamselect-rows{

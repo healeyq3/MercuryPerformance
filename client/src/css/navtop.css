@@ -1,0 +1,8 @@
+.navigation-top-container{
+    width: 100%;
+    height: 80px;
+    min-width: 100vw;
+    display: flex;
+    background-color: green;
+    align-items: start;
+}
