@@ -7,20 +7,27 @@ import stdlogo from "../resources/mLogoV2.svg";
 import envelope from "../resources/mEnvelope.svg";
 import lock from "../resources/mLock.svg"
 import person from "../resources/mPerson.svg";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 
 class CreateAccount extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            // eslint-disable-next-line no-control-regex
+            nameregex: new RegExp("^([ \u00c0-\u01ffa-zA-Z'\\-])+$"),
+            // eslint-disable-next-line no-control-regex
+            emailregex: new RegExp("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\\\[\x01-\x09\x0b\x0c\x0e-\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\\])"),
             mercury_name: '',
             mercury_email: '',
             password: '',
-            confirm_password: ''
+            confirm_password: '',
+            failedCreateAccount: false,
+            gotoTeamSelect: false
         }
         this.handleChange = this.handleChange.bind(this);
         this.createAccount = this.createAccount.bind(this);
+        this.failedCreateAccountReset = this.failedCreateAccountReset.bind(this);
     }
 
     handleChange(e){
@@ -45,28 +52,53 @@ class CreateAccount extends Component {
                     name: this.state.mercury_name,
                     email: this.state.mercury_email
                 })
-            });
+            }).then(() => {
+                this.setState({
+                    gotoTeamSelect: true
+                })
+            })
         }).catch((error) => {
             console.log(error);
+            this.setState({
+                failedCreateAccount: true,
+                failedCreateAccountResetInterval:
+                    setInterval(this.failedCreateAccountReset, 1200)
+            })
         });
+    }
 
-        await this.props.history.push('/teamselect');
-        window.location.reload();
+    failedCreateAccountReset(){
+        clearInterval(this.state.failedCreateAccountResetInterval);
+        this.setState({
+            failedCreateAccount: false
+        })
     }
     
-    
     render() {
+        if(this.state.gotoTeamSelect){
+            return <Redirect to='/teamselect'/>
+        }
 
         let createButtonClasses = ["login-submit-button"];
-        if(this.state.failedLogin){
+        if(this.state.failedCreateAccount){
             createButtonClasses.push("failed-login")
         }
 
+        let nameInputClasses = ["form-input-login", "align-self-center"];
         let emailInputClasses = ["form-input-login", "align-self-center"];
         let passwordInputClasses = ["form-input-login", "align-self-center"];
+        let confirmPasswordInputClasses = ["form-input-login", "align-self-center"];
 
+        let isNameValid = true;
         let isEmailValid = true;
         let isPasswordValid = true;
+
+        if(!this.state.nameregex.test(this.state.mercury_name)){
+            if(this.state.mercury_name.length > 0){
+                nameInputClasses.push("invalid-input");
+            }
+            isNameValid=false;
+        }
 
         if(!this.state.emailregex.test(this.state.mercury_email)){
             if(this.state.mercury_email.length > 0){
@@ -74,6 +106,7 @@ class CreateAccount extends Component {
             }
             isEmailValid=false;
         }
+
         if(this.state.password.length<6){
             if(this.state.password.length>0){
                 passwordInputClasses.push("invalid-input");
@@ -81,8 +114,15 @@ class CreateAccount extends Component {
             isPasswordValid=false;
         }
 
+        if(this.state.password !== this.state.confirm_password){
+            if(this.state.confirm_password.length>0){
+                confirmPasswordInputClasses.push("invalid-input");
+            }
+            isPasswordValid=false;
+        }
+
         let disableCreateAccountButton;
-        isEmailValid && isPasswordValid ? disableCreateAccountButton = false : disableCreateAccountButton = true;
+        isEmailValid && isPasswordValid && isNameValid ? disableCreateAccountButton = false : disableCreateAccountButton = true;
 
         return (
             <Container className = "login-container">
@@ -93,7 +133,7 @@ class CreateAccount extends Component {
                         <Col>
                             <Row className="justify-content-center mb-1">
                                 <input
-                                    className="form-input-login align-self-center"
+                                    className={nameInputClasses.join(' ')}
                                     type="name"
                                     placeholder="Full Name"
                                     onChange={this.handleChange}
@@ -123,7 +163,7 @@ class CreateAccount extends Component {
                             </Row>
                             <Row className="justify-content-center">
                                 <input
-                                    className="form-input-login align-self-center"
+                                    className={confirmPasswordInputClasses.join(' ')}
                                     type="password"
                                     placeholder="Confirm Password"
                                     onChange={this.handleChange}

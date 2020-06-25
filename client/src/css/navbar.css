@@ -5,5 +5,12 @@
 
 .navbar {
     width: 100vw;
+    min-height: 50px;
     height: 5vh;
+}
+
+.navbar-logo {
+    transform: translateY(2px);
+    height: 40%;
+    min-height: 20px;
 }

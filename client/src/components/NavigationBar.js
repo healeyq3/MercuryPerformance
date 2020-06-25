@@ -4,6 +4,7 @@ import fire from '../Fire'
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { withRouter } from "react-router-dom";
 import "../css/navbar.css"
+import logo from "../resources/mLogoV2-White.svg"
 
 class NavigationBar extends Component {
     constructor(props) {
@@ -25,7 +26,8 @@ class NavigationBar extends Component {
     render() {
         return (   
             <Navbar fixed = "top" className = "navbar" bg="dark"  variant = 'dark'>
-            <Navbar.Brand href="/" >Mercury</Navbar.Brand>
+            <img src={logo} alt="logo" className="navbar-logo"/>
+            <Navbar.Brand href="/" >ercury</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className = "navBarItems">
