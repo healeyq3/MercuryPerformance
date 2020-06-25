@@ -4,6 +4,7 @@ import fire from '../Fire'
 import {withRouter} from "react-router-dom";
 import "../css/navtop.css"
 import logo from '../resources/mLogoV2.svg'
+import triangle from '../resources/mTriangleSelector.svg'
 
 class NavigationTop extends Component {
     constructor(props) {
@@ -33,7 +34,14 @@ class NavigationTop extends Component {
                     <img src={logo} alt="logo" className="navbar-logo"/>
                 </div>
                 <div className="main-top-bar-container">
+                    <div className="top-bar-widgets-container">
 
+                    </div>
+                    <div className="top-bar-user-information-container">
+                        <img src={triangle} className="top-bar-triangle-selector" alt="triangle-selector"/>
+                        <h5 id="top-bar-user-name">John O'Brien</h5>
+                        <img src={logo} className="top-bar-profile-photo" alt="profile-photo"/>
+                    </div>
                 </div>
             </div>
         )

@@ -10,6 +10,7 @@
 .logo-container{
     background-color: #6E9CDB;
     max-width: 220px;
+    min-width: 220px;
     flex-grow: 1;
     height: 100%;
 
@@ -19,11 +20,49 @@
 }
 
 .navbar-logo{
-    height: 80px;
+    height: 90%;
 }
 
 .main-top-bar-container{
     height: 100%;
     flex-grow: 1;
     background-color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.top-bar-widgets-container{
+    /*background-color: black;*/
+    width: 20%;
+    min-width: 300px;
+}
+
+.top-bar-user-information-container{
+    /*background-color: gray;*/
+    width: fit-content;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    padding-left: 20px;
+}
+
+.top-bar-triangle-selector{
+    height: 8%;
+    opacity: 0.5;
+    padding-right: 10px;
+}
+
+.top-bar-profile-photo{
+    height: 62%;
+    clip-path: circle();
+    background-color: black;
+    padding-right: 5%;
+}
+
+#top-bar-user-name{
+    padding: 0;
+    margin: 0;
 }
