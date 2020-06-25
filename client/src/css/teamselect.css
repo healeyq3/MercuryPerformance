@@ -1,6 +1,5 @@
 .teamselect-container {
     height: 100vh;
-    background: linear-gradient(0deg, rgba(0,135,180,1) 0%, rgba(96,0,255,1) 100%);
 }
 .teamselect-cardcontainer{
     display: flex;
