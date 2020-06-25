@@ -9,7 +9,6 @@ import CreateTeamModal from '../components/CreateTeamModal';
 import {Row} from 'react-bootstrap';
 import cookie from 'react-cookies';
 import {Redirect} from "react-router-dom";
-
 import "../css/teamselect.css"
 
 class TeamSelect extends React.Component {
@@ -62,8 +61,6 @@ class TeamSelect extends React.Component {
 
     return (
       <div className = "teamselect-container">
-        <h1 className = "teamselect-textheader">Select a Team</h1>
-        <hr/>
         <div className = "teamselect-cardcontainer">
           <Row className="teamselect-rows">
             {cardItems}

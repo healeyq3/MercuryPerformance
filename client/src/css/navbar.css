@@ -1,9 +1,28 @@
-.navbar-opening{
-    background-color: rgba(94,2,253,1);
-    display: none;
-}
-
 .navbar {
     width: 100vw;
+    min-height: 50px;
     height: 5vh;
+    display: flex;
+    /*background-color: #2980b9;*/
+}
+
+.navbar-logo {
+    transform: translateY(2px);
+    height: 40%;
+    min-height: 20px;
+}
+
+.navbar-item {
+    /*color: rgba(255,255,255,0.8) !important;*/
+    text-decoration: none;
+}
+
+.navbar-item:hover {
+    /*color: rgba(255,255,255,1) !important;*/
+    transform: scale(1.1);
+    text-decoration: none;
+}
+
+.navbar-item:focus{
+    transform:scale(1.1);
 }

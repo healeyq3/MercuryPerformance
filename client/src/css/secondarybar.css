@@ -1,0 +1,16 @@
+.secondarybar{
+    position: absolute;
+    margin-top: 5vh;
+    width: 100vw;
+    min-height: 50px;
+    height: 3vh;
+    background-color: gray;
+
+    display: flex;
+    align-items: center;
+}
+
+.page-title{
+    font: 30px "Helvetica Neue", sans-serif;
+    align-self: center;
+}

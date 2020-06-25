@@ -7,6 +7,7 @@
     min-height: 600px;
     height: 100vh;
     width: 100vw;
+    margin-top: -5vh;
     background: linear-gradient(0deg, rgba(0,135,180,1) 0%, rgba(96,0,255,1) 100%);
 }
 
@@ -92,7 +93,7 @@
 
 .form-input-login:focus::placeholder{
     transition: all 0.5s ease-in-out;
-    opacity: 0;
+    opacity: 0.5;
 }
 
 .login-envelope{
@@ -107,6 +108,18 @@
     left: 73px;
     height: 20px;
     align-self: center;
+}
+
+.login-person{
+    position: fixed;
+    left: 72px;
+    height: 18px;
+    align-self: center;
+}
+
+.invalid-input:not(:focus){
+    transition: all 0.5s ease-in-out;
+    background-color: rgba(139,0,0,0.4);
 }
 
 .login-submit-button{

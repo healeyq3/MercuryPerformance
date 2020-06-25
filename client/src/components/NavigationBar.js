@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import cookie from 'react-cookies'
 import fire from '../Fire'
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
-import { withRouter } from "react-router-dom";
+import {withRouter} from "react-router-dom";
 import "../css/navbar.css"
+import logo from "../resources/mLogoV2.svg"
 
 class NavigationBar extends Component {
     constructor(props) {
@@ -13,6 +14,7 @@ class NavigationBar extends Component {
             gotoLogin: false
         }
     }
+
     logout = () => {
         cookie.remove('idToken', { path: "/" });
         cookie.remove('user', { path: "/" });
@@ -23,23 +25,27 @@ class NavigationBar extends Component {
     }
     
     render() {
+        if(!cookie.load('idToken')){
+            return null;
+        }
         return (   
-            <Navbar fixed = "top" className = "navbar" bg="dark"  variant = 'dark'>
-            <Navbar.Brand href="/" >Mercury</Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className = "navBarItems">
-                    <Nav.Link href="/">Home</Nav.Link>
-                    <Nav.Link href="/comingsoon">Calendar</Nav.Link>
-                    <Nav.Link href="./workouts">Workouts</Nav.Link>
-                    <Nav.Link href="./events">Events</Nav.Link>
-                    <NavDropdown title = "Settings" id="navDropDown">
-                        <NavDropdown.Item href="/teamselect">Select Team</NavDropdown.Item>
-                        <NavDropdown.Item href="/comingsoon">Settings</NavDropdown.Item>
-                        <NavDropdown.Item onClick = {this.logout}>Logout</NavDropdown.Item>
-                    </NavDropdown>
-                </Nav>
-            </Navbar.Collapse>
+            <Navbar fixed = "top" className = "navbar" variant = 'light'>
+                <img src={logo} alt="logo" className="navbar-logo"/>
+                <Navbar.Brand href="/" >ercury</Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="navbar-collapse collapse w-100 justify-content-center">
+                        <Nav.Link className = "navbar-item" href="/">Home</Nav.Link>
+                        <Nav.Link className = "navbar-item" href="/comingsoon">Calendar</Nav.Link>
+                        <Nav.Link className = "navbar-item" href="./workouts">Workouts</Nav.Link>
+                        <Nav.Link className = "navbar-item" href="./events">Events</Nav.Link>
+                        <NavDropdown className = "navbar-item" title = "Settings" id="navDropDown">
+                            <NavDropdown.Item href="/teamselect">Select Team</NavDropdown.Item>
+                            <NavDropdown.Item href="/comingsoon">Settings</NavDropdown.Item>
+                            <NavDropdown.Item onClick = {this.logout}>Logout</NavDropdown.Item>
+                        </NavDropdown>
+                    </Nav>
+                </Navbar.Collapse>
             </Navbar> 
         )
     }
