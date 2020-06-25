@@ -52,14 +52,14 @@
 .top-bar-triangle-selector{
     height: 8%;
     opacity: 0.5;
-    padding-right: 10px;
+    padding-right: 30px;
+    padding-left: 10px;
 }
 
 .top-bar-profile-photo{
     height: 62%;
     clip-path: circle();
     background-color: black;
-    padding-right: 5%;
 }
 
 #top-bar-user-name{
