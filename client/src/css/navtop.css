@@ -1,8 +1,20 @@
 .navigation-top-container{
     width: 100%;
-    height: 80px;
+    height: 90px;
     min-width: 100vw;
     display: flex;
-    background-color: green;
+    flex-direction: row;
     align-items: start;
+}
+
+.logo-container{
+    background-color: #6E9CDB;
+    max-width: 220px;
+    flex-grow: 1;
+    height: 100%;
+}
+
+.main-top-bar-container{
+    height: 100%;
+    flex-grow: 1;
 }

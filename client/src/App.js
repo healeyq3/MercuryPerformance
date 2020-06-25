@@ -6,7 +6,6 @@ import cookie from 'react-cookies';
 import store from './store';
 import {  DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
-import {Col, Container} from 'react-bootstrap'
 
 //Pages
 import Home from './pages/Home';

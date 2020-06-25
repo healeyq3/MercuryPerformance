@@ -23,12 +23,17 @@ class NavigationTop extends Component {
     }
     
     render() {
-        // if(!cookie.load('idToken')){
-        //     return null;
-        // }
+        if(!cookie.load('idToken')){
+            return null;
+        }
         return (
             <div className="navigation-top-container">
-                content
+                <div className="logo-container">
+                    content
+                </div>
+                <div className="main-top-bar-container">
+                    content
+                </div>
             </div>
         )
     }
