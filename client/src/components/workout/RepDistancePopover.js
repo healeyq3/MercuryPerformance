@@ -37,6 +37,8 @@ export class RepDistancePopover extends Component {
         }
         for(var i= 0; i<this.state.reps; i++){
             if(this.state.restDistance!==0){
+                console.log("Got to first if statement")
+                console.log(this.state.restDistance);
                 const restData = {
                     type: "Rest",
                     percent: this.state.restV02,
@@ -46,7 +48,7 @@ export class RepDistancePopover extends Component {
                 this.props.addArr(repData)
                 this.props.addArr(restData)
             }
-            else if(this.state.restDuration!==0){
+            else if(this.state.restHours!==0 || this.state.restMinutes !==0 || this.state.restSeconds !== 0){
                 const restData = {
                     type:"Rest",
                     percent: this.state.restV02,
