@@ -25,7 +25,7 @@ import NavigationBar from './components/NavigationBar';
 import AuthRoute from './util/AuthRoute.js';
 import AuthRoute2 from './util/AuthRoute2';
 import AuthRoute3 from './util/AuthRoute3';
-import { OpeningBar } from './components/OpeningBar';
+import SecondaryBar from "./components/SecondaryBar";
 
 class App extends Component {
   render() {
@@ -34,9 +34,10 @@ class App extends Component {
           <Provider store={store}>
           <div className="container" >
             <Router>
-              { cookie.load('idToken') == null ? <OpeningBar/> : <NavigationBar />}
+              <NavigationBar/>
               <div className="below-navbar-container">
                 <Switch>
+                  {console.log(cookie.load('idToken'))}
                   <AuthRoute exact path = '/login' component = {Login} authenticated = {cookie.load('idToken')}/>
                   <AuthRoute3 exact path = '/' component = {Home} team = {cookie.load('selectedTeam')}/>
                   <AuthRoute exact path = '/signup' component = {CreateAccount} authenticated = {cookie.load('idToken')}/>

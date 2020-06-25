@@ -9,6 +9,7 @@ import lock from "../resources/mLock.svg"
 import {Form, Card, Container} from 'react-bootstrap';
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import NavigationBar from "../components/NavigationBar";
 
 class Login extends Component {
     constructor(props){
@@ -107,6 +108,7 @@ class Login extends Component {
             <Container className = "login-container">
                 <Card className = "login-card-style">
                     <img className="login-logo" src = {stdlogo} alt="logo"/>
+                    <hr/>
                     <h1 className="login-card-header">Coach Login</h1>
                     <Form className = "login-form">
                         <Col>
