@@ -19,6 +19,8 @@ class Login extends Component {
         this.failedLoginReset = this.failedLoginReset.bind(this);
 
         this.state = {
+            // eslint-disable-next-line no-control-regex
+            emailregex: new RegExp("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\\\[\x01-\x09\x0b\x0c\x0e-\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\\])"),
             mercury_email: '',
             password: '',
             gotoTeamSelect: false,
@@ -63,7 +65,6 @@ class Login extends Component {
     }
 
     failedLoginReset(){
-        console.log("yes");
         clearInterval(this.state.failedLoginResetInterval);
         this.setState({
             failedLogin: false
@@ -80,8 +81,27 @@ class Login extends Component {
             loginButtonClasses.push("failed-login")
         }
 
+        let emailInputClasses = ["form-input-login", "align-self-center"];
+        let passwordInputClasses = ["form-input-login", "align-self-center"];
+
+        let isEmailValid = true;
+        let isPasswordValid = true;
+
+        if(!this.state.emailregex.test(this.state.mercury_email)){
+            if(this.state.mercury_email.length > 0){
+                emailInputClasses.push("invalid-input");
+            }
+            isEmailValid=false;
+        }
+        if(this.state.password.length<6){
+            if(this.state.password.length>0){
+                passwordInputClasses.push("invalid-input");
+            }
+            isPasswordValid=false;
+        }
+
         let disableLoginButton;
-        this.state.mercury_email.length > 0 && this.state.password.length > 0 && (this.state.mercury_email.indexOf("@") < this.state.mercury_email.indexOf(".")) ? disableLoginButton = false : disableLoginButton = true;
+        isEmailValid && isPasswordValid ? disableLoginButton = false : disableLoginButton = true;
 
         return (
             <Container className = "login-container">
@@ -92,7 +112,7 @@ class Login extends Component {
                         <Col>
                             <Row className="justify-content-center mb-1">
                                 <input
-                                    className="form-input-login align-self-center"
+                                    className={emailInputClasses.join(' ')}
                                     type="email"
                                     placeholder="Email"
                                     onChange={this.handleChange}
@@ -102,7 +122,7 @@ class Login extends Component {
                             </Row>
                             <Row className="justify-content-center">
                                 <input
-                                className="form-input-login align-self-center"
+                                className={passwordInputClasses.join(' ')}
                                 type="password"
                                 placeholder="Password"
                                 onChange={this.handleChange}

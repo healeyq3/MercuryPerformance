@@ -23,12 +23,20 @@ async function loginAuthentication(req, res){
 }
 
 async function createAccount(req, res){
-    req.session.idToken = req.body.idToken;
-    req.session.user = req.body.user;
+    res.set('Cache-Control', 'public, max-age=300, s-maxage=600');
+    authenticationUtilities.authenticateToken(req.body.idToken).then((decodedIdToken) => {
+        req.session.idToken = req.body.idToken;
+        req.session.useruid = decodedIdToken.uid;
 
-    const name = req.body.name;
-    const email = req.body.email;
-    const uid = req.session.user.uid;
+        const name = req.body.name;
+        const email = req.body.email;
+        const uid = req.session.useruid;
 
-    userUtilities.createUser(uid, name, email).then(() => res.end());
+        userUtilities.createUser(uid, name, email);
+        res.end()
+    }).catch((error) => {
+        console.log("Firebase failed to authenticate new user with id token".red);
+        console.log(error);
+        res.end();
+    })
 }
