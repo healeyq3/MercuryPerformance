@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import {addWorkoutToTeam, getAllWorkoutBlueprints, getWorkoutBlueprints, setBlueprint} from '../actions/workoutActions';
 import ImportWorkoutDropdown from "../components/workout/ImportWorkoutDropdown";
 import { Redirect } from "react-router-dom";
+import '../css/workouts.css'
 
 export class Workouts extends Component {
     constructor(props){
@@ -84,36 +85,35 @@ export class Workouts extends Component {
             }
         }
         return (
-            <Container>
-            <Container fluid>
-                <Nav fill variant="tabs" className="justify-content-center">
-                <Nav.Item>
-                    <Nav.Link href = "./">Team Name</Nav.Link>
-                </Nav.Item>
-                </Nav>
-            </Container>
-            <Row>
-                <Col>
-                <Card className = "text-center">
-                    <Card.Header>Team Workouts</Card.Header>
-                    {cardItems}
-                </Card>
+            <Container className="workouts-container">
+                <Container fluid className="existing-workouts-container">
+                    <Col>
+                        <Nav fill variant="tabs" className="justify-content-center">
+                            <Nav.Item>
+                                <Nav.Link href = "./">Team Name</Nav.Link>
+                            </Nav.Item>
+                        </Nav>
+                        <Card className = "text-center">
+                            <Card.Header>Team Workouts</Card.Header>
+                            {cardItems}
+                        </Card>
+                    </Col>
+                </Container>
+
+                <Col className="workout-options-container">
+                    <Card className = "text-center" tag="a" onClick = {this.setShowCreateWorkout} style = {{cursor:"pointer"}}>
+                        <p/>
+                        <Card.Title>New Workout</Card.Title>
+
+                        <p/>
+                    </Card>
+                    <br />
+                    <Card className = "text-center" tag="a" onClick={e => {this.setShowImportWorkout();}} style = {{cursor:"pointer"}}>
+                        <p/>
+                        <Card.Title>Import Workout</Card.Title>
+                        <p/>
+                    </Card>
                 </Col>
-                <Col>
-                <Card className = "text-center" tag="a" onClick = {this.setShowCreateWorkout} style = {{cursor:"pointer"}}>
-                    <p/>
-                    <Card.Title>New Workout</Card.Title>
-                    
-                    <p/>
-                </Card>
-                <br />
-                <Card className = "text-center" tag="a" onClick={e => {this.setShowImportWorkout();}} style = {{cursor:"pointer"}}>
-                    <p/>
-                    <Card.Title>Import Workout</Card.Title>
-                    <p/>
-                </Card>
-                </Col>
-            </Row>
               <Modal show = {this.state.showImport} onHide = {this.showImportModal}>
                 <ImportWorkoutDropdown importWorkoutBlueprint = {this.importWorkoutBlueprint} allBlueprints = {this.props.allBlueprints} blueprints = {this.props.blueprints}/>
               </Modal>
