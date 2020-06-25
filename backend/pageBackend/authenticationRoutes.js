@@ -10,6 +10,7 @@ router.post('/new', createAccount);
 module.exports = router;
 
 async function loginAuthentication(req, res){
+    res.set('Cache-Control', 'public, max-age=300, s-maxage=600');
     authenticationUtilities.authenticateToken(req.body.idToken).then((decodedIdToken) => {
         req.session.idToken = req.body.idToken;
         req.session.useruid = decodedIdToken.uid;

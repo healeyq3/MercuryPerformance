@@ -12,6 +12,7 @@ router.post('/update', updateTeam);
 module.exports = router;
 
 async function getTeams(req, res){
+  const receivedAtTime = Date.now();
   if(!await authenticatePost(req, res)){
     res.end();
     return;
@@ -20,7 +21,10 @@ async function getTeams(req, res){
   await teamUtilities.getUserTeams(req.session.useruid).then((teams) => {
     res.setHeader('Content-Type', 'application/json');
 
+    teams["receivedAtTime"] = receivedAtTime;
+    teams["finishedAtTime"] = Date.now();
     const teamsJson = JSON.stringify(teams);
+    res.set('Cache-Control', 'public, max-age=300, s-maxage=600');
     res.end(teamsJson);
   }).catch((error) => {
     console.log(error);
