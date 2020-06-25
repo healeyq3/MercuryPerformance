@@ -32,6 +32,7 @@ export class ExistingWorkoutGraph extends Component {
         }
         console.log(t)
         if(t.distanceUnit!==undefined){
+          console.log("Got to the first one")
           newTime = distanceToTime(t.distance, t.distanceUnit, averagePace /(t.percent/100))
           time += newTime
           DATA.push({x0:start, x:time, y:t.percent, color: c})
@@ -39,6 +40,7 @@ export class ExistingWorkoutGraph extends Component {
           start +=newTime
         }
         else{
+          
           newTime = totalMinutes(t.hours, t.minutes, t.seconds)
           console.log(`newTime: ${newTime}`)
           if(newTime !== 0) {
@@ -49,9 +51,6 @@ export class ExistingWorkoutGraph extends Component {
           }
         }
       }
-      // const dataWithColor = DATA.map((d, i) => ({
-      //   ...d, color: 0
-      //   }))
         return (
           
           <XYPlot
