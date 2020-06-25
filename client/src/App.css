@@ -1,16 +1,14 @@
 .container {
-  position: absolute;
   display: flex;
   justify-content: center;
   margin: auto auto 0 auto;
-  top: 0;
-  left: 0;
   min-width: 100vw;
-  min-height: 100vh;
+  max-width: 100vw;
+  background-color: red;
 }
 
 .below-navbar-container{
-  position: fixed;
-  margin-top: 5vh;
+  position: absolute;
+  top: 5vh;
   width: 100vw;
 }
