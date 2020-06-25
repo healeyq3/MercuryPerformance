@@ -25,7 +25,7 @@ export class ExistingWorkoutGraph extends Component {
           newTime = distanceToTime(t.distance, t.distanceUnit, averagePace /(t.percent/100))
           time += newTime
           DATA.push({x0:start, x:time, y:t.percent})
-          DATA.map(el => ({x0: el.x0 , x: el.x, y: el.y}));
+          
           start +=newTime
         }
         else{
@@ -33,23 +33,29 @@ export class ExistingWorkoutGraph extends Component {
           console.log(newTime)
           time +=newTime
           DATA.push({x0:start, x:time, y:t.percent})
-          DATA.map(el => ({x0: el.x0 , x: el.x, y: el.y}));
+          // DATA.map(el => ({x0: el.x0 , x: el.x, y: el.y}));
           start +=newTime
         }
       }
+      const dataWithColor = DATA.map((d, i) => ({...d, color: 3}))
         return (
+          
           <XYPlot
             xDomain={[0, 50+time]}
             yDomain={[0, 150]}
             // xType="time"
             width={700}
             height={400}
+            colorType = "linear"
+            colorDomain = {[0, 1, 2]}
+            
+            
           >
             <VerticalGridLines />
             <HorizontalGridLines />
             <XAxis title = "Minutes"/>
             <YAxis title = "V02 Max"/>
-            <VerticalRectSeries data={DATA} style={{stroke: '#fff'}} />
+            <VerticalRectSeries data={dataWithColor} style={{stroke: '#fff'}} />
           </XYPlot>
         )
     }
