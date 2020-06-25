@@ -22,13 +22,13 @@ export class ExistingWorkoutGraph extends Component {
         let t = this.props.reps[rep];
         let c = 0;
         if(t.percent < 75){
-          c = 0
+          c = .7
         } else if(t.percent < 85){
-          c = 1
-        } else if(t.percent < 95){
           c = 2
-        } else if(t.percent >= 95){
+        } else if(t.percent < 95){
           c = 3
+        } else if(t.percent >= 95){
+          c = 4
         }
         console.log(t)
         if(t.distanceUnit!==undefined){
@@ -60,7 +60,7 @@ export class ExistingWorkoutGraph extends Component {
             height={400}
             // colorType = "linear"
             colorDomain = {[0, 1, 2, 3]}
-            colorRange = {['green','yellow', 'orange', 'red']}
+            colorRange = {['white','cyan','yellow', 'orange', 'red']}
             
             
           >

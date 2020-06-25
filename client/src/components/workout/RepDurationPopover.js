@@ -65,11 +65,29 @@ export class RepDurationPopover extends Component {
         }
         this.setState({show: !this.state.show})
     }
+
+    reset = () => {
+        this.setState({
+            type:"rep",
+            percent: 0,
+            hours: 0,
+            minutes:0,
+            seconds:0,
+            reps:1,
+            restDistance: 0,
+            restDistanceUnit: undefined,
+            restHours:0,
+            restMinutes:0,
+            restSeconds:0,
+            restV02: 0,
+        })
+    }
+
     render() {
         return (
             <Container fluid>
                 <Button onClick={() => this.setState({show: !this.state.show})} ref={(button) => { this.target = button; }}>Duration</Button>
-            <Overlay placement="right" show={this.state.show}  target={ReactDOM.findDOMNode(this.target)} >
+            <Overlay placement="right" show={this.state.show} onEnter = {this.reset} target={ReactDOM.findDOMNode(this.target)} >
                 <Popover id="popover-basic" className = "text-center">
                 <Popover.Title as="h3">Add Rep</Popover.Title>
                 <Popover.Content>

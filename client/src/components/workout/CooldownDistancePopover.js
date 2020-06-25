@@ -31,11 +31,21 @@ export class CooldownDistancePopover extends Component {
         this.props.addArr(repData);
         this.setState({show: !this.state.show})
     }
+
+    reset = () => {
+        this.setState({
+            type:"cooldown",
+            percent: 0,
+            distance: 0,
+            distanceUnit:''
+        })
+    }
+
     render() {
         return (
             <Container fluid>
             <Button onClick={() => this.setState({show: !this.state.show})} ref={(button) => { this.target = button; }}>Distance</Button>
-            <Overlay show={this.state.show}  target={ReactDOM.findDOMNode(this.target)} placement="right">
+            <Overlay show={this.state.show} onEnter = {this.reset} target={ReactDOM.findDOMNode(this.target)} placement="right">
                 <Popover id="popover-basic" className = "text-center">
                 <Popover.Title as="h3">Add Cooldown</Popover.Title>
                 <Popover.Content>
