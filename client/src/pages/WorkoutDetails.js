@@ -29,7 +29,7 @@ export class WorkoutDetails extends Component {
     }
 
     componentDidMount() {
-        this.props.getActualWorkouts()
+        this.props.getActualWorkouts(this.props.selectedTeam)
     }
 
     render() {
@@ -37,7 +37,14 @@ export class WorkoutDetails extends Component {
             return null;
         }
 
-
+        let cardItems = [];
+        for(const workoutuid in this.props.workouts){
+            if(this.props.workouts.hasOwnProperty(workoutuid)){
+                cardItems.push(
+                    <WorkoutBlueprintDayCard workout = {this.props.workouts[workoutuid]} />
+                )
+            }
+        }
 
         return (
             // <Container>
@@ -62,8 +69,7 @@ export class WorkoutDetails extends Component {
                 <Col>
                 <Card className = "text-center">
                     <Card.Header>Workout Dates</Card.Header>
-                    <WorkoutBlueprintDayCard onSelect = {this.setDate}></WorkoutBlueprintDayCard>
-                    <WorkoutBlueprintDayCard onSelect = {this.setDate}></WorkoutBlueprintDayCard>
+                    {cardItems}
                 </Card>
                 <Card className = "text-center" tag="a" onClick = {this.setShow} style = {{cursor:"pointer"}}>
                     <p></p>

@@ -20,7 +20,6 @@ export class WorkoutImplementor extends Component {
 
     handleCreate = () => {
         const workoutData = {
-            user: cookie.load('user'),
             date: this.state.date,
             reps: this.props.reps
         }
