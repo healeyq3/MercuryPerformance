@@ -48,7 +48,6 @@ export class AddResultsModal extends Component {
     }
 
     handleAddResults = () => {
-        // eslint-disable-next-line
         const timeData = {
             hours: this.state.finalTimeHours,
             minutes: this.state.finalTimeMinutes,
