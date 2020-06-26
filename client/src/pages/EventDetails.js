@@ -60,37 +60,22 @@ export class EventDetails extends Component {
 
 
         return (
-            <Container>
-                <Col>
-                    <EventNavBar setShowRunner = {this.setShowRunner} setShowResults = {this.setShowResults}/>
-                    <br/>
-                    <Row>
-                        <Col>
-                            <Card className = "text-center">
-                                <Card.Header>Runners</Card.Header>
-                                {runnersInEvent}
-                            </Card>
-                        </Col>
-                    </Row>
-                </Col>
-                <EventDetailsCard event = {this.props.events[this.props.selectedEvent]}/>
+            <div>
+                <EventNavBar setShowRunner = {this.setShowRunner} setShowResults = {this.setShowResults}/>
                 <Row>
-                  <Col>
-                  <Card className = "text-center">
-                    <Card.Title>Notes</Card.Title>
-                    <Form>
-                      <Form.Control as ="textarea">
+                    <Col>
+                        <Card className = "text-center">
+                            <Card.Header>Runners</Card.Header>
+                            {runnersInEvent}
+                        </Card>
+                    </Col>
 
-                      </Form.Control>
-                    </Form>
-                  </Card>
-                  </Col>
+                    <EventDetailsCard event = {this.props.events[this.props.selectedEvent]}/>
                 </Row>
-               
                 
                 <EventAddRunnersModal show = {this.state.showRunner} setShow = {this.setShowRunner} teamUID = {this.props.selectedTeam}/>
                 <AddResultsModal show = {this.state.showResults} setShow = {this.setShowResults}/>
-            </Container>
+            </div>
         )
     }
 }
