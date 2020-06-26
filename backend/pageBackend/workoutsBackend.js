@@ -158,6 +158,9 @@ async function addRunner(req, res){
     const data = req.body;
     const runnerUidArray = data.runnerUidArray;
     const workoutuid = data.workoutuid;
+
+    console.log(runnerUidArray);
+    console.log(workoutuid);
   
     const runnersAdded = await workoutUtilities.addRunnerToWorkout(workoutuid, runnerUidArray);
     res.end(JSON.stringify({
