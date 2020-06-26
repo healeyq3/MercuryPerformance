@@ -10,7 +10,7 @@ export function getTeams() {
         return;
       }
       user.getIdToken(true).then(async function (idToken) {
-        cookie.save('mercury-fb-token', idToken, {path: "/"});
+        cookie.save('mercury-fb-token', idToken, { path: "/", SameSite:"strict", secure: true });
 
         await fetch('/api/teams', {
           method: 'POST',
@@ -38,7 +38,7 @@ export function newTeam(teamData){
         return;
       }
       user.getIdToken(true).then(async function (idToken) {
-        cookie.save('mercury-fb-token', idToken, {path: "/"});
+        cookie.save('mercury-fb-token', idToken, { path: "/", SameSite:"strict", secure: true });
 
         await fetch('/api/teams/new', {
           method: 'POST',
