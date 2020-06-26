@@ -9,7 +9,6 @@ import lock from "../resources/mLock.svg"
 import {Form, Card, Container} from 'react-bootstrap';
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import NavigationBar from "../components/NavigationTop";
 
 class Login extends Component {
     constructor(props){

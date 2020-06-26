@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Modal, Form, Button } from 'react-bootstrap'
-import cookie from 'react-cookies';
 import { newActualWorkout } from '../../actions/workoutActions';
 import { connect } from 'react-redux'
 
