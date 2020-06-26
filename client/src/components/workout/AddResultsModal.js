@@ -15,6 +15,7 @@ export class AddResultsModal extends Component {
             finalTimeMinutes: 0,
             finalTimeSeconds: 0,
             runnerIndex: 0,
+            reps:[]
         }
 
         this.baseState = this.state;
@@ -49,12 +50,14 @@ export class AddResultsModal extends Component {
     handleAddResults = () => {
         // eslint-disable-next-line
         const timeData = {
-            distance: this.props.events[this.props.selectedEvent].distance,
-            units: this.props.events[this.props.selectedEvent].distanceUnit,
             hours: this.state.finalTimeHours,
             minutes: this.state.finalTimeMinutes,
             seconds: this.state.finalTimeSeconds
         }
+        let arr = this.state.reps
+        arr.push(timeData)
+        this.setState({reps:arr})
+        
     }
 
     async incrementRunnerUp(){
