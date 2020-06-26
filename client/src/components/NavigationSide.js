@@ -28,7 +28,7 @@ class NavigationSide extends Component {
     }
 
     logout = () => {
-        cookie.remove('mercury-fb-token', { path: "/" });
+        cookie.remove('mercury-fb-token', {path:"/", sameSite: "strict", SameSite:"strict"});
         this.props.rerenderCallback();
         fire.auth().signOut().then();
     }
@@ -50,7 +50,7 @@ class NavigationSide extends Component {
     }
 
     render() {
-        if(!cookie.load('mercury-fb-token')){
+        if(!cookie.load('mercury-fb-token', {path:"/", sameSite: "strict", SameSite:"strict"})){
             return null;
         }
         return (
