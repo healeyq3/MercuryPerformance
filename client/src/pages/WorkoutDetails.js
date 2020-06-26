@@ -26,7 +26,7 @@ export class WorkoutDetails extends Component {
     setShow = e => {
         console.log("SetShow called");
         this.setState({
-            show: !this.state.show
+            showNewDate: !this.state.showNewDate
         })
     }
     setSelectedWorkout = workout => {
@@ -88,19 +88,18 @@ export class WorkoutDetails extends Component {
                     {cardItems}
                 </Card>
                 <Card className = "text-center" tag="a" onClick = {this.setShow} style = {{cursor:"pointer"}}>
-                    <p></p>
+                    <p/>
                     <Card.Title>New Date</Card.Title>
-                    <p></p>
-                    
+                    <p/>
                 </Card>
-                <WorkoutImplementor show = {this.state.show} setShow = {this.setShow} teamUID = {this.props.selectedTeam} reps = {this.props.blueprints[this.props.selectedBlueprint].reps}/>
+                <WorkoutImplementor show={this.state.showNewDate} setShow = {this.setShow} teamUID = {this.props.selectedTeam} reps = {this.props.blueprints[this.props.selectedBlueprint].reps}/>
                 </Col>
                 <Col>
                 <Row>
-                <ExistingWorkoutGraph team = {this.props.teams[this.props.selectedTeam]} reps = {this.props.blueprints[this.props.selectedBlueprint].reps}></ExistingWorkoutGraph>
+                <ExistingWorkoutGraph team = {this.props.teams[this.props.selectedTeam]} reps = {this.props.blueprints[this.props.selectedBlueprint].reps}/>
                 </Row>
                 <Row>
-                    <WorkoutDetailsCard></WorkoutDetailsCard>
+                    <WorkoutDetailsCard/>
                 </Row>
                 </Col>
             </Row>

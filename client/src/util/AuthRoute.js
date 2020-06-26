@@ -6,7 +6,7 @@ const AuthRoute = ({component: Component, rerenderCallback, ...rest}) => (
     <Route
     {...rest}
     render = {function(props) {
-        const authenticated = cookie.load('idToken');
+        const authenticated = cookie.load('mercury-fb-token');
         return authenticated != null ? <Redirect to='/teamselect'/> : <Component {...props} rerenderCallback={rerenderCallback} />
     }
     }

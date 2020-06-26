@@ -6,7 +6,7 @@ const AuthRoute2 = ({component: Component, ...rest}) => (
     <Route
     {...rest}
     render = {function(props){
-        const authenticated = cookie.load('idToken');
+        const authenticated = cookie.load('mercury-fb-token');
         return authenticated == null ? <Redirect to = '/login'/> : <Component { ...props} />
     }}
     />

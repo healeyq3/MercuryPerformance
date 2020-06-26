@@ -30,11 +30,10 @@ export class MainPage extends Component {
 
     render(){
         let mainPageClasses = ["main-page"];
-        if(!cookie.load('idToken')){
+        console.log(cookie.load('mercury-fb-token'))
+        if(!cookie.load('mercury-fb-token')){
             mainPageClasses.push('login')
         }
-
-        console.log("Rendering main");
 
         return (
             <div className="main-page-container">

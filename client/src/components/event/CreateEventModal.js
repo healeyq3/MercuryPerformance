@@ -15,6 +15,7 @@ export class CreateEventModal extends Component {
             distance: 0.0,
             distanceUnit: ''
         }
+
         this.handleChange = this.handleChange.bind(this);
     }
     
@@ -25,15 +26,12 @@ export class CreateEventModal extends Component {
     }
     handleCreateEvent = () => {
         const eventData = {
-            user: cookie.load('user'),
             name: this.state.name,
             date: this.state.date,
             location: this.state.location,
             distance: this.state.distance,
             distanceUnit: this.state.distanceUnit
         }
-        console.log(eventData.user.uid);
-        console.log(eventData);
         this.props.newEvent(eventData, this.props.teamUID);//need to pass in selectedTeamUID here
         this.props.setShow();
     }
