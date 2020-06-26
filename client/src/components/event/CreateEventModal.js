@@ -2,7 +2,6 @@ import React, { Component } from '../../../node_modules/react'
 import { Modal, Form, Button, FormControl } from '../../../node_modules/react-bootstrap';
 import { connect } from '../../../node_modules/react-redux';
 import { newEvent } from '../../actions/eventActions';
-import cookie from '../../../node_modules/react-cookies';
 
 export class CreateEventModal extends Component {
     constructor(props){
