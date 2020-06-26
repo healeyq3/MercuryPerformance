@@ -5,6 +5,9 @@ import WorkoutDateDetailsCard from '../components/workout/WorkoutDateDetailsCard
 import WorkoutAddRunnersModal from '../components/workout/WorkoutAddRunnersModal'
 import AddResultsModal from '../components/workout/AddResultsModal'
 import WorkoutRunnerCard from '../components/workout/WorkoutRunnerCard'
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { addRunnersToWorkout, resetRunnerAdded } from '../actions/workoutActions';
 
 export class WorkoutDateDetails extends Component {
     constructor(props){
@@ -12,9 +15,27 @@ export class WorkoutDateDetails extends Component {
         this.state = {
           showRunner: false,
           showResults:false,
-          reloaded:false
+          reloaded:false,
+          runnerCount: 0
         }
     }
+
+    componentDidUpdate(prevProps) {
+        if(prevProps.rehydrated === false){
+            console.log(this.props);
+            if(!this.props.workouts[this.props.selectedWorkout].runners){
+                return;
+            }
+            this.setState({
+                runnerCount: Object.keys(this.props.workouts[this.props.selectedWorkout].runners).length
+            })
+        } else if(this.props.hasAddedRunner){
+            this.setState({
+                runnerCount: Object.keys(this.props.workouts[this.props.selectedWorkout].runners).length
+            })
+        }
+    }
+
     setShowRunner = e => {
         this.setState({
             showRunner: !this.state.showRunner
@@ -30,24 +51,33 @@ export class WorkoutDateDetails extends Component {
         console.log(runner);
       }
     render() {
-        if(this.props.selectedWorkout){
+        if(!this.props.selectedWorkout || !this.props.workouts){
             return null;
         }
 
-    //    let runnersInWorkout = [];
-    //     if(this.props.workouts[this.props.selectedWorkout].hasOwnProperty('runners') === true){
-    //         console.log(this.props.workouts[this.props.selectedWorkout].runners);
-    //         console.log(this.props.rehydrated);
-    //         for(const runner in this.props.workouts[this.props.selectedWorkout].runners){
-    //             if(this.props.workouts[this.props.selectedWorkout].runners.hasOwnProperty(runner)){
-    //                 runnersInWorkout.push(
-    //                     <React.Fragment key = {runner}>
-    //                         <WorkoutRunnerCard setShow = {this.setShowResults}runner = {this.props.runners[runner]} time = {this.props.workouts[this.props.selectedBlueprint].runners[runner].time} />
-    //                     </React.Fragment>
-    //                 )
-    //             }
-    //         }
-    //     }
+        let runnersInWorkout = [];
+
+        console.log(this.props.selectedWorkout);
+        console.log(this.props.workouts);
+
+        if(this.props.workouts[this.props.selectedWorkout].runners){
+            console.log(Object.keys(this.props.workouts[this.props.selectedWorkout].runners).length)
+        }
+
+        if(this.props.hasAddedRunner && this.state.runnerCount === Object.keys(this.props.workouts[this.props.selectedWorkout].runners).length){
+            this.props.resetRunnerAdded();
+        }
+
+        if(this.props.workouts[this.props.selectedWorkout].hasOwnProperty('runners') === true){
+            for(const runner in this.props.workouts[this.props.selectedWorkout].runners){
+                if(this.props.workouts[this.props.selectedWorkout].runners.hasOwnProperty(runner)){
+                    runnersInWorkout.push(
+                        <WorkoutRunnerCard setShow = {this.setShowResults} runner = {this.props.runners[runner]} />
+                    )
+                }
+            }
+        }
+
         return (
             <Container>
                 <Col>
@@ -82,4 +112,24 @@ export class WorkoutDateDetails extends Component {
         )
         }
 }
-export default WorkoutDateDetails
+
+WorkoutDateDetails.propTypes = {
+    addRunnersToWorkout: PropTypes.func.isRequired,
+    resetRunnerAdded: PropTypes.func.isRequired,
+    selectedWorkout: PropTypes.string.isRequired,
+    runners: PropTypes.object.isRequired,
+    workouts: PropTypes.object.isRequired
+}
+
+
+const mapStateToProps = function(state){
+    return {
+        selectedWorkout: state.workouts.selectedWorkout,
+        rehydrated: state._persist.rehydrated,
+        runners: state.runners.runners,
+        hasAddedRunner: state.workouts.hasAddedRunner,
+        workouts: state.workouts.actualWorkouts
+    }
+}
+
+export default connect(mapStateToProps, { addRunnersToWorkout, resetRunnerAdded }) (WorkoutDateDetails)
