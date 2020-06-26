@@ -35,7 +35,7 @@ export class WorkoutDetails extends Component {
 
     componentDidUpdate(prevProps){
         if(prevProps.rehydrated === false){
-          this.props.getActualWorkouts(this.props.selectedTeam);
+          this.props.getActualWorkouts(this.props.selectedTeam, this.props.selectedBlueprint);
         }
       }
 
@@ -84,7 +84,7 @@ export class WorkoutDetails extends Component {
                     <p></p>
                     
                 </Card>
-                <WorkoutImplementor show = {this.state.show} setShow = {this.setShow} teamUID = {this.props.selectedTeam} reps = {this.props.blueprints[this.props.selectedBlueprint].reps}/>
+                <WorkoutImplementor blueprint = {this.props.selectedBlueprint} show = {this.state.show} setShow = {this.setShow} teamUID = {this.props.selectedTeam} reps = {this.props.blueprints[this.props.selectedBlueprint].reps}/>
                 </Col>
                 <Col>
                 <Row>

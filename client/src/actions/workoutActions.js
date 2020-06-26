@@ -135,7 +135,7 @@ export function newActualWorkout(workoutData, selectedTeamUID){
     }
 }
 
-export function getActualWorkouts(selectedTeamUID){
+export function getActualWorkouts(selectedTeamUID, blueprint){
     return async function(dispatch){
         await fetch('/api/workouts/workouts', {
             method: 'POST',
@@ -144,7 +144,8 @@ export function getActualWorkouts(selectedTeamUID){
             },
             body: JSON.stringify({
                 idToken: cookie.load('idToken'),
-                selectedTeamUID
+                selectedTeamUID,
+                blueprint
             })
         })
         .then(res => res.json())
