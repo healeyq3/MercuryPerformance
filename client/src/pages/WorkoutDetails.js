@@ -29,7 +29,7 @@ export class WorkoutDetails extends Component {
     }
 
     setSelectedWorkout(workout){
-        console.log(workout);
+        console.log(workout.key);
         this.props.setWorkout(workout.key)
     }
 

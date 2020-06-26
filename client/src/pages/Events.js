@@ -22,10 +22,6 @@ export class Events extends Component {
           show: !this.state.show
       })
     }
-
-    componentDidMount(){ //need to start loading here
-
-    }
     
     componentDidUpdate(prevProps, prevState, snapshot){
       if(prevProps.rehydrated === false){
