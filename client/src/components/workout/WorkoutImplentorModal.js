@@ -41,7 +41,7 @@ export class WorkoutImplentorModal extends Component {
                             <Form.Label>Date</Form.Label>
                             <Form.Control onChange = {this.handleChange} name = "date" type = "date"/>
                         </Form.Group>
-                        <Button variant = "primary" onClick = {this.handleCreateWorkout}>Add Event</Button>
+                        <Button variant = "primary" onClick = {this.handleCreateWorkout}>Add Workout</Button>
                     </Form>
                 </Modal.Body>
             {/* </Modal.Dialog> */}
