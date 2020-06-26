@@ -9,12 +9,11 @@
   min-height: 100vh;
   padding-left: 0;
   padding-right: 0;
-  background-color: rgba(112,122,122,0.5);
+  background-color: #ecf0f1;
 }
 
 .side-navigation{
   flex-grow: 1;
-  background-color: yellow;
   max-width: 180px;
   padding-left: 0;
   text-align: center;

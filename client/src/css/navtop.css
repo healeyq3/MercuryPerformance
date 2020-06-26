@@ -8,7 +8,7 @@
 }
 
 .logo-container{
-    background-color: #6E9CDB;
+    background-color: #3498db;
     max-width: 220px;
     min-width: 220px;
     flex-grow: 1;
@@ -33,20 +33,16 @@
 }
 
 .top-bar-widgets-container{
-    /*background-color: black;*/
     width: 20%;
     min-width: 300px;
 }
 
 .top-bar-user-information-container{
-    /*background-color: gray;*/
     width: fit-content;
     display: flex;
-    justify-content: flex-end;
     align-items: center;
-    vertical-align: middle;
     white-space: nowrap;
-    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .top-bar-triangle-selector{

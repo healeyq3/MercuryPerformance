@@ -1,8 +1,17 @@
 .navigation-side-container{
     flex-grow: 1;
-    background-color: #557DB4;
+    background-color: #2980b9;
     min-width: 220px;
     max-width: 220px;
     padding-left: 0;
     text-align: center;
+}
+
+.navigation-links{
+    background-color: gray;
+    text-align: center;
+}
+
+.navigation-link{
+    color: white;
 }
