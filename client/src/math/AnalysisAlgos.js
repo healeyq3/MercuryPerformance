@@ -29,7 +29,7 @@ function getPredictedTime(runner, rep){
     return t
 }
 
-function getPredictedTimes(runners, percent){
+function getPredictedTimes(runners, percent, rep){
     let max = 0;
     let min= 100000;
     let pace = 0;
@@ -46,23 +46,9 @@ function getPredictedTimes(runners, percent){
     }
     max = max/(percent/100)
     min  = min/(percent/100)
-    max = max/60;
-    let decM = max -Math.floor(max);
-    max = max.toFixed(0)
-    decM = decM * 60;
-    decM = decM.toFixed(0)
-    if(decM<10){
-        decM = "0" + decM
-    }
-    min = min/60;
-    let decMi = min -Math.floor(min);
-    min = min.toFixed(0)
-    decMi = decMi*60;
-    decMi = decMi.toFixed(0)
-    if(decMi<10){
-        decMi = "0" + decMi
-    }
-return max + ":" + decM + "-" + min + ":" + decMi
+    max = distanceToTime(rep.distance, rep.distanceUnit, max)
+    min = distanceToTime(rep.distance, rep.distanceUnit, min)
+return max + "-" + min
 }
 
 export { getAverageTeamPace, getPredictedTimes, getPredictedTime};
