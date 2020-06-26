@@ -19,7 +19,6 @@ class Home extends Component {
     }
 
     this.calculateAverageTeamPace = this.calculateAverageTeamPace.bind(this);
-
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {

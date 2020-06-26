@@ -45,9 +45,8 @@ export class WorkoutDetails extends Component {
 
     render() {
         if(this.state.toWorkoutDate){
-            this.props.history.push('/workoutdetails');
             return <Redirect to='/workoutdatedetails' />
-          }
+        }
         if(!this.props.selectedTeam || !this.props.selectedBlueprint){
             return null;
         }

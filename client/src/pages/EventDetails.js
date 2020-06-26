@@ -60,10 +60,6 @@ export class EventDetails extends Component {
 
       let runnersInEvent = [];
 
-      if(this.props.events[this.props.selectedEvent].runners){
-        console.log(Object.keys(this.props.events[this.props.selectedEvent].runners).length);
-      }
-
       if(this.props.hasAddedRunner && this.state.runnerCount === Object.keys(this.props.events[this.props.selectedEvent].runners).length){
         this.props.resetRunnerAdded();
         // this.setState({});
@@ -74,7 +70,7 @@ export class EventDetails extends Component {
             if(this.props.events[this.props.selectedEvent].runners.hasOwnProperty(runner)){
               runnersInEvent.push(
                 <React.Fragment key = {runner}>
-                  <EventRunnerCard setShow = {this.setShowResults}runner = {this.props.runners[runner]} time = {this.props.events[this.props.selectedEvent].runners[runner].time} />
+                  <EventRunnerCard setShow = {this.setShowResults} runner = {this.props.runners[runner]} time = {this.props.events[this.props.selectedEvent].runners[runner].time} />
                 </React.Fragment>
               )
             }
@@ -97,7 +93,7 @@ export class EventDetails extends Component {
               </Row>
 
               <EventAddRunnersModal show = {this.state.showRunner} setShow = {this.setShowRunner} teamUID = {this.props.selectedTeam}/>
-              <AddResultsModal show = {this.state.showResults} setShow = {this.setShowResults}/>
+              {/*<AddResultsModal show = {this.state.showResults} setShow = {this.setShowResults}/>*/}
           </div>
       )
     }
