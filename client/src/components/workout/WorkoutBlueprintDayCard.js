@@ -8,12 +8,8 @@ export class WorkoutBlueprintDayCard extends Component {
                 <Card.Body>
                     <Row>
                         <Col>
-                        <Card.Title>Date</Card.Title>
+                        <Card.Title>Date: {this.props.workout.date}</Card.Title>
                         </Col>
-                        <Col>
-                        <p>Details</p>
-                        </Col>
-                        <Button variant = "outline-primary" onClick = {this.props.setShow}>Edit</Button>
                         <Button variant = "outline-secondary" onClick = {this.handleDelete}>🗑</Button>
                     </Row>
                 </Card.Body>

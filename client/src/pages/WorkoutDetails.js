@@ -23,15 +23,29 @@ export class WorkoutDetails extends Component {
 
     setShow = e => {
         console.log("SetShow called");
-        console.log(!this.state.showNewDate);
         this.setState({
             showNewDate: !this.state.showNewDate
         })
     }
 
+    componentDidMount() {
+        console.log("Mounted")
+        console.log(this.props.selectedTeam)
+        this.props.getActualWorkouts(this.props.selectedTeam)
+    }
+
     render() {
         if(!this.props.selectedTeam || !this.props.selectedBlueprint){
             return null;
+        }
+
+        let cardItems = [];
+        for(const workoutuid in this.props.workouts){
+            if(this.props.workouts.hasOwnProperty(workoutuid)){
+                cardItems.push(
+                    <WorkoutBlueprintDayCard workout = {this.props.workouts[workoutuid]} />
+                )
+            }
         }
 
         return (
@@ -57,8 +71,7 @@ export class WorkoutDetails extends Component {
                 <Col>
                 <Card className = "text-center">
                     <Card.Header>Workout Dates</Card.Header>
-                    <WorkoutBlueprintDayCard onSelect = {this.setDate}/>
-                    <WorkoutBlueprintDayCard onSelect = {this.setDate}/>
+                    {cardItems}
                 </Card>
                 <Card className = "text-center" tag="a" onClick = {this.setShow} style = {{cursor:"pointer"}}>
                     <p/>
@@ -86,7 +99,9 @@ WorkoutDetails.propTypes = {
     rehydrated: PropTypes.bool.isRequired,
     teams: PropTypes.object.isRequired,
     blueprints: PropTypes.object.isRequired,
-    selectedBlueprint: PropTypes.string.isRequired
+    selectedBlueprint: PropTypes.string.isRequired,
+    getActualWorkouts: PropTypes.func.isRequired,
+    workouts: PropTypes.object.isRequired
 }
 
 const mapStateToProps = function(state){
@@ -94,7 +109,8 @@ const mapStateToProps = function(state){
         teams: state.teams.teams,
         selectedTeam: state.teams.selectedTeam,
         blueprints: state.workouts.blueprints,
-        selectedBlueprint: state.workouts.selectedBlueprint
+        selectedBlueprint: state.workouts.selectedBlueprint,
+        workouts: state.workouts.actualWorkouts
     }
 }
 
