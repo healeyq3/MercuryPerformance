@@ -29,6 +29,8 @@ export class WorkoutDetails extends Component {
     }
 
     componentDidMount() {
+        console.log("Mounted")
+        console.log(this.props.selectedTeam)
         this.props.getActualWorkouts(this.props.selectedTeam)
     }
 
