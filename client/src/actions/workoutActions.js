@@ -10,7 +10,7 @@ export function getWorkoutBlueprints(selectedTeamUID){
                 return;
             }
             user.getIdToken(true).then(async function (idToken) {
-                cookie.save('mercury-fb-token', idToken, { path: "/", SameSite:"strict", secure: true });
+                cookie.save('mercury-fb-token', idToken, { path: "/", sameSite: "strict", SameSite:"strict" });
 
                 await fetch('/api/workouts/blueprints', {
                     method: 'POST',
@@ -44,7 +44,7 @@ export function getAllWorkoutBlueprints(){
                 return;
             }
             user.getIdToken(true).then(async function (idToken) {
-                cookie.save('mercury-fb-token', idToken, { path: "/", SameSite:"strict", secure: true });
+                cookie.save('mercury-fb-token', idToken, { path: "/", sameSite: "strict", SameSite:"strict" });
 
                 await fetch('/api/workouts/getallblueprints', {
                     method: 'POST',
@@ -77,7 +77,7 @@ export function newWorkoutBlueprint(blueprintData, selectedTeamUID){
                 return;
             }
             user.getIdToken(true).then(async function (idToken) {
-                cookie.save('mercury-fb-token', idToken, { path: "/", SameSite:"strict", secure: true });
+                cookie.save('mercury-fb-token', idToken, { path: "/", sameSite: "strict", SameSite:"strict" });
 
                 await fetch('/api/workouts/newblueprint', {
                     method: 'POST',
@@ -113,7 +113,7 @@ export function addWorkoutToTeam(blueprintuid, selectedTeamUID){
                 return;
             }
             user.getIdToken(true).then(async function (idToken) {
-                cookie.save('mercury-fb-token', idToken, { path: "/", SameSite:"strict", secure: true });
+                cookie.save('mercury-fb-token', idToken, { path: "/", sameSite: "strict", SameSite:"strict" });
 
                 await fetch('/api/workouts/addblueprint', {
                     method: 'POST',
@@ -157,7 +157,7 @@ export function newActualWorkout(workoutData, selectedTeamUID){
                 return;
             }
             user.getIdToken(true).then(async function (idToken) {
-                cookie.save('mercury-fb-token', idToken, { path: "/", SameSite:"strict", secure: true });
+                cookie.save('mercury-fb-token', idToken, { path: "/", sameSite: "strict", SameSite:"strict" });
 
                 await fetch('/api/workouts/newworkout', {
                     method: 'POST',
@@ -191,7 +191,7 @@ export function getActualWorkouts(selectedTeamUID, blueprint){
                 return;
             }
             user.getIdToken(true).then(async function (idToken) {
-                cookie.save('mercury-fb-token', idToken, { path: "/", SameSite:"strict", secure: true });
+                cookie.save('mercury-fb-token', idToken, { path: "/", sameSite: "strict", SameSite:"strict" });
 
                 await fetch('/api/workouts/workouts', {
                     method: 'POST',
@@ -229,7 +229,7 @@ export function addRunnersToWorkout(runnerUidArray, workoutuid){
     return async function(dispatch){
       fire.auth().onAuthStateChanged(function(user) {
         user.getIdToken(true).then(async function (idToken) {
-          cookie.save('mercury-fb-token', idToken, { path: "/", SameSite:"strict", secure: true });
+            cookie.save('mercury-fb-token', idToken, { path: "/", sameSite: "strict", SameSite:"strict" });
           await fetch('/api/workouts/addrunner', {
             method: 'POST',
             headers: {

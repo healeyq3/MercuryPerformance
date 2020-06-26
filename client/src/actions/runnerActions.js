@@ -10,7 +10,7 @@ export function getTeamRunners(selectedTeamUID) {
         return;
       }
       user.getIdToken(true).then(async function (idToken) {
-        cookie.save('mercury-fb-token', idToken, { path: "/", SameSite:"strict", secure: true });
+        cookie.save('mercury-fb-token', idToken, { path: "/", sameSite: "strict", SameSite:"strict" });
 
         await fetch('/api/runners', {
           method: 'POST',
@@ -40,7 +40,7 @@ export function newRunner(runnerData, selectedTeamUID){
         return;
       }
       user.getIdToken(true).then(async function (idToken) {
-        cookie.save('mercury-fb-token', idToken, { path: "/", SameSite:"strict", secure: true });
+        cookie.save('mercury-fb-token', idToken, { path: "/", sameSite: "strict", SameSite:"strict" });
 
         await fetch('/api/runners/new', {
           method: 'POST',
@@ -83,7 +83,7 @@ export function updateRunner(runnerUID, toUpdate, newValue){
         return;
       }
       user.getIdToken(true).then(async function (idToken) {
-        cookie.save('mercury-fb-token', idToken, { path: "/", SameSite:"strict", secure: true });
+        cookie.save('mercury-fb-token', idToken, { path: "/", sameSite: "strict", SameSite:"strict" });
 
         await fetch('/api/runners/update', {
           method: 'POST',

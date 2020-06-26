@@ -30,7 +30,7 @@ class TeamSelect extends React.Component {
   setSelectedTeam(team){
     this.props.getTeamRunners(team.key);
     this.props.setTeam(team.key);
-    cookie.save('selectedTeam', team.key, { path: '/'});
+    cookie.save('mercury-selectedTeam', team.key, { path: '/', sameSite:"strict", SameSite:"strict"});
     this.setState({
       toTeamHome: true
     })
