@@ -14,7 +14,8 @@ export class Workouts extends Component {
         this.state = {
             show: false,
             showImport: false,
-            toWorkoutCreator: false
+            toWorkout: false,
+            toWorkoutCreator: false,
         }
 
         this.setSelectedBlueprint = this.setSelectedBlueprint.bind(this);
@@ -59,13 +60,18 @@ export class Workouts extends Component {
 
     setSelectedBlueprint(blueprint){
       this.props.setBlueprint(blueprint.key);
-      console.log("workout selected ");
-      window.location.href='./workoutdetails'
+      this.setState({
+          toWorkout: true
+      })
     }
       
     render() {
         if(!this.props.selectedTeam){
             return null;
+        }
+        if(this.state.toWorkout){
+            this.props.history.push('/workouts')
+            return <Redirect to='/workoutdetails' />
         }
         if(this.state.toWorkoutCreator){
             this.props.history.push('/workouts')

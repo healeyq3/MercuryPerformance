@@ -26,6 +26,7 @@ import AuthRoute2 from './util/AuthRoute2';
 import AuthRoute3 from './util/AuthRoute3';
 import NavigationTop from "./components/NavigationTop";
 import NavigationSide from "./components/NavigationSide";
+import MainPage from "./pages/MainPage";
 
 class App extends Component {
   render() {
@@ -35,25 +36,7 @@ class App extends Component {
           <div className="container">
             <Router>
               <NavigationTop/>
-              <div className="main-page-container">
-                <NavigationSide/>
-                <div className="main-page">
-                  <Switch>
-                    <AuthRoute exact path = '/login' component = {Login}/>
-                    <AuthRoute3 exact path = '/' component = {Home}/>
-                    <AuthRoute3 exact path = '/home' component = {Home}/>
-                    <AuthRoute exact path = '/signup' component = {CreateAccount}/>
-                    <AuthRoute2 exact path = '/teamselect' component = {TeamSelect}/>
-                    <AuthRoute2 exact path = '/comingsoon' component = {ComingSoon} />
-                    <AuthRoute3 exact path = '/events' component = {Events}/>
-                    <AuthRoute3 exact path = '/eventdetails' component = {EventDetails}/>
-                    <AuthRoute3 exact path = '/workouts' component = {Workouts} />
-                    <AuthRoute3 exact path = '/workoutdetails' component = {WorkoutDetails} />
-                    <AuthRoute3 exact path = '/workoutdatedetails' component = {WorkoutDateDetails} />
-                    <AuthRoute3 exact path = '/workoutcreator' component = {WorkoutCreator} />
-                  </Switch>
-                </div>
-              </div>
+              <MainPage/>
             </Router>
           </div>
         </Provider>
