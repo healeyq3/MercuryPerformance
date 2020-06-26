@@ -6,6 +6,7 @@ import WorkoutRepDataCard from './WorkoutRepDataCard';
 export class WorkoutRunnerCard extends Component {
     
     render() {
+        console.log("Fuck this fucking merging shit")
         let repItems = [];
         for(const rep in this.props.reps){
            
