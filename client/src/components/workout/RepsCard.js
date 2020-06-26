@@ -30,9 +30,8 @@ const RepsCard = React.forwardRef(
                         <p>{rep.percent}%</p>
                     </Col>
                         <Row>
-                            <Button variant = "outline-primary" onClick ={setShow}>Edit</Button>
-                            <Button variant = "outline-secondary" onClick = {() => onDelete(index)}>🗑</Button>
                             <EditPopover index = {index} show = {show} rep = {rep} onSelect = {onEdit} setShow = {setShow}/>
+                            <Button variant = "outline-secondary" onClick = {() => onDelete(index)}>🗑</Button>
                         </Row>
                     </Col>
                 </Row>
