@@ -6,7 +6,8 @@ import WorkoutRepDataCard from './WorkoutRepDataCard';
 export class WorkoutRunnerCard extends Component {
     
     render() {
-        console.log(this.props.reps.reps);
+
+        console.log(this.props.reps);
         return (
             <Accordion>
             <Card style = {{ height: '10%', orientation: 'horizontal'}}>
