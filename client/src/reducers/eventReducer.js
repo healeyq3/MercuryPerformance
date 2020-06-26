@@ -1,9 +1,18 @@
-import {GET_TEAM_EVENTS, NEW_EVENT, SET_EVENT, NEW_TIME, RUNNERS_ADDED, SELECT_RUNNER} from '../actions/types';
+import {
+  GET_TEAM_EVENTS,
+  NEW_EVENT,
+  SET_EVENT,
+  NEW_TIME,
+  RUNNERS_ADDED,
+  SELECT_RUNNER,
+  RESET_RUNNER_ADDED
+} from '../actions/types';
 
 const initialState = {
   events: {},
   selectedEvent: '',
   selectedRunner: '',
+  hasAddedRunner: false
 };
 
 export default function(state = initialState, action) {
@@ -50,6 +59,7 @@ export default function(state = initialState, action) {
       const runnersAdded = action.payload.runnersAdded;
       const newState = {
         ...state,
+        hasAddedRunner: true
       }
       newState.events[euid].runners = {
         ...newState.events[euid].runners,
@@ -60,6 +70,11 @@ export default function(state = initialState, action) {
       return{
         ...state,
         selectedRunner: action.payload
+      }
+    case RESET_RUNNER_ADDED:
+      return{
+        ...state,
+        hasAddedRunner: false
       }
     default:
       return state;
