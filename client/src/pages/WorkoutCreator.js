@@ -25,6 +25,7 @@ export class WorkoutCreator extends Component {
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
+        this.handleEdit = this.handleEdit.bind(this)
     }
 
     setShow = e => {

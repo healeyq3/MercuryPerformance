@@ -85,7 +85,7 @@ export class EditPopover extends Component {
                                             />
                                 <Row>
                                 <Col>
-                                <Button variant = "outline-secondary"  onClick={() => this.props.setShow}>Cancel</Button>
+                                <Button variant = "outline-secondary"  onClick={() => this.setState({show: !this.state.show})}>Cancel</Button>
                                 </Col>
                                 <Col>
                                 <Button variant = "primary" onClick = {this.handleEditTimeRep}>Add</Button>
