@@ -20,10 +20,18 @@ export class WorkoutCreator extends Component {
         this.state = {
             name:'',
             reps:[],
-            toWorkoutHome: false
+            toWorkoutHome: false,
+            show: false
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
+    }
+
+    setShow = e => {
+        console.log("Called");
+        this.setState({
+            show: !this.state.show
+        })
     }
 
     handleChange(e){
@@ -54,6 +62,14 @@ export class WorkoutCreator extends Component {
         toReturn.splice(index, 1);
         this.setState({
             reps: toReturn
+        })
+    }
+
+    handleEdit(rep, index){
+        let toReturn = this.state.reps;
+        toReturn[index] = rep;
+        this.setState({
+            rep: toReturn
         })
     }
 
@@ -151,6 +167,9 @@ export class WorkoutCreator extends Component {
                         index = {i}
                         moveCard = {this.moveCard}
                         onDelete = {this.handleDelete}
+                        onEdit = {this.handleEdit}
+                        setShow = {this.setShow}
+                        show = {this.state.show}
                         />
                     ))}
                 </Card>

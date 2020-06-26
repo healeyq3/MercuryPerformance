@@ -2,10 +2,10 @@ import React, { useImperativeHandle, useRef } from 'react';
 import { DragSource, DropTarget } from 'react-dnd'
 import {Row, Col, Card, Button} from 'react-bootstrap';
 import { CARD_REP } from '../../dragTypes/workoutcreatortypes'
-
+import { EditPopover } from '../workout/EditPopover';
 
 const RepsCard = React.forwardRef(
-   ({rep, isDragging, connectDragSource, connectDropTarget, index, onDelete }, ref) => {
+   ({rep, isDragging, connectDragSource, connectDropTarget, index, onDelete, onEdit, setShow, show }, ref) => {
        const elementRef = useRef(null)
        connectDragSource(elementRef)
        connectDropTarget(elementRef)
@@ -30,8 +30,9 @@ const RepsCard = React.forwardRef(
                         <p>{rep.percent}%</p>
                     </Col>
                         <Row>
-                            <Button variant = "outline-primary">Edit</Button>
+                            <Button variant = "outline-primary" onClick ={setShow}>Edit</Button>
                             <Button variant = "outline-secondary" onClick = {() => onDelete(index)}>🗑</Button>
+                            <EditPopover index = {index} show = {show} rep = {rep} onSelect = {onEdit} setShow = {setShow}/>
                         </Row>
                     </Col>
                 </Row>
