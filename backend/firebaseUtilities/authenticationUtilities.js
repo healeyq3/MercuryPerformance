@@ -6,6 +6,7 @@ async function authenticateToken(idToken){
 
 async function authenticatePost(req, res){
   return authenticateToken(req.body.idToken).then((decodedIdToken) => {
+    req.session.useruid = decodedIdToken.uid;
     return true;
   }).catch((error) => {
     res.end("{}");

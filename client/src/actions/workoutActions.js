@@ -166,7 +166,7 @@ export function newActualWorkout(workoutData, selectedTeamUID){
                     },
                     body: JSON.stringify({
                         workoutData,
-                        idToken: cookie.load('idToken'),
+                        idToken,
                         selectedTeamUID
                     })
                 })
@@ -185,26 +185,34 @@ export function newActualWorkout(workoutData, selectedTeamUID){
 
 export function getActualWorkouts(selectedTeamUID, blueprint){
     return async function(dispatch){
-        await fetch('/api/workouts/workouts', {
-            method: 'POST',
-            headers : {
-                'content-type' : 'application/json'
-            },
-            body: JSON.stringify({
-                idToken: cookie.load('idToken'),
-                selectedTeamUID,
-                blueprint
+        fire.auth().onAuthStateChanged(function(user) {
+            if (!user) {
+                cookie.remove('mercury-fb-token');
+                return;
+            }
+            user.getIdToken(true).then(async function (idToken) {
+                cookie.save('mercury-fb-token', idToken, {path: "/"});
+
+                await fetch('/api/workouts/workouts', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        idToken,
+                        selectedTeamUID,
+                        blueprint
+                    })
+                })
+                    .then(res => res.json())
+                    .then(workouts => dispatch({
+                        type: GET_WORKOUTS,
+                        payload: workouts
+                    })).catch(err => {
+                        console.log(`error in workoutActions: ${err}`)
+                    })
             })
         })
-        .then(res => res.json())
-        .then(workouts => 
-            dispatch({
-                type: GET_WORKOUTS,
-                payload: workouts
-            }))
-            .catch(err => {
-                console.log(`error in workoutActions: ${err}`)
-            })
     }
 }
 
