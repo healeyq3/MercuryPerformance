@@ -8,7 +8,7 @@ const AuthRoute3 = ({component: Component, team, ...rest}) => (
     <Route
     {...rest}
     render = {function(props){
-        const authenticated = cookie.load('idToken');
+        const authenticated = cookie.load('mercury-fb-token');
         const team = cookie.load('selectedTeam');
         return authenticated == null  ? <Redirect to = '/login'/> : team == null ? <Redirect to = '/teamselect' /> : <Component { ...props} />
     }

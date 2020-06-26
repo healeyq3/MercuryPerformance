@@ -28,8 +28,7 @@ class NavigationSide extends Component {
     }
 
     logout = () => {
-        cookie.remove('idToken', { path: "/" });
-        cookie.remove('user', { path: "/" });
+        cookie.remove('mercury-fb-token', { path: "/" });
         this.props.rerenderCallback();
         fire.auth().signOut().then();
     }
@@ -51,7 +50,7 @@ class NavigationSide extends Component {
     }
 
     render() {
-        if(!cookie.load('idToken')){
+        if(!cookie.load('mercury-fb-token')){
             return null;
         }
         return (

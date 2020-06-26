@@ -3,12 +3,11 @@ import cookie from 'react-cookies'
 import fire from "../Fire";
 
 export function newEvent(eventData, selectedTeamUID){
-  fire.auth().onAuthStateChanged(function(user){
-    user.getIdToken(true).then((token) => {
+  return async function(dispatch) {
+    fire.auth().onAuthStateChanged(function(user){
+      user.getIdToken(true).then(async function(idToken){
+        cookie.save('mercury-fb-token', idToken, { path: "/" });
 
-      cookie.save('idToken', token, { path: "/" });
-
-      return async function(dispatch) {
         await fetch('/api/events/new', {
           method: 'POST',
           headers: {
@@ -16,70 +15,82 @@ export function newEvent(eventData, selectedTeamUID){
           },
           body: JSON.stringify({
             eventData,
-            idToken: token,
-            selectedTeamUID: selectedTeamUID
+            idToken,
+            selectedTeamUID
           })
         })
-            .then(res => res.json())
-            .then(event =>
-                dispatch({
-                  type: NEW_EVENT,
-                  payload: event,
-                  eventUID: event.key
-                }))
-            .catch((error) => {
-              console.log(error);
-            })
-      }
-    }).catch((error) => {
-      cookie.remove('idToken', { path: "/" });
+        .then(res => res.json())
+        .then(event =>
+          dispatch({
+            type: NEW_EVENT,
+            payload: event,
+            eventUID: event.key
+          }))
+        .catch((error) => {
+          console.log(error);
+        })
+      })
     })
-  })
+  }
 }
 
 export function newTime(timeData, splitsData, selectedTeamUID, eventUID, runnerUID){
   return async function(dispatch) {
-    await fetch('/api/events/newtime', {//this is not actually going to the events backend, even though the link should be correct
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify({
-        timeData,
-        splitsData,
-        idToken: cookie.load('idToken'),
-        eventUID: eventUID,
-        selectedTeamUID: selectedTeamUID,
-        runnerUID: runnerUID
+    fire.auth().onAuthStateChanged(function(user) {
+      user.getIdToken(true).then(async function (idToken) {
+        cookie.save('mercury-fb-token', idToken, {path: "/"});
+
+        await fetch('/api/events/newtime', {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json'
+          },
+          body: JSON.stringify({
+            timeData,
+            splitsData,
+            idToken,
+            eventUID,
+            selectedTeamUID,
+            runnerUID
+          })
+        })
+        .then((res) => res.json())
+        .then((forPayload) => {
+          dispatch({
+            type: NEW_TIME,
+            payload: forPayload
+          })
+        })
       })
-    }).then((res) => res.json())
-      .then((forPayload) => {
-      dispatch({
-        type: NEW_TIME,
-        payload: forPayload
-      })})
+    })
   }
 }
 
 export function getTeamEvents(selectedTeamUID) {
   return async function(dispatch){
-    await fetch('/api/events', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify({
-        idToken: cookie.load('idToken'),
-        selectedTeamUID: selectedTeamUID
+    fire.auth().onAuthStateChanged(function(user) {
+      user.getIdToken(true).then(async function (idToken) {
+        cookie.save('mercury-fb-token', idToken, {path: "/"});
+
+        await fetch('/api/events', {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json'
+          },
+          body: JSON.stringify({
+            idToken,
+            selectedTeamUID
+          })
+        })
+        .then(res => res.json())
+        .then(events =>
+          dispatch({
+            type: GET_TEAM_EVENTS,
+            payload: events
+          })
+        );
       })
     })
-    .then(res => res.json())
-    .then(events =>
-      dispatch({
-        type: GET_TEAM_EVENTS,
-        payload: events
-      })
-    );
   }
 }
 
@@ -94,24 +105,29 @@ export function setEvent(event){
 
 export function addRunnersToEvent(runnerUidArray, eventuid){
   return async function(dispatch){
-    await fetch('/api/events/addrunner', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify({
-        idToken: cookie.load('idToken'),
-        eventuid: eventuid,
-        runnerUidArray: runnerUidArray
+    fire.auth().onAuthStateChanged(function(user) {
+      user.getIdToken(true).then(async function (idToken) {
+        cookie.save('mercury-fb-token', idToken, {path: "/"});
+        await fetch('/api/events/addrunner', {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json'
+          },
+          body: JSON.stringify({
+            idToken,
+            eventuid,
+            runnerUidArray
+          })
+        })
+        .then(res => res.json())
+        .then(runnersAddedObject =>
+          dispatch({
+            type: RUNNERS_ADDED,
+            payload: runnersAddedObject
+          })
+        );
       })
     })
-    .then(res => res.json())
-    .then(runnersAddedObject =>
-      dispatch({
-        type: RUNNERS_ADDED,
-        payload: runnersAddedObject
-      })
-    );
   }
 }
 
