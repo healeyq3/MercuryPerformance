@@ -9,6 +9,7 @@ const AuthRoute3 = ({component: Component, team, ...rest}) => (
     {...rest}
     render = {function(props){
         const authenticated = cookie.load('idToken');
+        const team = cookie.load('selectedTeam');
         return authenticated == null  ? <Redirect to = '/login'/> : team == null ? <Redirect to = '/teamselect' /> : <Component { ...props} />
     }
     }

@@ -29,7 +29,6 @@ export class Events extends Component {
     
     componentDidUpdate(prevProps, prevState, snapshot){
       if(prevProps.rehydrated === false){
-        console.log("Events needed - passing: " + this.props.selectedTeam);
         this.props.getTeamEvents(this.props.selectedTeam);
       }
     }
