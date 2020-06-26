@@ -65,10 +65,8 @@ export default function(state = initialState, action){
                 ...state,
                 hasAddedRunner: true
             }
-            console.log(wuid)
-            console.log(newState.workouts[wuid])
-            newState.workouts[wuid].runners = {
-                ...newState.events[wuid].runners,
+            newState.actualWorkouts[wuid].runners = {
+                ...newState.actualWorkouts[wuid].runners,
                 ...runnersAdded
             }
             return newState;

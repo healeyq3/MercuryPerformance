@@ -4,7 +4,9 @@ import WorkoutRepDataCard from './WorkoutRepDataCard';
 // import {timeGenerator} from '../../math/TimeConversions'
 
 export class WorkoutRunnerCard extends Component {
+    
     render() {
+        console.log(this.props.reps);
         return (
             <Accordion>
             <Card style = {{ height: '10%', orientation: 'horizontal'}}>
@@ -12,7 +14,7 @@ export class WorkoutRunnerCard extends Component {
                 <Row>
                         <Col>
                         <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                         {<Card.Title>Name</Card.Title>}
+                        {<Card.Title>{this.props.runner.name}</Card.Title>}
                         </Accordion.Toggle>
                         
                         </Col>
