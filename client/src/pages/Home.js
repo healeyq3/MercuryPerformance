@@ -7,7 +7,7 @@ import ExistingRunnerCard from '../components/ExistingRunnerCard';
 import  AddRunner from '../components/AddRunner';
 import PropTypes from 'prop-types';
 import { getAverageTeamPace } from '../math/AnalysisAlgos';
-import Redirect from "react-router-dom/es/Redirect";
+import {Redirect} from "react-router-dom";
 import "../css/home.css"
 class Home extends Component {
   constructor(props){
@@ -100,8 +100,6 @@ Home.propTypes = {
 };
   
 const mapStateToProps = function(state){
-  console.log("Home mapping");
-  console.dir(state);
   return {
     runners: state.runners.runners,
     selectedTeam: state.teams.selectedTeam,

@@ -30,7 +30,6 @@ export class MainPage extends Component {
 
     render(){
         let mainPageClasses = ["main-page"];
-        console.log(cookie.load('mercury-fb-token'))
         if(!cookie.load('mercury-fb-token')){
             mainPageClasses.push('login')
         }
@@ -39,20 +38,22 @@ export class MainPage extends Component {
             <div className="main-page-container">
                 <NavigationSide rerenderCallback={this.rerenderCallback}/>
                 <Switch>
-                    <div className={mainPageClasses.join(' ')}>
-                        <AuthRoute exact path = '/login' component = {Login} rerenderCallback={this.rerenderCallback}/>
-                        <AuthRoute3 exact path = '/' component = {Home}/>
-                        <AuthRoute3 exact path = '/home' component = {Home}/>
-                        <AuthRoute exact path = '/signup' component = {CreateAccount}/>
-                        <AuthRoute2 exact path = '/teamselect' component = {TeamSelect}/>
-                        <AuthRoute2 exact path = '/comingsoon' component = {ComingSoon} />
-                        <AuthRoute3 exact path = '/events' component = {Events}/>
-                        <AuthRoute3 exact path = '/eventdetails' component = {EventDetails}/>
-                        <AuthRoute3 exact path = '/workouts' component = {Workouts} />
-                        <AuthRoute3 exact path = '/workoutdetails' component = {WorkoutDetails} />
-                        <AuthRoute3 exact path = '/workoutdatedetails' component = {WorkoutDateDetails} />
-                        <AuthRoute3 exact path = '/workoutcreator' component = {WorkoutCreator} />
-                    </div>
+                    <React.Fragment>
+                        <div className={mainPageClasses.join(' ')}>
+                            <AuthRoute exact path = '/login' component = {Login} rerenderCallback={this.rerenderCallback}/>
+                            <AuthRoute3 exact path = '/' component = {Home}/>
+                            <AuthRoute3 exact path = '/home' component = {Home}/>
+                            <AuthRoute exact path = '/signup' component = {CreateAccount}/>
+                            <AuthRoute2 exact path = '/teamselect' component = {TeamSelect}/>
+                            <AuthRoute2 exact path = '/comingsoon' component = {ComingSoon} />
+                            <AuthRoute3 exact path = '/events' component = {Events}/>
+                            <AuthRoute3 exact path = '/eventdetails' component = {EventDetails}/>
+                            <AuthRoute3 exact path = '/workouts' component = {Workouts} />
+                            <AuthRoute3 exact path = '/workoutdetails' component = {WorkoutDetails} />
+                            <AuthRoute3 exact path = '/workoutdatedetails' component = {WorkoutDateDetails} />
+                            <AuthRoute3 exact path = '/workoutcreator' component = {WorkoutCreator} />
+                        </div>
+                    </React.Fragment>
                 </Switch>
             </div>
         )
