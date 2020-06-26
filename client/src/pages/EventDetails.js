@@ -20,6 +20,7 @@ export class EventDetails extends Component {
           runnerCount: 0,
         }
     }
+
     componentDidUpdate(prevProps, prevState, snapshot) {
       if(prevProps.rehydrated===false){
         console.log(this.props);
@@ -65,7 +66,7 @@ export class EventDetails extends Component {
 
       if(this.props.hasAddedRunner && this.state.runnerCount === Object.keys(this.props.events[this.props.selectedEvent].runners).length){
         this.props.resetRunnerAdded();
-        this.forceUpdate();
+        // this.setState({});
       }
 
       if(this.props.events[this.props.selectedEvent].hasOwnProperty('runners') === true){

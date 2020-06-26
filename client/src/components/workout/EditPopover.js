@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Popover, Overlay, Form, Button, Row, Col } from 'react-bootstrap'
+import { Popover, Overlay, Form, Button, Row, Col, Container } from 'react-bootstrap'
+import ReactDOM from 'react-dom';
 
 export class EditPopover extends Component {
     constructor(props){
@@ -11,7 +12,8 @@ export class EditPopover extends Component {
             distanceUnit: '',
             hours: 0,
             minutes: 0,
-            seconds: 0
+            seconds: 0,
+            show: false
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -49,7 +51,9 @@ export class EditPopover extends Component {
     
     render() {
         return (
-            <Overlay show = {this.props.show} placement = "left">  
+            <Container fluid>
+            <Button variant = "outline-primary" onClick={() => this.setState({show: !this.state.show})} ref={(button) => { this.target = button; }}>Edit</Button>
+            <Overlay show = {this.state.show} placement = "left" target={ReactDOM.findDOMNode(this.target)}>  
                 <Popover id = "popover-basic" className = "text-center">
                 <Popover.Title as = 'h3'>{this.props.rep.type}</Popover.Title>
                     {this.props.rep.distanceUnit === undefined ? 
@@ -111,7 +115,7 @@ export class EditPopover extends Component {
                                 </Form.Control>
                                 <Row>
                                 <Col>
-                                <Button variant = "outline-secondary" onClick={() => this.props.setShow}>Cancel</Button>
+                                <Button variant = "outline-secondary" onClick={() => this.setState({show: !this.state.show})}>Cancel</Button>
                                 </Col>
                                 <Col>
                                 <Button variant = "primary" onClick = {this.handleDistanceRep}>Add</Button>
@@ -121,6 +125,7 @@ export class EditPopover extends Component {
                 </Popover.Content>}
                 </Popover>
             </Overlay>
+            </Container>
         )
     }
 }

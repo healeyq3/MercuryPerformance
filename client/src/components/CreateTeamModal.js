@@ -22,12 +22,10 @@ export class CreateTeamModal extends React.Component {
 
     handleCreateTeam = () => {
         const teamData = {
-            user: cookie.load('user'),
             teamName: this.state.teamName,
             teamYear: this.state.teamYear,
             teamLevel: this.state.teamLevel,
         }
-        console.log(teamData.user.uid);
         this.props.newTeam(teamData);
         this.props.setShow();
     }
