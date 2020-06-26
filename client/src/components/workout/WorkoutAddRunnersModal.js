@@ -52,7 +52,6 @@ export class WorkoutAddRunnersModal extends Component {
 
        for(const runner in this.props.runners){
             if(this.props.runners.hasOwnProperty(runner)){
-                console.log(this.props.workouts)
                 if(this.props.workouts[this.props.selectedWorkout].hasOwnProperty('runners') === false){
                     runnerToAddArr.push(
                         <Form.Group key = {this.props.runners[runner].key}>
