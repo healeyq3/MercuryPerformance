@@ -20,7 +20,8 @@ export class WorkoutImplementor extends Component {
     handleCreate = () => {
         const workoutData = {
             date: this.state.date,
-            reps: this.props.reps
+            reps: this.props.reps,
+            blueprint: this.props.blueprint
         }
         this.props.newActualWorkout(workoutData, this.props.teamUID);
         this.props.setShow();

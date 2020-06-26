@@ -113,8 +113,10 @@ async function newWorkout(req, res){
     const data = req.body;
     const date = data.workoutData.date;
     const reps = data.workoutData.reps;
+    const blueprint = data.workoutData.blueprint
 
-    workoutUtilities.createWorkout(req.session.useruid, data.selectedTeamUID, date, reps).then(workout => {
+    
+    workoutUtilities.createWorkout(req.session.useruid, data.selectedTeamUID, blueprint, date, reps).then(workout => {
       res.setHeader('Content-Type', 'application/json');
       res.end(JSON.stringify(workout));
     }).catch(err => {
@@ -137,7 +139,7 @@ async function getWorkouts(req, res){
         return;
     }
 
-    workoutUtilities.getWorkouts(data.selectedTeamUID).then((workouts) => {
+    workoutUtilities.getWorkouts(data.selectedTeamUID, data.blueprint).then((workouts) => {
         res.setHeader('Content-Type', 'application/json');
         res.end(JSON.stringify(workouts));
     }).catch(err => {

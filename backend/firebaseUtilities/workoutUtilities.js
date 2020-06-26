@@ -95,8 +95,8 @@ async function addBlueprintToUser(useruid, blueprintuid){
       })
 }
 
-async function getWorkouts(teamuid) {
-    const teamWorkoutsRef = await database.ref('teams/' + teamuid.toString() + '/workouts');
+async function getWorkouts(teamuid, blueprint) {
+    const teamWorkoutsRef = await database.ref('teams/' + teamuid.toString() + '/blueprints/' + blueprint + '/workouts');
     let workouts = {};
 
     await teamWorkoutsRef.once('value').then(async (snapshot) => {
@@ -122,7 +122,7 @@ async function getWorkouts(teamuid) {
     return workouts;
 }
 
-async function createWorkout(useruid, teamuid, date, reps){
+async function createWorkout(useruid, teamuid, blueprint, date, reps){
     const workoutRef = await database.ref('workouts').push();
 
     const workoutData = {
@@ -134,12 +134,22 @@ async function createWorkout(useruid, teamuid, date, reps){
     workoutRef.set(workoutData).then(async () => {
         addWorkoutToTeam(teamuid, workoutRef.key)
         addWorkoutToUser(useruid, workoutRef.key);
+        addWorkoutToBlueprint(blueprint, workoutRef.key)
     }).catch(err => {
         console.log('Unable to create workout'.red + date.blue);
         console.log(err.toString());
     });
 
     return workoutData;
+}
+
+async function addWorkoutToBlueprint(blueprintuid, workoutuid){
+    await database.ref('blueprints/' + blueprintuid + '/workouts').child(workoutuid).set(workoutuid)
+    .then(() => {
+    }).catch(err => {
+        console.log("Unable to add workout ".red + workout.red + ' to '.red + blueprintuid.toString().red);
+        console.log(err);
+    })
 }
 
 async function addWorkoutToTeam(teamuid, workoutuid){
