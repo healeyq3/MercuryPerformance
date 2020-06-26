@@ -58,8 +58,9 @@ export class Workouts extends Component {
         })
     }
 
-    setSelectedBlueprint(blueprint){
-      this.props.setBlueprint(blueprint.key);
+    async setSelectedBlueprint(blueprint){
+      await this.props.setBlueprint(blueprint.key);
+      console.log(this.props.selectedBlueprint)
       this.setState({
           toWorkout: true
       })

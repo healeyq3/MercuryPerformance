@@ -36,9 +36,10 @@ export class WorkoutDetails extends Component {
         })
       }
 
-    componentDidUpdate(prevProps, prevState, ss){
+    componentDidUpdate(prevProps){
         if(prevProps.rehydrated === false){
-          this.props.getActualWorkouts(this.props.selectedTeam, this.props.selectedBlueprint);
+        console.log("Refreshed");
+        this.props.getActualWorkouts(this.props.selectedTeam, this.props.selectedBlueprint);
         }
       }
 
@@ -47,18 +48,23 @@ export class WorkoutDetails extends Component {
             return <Redirect to='/workoutdatedetails' />
         }
         if(!this.props.selectedTeam || !this.props.selectedBlueprint || !this.props.blueprints[this.props.selectedBlueprint]){
-            return <Redirect to='/workouts'/>;
+            // return <Redirect to='/workouts'/>;
+            return null;
         }
 
         let cardItems = [];
         for(const workoutuid in this.props.workouts){
             if(this.props.workouts.hasOwnProperty(workoutuid)){
                 cardItems.push(
-                    <WorkoutBlueprintDayCard onSelect = {this.setSelectedWorkout} workout = {this.props.workouts[workoutuid]} />
+                    <React.Fragment key = {workoutuid}>
+                        <WorkoutBlueprintDayCard onSelect = {this.setSelectedWorkout} workout = {this.props.workouts[workoutuid]} />
+                    </React.Fragment>
+                    
                 )
             }
         }
-
+        console.log(this.selectedBlueprint);
+        console.log(this.props.selectedTeam);
         return (
             
             // <Container>
