@@ -19,8 +19,8 @@ export class WorkoutDateDetails extends Component {
                 <Card className = "text-center">
                     <Card.Header>Going</Card.Header>
                     <Card.Body>
-                        <WorkoutDateRunnerCard></WorkoutDateRunnerCard>
-                        <WorkoutDateRunnerCard></WorkoutDateRunnerCard>
+                        <WorkoutDateRunnerCard/>
+                        <WorkoutDateRunnerCard/>
                     </Card.Body>
                 </Card>
             </Col>
@@ -28,7 +28,7 @@ export class WorkoutDateDetails extends Component {
                 <Card className = "text-center">
                     <Card.Header>Not Going</Card.Header>
                     <Card.Body>
-                        <WorkoutDateRunnerCard></WorkoutDateRunnerCard>
+                        <WorkoutDateRunnerCard/>
                     </Card.Body>
                 </Card>
             </Col>

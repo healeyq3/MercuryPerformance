@@ -31,7 +31,7 @@ class NavigationSide extends Component {
         cookie.remove('idToken', { path: "/" });
         cookie.remove('user', { path: "/" });
         this.props.rerenderCallback();
-        fire.auth().signOut();
+        fire.auth().signOut().then();
     }
 
     updateHome(){

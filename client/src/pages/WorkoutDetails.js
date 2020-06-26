@@ -12,7 +12,7 @@ export class WorkoutDetails extends Component {
     constructor(props){
         super(props);
         this.state = {
-            show: false
+            showNewDate: false
         }
     }
     
@@ -23,8 +23,9 @@ export class WorkoutDetails extends Component {
 
     setShow = e => {
         console.log("SetShow called");
+        console.log(!this.state.showNewDate);
         this.setState({
-            show: !this.state.show
+            showNewDate: !this.state.showNewDate
         })
     }
 
@@ -56,22 +57,22 @@ export class WorkoutDetails extends Component {
                 <Col>
                 <Card className = "text-center">
                     <Card.Header>Workout Dates</Card.Header>
-                    <WorkoutBlueprintDayCard onSelect = {this.setDate}></WorkoutBlueprintDayCard>
-                    <WorkoutBlueprintDayCard onSelect = {this.setDate}></WorkoutBlueprintDayCard>
+                    <WorkoutBlueprintDayCard onSelect = {this.setDate}/>
+                    <WorkoutBlueprintDayCard onSelect = {this.setDate}/>
                 </Card>
                 <Card className = "text-center" tag="a" onClick = {this.setShow} style = {{cursor:"pointer"}}>
-                    <p></p>
+                    <p/>
                     <Card.Title>New Date</Card.Title>
-                    <p></p>
-                    <WorkoutImplementor show = {this.state.show} setShow = {this.setShow} teamUID = {this.props.selectedTeam} reps = {this.props.blueprints[this.props.selectedBlueprint].reps}/>
+                    <p/>
                 </Card>
+                <WorkoutImplementor show={this.state.showNewDate} setShow = {this.setShow} teamUID = {this.props.selectedTeam} reps = {this.props.blueprints[this.props.selectedBlueprint].reps}/>
                 </Col>
                 <Col>
                 <Row>
-                <ExistingWorkoutGraph team = {this.props.teams[this.props.selectedTeam]} reps = {this.props.blueprints[this.props.selectedBlueprint].reps}></ExistingWorkoutGraph>
+                <ExistingWorkoutGraph team = {this.props.teams[this.props.selectedTeam]} reps = {this.props.blueprints[this.props.selectedBlueprint].reps}/>
                 </Row>
                 <Row>
-                    <WorkoutDetailsCard></WorkoutDetailsCard>
+                    <WorkoutDetailsCard/>
                 </Row>
                 </Col>
             </Row>
