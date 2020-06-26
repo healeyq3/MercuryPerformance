@@ -13,7 +13,7 @@ function getAverageTeamPace(runners){
     return secondsToMinutes(average);
 }
 
-function getPredictedTime(runner, rep){//not done
+function getPredictedTime(runner, rep){
     let pace = 0
     let t = 0
     if(runner.hasOwnProperty('wPace')){
