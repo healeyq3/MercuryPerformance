@@ -1,4 +1,4 @@
-import { GET_BLUEPRINTS, GET_ALL_BLUEPRINTS, NEW_BLUEPRINT, SET_BLUEPRINT, ADD_BLUEPRINT_TEAM, NEW_WORKOUT, GET_WORKOUTS } from './types';
+import { GET_BLUEPRINTS, GET_ALL_BLUEPRINTS, NEW_BLUEPRINT, SET_BLUEPRINT, ADD_BLUEPRINT_TEAM, NEW_WORKOUT, GET_WORKOUTS, SET_WORKOUT } from './types';
 import cookie from 'react-cookies';
 
 export function getWorkoutBlueprints(selectedTeamUID){
@@ -156,5 +156,14 @@ export function getActualWorkouts(selectedTeamUID){
             .catch(err => {
                 console.log(`error in workoutActions: ${err}`)
             })
+    }
+}
+
+export function setWorkout(workout){
+    return function(dispatch){
+        dispatch({
+            type: SET_WORKOUT,
+            payload: workout
+        })
     }
 }
