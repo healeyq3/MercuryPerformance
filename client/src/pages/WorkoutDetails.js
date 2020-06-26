@@ -31,7 +31,7 @@ export class WorkoutDetails extends Component {
     }
     setSelectedWorkout = workout => {
         console.log(workout.key);
-        this.props.setWorkout(workout.key + "SELECTED")
+        this.props.setWorkout(workout.key)
         this.setState({
             toWorkoutDate: true
         })
