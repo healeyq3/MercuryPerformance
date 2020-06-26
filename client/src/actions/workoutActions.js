@@ -1,4 +1,4 @@
-import { GET_BLUEPRINTS, GET_ALL_BLUEPRINTS, NEW_BLUEPRINT, SET_BLUEPRINT, ADD_BLUEPRINT_TEAM } from './types';
+import { GET_BLUEPRINTS, GET_ALL_BLUEPRINTS, NEW_BLUEPRINT, SET_BLUEPRINT, ADD_BLUEPRINT_TEAM, NEW_WORKOUT, GET_WORKOUTS } from './types';
 import cookie from 'react-cookies';
 
 export function getWorkoutBlueprints(selectedTeamUID){
@@ -106,5 +106,55 @@ export function setBlueprint(blueprint){
             type: SET_BLUEPRINT,
             payload: blueprint
         })
+    }
+}
+
+export function newActualWorkout(workoutData, selectedTeamUID){
+    return async function(dispatch){
+        await fetch('/api/workouts/newworkout', {
+            method: 'POST',
+            headers: {
+                'content-type' : 'application/json'
+            },
+            body: JSON.stringify({
+                workoutData,
+                idToken: cookie.load('idToken'),
+                selectedTeamUID
+            })
+        })
+        .then(res => res.json())
+        .then(workout => 
+            dispatch({
+                type: NEW_WORKOUT,
+                payload: workout,
+                workoutuid: workout.key
+            }))
+            .catch(err => {
+                console.log(`error in workoutActions: ${err}`)
+            })
+    }
+}
+
+export function getActualWorkouts(selectedTeamUID){
+    return async function(dispatch){
+        await fetch('/api/workouts/workouts', {
+            method: 'POST',
+            headers : {
+                'content-type' : 'application/json'
+            },
+            body: JSON.stringify({
+                idToken: cookie.load('idToken'),
+                selectedTeamUID
+            })
+        })
+        .then(res => res.json())
+        .then(workouts => 
+            dispatch({
+                type: GET_WORKOUTS,
+                payload: workouts
+            }))
+            .catch(err => {
+                console.log(`error in workoutActions: ${err}`)
+            })
     }
 }

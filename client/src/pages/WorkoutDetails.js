@@ -4,12 +4,26 @@ import WorkoutBlueprintDayCard from '../components/workout/WorkoutBlueprintDayCa
 import WorkoutDetailsCard from '../components/workout/WorkoutDetailsCard'
 import ExistingWorkoutGraph from '../components/workout/ExistingWorkoutGraph'
 import { connect } from 'react-redux';
+import { WorkoutImplentorModal } from '../components/workout/WorkoutImplentorModal';
 import PropTypes from 'prop-types';
 
 export class WorkoutDetails extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            show: false
+        }
+    }
+    
     setDate(){
         window.location.href="./workoutdatedetails"
         console.log("clicked")
+    }
+
+    setShow = e => {
+        this.setState({
+            show: !this.state.show
+        })
     }
 
     render() {
@@ -18,22 +32,24 @@ export class WorkoutDetails extends Component {
         }
 
         return (
-            <Container>
-            <Container fluid>
-                <Nav fill variant="tabs" className="justify-content-center">
-                <Nav.Item>
-                    <Nav.Link href = "./workoutdetails">Workout Name</Nav.Link>
-                </Nav.Item>
-                </Nav>
-                <Nav fill variant="tabs" className="justify-content-center">
-                <Nav.Item>
-                    <Row className = "justify-content-center">
-                    <Nav.Link href = "./workoutcreator">Edit Blueprint</Nav.Link>
-                    <Nav.Link href = "./workouts">Delete</Nav.Link>
-                    </Row>
-                </Nav.Item>
-                </Nav>
-            </Container>
+            // <Container>
+            <React.Fragment>
+                <Row>
+                    <Container fluid>
+                    <Nav fill variant="tabs" className="justify-content-center">
+                    <Nav.Item>
+                        <Nav.Link href = "./workoutdetails">Workout Name</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link href = "./workoutcreator">Edit Blueprint</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link href = "./workouts">Delete</Nav.Link>
+                    </Nav.Item>
+                    </Nav>
+                    </Container>
+                </Row>
+            
             <Row>
                 <Col>
                 <Card className = "text-center">
@@ -45,6 +61,7 @@ export class WorkoutDetails extends Component {
                     <p></p>
                     <Card.Title>New Date</Card.Title>
                     <p></p>
+                    <WorkoutImplentorModal show = {this.state.show} setShow = {this.setShow} teamUID = {this.props.selectedTeam} reps = {this.props.blueprints[this.props.selectedBlueprint].reps}/>
                 </Card>
                 </Col>
                 <Col>
@@ -56,7 +73,7 @@ export class WorkoutDetails extends Component {
                 </Row>
                 </Col>
             </Row>
-            </Container>
+            </React.Fragment>
         )
     }
 }

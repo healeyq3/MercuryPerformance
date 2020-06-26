@@ -95,8 +95,75 @@ async function addBlueprintToUser(useruid, blueprintuid){
       })
 }
 
+async function getWorkouts(teamuid) {
+    const teamWorkoutsRef = await database.ref('teams/' + teamuid.toString() + '/workouts');
+    let workouts = {};
+
+    await teamWorkoutsRef.once('value').then(async (snapshot) => {
+        let workoutsArray = [];
+        snapshot.forEach(function(child) {
+            workoutsArray.push(child);
+        });
+
+        for(const workout of workoutsArray){
+            const value = workout.key;
+            await database.ref('workouts/' + value).once('value').then(workoutSnapshot => {
+                workouts[value] = workoutSnapshot.val();
+            }).catch(err => {
+                console.log(`Error in getWorkouts - database ref workouts/val`.red);
+                console.log(err);
+            })
+        }
+    }).catch(err => {
+        console.log('Error in getWorkouts'.red);
+        console.log(err);
+    })
+
+    return workouts;
+}
+
+async function createWorkout(useruid, teamuid, date, reps){
+    const workoutRef = await database.ref('workouts').push();
+
+    const workoutData = {
+        date,
+        reps,
+        key: blueprintRef.key.toString()
+    }
+
+    workoutRef.set(workoutData).then(async () => {
+        addWorkoutToTeam(teamuid, workoutRef.key)
+        addWorkoutToUser(useruid, workoutRef.key);
+    }).catch(err => {
+        console.log('Unable to create workout'.red + date.blue);
+        console.log(err.toString());
+    });
+
+    return workoutData;
+}
+
+async function addWorkoutToTeam(teamuid, workoutuid){
+    await database.ref('teams/' + teamuid + '/workouts').child(workoutuid).set(workoutuid)
+    .then(() => {
+    }).catch(err => {
+        console.log("Unable to add workout ".red + workout.red + ' to '.red + teamuid.toString().red);
+        console.log(err);
+    })
+}
+
+async function addWorkoutToUser(useruid, workoutuid){
+    await database.ref('users/' + useruid + '/workouts').child(workoutuid).set(workoutuid)
+      .then(() => {
+      }).catch(err => {
+          console.log("Unable to add workout ".red + workoutuid.red + ' to '.red + useruid.toString().red);
+          console.log(err);
+      })
+}
+
 
 module.exports.getBlueprints = getBlueprints;
 module.exports.addBlueprintToTeam = addBlueprintToTeam;
 module.exports.getAllBlueprints = getAllBlueprints;
 module.exports.createBlueprint = createBlueprint;
+module.exports.createWorkout = createWorkout;
+module.exports.getWorkouts = getWorkouts;

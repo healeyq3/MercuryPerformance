@@ -9,6 +9,8 @@ router.post('/blueprints', getBlueprints);
 router.post('/getallblueprints', getAllBlueprints);
 router.post('/newblueprint', newBlueprint);
 router.post('/addblueprint', addBlueprint);
+router.post('/workouts', getWorkouts);
+router.post('/newworkout', newWorkout);
 
 module.exports = router;
 
@@ -95,4 +97,51 @@ async function addBlueprint(req, res){
         teamuid: req.body.selectedTeamUID, blueprintuid: req.body.blueprintuid
     });
     res.end(toSend);
+}
+
+async function newWorkout(req, res){
+    if(!await authenticatePost(req, res)){
+        res.end("{}");
+        return;
+    }
+
+    if(!await teamUtilities.doesUserOwnTeam(req)){
+        res.end("{}");
+        return;
+    }
+
+    const data = req.body;
+    const date = data.workoutData.date;
+    const reps = data.workoutData.reps;
+
+    workoutUtilities.createWorkout(req.session.useruid, data.selectedTeamUID, date, reps).then(workout => {
+      res.setHeader('Content-Type', 'application/json');
+      res.end(JSON.stringify(workout));
+    }).catch(err => {
+      console.log("Error adding and fetching the new workout".red);
+      console.log(err);
+      res.end("{}");
+    })
+}
+
+async function getWorkouts(req, res){
+    if(!await authenticatePost(req, res)){
+        res.end("{}");
+        return;
+    }
+    
+    const data = req.body;
+    if(!await teamUtilities.doesUserOwnTeam(req)){
+        console.log("User does not own team they tried to access".red);
+        res.end("{}");
+        return;
+    }
+
+    workoutUtilities.getWorkouts(data.selectedTeamUID).then((workouts) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify(workouts));
+    }).catch(err => {
+        console.log(err);
+        res.end('{}');
+    });
 }
