@@ -24,6 +24,11 @@
   background-color: #ecf0f1;
 }
 
+.main-page.login{
+  left:0;
+  top:0;
+}
+
 .main-page-container{
   display: flex;
   flex-direction: row;
