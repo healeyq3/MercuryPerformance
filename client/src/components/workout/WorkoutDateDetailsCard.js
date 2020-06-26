@@ -6,7 +6,7 @@ export class WorkoutDetailsCard extends Component {
         return (
             <Card style = {{width: '25%', height: '25%'}}>
             <Card.Body>
-                <Card.Title>WorkoutName</Card.Title>
+                <Card.Title>Workout Name</Card.Title>
                 <Card.Subtitle>Location</Card.Subtitle>
                 <p></p>
                 <Card.Subtitle>Date</Card.Subtitle>
