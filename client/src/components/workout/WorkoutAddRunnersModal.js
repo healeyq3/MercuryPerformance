@@ -101,7 +101,7 @@ const mapStateToProps = function(state){
     return {
         runners: state.runners.runners,
         selectedWorkout: state.workouts.selectedWorkout,
-        workouts: state.events.workouts,
+        workouts: state.workouts.workouts,
     }
 }
 
