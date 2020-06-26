@@ -20,15 +20,14 @@ export class WorkoutDetails extends Component {
     
     setDate(){
         window.location.href="./workoutdatedetails"
-        console.log("clicked")
     }
 
     setShow = e => {
-        console.log("SetShow called");
         this.setState({
             showNewDate: !this.state.showNewDate
         })
     }
+
     setSelectedWorkout = workout => {
         console.log(workout.key);
         this.props.setWorkout(workout.key)
@@ -37,7 +36,7 @@ export class WorkoutDetails extends Component {
         })
       }
 
-    componentDidUpdate(prevProps){
+    componentDidUpdate(prevProps, prevState, ss){
         if(prevProps.rehydrated === false){
           this.props.getActualWorkouts(this.props.selectedTeam, this.props.selectedBlueprint);
         }
@@ -47,8 +46,8 @@ export class WorkoutDetails extends Component {
         if(this.state.toWorkoutDate){
             return <Redirect to='/workoutdatedetails' />
         }
-        if(!this.props.selectedTeam || !this.props.selectedBlueprint){
-            return null;
+        if(!this.props.selectedTeam || !this.props.selectedBlueprint || !this.props.blueprints[this.props.selectedBlueprint]){
+            return <Redirect to='/workouts'/>;
         }
 
         let cardItems = [];

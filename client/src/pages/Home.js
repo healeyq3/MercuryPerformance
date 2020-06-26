@@ -48,7 +48,6 @@ class Home extends Component {
     }
 
     if(this.state.gotoEvents){
-      this.props.history.push("/")
       return <Redirect to="/events"/>
     }
 

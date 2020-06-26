@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { newTime, addRunnersToEvent, selectRunner, resetRunnerAdded } from '../actions/eventActions';
 import { connect } from 'react-redux';
 import '../css/eventdetails.css';
+import {Redirect} from 'react-router-dom'
 
 export class EventDetails extends Component {
     constructor(props){
@@ -24,7 +25,7 @@ export class EventDetails extends Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
       if(prevProps.rehydrated===false){
         console.log(this.props);
-        if(!this.props.events[this.props.selectedEvent].runners){
+        if(!this.props.events[this.props.selectedEvent] || !this.props.events[this.props.selectedEvent].runners){
           return;
         }
         this.setState({
@@ -56,6 +57,10 @@ export class EventDetails extends Component {
     render() {
       if(!this.props.selectedEvent || !this.props.events){
           return null;
+      }
+
+      if(!this.props.events[this.props.selectedEvent]){
+        return <Redirect to="/events"/>
       }
 
       let runnersInEvent = [];

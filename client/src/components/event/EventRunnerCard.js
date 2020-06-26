@@ -3,6 +3,9 @@ import { Card, Button, Row, Col } from 'react-bootstrap';
 
 export class EventRunnerCard extends Component {
     render() {
+        if(!this.props.runner){
+            return;
+        }
         let hour;
         let min;
         let seconds;
@@ -21,10 +24,10 @@ export class EventRunnerCard extends Component {
             seconds='00'
         }
         time = hour + ":" + min + ":" +seconds
-    }
-    else{
-        time = ''
-    }
+        }
+        else{
+            time = ''
+        }
         return (
             <Card style = {{ height: '10%', orientation: 'horizontal'}}>
                 <Card.Body>

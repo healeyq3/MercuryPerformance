@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Link, Redirect, withRouter} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 import fire from '../Fire';
 import cookie from 'react-cookies'
 import '../css/login.css';
