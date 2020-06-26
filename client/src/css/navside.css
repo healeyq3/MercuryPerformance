@@ -34,20 +34,20 @@
 
 .navigation-side-house-img{
     height: 40%;
-    margin-left: -2px;
-    margin-right: 5px;
-    margin-bottom: 1px;
-}
-
-.navigation-side-calendar-img{
-    height: 40%;
     margin-left: 8px;
     margin-right: 5px;
     margin-bottom: 1px;
 }
 
-.navigation-side-dumbbell-img{
-    height: 40%;
+.navigation-side-calendar-img{
+    height: 41%;
+    margin-left: 8px;
+    margin-right: 5px;
+    margin-bottom: 1px;
+}
+
+.navigation-side-heartbeat-img{
+    height: 41%;
     margin-left: 8px;
     margin-right: 5px;
     margin-bottom: 1px;

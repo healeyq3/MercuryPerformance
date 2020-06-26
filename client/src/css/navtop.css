@@ -40,11 +40,11 @@
 }
 
 .top-bar-user-information-container{
-    width: max-content;
+    width: fit-content;
     display: flex;
     align-items: center;
     white-space: nowrap;
-    padding-right: 100px;
+    padding-right: 0;
 }
 
 .top-bar-triangle-selector{

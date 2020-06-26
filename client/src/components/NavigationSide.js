@@ -41,7 +41,7 @@ class NavigationSide extends Component {
                         <Link to="/comingsoon" className="navigation-link">Calendar</Link>
                     </div>
                     <div className="navigation-link-image-container">
-                        <img src={heartbeat} className="navigation-side-dumbbell-img" alt="home"/>
+                        <img src={heartbeat} className="navigation-side-heartbeat-img" alt="home"/>
                         <Link to="/workouts" className="navigation-link">Workouts</Link>
                     </div>
                     <div className="navigation-link-image-container">
