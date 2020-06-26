@@ -170,6 +170,25 @@ async function addWorkoutToUser(useruid, workoutuid){
       })
 }
 
+async function addRunnerToWorkout(workoutuid, runnerUidArray){
+    let runnersAdded = {};
+    const workoutRef = database.ref("workouts/" + workoutuid + "/runners");
+    runnerUidArray.forEach((runneruid) => {
+      //check if runner is already added
+      workoutRef.once("value").then((snapshot) => {
+        if(!snapshot.hasChild(runneruid)) {
+          runnersAdded[runneruid] = {runneruid: runneruid};
+          workoutRef.child("" + runneruid).set({runneruid: runneruid}).then(() => {
+          }).catch(() => {
+            console.log("Error adding runner ".cyan + runneruid + " to ".cyan + workoutuid);
+          })
+        }
+      })
+    });
+  
+    return runnersAdded;
+  }
+
 
 module.exports.getBlueprints = getBlueprints;
 module.exports.addBlueprintToTeam = addBlueprintToTeam;
@@ -177,3 +196,4 @@ module.exports.getAllBlueprints = getAllBlueprints;
 module.exports.createBlueprint = createBlueprint;
 module.exports.createWorkout = createWorkout;
 module.exports.getWorkouts = getWorkouts;
+module.exports.addRunnerToWorkout = addRunnerToWorkout;

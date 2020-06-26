@@ -11,6 +11,7 @@ router.post('/newblueprint', newBlueprint);
 router.post('/addblueprint', addBlueprint);
 router.post('/workouts', getWorkouts);
 router.post('/newworkout', newWorkout);
+router.post('/addrunner', addRunner)
 
 module.exports = router;
 
@@ -147,3 +148,21 @@ async function getWorkouts(req, res){
         res.end('{}');
     });
 }
+
+async function addRunner(req, res){
+    if(!await authenticatePost(req, res)){
+      res.end();
+      return;
+    }
+  
+    const data = req.body;
+    const runnerUidArray = data.runnerUidArray;
+    const workoutuid = data.workoutuid;
+  
+    const runnersAdded = await workoutUtilities.addRunnerToWorkout(workoutuid, runnerUidArray);
+    res.end(JSON.stringify({
+        runnersAdded: runnersAdded,
+        workoutuid: workoutuid
+      })
+    );
+  }
