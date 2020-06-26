@@ -87,8 +87,7 @@ export class WorkoutDateDetails extends Component {
                         <Col>
                             <Card className = "text-center">
                                 <Card.Header>Runners</Card.Header>
-                                {/*runnersInWorkout*/}
-                                <WorkoutRunnerCard></WorkoutRunnerCard>
+                                {runnersInWorkout}
                             </Card>
                         </Col>
                     </Row>
