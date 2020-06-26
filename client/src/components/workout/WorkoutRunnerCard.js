@@ -26,6 +26,7 @@ export class WorkoutRunnerCard extends Component {
                 <Accordion.Collapse eventKey="0">
                 <Card.Body>
                     <WorkoutRepDataCard></WorkoutRepDataCard>
+                    <WorkoutRepDataCard></WorkoutRepDataCard>
                 </Card.Body>
                 </Accordion.Collapse>
             </Card>

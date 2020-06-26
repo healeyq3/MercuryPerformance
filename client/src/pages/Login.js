@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Link, Redirect, withRouter} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 import fire from '../Fire';
 import cookie from 'react-cookies'
 import '../css/login.css';
@@ -23,7 +23,6 @@ class Login extends Component {
             emailregex: new RegExp("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\\\[\x01-\x09\x0b\x0c\x0e-\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\\])"),
             mercury_email: '',
             password: '',
-            gotoTeamSelect: false,
             failedLogin: false,
         }
     }
@@ -51,9 +50,7 @@ class Login extends Component {
                     idToken: idToken
                 })
             }).then(() => {
-                this.setState({
-                    gotoTeamSelect: true
-                })
+                this.props.rerenderCallback();
             }).catch((error) => {
                 console.log(error);
             })
@@ -75,10 +72,6 @@ class Login extends Component {
     }
 
     render() {
-        if(this.state.gotoTeamSelect){
-            this.props.rerenderCallback();
-            return <Redirect to='/teamselect'/>
-        }
 
         let loginButtonClasses = ["login-submit-button"];
         if(this.state.failedLogin){

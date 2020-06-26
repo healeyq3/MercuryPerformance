@@ -112,7 +112,6 @@ export class WorkoutDateDetails extends Component {
         )
         }
 }
-
 WorkoutDateDetails.propTypes = {
     addRunnersToWorkout: PropTypes.func.isRequired,
     resetRunnerAdded: PropTypes.func.isRequired,

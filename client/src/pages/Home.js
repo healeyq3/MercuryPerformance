@@ -19,7 +19,6 @@ class Home extends Component {
     }
 
     this.calculateAverageTeamPace = this.calculateAverageTeamPace.bind(this);
-
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -49,7 +48,6 @@ class Home extends Component {
     }
 
     if(this.state.gotoEvents){
-      this.props.history.push("/")
       return <Redirect to="/events"/>
     }
 

@@ -5,6 +5,7 @@ import CreateEventModal from '../components/event/CreateEventModal'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getTeamEvents, newEvent, setEvent } from '../actions/eventActions';
+import {Redirect} from 'react-router-dom'
 
 export class Events extends Component {
     constructor(props){
@@ -31,13 +32,16 @@ export class Events extends Component {
 
     setSelectedEvent(event){
       this.props.setEvent(event.key);
-      console.log("event selected ");
-      window.location.href='./eventdetails'
+      this.setState({
+        gotoEventDetails: true
+      })
     }
 
     render(){
       if(!this.props.selectedTeam){
         return null;
+      } else if(this.state.gotoEventDetails){
+        return <Redirect to="/eventdetails"/>
       }
 
       let cardItems = [];
