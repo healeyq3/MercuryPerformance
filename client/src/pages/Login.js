@@ -40,7 +40,7 @@ class Login extends Component {
         await fire.auth().signInWithEmailAndPassword(this.state.mercury_email, this.state.password).then(async (u) => {
             const idToken = await u.user.getIdToken(false);
 
-            cookie.save('mercury-fb-token', idToken, { path: "/", SameSite:"strict", secure: true });
+            cookie.save('mercury-fb-token', idToken, { path: "/" });
 
             fetch('/api/login', {
                 method: 'POST',
