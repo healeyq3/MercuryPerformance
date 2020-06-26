@@ -72,11 +72,13 @@ export class WorkoutDateDetails extends Component {
             for(const runner in this.props.workouts[this.props.selectedWorkout].runners){
                 if(this.props.workouts[this.props.selectedWorkout].runners.hasOwnProperty(runner)){
                     runnersInWorkout.push(
-                        <WorkoutRunnerCard setShow = {this.setShowResults} runner = {this.props.runners[runner]} />
+                        <WorkoutRunnerCard setShow = {this.setShowResults} runner = {this.props.runners[runner]} reps = {this.props.workouts[this.props.selectedWorkout]} />
                     )
                 }
             }
         }
+
+        // console.log(this.props.workouts[this.props.selectedWorkout].reps);
 
         return (
             <Container>

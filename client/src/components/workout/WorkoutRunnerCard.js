@@ -4,7 +4,9 @@ import WorkoutRepDataCard from './WorkoutRepDataCard';
 // import {timeGenerator} from '../../math/TimeConversions'
 
 export class WorkoutRunnerCard extends Component {
+    
     render() {
+        console.log(this.props.reps);
         return (
             <Accordion>
             <Card style = {{ height: '10%', orientation: 'horizontal'}}>
