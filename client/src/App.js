@@ -39,17 +39,18 @@ class App extends Component {
                 <NavigationSide/>
                 <div className="main-page">
                   <Switch>
-                    <AuthRoute exact path = '/login' component = {Login} authenticated = {cookie.load('idToken')}/>
-                    <AuthRoute3 exact path = '/' component = {Home} team = {cookie.load('selectedTeam')}/>
-                    <AuthRoute exact path = '/signup' component = {CreateAccount} authenticated = {cookie.load('idToken')}/>
+                    <AuthRoute exact path = '/login' component = {Login}/>
+                    <AuthRoute3 exact path = '/' component = {Home}/>
+                    <AuthRoute3 exact path = '/home' component = {Home}/>
+                    <AuthRoute exact path = '/signup' component = {CreateAccount}/>
                     <AuthRoute2 exact path = '/teamselect' component = {TeamSelect}/>
-                    <AuthRoute2 exact path = '/comingsoon' component = {ComingSoon} authenticated = {cookie.load('idToken')}/>
-                    <AuthRoute3 exact path = '/events' component = {Events} authenticated = {cookie.load('idToken')} team = {cookie.load('selectedTeam')}/>
-                    <AuthRoute3 exact path = '/eventdetails' component = {EventDetails} authenticated = {cookie.load('idToken')} team = {cookie.load('selectedTeam')}/>
-                    <AuthRoute3 exact path = '/workouts' component = {Workouts} authenticated = {cookie.load('idToken')} team = {cookie.load('selectedTeam')} />
-                    <AuthRoute3 exact path = '/workoutdetails' component = {WorkoutDetails} authenticated = {cookie.load('idToken')} team = {cookie.load('selectedTeam')} />
-                    <AuthRoute3 exact path = '/workoutdatedetails' component = {WorkoutDateDetails} authenticated = {cookie.load('idToken')} team = {cookie.load('selectedTeam')} />
-                    <AuthRoute3 exact path = '/workoutcreator' component = {WorkoutCreator} authenticated = {cookie.load('idToken')} team = {cookie.load('selectedTeam')} />
+                    <AuthRoute2 exact path = '/comingsoon' component = {ComingSoon} />
+                    <AuthRoute3 exact path = '/events' component = {Events}/>
+                    <AuthRoute3 exact path = '/eventdetails' component = {EventDetails}/>
+                    <AuthRoute3 exact path = '/workouts' component = {Workouts} />
+                    <AuthRoute3 exact path = '/workoutdetails' component = {WorkoutDetails} />
+                    <AuthRoute3 exact path = '/workoutdatedetails' component = {WorkoutDateDetails} />
+                    <AuthRoute3 exact path = '/workoutcreator' component = {WorkoutCreator} />
                   </Switch>
                 </div>
               </div>

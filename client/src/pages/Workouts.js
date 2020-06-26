@@ -22,7 +22,6 @@ export class Workouts extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, ss){
-        console.log("Updating component");
         if(prevProps.rehydrated === false){
             this.props.getWorkoutBlueprints(this.props.selectedTeam);
         }
