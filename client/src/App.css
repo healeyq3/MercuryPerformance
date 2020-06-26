@@ -1,13 +1,32 @@
 .container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   margin: auto auto 0 auto;
   min-width: 100vw;
   max-width: 100vw;
+  min-height: 100vh;
+  padding-left: 0;
+  padding-right: 0;
+  background-color: #ecf0f1;
 }
 
-.below-navbar-container{
-  position: absolute;
-  top: 5vh;
-  width: 100vw;
+.side-navigation{
+  flex-grow: 1;
+  max-width: 180px;
+  padding-left: 0;
+  text-align: center;
+}
+
+.main-page{
+  flex-grow: 1;
+  padding-left: 0;
+}
+
+.main-page-container{
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  width: 100%;
+  padding-left: 0;
 }

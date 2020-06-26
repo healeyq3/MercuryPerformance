@@ -12,10 +12,9 @@ export class Workouts extends Component {
     constructor(props){
         super(props);
         this.state = {
-          show: false,
-          showImport: false,
-          reloaded: false,
-          toWorkoutCreator: false
+            show: false,
+            showImport: false,
+            toWorkoutCreator: false
         }
 
         this.setSelectedBlueprint = this.setSelectedBlueprint.bind(this);
@@ -24,7 +23,6 @@ export class Workouts extends Component {
 
     componentDidUpdate(prevProps, prevState, ss){
         if(prevProps.rehydrated === false){
-            console.log("Workouts need - passing: " + this.props.selectedTeam);
             this.props.getWorkoutBlueprints(this.props.selectedTeam);
         }
     }
@@ -32,8 +30,9 @@ export class Workouts extends Component {
     setShow = e => {
         this.setState({
             toWorkoutCreator: true
-          })
-      }
+        })
+    }
+
     setShowCreateWorkout = e => {
       window.location.href="./workoutcreator"
     }
@@ -52,7 +51,6 @@ export class Workouts extends Component {
     };
 
     importWorkoutBlueprint(blueprintuid){
-        console.log("executing here");
         this.props.addWorkoutToTeam(blueprintuid, this.props.selectedTeam);
         this.setState({
             showImport: false
@@ -85,20 +83,18 @@ export class Workouts extends Component {
             }
         }
         return (
-            <Container className="workouts-container">
-                <Container fluid className="existing-workouts-container">
-                    <Col>
-                        <Nav fill variant="tabs" className="justify-content-center">
-                            <Nav.Item>
-                                <Nav.Link href = "./">Team Name</Nav.Link>
-                            </Nav.Item>
-                        </Nav>
-                        <Card className = "text-center">
-                            <Card.Header>Team Workouts</Card.Header>
-                            {cardItems}
-                        </Card>
-                    </Col>
-                </Container>
+            <div className="workouts-container">
+                <Col className="team-workouts-card-container">
+                    <Nav fill variant="tabs" className="justify-content-center">
+                        <Nav.Item>
+                            <Nav.Link href = "./">Team Name</Nav.Link>
+                        </Nav.Item>
+                    </Nav>
+                    <Card className = "text-center">
+                        <Card.Header>Team Workouts</Card.Header>
+                        {cardItems}
+                    </Card>
+                </Col>
 
                 <Col className="workout-options-container">
                     <Card className = "text-center" tag="a" onClick = {this.setShowCreateWorkout} style = {{cursor:"pointer"}}>
@@ -117,7 +113,7 @@ export class Workouts extends Component {
               <Modal show = {this.state.showImport} onHide = {this.showImportModal}>
                 <ImportWorkoutDropdown importWorkoutBlueprint = {this.importWorkoutBlueprint} allBlueprints = {this.props.allBlueprints} blueprints = {this.props.blueprints}/>
               </Modal>
-            </Container>
+            </div>
         )
     }
 }
@@ -144,4 +140,4 @@ const mapStateToProps = function(state){
     }
 }
 
-export default connect(mapStateToProps, { getWorkoutBlueprints, getAllWorkoutBlueprints, setBlueprint, addWorkoutToTeam }) (Workouts)
+export default connect(mapStateToProps, { getWorkoutBlueprints, getAllWorkoutBlueprints, setBlueprint, addWorkoutToTeam }) (Workouts);

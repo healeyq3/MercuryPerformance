@@ -1,0 +1,65 @@
+.navigation-side-container{
+    flex-grow: 1;
+    background-color: #333f63;
+    min-width: 220px;
+    max-width: 220px;
+    padding-left: 0;
+
+    display: flex;
+    justify-content: flex-start;
+}
+
+.navigation-side-link-container{
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+}
+
+.navigation-link-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 45px;
+    margin-bottom: 15px;
+    margin-left: 20px;
+}
+
+#navigation-link-select-team{
+    margin-top: 20px;
+}
+
+#navigation-link-logout{
+    margin-top: auto;
+    margin-bottom: 0;
+    justify-content: center;
+}
+
+.navigation-link{
+    color: white;
+    font: 16px "Helvetica Neue", sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+.navigation-side-house-img{
+    height: 40%;
+    margin-left: 8px;
+    margin-right: 5px;
+    margin-bottom: 1px;
+}
+
+.navigation-side-calendar-img{
+    height: 41%;
+    margin-left: 8px;
+    margin-right: 5px;
+    margin-bottom: 1px;
+}
+
+.navigation-side-heartbeat-img{
+    height: 41%;
+    margin-left: 8px;
+    margin-right: 5px;
+    margin-bottom: 1px;
+}
+
