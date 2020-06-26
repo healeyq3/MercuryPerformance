@@ -74,6 +74,7 @@ class Login extends Component {
 
     render() {
         if(this.state.gotoTeamSelect){
+            this.props.rerenderCallback();
             return <Redirect to='/teamselect'/>
         }
 
