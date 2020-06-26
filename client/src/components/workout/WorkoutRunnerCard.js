@@ -6,7 +6,7 @@ export class WorkoutRunnerCard extends Component {
     render() {
         let time = timeGenerator(this.props.time);
         return (
-            <Accordion defaultActiveKey="0">
+            <Accordion>
             <Card style = {{ height: '10%', orientation: 'horizontal'}}>
                 <Card.Header>
                 <Row>
