@@ -81,7 +81,7 @@ export function updateTeam(teamUID, toUpdate, newValue){
         return;
       }
       user.getIdToken(true).then(async function (idToken) {
-        cookie.save('mercury-fb-token', idToken, {path: "/"});
+        cookie.save('mercury-fb-token', idToken, { path: "/", SameSite:"strict", secure: true });
 
         await fetch('/api/teams/update', {
           method: 'POST',
