@@ -65,7 +65,8 @@ export class WorkoutCreator extends Component {
         })
     }
 
-    handleEdit(rep, index){
+    handleEdit(rep, index){//issue with the state, might be looking for it in reps card?
+        console.log(this.state)
         let toReturn = this.state.reps;
         toReturn[index] = rep;
         this.setState({

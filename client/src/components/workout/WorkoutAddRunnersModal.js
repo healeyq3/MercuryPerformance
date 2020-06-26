@@ -2,7 +2,7 @@ import React, { Component } from '../../../node_modules/react'
 import { Modal, Form, Button } from '../../../node_modules/react-bootstrap'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
-//import { addRunnersToWorkout } from "../../actions/workoutActions";
+import { addRunnersToWorkout } from "../../actions/workoutActions";
 
 export class WorkoutAddRunnersModal extends Component {
     constructor(props){
@@ -52,7 +52,7 @@ export class WorkoutAddRunnersModal extends Component {
 
        for(const runner in this.props.runners){
             if(this.props.runners.hasOwnProperty(runner)){
-                if(this.props.workouts[this.props.selectedBlueprint].hasOwnProperty('runners') === false){
+                if(this.props.workouts[this.props.selectedWorkout].hasOwnProperty('runners') === false){
                     runnerToAddArr.push(
                         <Form.Group key = {this.props.runners[runner].key}>
                          <Form.Check type = 'checkbox' id = {this.props.runners[runner].key} >
@@ -61,7 +61,7 @@ export class WorkoutAddRunnersModal extends Component {
                          </Form.Check>
                      </Form.Group>
                     );
-                } else if(this.props.workouts[this.props.selectedBlueprint].runners[this.props.runners[runner].key] !== undefined){} else {
+                } else if(this.props.workouts[this.props.selectedWorkout].runners[this.props.runners[runner].key] !== undefined){} else {
                     runnerToAddArr.push(
                         <Form.Group key = {this.props.runners[runner].key}>
                          <Form.Check type = 'checkbox' id = {this.props.runners[runner].key} >
@@ -105,4 +105,4 @@ const mapStateToProps = function(state){
     }
 }
 
-export default connect(mapStateToProps, {  }) (WorkoutAddRunnersModal)
+export default connect(mapStateToProps, { addRunnersToWorkout }) (WorkoutAddRunnersModal)
