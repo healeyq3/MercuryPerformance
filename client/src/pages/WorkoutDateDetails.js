@@ -29,11 +29,11 @@ export class WorkoutDateDetails extends Component {
         console.log(runner);
       }
     render() {
-        /*if(!this.props.selectedTeam || !this.props.selectedBlueprint){
+        if(this.props.selectedWorkout){
             return null;
         }
-
-        let runnersInWorkout = [];
+/*
+       let runnersInWorkout = [];
         if(this.props.workouts[this.props.selectedBlueprint].hasOwnProperty('runners') === true){
             console.log(this.props.workouts[this.props.selectedBlueprint].runners);
             console.log(this.props.rehydrated);
