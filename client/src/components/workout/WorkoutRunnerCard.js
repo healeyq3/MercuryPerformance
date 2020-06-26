@@ -1,30 +1,10 @@
 import React, { Component } from 'react'
 import { Card, Button, Row, Col } from 'react-bootstrap';
+import timeGenerator from '../../math/TimeConversions'
 
 export class WorkoutRunnerCard extends Component {
     render() {
-        let hour;
-        let min;
-        let seconds;
-        let time;
-        if(this.props.time!==undefined){
-         hour = this.props.time.hours;
-         min = this.props.time.minutes;
-         seconds = this.props.time.seconds;
-        if(hour===""){
-            hour = '00'
-        }
-        if(min===""){
-            min='00'
-        }
-        if(seconds===""){
-            seconds='00'
-        }
-        time = hour + ":" + min + ":" +seconds
-    }
-    else{
-        time = ''
-    }
+        let time = timeGenerator(this.props.time);
         return (
             <Card style = {{ height: '10%', orientation: 'horizontal'}}>
                 <Card.Body>
