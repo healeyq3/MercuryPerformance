@@ -27,11 +27,10 @@ export class WorkoutDetails extends Component {
             show: !this.state.show
         })
     }
-
-    setSelectedWorkout(workout){
+    setSelectedWorkout = workout => {
         console.log(workout.key);
         this.props.setWorkout(workout.key)
-    }
+      }
 
     componentDidUpdate(prevProps){
         if(prevProps.rehydrated === false){
