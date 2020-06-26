@@ -92,7 +92,7 @@ export class WorkoutDetails extends Component {
                     <Card.Title>New Date</Card.Title>
                     <p/>
                 </Card>
-                <WorkoutImplementor show={this.state.showNewDate} setShow = {this.setShow} teamUID = {this.props.selectedTeam} reps = {this.props.blueprints[this.props.selectedBlueprint].reps}/>
+                <WorkoutImplementor blueprint = {this.props.selectedBlueprint}show={this.state.showNewDate} setShow = {this.setShow} teamUID = {this.props.selectedTeam} reps = {this.props.blueprints[this.props.selectedBlueprint].reps}/>
                 </Col>
                 <Col>
                 <Row>

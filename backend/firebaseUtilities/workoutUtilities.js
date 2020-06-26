@@ -96,10 +96,10 @@ async function addBlueprintToUser(useruid, blueprintuid){
 }
 
 async function getWorkouts(teamuid, blueprint) {
-    const teamWorkoutsRef = await database.ref('teams/' + teamuid.toString() + '/blueprints/' + blueprint + '/workouts');
+    const blueprintWorkoutsRef = await database.ref('blueprints/' + blueprint + '/workouts');
     let workouts = {};
 
-    await teamWorkoutsRef.once('value').then(async (snapshot) => {
+    await blueprintWorkoutsRef.once('value').then(async (snapshot) => {
         let workoutsArray = [];
         snapshot.forEach(function(child) {
             workoutsArray.push(child);
