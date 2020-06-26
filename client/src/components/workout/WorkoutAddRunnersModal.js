@@ -92,10 +92,10 @@ export class WorkoutAddRunnersModal extends Component {
 }
 
 WorkoutAddRunnersModal.propTypes = {
-    selectedBlueprint: PropTypes.string.isRequired,
-    runners: PropTypes.object.isRequired,
-    workouts: PropTypes.object.isRequired,
-    addRunnersToWorkout: PropTypes.func.isRequired,
+    selectedBlueprint: PropTypes.string,
+    runners: PropTypes.object,
+    workouts: PropTypes.object,
+    addRunnersToWorkout: PropTypes.func,
 }
 
 const mapStateToProps = function(state){

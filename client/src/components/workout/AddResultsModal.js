@@ -161,15 +161,15 @@ export class AddResultsModal extends Component {
     }
 }
 AddResultsModal.propTypes = {
-    selectedBlueprint: PropTypes.string.isRequired,
+    selectedBlueprint: PropTypes.string,
     selectedTeam: PropTypes.string,
     selectedRunner: PropTypes.string,
-    runners: PropTypes.object.isRequired,
-    workouts: PropTypes.object.isRequired,
+    runners: PropTypes.object,
+    workouts: PropTypes.object,
     //newTime: PropTypes.func.isRequired,
-    selectRunner: PropTypes.func.isRequired,
-    rehydrated: PropTypes.bool.isRequired,
-    updateRunner : PropTypes.func.isRequired
+    selectRunner: PropTypes.func,
+    rehydrated: PropTypes.bool,
+    updateRunner : PropTypes.func
 }
 const mapStateToProps = function(state){
     return {
