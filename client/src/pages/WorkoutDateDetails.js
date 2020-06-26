@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Col, Row, Card, Form, Container, Nav } from 'react-bootstrap'
-import WorkoutRunnerCard from "../components/workout/WorkoutRunnerCard"
+import { Col, Row, Card, Form, Container } from 'react-bootstrap'
 import WorkoutNavBar from '../components/workout/WorkoutNavBar'
 import WorkoutDateDetailsCard from '../components/workout/WorkoutDateDetailsCard'
 import WorkoutAddRunnersModal from '../components/workout/WorkoutAddRunnersModal'
@@ -30,7 +29,7 @@ export class WorkoutDateDetails extends Component {
         console.log(runner);
       }
     render() {
-        {/*if(!this.props.selectedTeam || !this.props.selectedBlueprint){
+        /*if(!this.props.selectedTeam || !this.props.selectedBlueprint){
             return null;
         }
 
@@ -47,7 +46,7 @@ export class WorkoutDateDetails extends Component {
                     )
                 }
             }
-        }*/}
+        }*/
         return (
             <Container>
                 <Col>

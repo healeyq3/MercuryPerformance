@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import { Modal, Form, Button, Row, Col, ButtonGroup } from 'react-bootstrap';
-import { newTime, selectRunner } from '../../actions/eventActions';
+import { selectRunner } from '../../actions/eventActions';
 import { updateRunner } from '../../actions/runnerActions';
 import { connect } from 'react-redux';
-import {  getV02max, getWorkoutPace } from '../../math/V02max';
 import PropTypes from 'prop-types';
-import { stringToNumber } from '../../math/TimeConversions';
 
 export class AddResultsModal extends Component {
     constructor(props){
@@ -48,6 +46,7 @@ export class AddResultsModal extends Component {
     }
 
     handleAddResults = () => {
+        // eslint-disable-next-line
         const timeData = {
             distance: this.props.events[this.props.selectedEvent].distance,
             units: this.props.events[this.props.selectedEvent].distanceUnit,
@@ -105,12 +104,12 @@ export class AddResultsModal extends Component {
         let initialHours = 0;
         let initialMinutes = 0;
         let initialSeconds = 0;
-        {/*if(this.props.workouts[this.props.selectedBlueprint].runners[this.props.selectedBlueprint].hasOwnProperty('time')){
+        /*if(this.props.workouts[this.props.selectedBlueprint].runners[this.props.selectedBlueprint].hasOwnProperty('time')){
             initialHours = this.props.workouts[this.props.selectedBlueprint].runners[this.props.selectedBlueprint].time.hours;
             initialMinutes = this.props.workouts[this.props.selectedBlueprint].runners[this.props.selectedBlueprint].time.minutes;
             initialSeconds = this.props.workouts[this.props.selectedBlueprint].runners[this.props.selectedBlueprint].time.seconds;
         }
-        */}
+        */
         this.setState({
             finalTimeHours : initialHours,
             finalTimeMinutes : initialMinutes,

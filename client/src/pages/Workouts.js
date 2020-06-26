@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Container, Nav, Card, Row, Col, Modal} from 'react-bootstrap'
+import { Nav, Card, Col, Modal} from 'react-bootstrap'
 import ExistingWorkoutCard from '../components/workout/ExistingWorkoutCard'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';

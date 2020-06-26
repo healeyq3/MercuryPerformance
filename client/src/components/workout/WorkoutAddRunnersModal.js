@@ -50,7 +50,7 @@ export class WorkoutAddRunnersModal extends Component {
 
         
 
-      {/*}  for(const runner in this.props.runners){
+      /*}  for(const runner in this.props.runners){
             if(this.props.runners.hasOwnProperty(runner)){
                 if(this.props.workouts[this.props.selectedBlueprint].hasOwnProperty('runners') === false){
                     runnerToAddArr.push(
@@ -73,10 +73,10 @@ export class WorkoutAddRunnersModal extends Component {
                 }
             }
         }
-    */}
+    */
 
         return (
-            <Modal show = {this.props.show} onHide = {this.props.setShow} onShow = {this.reset}>
+            <Modal show = {this.props.show} onHide = {this.props.setShow} onShow = {this.reset} className = "text-center">
             {/* <Modal.Dialog> */}
                 <Modal.Header closeButton>Add Runners</Modal.Header>
                 <Modal.Body>
