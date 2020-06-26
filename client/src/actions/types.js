@@ -27,3 +27,4 @@ export const SET_BLUEPRINT = 'SET_BLUEPRINT';
 export const ADD_BLUEPRINT_TEAM = 'ADD_BLUEPRINT_TEAM';
 export const NEW_WORKOUT = 'NEW_WORKOUT';
 export const GET_WORKOUTS = 'GET_WORKOUTS';
+export const SET_WORKOUT = 'SET_WORKOUT';

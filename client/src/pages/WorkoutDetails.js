@@ -5,7 +5,7 @@ import WorkoutDetailsCard from '../components/workout/WorkoutDetailsCard'
 import ExistingWorkoutGraph from '../components/workout/ExistingWorkoutGraph'
 import { connect } from 'react-redux';
 import WorkoutImplementor from '../components/workout/WorkoutImplementor';
-import { getActualWorkouts } from '../actions/workoutActions'
+import { getActualWorkouts, setWorkout } from '../actions/workoutActions'
 import PropTypes from 'prop-types';
 
 export class WorkoutDetails extends Component {
@@ -28,11 +28,16 @@ export class WorkoutDetails extends Component {
         })
     }
 
-    componentDidMount() {
-        console.log("Mounted")
-        console.log(this.props.selectedTeam)
-        this.props.getActualWorkouts(this.props.selectedTeam)
+    setSelectedWorkout(workout){
+        console.log(workout);
+        this.props.setWorkout(workout.key)
     }
+
+    componentDidUpdate(prevProps){
+        if(prevProps.rehydrated === false){
+          this.props.getActualWorkouts(this.props.selectedTeam);
+        }
+      }
 
     render() {
         if(!this.props.selectedTeam || !this.props.selectedBlueprint){
@@ -43,7 +48,7 @@ export class WorkoutDetails extends Component {
         for(const workoutuid in this.props.workouts){
             if(this.props.workouts.hasOwnProperty(workoutuid)){
                 cardItems.push(
-                    <WorkoutBlueprintDayCard workout = {this.props.workouts[workoutuid]} />
+                    <WorkoutBlueprintDayCard onSelect = {this.setSelectedWorkout} workout = {this.props.workouts[workoutuid]} />
                 )
             }
         }
@@ -77,8 +82,9 @@ export class WorkoutDetails extends Component {
                     <p></p>
                     <Card.Title>New Date</Card.Title>
                     <p></p>
-                    <WorkoutImplementor show = {this.state.show} setShow = {this.setShow} teamUID = {this.props.selectedTeam} reps = {this.props.blueprints[this.props.selectedBlueprint].reps}/>
+                    
                 </Card>
+                <WorkoutImplementor show = {this.state.show} setShow = {this.setShow} teamUID = {this.props.selectedTeam} reps = {this.props.blueprints[this.props.selectedBlueprint].reps}/>
                 </Col>
                 <Col>
                 <Row>
@@ -101,7 +107,8 @@ WorkoutDetails.propTypes = {
     blueprints: PropTypes.object.isRequired,
     selectedBlueprint: PropTypes.string.isRequired,
     getActualWorkouts: PropTypes.func.isRequired,
-    workouts: PropTypes.object.isRequired
+    workouts: PropTypes.object.isRequired,
+    setWorkout: PropTypes.func.isRequired
 }
 
 const mapStateToProps = function(state){
@@ -110,8 +117,9 @@ const mapStateToProps = function(state){
         selectedTeam: state.teams.selectedTeam,
         blueprints: state.workouts.blueprints,
         selectedBlueprint: state.workouts.selectedBlueprint,
-        workouts: state.workouts.actualWorkouts
+        workouts: state.workouts.actualWorkouts,
+        rehydrated: state._persist.rehydrated
     }
 }
 
-export default connect(mapStateToProps, { getActualWorkouts }) (WorkoutDetails)
+export default connect(mapStateToProps, { getActualWorkouts, setWorkout }) (WorkoutDetails)
