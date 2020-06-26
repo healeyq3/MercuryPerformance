@@ -12,7 +12,7 @@ export class WorkoutRunnerCard extends Component {
                 <Row>
                         <Col>
                         <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                         {<Card.Title>Name</Card.Title>}
+                        {<Card.Title>{this.props.runner.name}</Card.Title>}
                         </Accordion.Toggle>
                         
                         </Col>
