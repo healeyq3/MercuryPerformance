@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Modal, Form, Button, Row, Col, ButtonGroup } from 'react-bootstrap';
+import { Modal, Form, Button, Row, Col } from 'react-bootstrap';
 import { newTime, selectRunner } from '../../actions/eventActions';
 import { updateRunner } from '../../actions/runnerActions';
 import { connect } from 'react-redux';
@@ -233,89 +233,89 @@ export class AddResultsModal extends Component {
             {/* <Modal.Dialog> */} 
                 <Modal.Header closeButton>{selectedRunnerName}</Modal.Header>
                 <Modal.Body>
-                    <Form >
-                        <Row>
-                        <Col>
-                            <Row>
-                                <Form.Label>Final Time</Form.Label>
-                                <Col>
-                                    <Form.Control onChange = {this.handleChange} name = "finalTimeHours" type = "text" placeholder = 'Hours' value = {this.state.finalTimeHours}/>
-                                </Col>
-                                <Col>
-                                    <Form.Control onChange = {this.handleChange} name = "finalTimeMinutes" type = "text" placeholder = 'Minutes' value = {this.state.finalTimeMinutes}/>
-                                </Col>
-                                <Col>
-                                    <Form.Control onChange = {this.handleChange} name = "finalTimeSeconds" type = "text" placeholder = 'Seconds' value = {this.state.finalTimeSeconds}/>
-                                </Col>
-                            </Row>
-                            <Form.Group>
-                                <Row>
-                                    <Form.Label>Splits (optional)</Form.Label>
-                                    <Col>
-                                        <Form.Control onChange = {this.handleChange} name = "splitDistance" type = "text" placeholder = "Distance" value = {this.state.splitDistance}/>
-                                    </Col>
-                                    <Col>
-                                        <Form.Control onChange = {this.handleChange} name = "splitUnit" as = "select">
-                                        <option hidden>Units</option>
-                                        <option>Miles</option>
-                                        <option>Kilometers</option>
-                                        <option>Meters</option>
-                                        </Form.Control>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col>
-                                        <Form.Control onChange = {this.handleChange} name = "splitTimeHours" type = "text" placeholder = "Hours" value = {this.state.splitTimeHours}/>
-                                    </Col>
-                                    <Col>
-                                        <Form.Control onChange = {this.handleChange} name = "splitTimeMinutes" type = "text" placeholder = "Minutes" value = {this.state.splitTimeMinutes}/>
-                                    </Col>
-                                    <Col>
-                                        <Form.Control onChange = {this.handleChange} name = "splitTimeSeconds" type = "text" placeholder = "Seconds" value = {this.state.splitTimeSeconds}/>
-                                    </Col>
-                                </Row>
-                                <Button variant = "primary" onClick = {this.handleAddSplits} size = 'sm'>Add Split</Button>
-                                <Button variant = 'outline-primary' size = 'sm' onClick = {this.handleCalculate}>Calculate Runner Analysis</Button>
-                                <Form.Group>
-                                <br></br>
-                                    <Row>
-                                        <Form.Label>V02max: {this.state.v02max}</Form.Label>
-                                        {this.state.v02max === this.props.runners[this.props.selectedRunner].v02 ? <React.Fragment><h4 style = {{color: 'orange'}}>=</h4></React.Fragment> : this.state.v02max > this.props.runners[this.props.selectedRunner].v02 ? <React.Fragment><h4 style = {{color: 'green'}}>↑</h4><Button variant = 'outline-success' size = 'sm' onClick = {this.handleUpdateV02}>Update</Button></React.Fragment> : <React.Fragment><h4 style = {{color: 'red'}}>↓</h4><Button variant = 'outline-danger' size = 'sm' onClick = {this.handleUpdateV02}>Update</Button></React.Fragment>}
-                                    </Row>
-                                    <Row>
-                                        <Form.Label>Workout Pace: {this.state.workoutPace}</Form.Label>
-                                        {stringToNumber(this.state.workoutPace) === stringToNumber(this.props.runners[this.props.selectedRunner].wPace) ? <React.Fragment><h4 style = {{color: 'orange'}}>=</h4></React.Fragment> : stringToNumber(this.state.workoutPace) < stringToNumber(this.props.runners[this.props.selectedRunner].wPace) ? <React.Fragment><h4 style = {{color: 'green'}}>↑</h4><Button variant = 'outline-success' size = 'sm' onClick = {this.handleUpdateWPace}>Update</Button></React.Fragment> : <React.Fragment><h4 style = {{color: 'red'}}>↓</h4><Button variant = 'outline-danger' size = 'sm' onClick = {this.handleUpdateWPace}>Update</Button></React.Fragment>}
-                                    </Row>
-                                </Form.Group> 
-                            </Form.Group>
-                        </Col>
-                        <Col>
-                            <h5>Splits:</h5>
-                            <Row>
-                                <Col>
-                                <h6>KM:</h6>
-                                {kArr}
-                                </Col>
-                                <Col>
-                                <h6>Miles:</h6>
-                                {mArr}
-                                </Col>
-                                <Col>
-                                <h6>Meters:</h6>
-                                {meArr}
-                                </Col>
-                            </Row>
-                        </Col>
-                        </Row>
-                        <Row className = 'justify-content-md-center'>
-                            <ButtonGroup className = 'mb-2'>
-                                <Button variant = "outline-secondary" onClick = {this.incrementRunnerDown}>⇦</Button>
-                                <Button variant = "outline-secondary" onClick = {this.handleSave}>Save Results</Button>
-                                <Button variant = "outline-secondary" onClick = {this.incrementRunnerUp}>⇨</Button>
-                            </ButtonGroup>
-                            
-                        </Row>
-                    </Form>
+                    {/*<Form >*/}
+                    {/*    <Row>*/}
+                    {/*    <Col>*/}
+                    {/*        <Row>*/}
+                    {/*            <Form.Label>Final Time</Form.Label>*/}
+                    {/*            <Col>*/}
+                    {/*                <Form.Control onChange = {this.handleChange} name = "finalTimeHours" type = "text" placeholder = 'Hours' value = {this.state.finalTimeHours}/>*/}
+                    {/*            </Col>*/}
+                    {/*            <Col>*/}
+                    {/*                <Form.Control onChange = {this.handleChange} name = "finalTimeMinutes" type = "text" placeholder = 'Minutes' value = {this.state.finalTimeMinutes}/>*/}
+                    {/*            </Col>*/}
+                    {/*            <Col>*/}
+                    {/*                <Form.Control onChange = {this.handleChange} name = "finalTimeSeconds" type = "text" placeholder = 'Seconds' value = {this.state.finalTimeSeconds}/>*/}
+                    {/*            </Col>*/}
+                    {/*        </Row>*/}
+                    {/*        <Form.Group>*/}
+                    {/*            <Row>*/}
+                    {/*                <Form.Label>Splits (optional)</Form.Label>*/}
+                    {/*                <Col>*/}
+                    {/*                    <Form.Control onChange = {this.handleChange} name = "splitDistance" type = "text" placeholder = "Distance" value = {this.state.splitDistance}/>*/}
+                    {/*                </Col>*/}
+                    {/*                <Col>*/}
+                    {/*                    <Form.Control onChange = {this.handleChange} name = "splitUnit" as = "select">*/}
+                    {/*                    <option hidden>Units</option>*/}
+                    {/*                    <option>Miles</option>*/}
+                    {/*                    <option>Kilometers</option>*/}
+                    {/*                    <option>Meters</option>*/}
+                    {/*                    </Form.Control>*/}
+                    {/*                </Col>*/}
+                    {/*            </Row>*/}
+                    {/*            <Row>*/}
+                    {/*                <Col>*/}
+                    {/*                    <Form.Control onChange = {this.handleChange} name = "splitTimeHours" type = "text" placeholder = "Hours" value = {this.state.splitTimeHours}/>*/}
+                    {/*                </Col>*/}
+                    {/*                <Col>*/}
+                    {/*                    <Form.Control onChange = {this.handleChange} name = "splitTimeMinutes" type = "text" placeholder = "Minutes" value = {this.state.splitTimeMinutes}/>*/}
+                    {/*                </Col>*/}
+                    {/*                <Col>*/}
+                    {/*                    <Form.Control onChange = {this.handleChange} name = "splitTimeSeconds" type = "text" placeholder = "Seconds" value = {this.state.splitTimeSeconds}/>*/}
+                    {/*                </Col>*/}
+                    {/*            </Row>*/}
+                    {/*            <Button variant = "primary" onClick = {this.handleAddSplits} size = 'sm'>Add Split</Button>*/}
+                    {/*            <Button variant = 'outline-primary' size = 'sm' onClick = {this.handleCalculate}>Calculate Runner Analysis</Button>*/}
+                    {/*            <Form.Group>*/}
+                    {/*            <br/>*/}
+                    {/*                <Row>*/}
+                    {/*                    <Form.Label>V02max: {this.state.v02max}</Form.Label>*/}
+                    {/*                    {this.state.v02max === this.props.runners[this.props.selectedRunner].v02 ? <React.Fragment><h4 style = {{color: 'orange'}}>=</h4></React.Fragment> : this.state.v02max > this.props.runners[this.props.selectedRunner].v02 ? <React.Fragment><h4 style = {{color: 'green'}}>↑</h4><Button variant = 'outline-success' size = 'sm' onClick = {this.handleUpdateV02}>Update</Button></React.Fragment> : <React.Fragment><h4 style = {{color: 'red'}}>↓</h4><Button variant = 'outline-danger' size = 'sm' onClick = {this.handleUpdateV02}>Update</Button></React.Fragment>}*/}
+                    {/*                </Row>*/}
+                    {/*                <Row>*/}
+                    {/*                    <Form.Label>Workout Pace: {this.state.workoutPace}</Form.Label>*/}
+                    {/*                    {stringToNumber(this.state.workoutPace) === stringToNumber(this.props.runners[this.props.selectedRunner].wPace) ? <React.Fragment><h4 style = {{color: 'orange'}}>=</h4></React.Fragment> : stringToNumber(this.state.workoutPace) < stringToNumber(this.props.runners[this.props.selectedRunner].wPace) ? <React.Fragment><h4 style = {{color: 'green'}}>↑</h4><Button variant = 'outline-success' size = 'sm' onClick = {this.handleUpdateWPace}>Update</Button></React.Fragment> : <React.Fragment><h4 style = {{color: 'red'}}>↓</h4><Button variant = 'outline-danger' size = 'sm' onClick = {this.handleUpdateWPace}>Update</Button></React.Fragment>}*/}
+                    {/*                </Row>*/}
+                    {/*            </Form.Group> */}
+                    {/*        </Form.Group>*/}
+                    {/*    </Col>*/}
+                    {/*    <Col>*/}
+                    {/*        <h5>Splits:</h5>*/}
+                    {/*        <Row>*/}
+                    {/*            <Col>*/}
+                    {/*            <h6>KM:</h6>*/}
+                    {/*            {kArr}*/}
+                    {/*            </Col>*/}
+                    {/*            <Col>*/}
+                    {/*            <h6>Miles:</h6>*/}
+                    {/*            {mArr}*/}
+                    {/*            </Col>*/}
+                    {/*            <Col>*/}
+                    {/*            <h6>Meters:</h6>*/}
+                    {/*            {meArr}*/}
+                    {/*            </Col>*/}
+                    {/*        </Row>*/}
+                    {/*    </Col>*/}
+                    {/*    </Row>*/}
+                    {/*    /!*<Row className = 'justify-content-md-center'>*!/*/}
+                    {/*    /!*    <ButtonGroup className = 'mb-2'>*!/*/}
+                    {/*    /!*        <Button variant = "outline-secondary" onClick = {this.incrementRunnerDown}>⇦</Button>*!/*/}
+                    {/*    /!*        <Button variant = "outline-secondary" onClick = {this.handleSave}>Save Results</Button>*!/*/}
+                    {/*    /!*        <Button variant = "outline-secondary" onClick = {this.incrementRunnerUp}>⇨</Button>*!/*/}
+                    {/*    /!*    </ButtonGroup>*!/*/}
+                    {/*    /!*    *!/*/}
+                    {/*    /!*</Row>*!/*/}
+                    {/*</Form>*/}
                 </Modal.Body>
             {/* </Modal.Dialog> */}
             </Modal>

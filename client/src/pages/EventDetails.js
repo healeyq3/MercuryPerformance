@@ -16,10 +16,11 @@ export class EventDetails extends Component {
         super(props);
         this.state = {
           showRunner: false,
-          showResults:false,
           reloaded:false,
           runnerCount: 0,
         }
+
+        this.openResultsModal = this.openResultsModal.bind(this);
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -44,14 +45,11 @@ export class EventDetails extends Component {
       })
     }
 
-    setShowResults = e => {
+    openResultsModal(runneruid){
       this.setState({
-          showResults: !this.state.showResults
+        showResults: true,
+        resultsRunneruid: runneruid,
       })
-    }
-
-    setSelectedRunner = runner => {
-      console.log(runner);
     }
 
     render() {
@@ -75,7 +73,7 @@ export class EventDetails extends Component {
             if(this.props.events[this.props.selectedEvent].runners.hasOwnProperty(runner)){
               runnersInEvent.push(
                 <React.Fragment key = {runner}>
-                  <EventRunnerCard setShow = {this.setShowResults} runner = {this.props.runners[runner]} time = {this.props.events[this.props.selectedEvent].runners[runner].time} />
+                  <EventRunnerCard openResultsModal = {this.openResultsModal} runner = {this.props.runners[runner]} time = {this.props.events[this.props.selectedEvent].runners[runner].time} />
                 </React.Fragment>
               )
             }
@@ -98,7 +96,7 @@ export class EventDetails extends Component {
               </Row>
 
               <EventAddRunnersModal show = {this.state.showRunner} setShow = {this.setShowRunner} teamUID = {this.props.selectedTeam}/>
-              {/*<AddResultsModal show = {this.state.showResults} setShow = {this.setShowResults}/>*/}
+              <AddResultsModal show = {this.state.showResults} setShow = {this.setShowResults} runneruid={this.state.resultsRunneruid}/>
           </div>
       )
     }

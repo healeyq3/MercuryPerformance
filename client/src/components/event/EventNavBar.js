@@ -16,9 +16,9 @@ export class EventNavBar extends Component {
                             <Nav.Item> 
                                 <Nav.Link onClick = {this.props.setShowRunner}>Add Runners</Nav.Link>
                             </Nav.Item>
-                            <Nav.Item> 
-                                <Nav.Link onClick = {this.props.setShowResults}>Add Results</Nav.Link>
-                            </Nav.Item>
+                            {/*<Nav.Item> */}
+                            {/*    <Nav.Link onClick = {this.props.setShowResults}>Add Results</Nav.Link>*/}
+                            {/*</Nav.Item>*/}
                             <Nav.Item> 
                                 <Nav.Link href="./comingsoon">Analysis</Nav.Link>
                             </Nav.Item>

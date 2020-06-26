@@ -18,8 +18,7 @@ export class EventRunnerCard extends Component {
                       <p>{time}</p>
                       <Col/>
                       <Col>
-                          <Button variant = "outline-primary" onClick = {this.props.setShow}>Edit</Button>
-                          <Button variant = "outline-secondary" onClick = {this.handleDelete}>🗑</Button>
+                          <Button variant = "outline-primary" onClick={() => this.props.openResultsModal(this.props.runner.key)}>Results</Button>
                       </Col>
                   </Row>
 
