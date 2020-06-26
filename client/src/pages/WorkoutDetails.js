@@ -7,12 +7,14 @@ import { connect } from 'react-redux';
 import WorkoutImplementor from '../components/workout/WorkoutImplementor';
 import { getActualWorkouts, setWorkout } from '../actions/workoutActions'
 import PropTypes from 'prop-types';
+import {Redirect} from "react-router-dom";
 
 export class WorkoutDetails extends Component {
     constructor(props){
         super(props);
         this.state = {
-            show: false
+            show: false,
+            toWorkoutDate: false
         }
     }
     
@@ -24,14 +26,16 @@ export class WorkoutDetails extends Component {
     setShow = e => {
         console.log("SetShow called");
         this.setState({
-            show: !this.state.show
+            showNewDate: !this.state.showNewDate
         })
     }
-
-    setSelectedWorkout(workout){
+    setSelectedWorkout = workout => {
         console.log(workout.key);
         this.props.setWorkout(workout.key)
-    }
+        this.setState({
+            toWorkoutDate: true
+        })
+      }
 
     componentDidUpdate(prevProps){
         if(prevProps.rehydrated === false){
@@ -40,6 +44,10 @@ export class WorkoutDetails extends Component {
       }
 
     render() {
+        if(this.state.toWorkoutDate){
+            this.props.history.push('/workoutdetails');
+            return <Redirect to='/workoutdatedetails' />
+          }
         if(!this.props.selectedTeam || !this.props.selectedBlueprint){
             return null;
         }
@@ -54,6 +62,7 @@ export class WorkoutDetails extends Component {
         }
 
         return (
+            
             // <Container>
             <React.Fragment>
                 <Row>
@@ -79,19 +88,18 @@ export class WorkoutDetails extends Component {
                     {cardItems}
                 </Card>
                 <Card className = "text-center" tag="a" onClick = {this.setShow} style = {{cursor:"pointer"}}>
-                    <p></p>
+                    <p/>
                     <Card.Title>New Date</Card.Title>
-                    <p></p>
-                    
+                    <p/>
                 </Card>
-                <WorkoutImplementor blueprint = {this.props.selectedBlueprint} show = {this.state.show} setShow = {this.setShow} teamUID = {this.props.selectedTeam} reps = {this.props.blueprints[this.props.selectedBlueprint].reps}/>
+                <WorkoutImplementor show={this.state.showNewDate} setShow = {this.setShow} teamUID = {this.props.selectedTeam} reps = {this.props.blueprints[this.props.selectedBlueprint].reps}/>
                 </Col>
                 <Col>
                 <Row>
-                <ExistingWorkoutGraph team = {this.props.teams[this.props.selectedTeam]} reps = {this.props.blueprints[this.props.selectedBlueprint].reps}></ExistingWorkoutGraph>
+                <ExistingWorkoutGraph team = {this.props.teams[this.props.selectedTeam]} reps = {this.props.blueprints[this.props.selectedBlueprint].reps}/>
                 </Row>
                 <Row>
-                    <WorkoutDetailsCard></WorkoutDetailsCard>
+                    <WorkoutDetailsCard/>
                 </Row>
                 </Col>
             </Row>

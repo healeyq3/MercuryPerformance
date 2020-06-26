@@ -25,7 +25,7 @@ class NavigationTop extends Component {
     }
     
     render() {
-        if(!cookie.load('idToken')){
+        if(!cookie.load('mercury-fb-token')){
             return null;
         }
         return (
