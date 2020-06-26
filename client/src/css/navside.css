@@ -15,7 +15,7 @@
     flex-direction: column;
 }
 
-.navigation-link-image-container{
+.navigation-link-container{
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -23,6 +23,16 @@
     height: 45px;
     margin-bottom: 15px;
     margin-left: 20px;
+}
+
+#navigation-link-select-team{
+    margin-top: 20px;
+}
+
+#navigation-link-logout{
+    margin-top: auto;
+    margin-bottom: 0;
+    justify-content: center;
 }
 
 .navigation-link{

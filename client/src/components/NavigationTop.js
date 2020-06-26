@@ -38,7 +38,7 @@ class NavigationTop extends Component {
 
                     {/*</div>*/}
                     <div className="top-bar-user-information-container">
-                        <img src={logo} className="top-bar-profile-photo" alt="profile-photo"/>
+                        {/*<img src={logo} className="top-bar-profile-photo" alt="profile-photo"/>*/}
                         <h5 id="top-bar-user-name">John O'Brien</h5>
                         <img src={triangle} className="top-bar-triangle-selector" alt="triangle-selector"/>
                     </div>

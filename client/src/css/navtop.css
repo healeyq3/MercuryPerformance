@@ -1,5 +1,8 @@
 .navigation-top-container{
+    position: sticky;
+    align-self: flex-start;
     width: 100%;
+    max-width: 300px;
     height: 90px;
     min-height: 90px;
     min-width: 100vw;
@@ -28,10 +31,10 @@
 .main-top-bar-container{
     height: 100%;
     flex-grow: 1;
-    background-color: white;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+    background-color: white;
 }
 
 .top-bar-widgets-container{
@@ -44,7 +47,7 @@
     display: flex;
     align-items: center;
     white-space: nowrap;
-    padding-right: 0;
+    padding-right: 20px;
 }
 
 .top-bar-triangle-selector{

@@ -83,20 +83,18 @@ export class Workouts extends Component {
             }
         }
         return (
-            <Container className="workouts-container">
-                <Container fluid className="existing-workouts-container">
-                    <Col>
-                        <Nav fill variant="tabs" className="justify-content-center">
-                            <Nav.Item>
-                                <Nav.Link href = "./">Team Name</Nav.Link>
-                            </Nav.Item>
-                        </Nav>
-                        <Card className = "text-center">
-                            <Card.Header>Team Workouts</Card.Header>
-                            {cardItems}
-                        </Card>
-                    </Col>
-                </Container>
+            <div className="workouts-container">
+                <Col className="team-workouts-card-container">
+                    <Nav fill variant="tabs" className="justify-content-center">
+                        <Nav.Item>
+                            <Nav.Link href = "./">Team Name</Nav.Link>
+                        </Nav.Item>
+                    </Nav>
+                    <Card className = "text-center">
+                        <Card.Header>Team Workouts</Card.Header>
+                        {cardItems}
+                    </Card>
+                </Col>
 
                 <Col className="workout-options-container">
                     <Card className = "text-center" tag="a" onClick = {this.setShowCreateWorkout} style = {{cursor:"pointer"}}>
@@ -115,7 +113,7 @@ export class Workouts extends Component {
               <Modal show = {this.state.showImport} onHide = {this.showImportModal}>
                 <ImportWorkoutDropdown importWorkoutBlueprint = {this.importWorkoutBlueprint} allBlueprints = {this.props.allBlueprints} blueprints = {this.props.blueprints}/>
               </Modal>
-            </Container>
+            </div>
         )
     }
 }
