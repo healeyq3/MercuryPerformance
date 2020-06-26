@@ -4,6 +4,7 @@ import WorkoutNavBar from '../components/workout/WorkoutNavBar'
 import WorkoutDateDetailsCard from '../components/workout/WorkoutDateDetailsCard'
 import WorkoutAddRunnersModal from '../components/workout/WorkoutAddRunnersModal'
 import AddResultsModal from '../components/workout/AddResultsModal'
+import WorkoutRunnerCard from '../components/workout/WorkoutRunnerCard'
 
 export class WorkoutDateDetails extends Component {
     constructor(props){
@@ -57,6 +58,7 @@ export class WorkoutDateDetails extends Component {
                             <Card className = "text-center">
                                 <Card.Header>Runners</Card.Header>
                                 {/*runnersInWorkout*/}
+                                <WorkoutRunnerCard></WorkoutRunnerCard>
                             </Card>
                         </Col>
                     </Row>
