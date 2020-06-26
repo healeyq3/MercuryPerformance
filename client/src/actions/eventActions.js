@@ -1,4 +1,12 @@
-import {GET_TEAM_EVENTS, NEW_EVENT, SET_EVENT, NEW_TIME, RUNNERS_ADDED, SELECT_RUNNER} from './types';
+import {
+  GET_TEAM_EVENTS,
+  NEW_EVENT,
+  SET_EVENT,
+  NEW_TIME,
+  RUNNERS_ADDED,
+  SELECT_RUNNER,
+  RESET_RUNNER_ADDED
+} from './types';
 import cookie from 'react-cookies'
 import fire from "../Fire";
 
@@ -136,6 +144,14 @@ export function selectRunner(selectedRunnerUID){
     dispatch({
       type: SELECT_RUNNER,
       payload: selectedRunnerUID
+    })
+  }
+}
+
+export function resetRunnerAdded(){
+  return function(dispatch){
+    dispatch({
+      type: RESET_RUNNER_ADDED
     })
   }
 }

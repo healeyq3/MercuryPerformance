@@ -17,6 +17,7 @@ export const SET_EVENT = 'SET_EVENT';
 export const NEW_TIME = 'NEW_TIME';//this may move
 export const RUNNERS_ADDED = 'RUNNERS_ADDED';
 export const SELECT_RUNNER =  'SELECT_RUNNER';
+export const RESET_RUNNER_ADDED = 'RESET_RUNNER_ADDED';
 
 
 //  ----------- WORKOUT ACTIONS ---------------
