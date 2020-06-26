@@ -254,7 +254,7 @@ export function addRunnersToWorkout(runnerUidArray, workoutuid){
   }
 
 export function resetRunnerAdded(){
-return function(dispatch){
+    return function(dispatch){
     dispatch({
     type: RESET_WORKOUT_RUNNER_ADDED
     })
