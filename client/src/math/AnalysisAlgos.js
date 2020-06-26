@@ -1,4 +1,4 @@
-import { stringToNumber, secondsToMinutes } from './TimeConversions';
+import { stringToNumber, secondsToMinutes, distanceToTime } from './TimeConversions';
 
 function getAverageTeamPace(runners){
     let totalTime = 0;
@@ -15,11 +15,18 @@ function getAverageTeamPace(runners){
 
 function getPredictedTime(runner, rep){//not done
     let pace = 0
+    let t = 0
     if(runner.hasOwnProperty('wPace')){
         pace = stringToNumber(runner.wPace)
     }
     pace = pace/ (rep.percent/100)
-
+    if(rep.hasOwnProperty('distance')){
+        t = distanceToTime(rep.distance, rep.distanceUnit, pace)
+    }
+    else{
+        t = rep.duration
+    }
+    return t
 }
 
 function getPredictedTimes(runners, percent){
