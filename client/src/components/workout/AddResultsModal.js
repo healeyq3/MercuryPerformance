@@ -4,6 +4,7 @@ import { selectRunner } from '../../actions/eventActions';
 import { updateRunner } from '../../actions/runnerActions';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import AddRepResultForm from './AddRepResultForm';
 
 export class AddResultsModal extends Component {
     constructor(props){
@@ -130,18 +131,8 @@ export class AddResultsModal extends Component {
                     <Form >
                         <Row>
                         <Col>
-                            <Row>
-                                <Form.Label>Final Time</Form.Label>
-                                <Col>
-                                    <Form.Control onChange = {this.handleChange} name = "finalTimeHours" type = "text" placeholder = 'Hours' value = {this.state.finalTimeHours}/>
-                                </Col>
-                                <Col>
-                                    <Form.Control onChange = {this.handleChange} name = "finalTimeMinutes" type = "text" placeholder = 'Minutes' value = {this.state.finalTimeMinutes}/>
-                                </Col>
-                                <Col>
-                                    <Form.Control onChange = {this.handleChange} name = "finalTimeSeconds" type = "text" placeholder = 'Seconds' value = {this.state.finalTimeSeconds}/>
-                                </Col>
-                            </Row>
+                            <AddRepResultForm></AddRepResultForm>
+                            <AddRepResultForm></AddRepResultForm>
                         </Col>
                         </Row>
                         <Row className = 'justify-content-md-center'>
