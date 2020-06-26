@@ -101,7 +101,7 @@ async function getWorkouts(teamuid, blueprint) {
 
     await blueprintWorkoutsRef.once('value').then(async (snapshot) => {
         let workoutsArray = [];
-        snapshot.forEach(function(child) {
+        await snapshot.forEach(function(child) {
             workoutsArray.push(child);
         });
 
@@ -118,7 +118,8 @@ async function getWorkouts(teamuid, blueprint) {
         console.log('Error in getWorkouts'.red);
         console.log(err);
     })
-
+    console.log('workout data passed: ');
+    console.log(workouts);
     return workouts;
 }
 

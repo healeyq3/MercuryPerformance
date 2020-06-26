@@ -6,6 +6,17 @@ import WorkoutRepDataCard from './WorkoutRepDataCard';
 export class WorkoutRunnerCard extends Component {
     
     render() {
+        console.log("Fuck this fucking merging shit")
+        let repItems = [];
+        for(const rep in this.props.reps){
+           
+            repItems.push(
+                
+                <React.Fragment>
+                    <WorkoutRepDataCard rep = {this.props.reps[rep]} />
+                </React.Fragment>
+            )  
+        }
         console.log(this.props.reps);
         return (
             <Accordion>
@@ -27,8 +38,7 @@ export class WorkoutRunnerCard extends Component {
                 </Card.Header>
                 <Accordion.Collapse eventKey="0">
                 <Card.Body>
-                    <WorkoutRepDataCard></WorkoutRepDataCard>
-                    <WorkoutRepDataCard></WorkoutRepDataCard>
+                    {repItems}
                 </Card.Body>
                 </Accordion.Collapse>
             </Card>
