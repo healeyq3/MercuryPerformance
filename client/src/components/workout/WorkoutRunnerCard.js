@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Card, Button, Row, Col, Accordion } from 'react-bootstrap';
+import WorkoutRepDataCard from './WorkoutRepDataCard';
 // import {timeGenerator} from '../../math/TimeConversions'
 
 export class WorkoutRunnerCard extends Component {
@@ -23,7 +24,9 @@ export class WorkoutRunnerCard extends Component {
                     </Row>
                 </Card.Header>
                 <Accordion.Collapse eventKey="0">
-                <Card.Body>Data
+                <Card.Body>
+                    <WorkoutRepDataCard></WorkoutRepDataCard>
+                    <WorkoutRepDataCard></WorkoutRepDataCard>
                 </Card.Body>
                 </Accordion.Collapse>
             </Card>
