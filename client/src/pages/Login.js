@@ -36,10 +36,11 @@ class Login extends Component {
 
     login = async (e) => {
         e.preventDefault();
+        console.log("Logging in...");
         await fire.auth().signInWithEmailAndPassword(this.state.mercury_email, this.state.password).then(async (u) => {
             const idToken = await u.user.getIdToken(false);
 
-            cookie.save('mercury-fb-token', idToken, { path: "/" });
+            cookie.save('mercury-fb-token', idToken, { path: "/", SameSite:"strict", secure: true });
 
             fetch('/api/login', {
                 method: 'POST',
@@ -54,7 +55,8 @@ class Login extends Component {
                     gotoTeamSelect: true
                 })
             })
-        }).catch(() => {
+        }).catch((error) => {
+            console.log(error);
             this.setState({
                 failedLogin: true,
                 failedLoginResetInterval:

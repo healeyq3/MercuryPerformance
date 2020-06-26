@@ -224,6 +224,10 @@ export class AddResultsModal extends Component {
         let selectedRunnerName;
         Object.keys(this.props.runners).length > 0 ? selectedRunnerName = this.props.runners[this.props.selectedRunner].name : selectedRunnerName = null;
 
+        if(!this.props.runners[this.props.selectedRunner]){
+            return null;
+        }
+
         return (
             <Modal show = {this.props.show} onHide = {this.props.setShow} onShow = {this.reset} size = 'lg'>
             {/* <Modal.Dialog> */} 
