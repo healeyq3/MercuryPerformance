@@ -50,7 +50,7 @@ export class WorkoutAddRunnersModal extends Component {
 
         
 
-      /*}  for(const runner in this.props.runners){
+       for(const runner in this.props.runners){
             if(this.props.runners.hasOwnProperty(runner)){
                 if(this.props.workouts[this.props.selectedBlueprint].hasOwnProperty('runners') === false){
                     runnerToAddArr.push(
@@ -73,7 +73,6 @@ export class WorkoutAddRunnersModal extends Component {
                 }
             }
         }
-    */
 
         return (
             <Modal show = {this.props.show} onHide = {this.props.setShow} onShow = {this.reset} className = "text-center">
@@ -92,16 +91,16 @@ export class WorkoutAddRunnersModal extends Component {
 }
 
 WorkoutAddRunnersModal.propTypes = {
-    selectedBlueprint: PropTypes.string,
-    runners: PropTypes.object,
-    workouts: PropTypes.object,
-    addRunnersToWorkout: PropTypes.func,
+    selectedWorkout: PropTypes.string.isRequired,
+    runners: PropTypes.object.isRequired,
+    workouts: PropTypes.object.isRequired,
+    addRunnersToWorkout: PropTypes.func.isRequired
 }
 
 const mapStateToProps = function(state){
     return {
         runners: state.runners.runners,
-        selectedWorkout: state.workouts.selectedBlueprint,
+        selectedWorkout: state.workouts.selectedWorkout,
         workouts: state.events.workouts,
     }
 }
