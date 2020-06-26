@@ -38,21 +38,19 @@ class App extends Component {
               <div className="main-page-container">
                 <NavigationSide/>
                 <div className="main-page">
-                  <div className="main-mercury-container">
-                    <Switch>
-                      <AuthRoute exact path = '/login' component = {Login} authenticated = {cookie.load('idToken')}/>
-                      <AuthRoute3 exact path = '/' component = {Home} team = {cookie.load('selectedTeam')}/>
-                      <AuthRoute exact path = '/signup' component = {CreateAccount} authenticated = {cookie.load('idToken')}/>
-                      <AuthRoute2 exact path = '/teamselect' component = {TeamSelect}/>
-                      <AuthRoute2 exact path = '/comingsoon' component = {ComingSoon} authenticated = {cookie.load('idToken')}/>
-                      <AuthRoute3 exact path = '/events' component = {Events} authenticated = {cookie.load('idToken')} team = {cookie.load('selectedTeam')}/>
-                      <AuthRoute3 exact path = '/eventdetails' component = {EventDetails} authenticated = {cookie.load('idToken')} team = {cookie.load('selectedTeam')}/>
-                      <AuthRoute3 exact path = '/workouts' component = {Workouts} authenticated = {cookie.load('idToken')} team = {cookie.load('selectedTeam')} />
-                      <AuthRoute3 exact path = '/workoutdetails' component = {WorkoutDetails} authenticated = {cookie.load('idToken')} team = {cookie.load('selectedTeam')} />
-                      <AuthRoute3 exact path = '/workoutdatedetails' component = {WorkoutDateDetails} authenticated = {cookie.load('idToken')} team = {cookie.load('selectedTeam')} />
-                      <AuthRoute3 exact path = '/workoutcreator' component = {WorkoutCreator} authenticated = {cookie.load('idToken')} team = {cookie.load('selectedTeam')} />
-                    </Switch>
-                  </div>
+                  <Switch>
+                    <AuthRoute exact path = '/login' component = {Login} authenticated = {cookie.load('idToken')}/>
+                    <AuthRoute3 exact path = '/' component = {Home} team = {cookie.load('selectedTeam')}/>
+                    <AuthRoute exact path = '/signup' component = {CreateAccount} authenticated = {cookie.load('idToken')}/>
+                    <AuthRoute2 exact path = '/teamselect' component = {TeamSelect}/>
+                    <AuthRoute2 exact path = '/comingsoon' component = {ComingSoon} authenticated = {cookie.load('idToken')}/>
+                    <AuthRoute3 exact path = '/events' component = {Events} authenticated = {cookie.load('idToken')} team = {cookie.load('selectedTeam')}/>
+                    <AuthRoute3 exact path = '/eventdetails' component = {EventDetails} authenticated = {cookie.load('idToken')} team = {cookie.load('selectedTeam')}/>
+                    <AuthRoute3 exact path = '/workouts' component = {Workouts} authenticated = {cookie.load('idToken')} team = {cookie.load('selectedTeam')} />
+                    <AuthRoute3 exact path = '/workoutdetails' component = {WorkoutDetails} authenticated = {cookie.load('idToken')} team = {cookie.load('selectedTeam')} />
+                    <AuthRoute3 exact path = '/workoutdatedetails' component = {WorkoutDateDetails} authenticated = {cookie.load('idToken')} team = {cookie.load('selectedTeam')} />
+                    <AuthRoute3 exact path = '/workoutcreator' component = {WorkoutCreator} authenticated = {cookie.load('idToken')} team = {cookie.load('selectedTeam')} />
+                  </Switch>
                 </div>
               </div>
             </Router>
