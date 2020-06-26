@@ -5,6 +5,9 @@ import WorkoutDateDetailsCard from '../components/workout/WorkoutDateDetailsCard
 import WorkoutAddRunnersModal from '../components/workout/WorkoutAddRunnersModal'
 import AddResultsModal from '../components/workout/AddResultsModal'
 import WorkoutRunnerCard from '../components/workout/WorkoutRunnerCard'
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import {addRunnersToWorkout, resetRunnerAdded } from '../actions/workoutActions'
 
 export class WorkoutDateDetails extends Component {
     constructor(props){
@@ -82,4 +85,25 @@ export class WorkoutDateDetails extends Component {
         )
         }
 }
-export default WorkoutDateDetails
+/*
+WorkoutDateDetails.propTypes = {
+    addRunnersToWorkout: PropTypes.func.isRequired,
+    resetRunnerAdded: PropTypes.func.isRequired,
+    selectedWorkout: PropTypes.string.isRequired,
+    times: PropTypes.object,
+    workouts: PropTypes.object.isRequired,
+    runners: PropTypes.object.isRequired,
+    hasAddedRunner: PropTypes.bool.isRequired
+  };
+  const mapStateToProps = function(state){
+    return {
+      selectedWorkout: state.workouts.selectedWorkout,
+      times: state.workouts.times,
+      rehydrated: state._persist.rehydrated,
+      workouts: state.workouts.actualWorkouts,
+      runners: state.runners.runners,
+      hasAddedRunner: state.events.hasAddedRunner
+    }
+  }*/
+
+export default connect(null, { addRunnersToWorkout, resetRunnerAdded}) (WorkoutDateDetails)
