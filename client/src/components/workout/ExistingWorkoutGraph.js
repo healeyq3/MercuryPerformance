@@ -30,9 +30,9 @@ export class ExistingWorkoutGraph extends Component {
         } else if(t.percent >= 95){
           c = 4
         }
-        console.log(t)
+        // console.log(t)
         if(t.distanceUnit!==undefined){
-          console.log("Got to the first one")
+          // console.log("Got to the first one")
           newTime = distanceToTime(t.distance, t.distanceUnit, averagePace /(t.percent/100))
           time += newTime
           DATA.push({x0:start, x:time, y:t.percent, color: c})
@@ -42,7 +42,7 @@ export class ExistingWorkoutGraph extends Component {
         else{
           
           newTime = totalMinutes(t.hours, t.minutes, t.seconds)
-          console.log(`newTime: ${newTime}`)
+          // console.log(`newTime: ${newTime}`)
           if(newTime !== 0) {
             time +=newTime
             DATA.push({x0:start, x:time, y:t.percent, color: c})

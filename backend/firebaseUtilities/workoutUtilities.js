@@ -128,7 +128,7 @@ async function createWorkout(useruid, teamuid, date, reps){
     const workoutData = {
         date,
         reps,
-        key: blueprintRef.key.toString()
+        key: workoutRef.key.toString()
     }
 
     workoutRef.set(workoutData).then(async () => {

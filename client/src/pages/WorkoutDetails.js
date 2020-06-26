@@ -4,7 +4,8 @@ import WorkoutBlueprintDayCard from '../components/workout/WorkoutBlueprintDayCa
 import WorkoutDetailsCard from '../components/workout/WorkoutDetailsCard'
 import ExistingWorkoutGraph from '../components/workout/ExistingWorkoutGraph'
 import { connect } from 'react-redux';
-import { WorkoutImplentorModal } from '../components/workout/WorkoutImplentorModal';
+import WorkoutImplementor from '../components/workout/WorkoutImplementor';
+import { getActualWorkouts } from '../actions/workoutActions'
 import PropTypes from 'prop-types';
 
 export class WorkoutDetails extends Component {
@@ -21,6 +22,7 @@ export class WorkoutDetails extends Component {
     }
 
     setShow = e => {
+        console.log("SetShow called");
         this.setState({
             show: !this.state.show
         })
@@ -61,7 +63,7 @@ export class WorkoutDetails extends Component {
                     <p></p>
                     <Card.Title>New Date</Card.Title>
                     <p></p>
-                    <WorkoutImplentorModal show = {this.state.show} setShow = {this.setShow} teamUID = {this.props.selectedTeam} reps = {this.props.blueprints[this.props.selectedBlueprint].reps}/>
+                    <WorkoutImplementor show = {this.state.show} setShow = {this.setShow} teamUID = {this.props.selectedTeam} reps = {this.props.blueprints[this.props.selectedBlueprint].reps}/>
                 </Card>
                 </Col>
                 <Col>
@@ -95,4 +97,4 @@ const mapStateToProps = function(state){
     }
 }
 
-export default connect(mapStateToProps, { }) (WorkoutDetails)
+export default connect(mapStateToProps, { getActualWorkouts }) (WorkoutDetails)
