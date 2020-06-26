@@ -1,4 +1,4 @@
-import { GET_BLUEPRINTS, GET_ALL_BLUEPRINTS, NEW_BLUEPRINT, SET_BLUEPRINT, ADD_BLUEPRINT_TEAM, NEW_WORKOUT, GET_WORKOUTS, SET_WORKOUT } from './types';
+import { GET_BLUEPRINTS, GET_ALL_BLUEPRINTS, NEW_BLUEPRINT, SET_BLUEPRINT, ADD_BLUEPRINT_TEAM, NEW_WORKOUT, GET_WORKOUTS, SET_WORKOUT, WORKOUT_RUNNERS_ADDED } from './types';
 import cookie from 'react-cookies';
 import fire from "../Fire";
 
@@ -224,3 +224,31 @@ export function setWorkout(workout){
         })
     }
 }
+
+export function addRunnersToWorkout(runnerUidArray, workoutuid){
+    return async function(dispatch){
+      fire.auth().onAuthStateChanged(function(user) {
+        user.getIdToken(true).then(async function (idToken) {
+          cookie.save('mercury-fb-token', idToken, {path: "/"});
+          await fetch('/api/workouts/addrunner', {
+            method: 'POST',
+            headers: {
+              'content-type': 'application/json'
+            },
+            body: JSON.stringify({
+              idToken,
+              workoutuid,
+              runnerUidArray
+            })
+          })
+          .then(res => res.json())
+          .then(runnersAddedObject =>
+            dispatch({
+              type: WORKOUT_RUNNERS_ADDED,
+              payload: runnersAddedObject
+            })
+          );
+        })
+      })
+    }
+  }
