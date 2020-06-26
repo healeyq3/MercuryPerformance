@@ -8,9 +8,9 @@ export class WorkoutRepDataCard extends Component {
                 <Card.Body>
                     <Row>
                         <Col>
-                        <Card.Title>Rep Name</Card.Title>
+                        <Card.Title>{this.props.rep.type}</Card.Title>
                         </Col>
-                        <p>Rep Time</p>
+                            <p>{this.props.rep.percent}</p>
                         <Col>
                         </Col>
                     </Row>
