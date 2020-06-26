@@ -44,7 +44,6 @@ class TeamSelect extends React.Component {
 
   render() {
     if(this.state.toTeamHome){
-      this.props.history.push('/teamselect');
       return <Redirect to='/' />
     }
 

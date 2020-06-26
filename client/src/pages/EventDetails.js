@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { newTime, addRunnersToEvent, selectRunner, resetRunnerAdded } from '../actions/eventActions';
 import { connect } from 'react-redux';
 import '../css/eventdetails.css';
+import {Redirect} from 'react-router-dom'
 
 export class EventDetails extends Component {
     constructor(props){
@@ -24,7 +25,7 @@ export class EventDetails extends Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
       if(prevProps.rehydrated===false){
         console.log(this.props);
-        if(!this.props.events[this.props.selectedEvent].runners){
+        if(!this.props.events[this.props.selectedEvent] || !this.props.events[this.props.selectedEvent].runners){
           return;
         }
         this.setState({
@@ -58,11 +59,11 @@ export class EventDetails extends Component {
           return null;
       }
 
-      let runnersInEvent = [];
-
-      if(this.props.events[this.props.selectedEvent].runners){
-        console.log(Object.keys(this.props.events[this.props.selectedEvent].runners).length);
+      if(!this.props.events[this.props.selectedEvent]){
+        return <Redirect to="/events"/>
       }
+
+      let runnersInEvent = [];
 
       if(this.props.hasAddedRunner && this.state.runnerCount === Object.keys(this.props.events[this.props.selectedEvent].runners).length){
         this.props.resetRunnerAdded();
@@ -74,7 +75,7 @@ export class EventDetails extends Component {
             if(this.props.events[this.props.selectedEvent].runners.hasOwnProperty(runner)){
               runnersInEvent.push(
                 <React.Fragment key = {runner}>
-                  <EventRunnerCard setShow = {this.setShowResults}runner = {this.props.runners[runner]} time = {this.props.events[this.props.selectedEvent].runners[runner].time} />
+                  <EventRunnerCard setShow = {this.setShowResults} runner = {this.props.runners[runner]} time = {this.props.events[this.props.selectedEvent].runners[runner].time} />
                 </React.Fragment>
               )
             }
@@ -97,7 +98,7 @@ export class EventDetails extends Component {
               </Row>
 
               <EventAddRunnersModal show = {this.state.showRunner} setShow = {this.setShowRunner} teamUID = {this.props.selectedTeam}/>
-              <AddResultsModal show = {this.state.showResults} setShow = {this.setShowResults}/>
+              {/*<AddResultsModal show = {this.state.showResults} setShow = {this.setShowResults}/>*/}
           </div>
       )
     }
