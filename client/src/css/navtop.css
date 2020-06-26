@@ -9,7 +9,7 @@
 }
 
 .logo-container{
-    background-color: #3498db;
+    background-color: #3d4972;
     max-width: 220px;
     min-width: 220px;
     flex-grow: 1;
@@ -55,9 +55,11 @@
 }
 
 .top-bar-profile-photo{
-    height: 62%;
+    height: 75px;
+    max-height: 75px;
+    margin-right: 15px;
     clip-path: circle();
-    background-color: black;
+    border: 1px solid black;
 }
 
 #top-bar-user-name{
