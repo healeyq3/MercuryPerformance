@@ -41,7 +41,6 @@ class Login extends Component {
             const idToken = await u.user.getIdToken(false);
 
             cookie.save('idToken', idToken, { path: "/" });
-            cookie.save('user', u.user, { path: "/" });
 
             fetch('/api/login', {
                 method: 'POST',

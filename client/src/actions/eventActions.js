@@ -1,37 +1,44 @@
 import {GET_TEAM_EVENTS, NEW_EVENT, SET_EVENT, NEW_TIME, RUNNERS_ADDED, SELECT_RUNNER} from './types';
 import cookie from 'react-cookies'
+import fire from "../Fire";
 
 export function newEvent(eventData, selectedTeamUID){
-  return async function(dispatch) {
-    console.log("Creating new event");
-    await fetch('/api/events/new', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify({
-        eventData,
-        idToken: cookie.load('idToken'),
-        selectedTeamUID: selectedTeamUID
-      })
+  fire.auth().onAuthStateChanged(function(user){
+    user.getIdToken(true).then((token) => {
+
+      cookie.save('idToken', token, { path: "/" });
+
+      return async function(dispatch) {
+        await fetch('/api/events/new', {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json'
+          },
+          body: JSON.stringify({
+            eventData,
+            idToken: token,
+            selectedTeamUID: selectedTeamUID
+          })
+        })
+            .then(res => res.json())
+            .then(event =>
+                dispatch({
+                  type: NEW_EVENT,
+                  payload: event,
+                  eventUID: event.key
+                }))
+            .catch((error) => {
+              console.log(error);
+            })
+      }
+    }).catch((error) => {
+      cookie.remove('idToken', { path: "/" });
     })
-    .then(res => res.json())
-    .then(event =>
-      dispatch({
-        type: NEW_EVENT,
-        payload: event,
-        eventUID: event.key
-      }))
-    .catch((error) => {
-      console.log(error);
-    })
-  }
+  })
 }
 
-export function newTime(timeData, splitsData, selectedTeamUID, eventUID, runnerUID){//This runs to completion
-  console.log("TeamUID: "+selectedTeamUID);
+export function newTime(timeData, splitsData, selectedTeamUID, eventUID, runnerUID){
   return async function(dispatch) {
-    console.log("Creating new time");
     await fetch('/api/events/newtime', {//this is not actually going to the events backend, even though the link should be correct
       method: 'POST',
       headers: {

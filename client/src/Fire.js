@@ -1,6 +1,6 @@
 import * as firebase from 'firebase';
 
-var firebaseConfig = {
+const firebaseConfig = {
   apiKey: "AIzaSyBrQCEANaN3Z5s4xjoaOm6MocXGnlF-p_0",
   authDomain: "mercury-1875e.firebaseapp.com",
   databaseURL: "https://mercury-1875e.firebaseio.com",
