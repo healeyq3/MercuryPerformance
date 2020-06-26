@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { Card, Button, Row, Col, Accordion } from 'react-bootstrap';
-import {timeGenerator} from '../../math/TimeConversions'
+// import {timeGenerator} from '../../math/TimeConversions'
 
 export class WorkoutRunnerCard extends Component {
     render() {
-        let time = timeGenerator(this.props.time);
         return (
             <Accordion>
             <Card style = {{ height: '10%', orientation: 'horizontal'}}>
