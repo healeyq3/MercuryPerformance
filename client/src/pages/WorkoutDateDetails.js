@@ -35,11 +35,11 @@ export class WorkoutDateDetails extends Component {
         }
 /*
        let runnersInWorkout = [];
-        if(this.props.workouts[this.props.selectedBlueprint].hasOwnProperty('runners') === true){
-            console.log(this.props.workouts[this.props.selectedBlueprint].runners);
+        if(this.props.workouts[this.props.selectedWorkout].hasOwnProperty('runners') === true){
+            console.log(this.props.workouts[this.props.selectedWorkout].runners);
             console.log(this.props.rehydrated);
-            for(const runner in this.props.workouts[this.props.selectedBlueprint].runners){
-                if(this.props.workouts[this.props.selectedBlueprint].runners.hasOwnProperty(runner)){
+            for(const runner in this.props.workouts[this.props.selectedWorkout].runners){
+                if(this.props.workouts[this.props.selectedWorkout].runners.hasOwnProperty(runner)){
                     runnersInWorkout.push(
                         <React.Fragment key = {runner}>
                             <WorkoutRunnerCard setShow = {this.setShowResults}runner = {this.props.runners[runner]} time = {this.props.workouts[this.props.selectedBlueprint].runners[runner].time} />

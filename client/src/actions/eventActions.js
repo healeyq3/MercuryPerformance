@@ -14,7 +14,7 @@ export function newEvent(eventData, selectedTeamUID){
   return async function(dispatch) {
     fire.auth().onAuthStateChanged(function(user){
       user.getIdToken(true).then(async function(idToken){
-        cookie.save('mercury-fb-token', idToken, { path: "/", SameSite:"strict", secure: true });
+        cookie.save('mercury-fb-token', idToken, { path: "/", sameSite: "strict", SameSite:"strict" });
 
         await fetch('/api/events/new', {
           method: 'POST',
@@ -46,7 +46,7 @@ export function newTime(timeData, splitsData, selectedTeamUID, eventUID, runnerU
   return async function(dispatch) {
     fire.auth().onAuthStateChanged(function(user) {
       user.getIdToken(true).then(async function (idToken) {
-        cookie.save('mercury-fb-token', idToken, { path: "/", SameSite:"strict", secure: true });
+        cookie.save('mercury-fb-token', idToken, { path: "/", sameSite: "strict", SameSite:"strict" });
 
         await fetch('/api/events/newtime', {
           method: 'POST',
@@ -78,7 +78,7 @@ export function getTeamEvents(selectedTeamUID) {
   return async function(dispatch){
     fire.auth().onAuthStateChanged(function(user) {
       user.getIdToken(true).then(async function (idToken) {
-        cookie.save('mercury-fb-token', idToken, { path: "/", SameSite:"strict", secure: true });
+        cookie.save('mercury-fb-token', idToken, { path: "/", sameSite: "strict", SameSite:"strict" });
 
         await fetch('/api/events', {
           method: 'POST',
@@ -115,7 +115,7 @@ export function addRunnersToEvent(runnerUidArray, eventuid){
   return async function(dispatch){
     fire.auth().onAuthStateChanged(function(user) {
       user.getIdToken(true).then(async function (idToken) {
-        cookie.save('mercury-fb-token', idToken, { path: "/", SameSite:"strict", secure: true });
+        cookie.save('mercury-fb-token', idToken, { path: "/", sameSite: "strict", SameSite:"strict" });
         await fetch('/api/events/addrunner', {
           method: 'POST',
           headers: {
