@@ -7,12 +7,14 @@ import { connect } from 'react-redux';
 import WorkoutImplementor from '../components/workout/WorkoutImplementor';
 import { getActualWorkouts, setWorkout } from '../actions/workoutActions'
 import PropTypes from 'prop-types';
+import {Redirect} from "react-router-dom";
 
 export class WorkoutDetails extends Component {
     constructor(props){
         super(props);
         this.state = {
-            show: false
+            show: false,
+            toWorkoutDate: false
         }
     }
     
@@ -30,6 +32,9 @@ export class WorkoutDetails extends Component {
     setSelectedWorkout = workout => {
         console.log(workout.key);
         this.props.setWorkout(workout.key)
+        this.setState({
+            toWorkoutDate: true
+        })
       }
 
     componentDidUpdate(prevProps){
@@ -39,6 +44,10 @@ export class WorkoutDetails extends Component {
       }
 
     render() {
+        if(this.state.toWorkoutDate){
+            this.props.history.push('/workoutdetails');
+            return <Redirect to='/workoutdatedetails' />
+          }
         if(!this.props.selectedTeam || !this.props.selectedBlueprint){
             return null;
         }
@@ -53,6 +62,7 @@ export class WorkoutDetails extends Component {
         }
 
         return (
+            
             // <Container>
             <React.Fragment>
                 <Row>
