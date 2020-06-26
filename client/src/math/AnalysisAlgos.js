@@ -12,6 +12,16 @@ function getAverageTeamPace(runners){
     let average = totalTime/numberOfTimes;
     return secondsToMinutes(average);
 }
+
+function getPredictedTime(runner, rep){//not done
+    let pace = 0
+    if(runner.hasOwnProperty('wPace')){
+        pace = stringToNumber(runner.wPace)
+    }
+    pace = pace/ (rep.percent/100)
+
+}
+
 function getPredictedTimes(runners, percent){
     let max = 0;
     let min= 100000;
@@ -48,4 +58,4 @@ function getPredictedTimes(runners, percent){
 return max + ":" + decM + "-" + min + ":" + decMi
 }
 
-export { getAverageTeamPace, getPredictedTimes };
+export { getAverageTeamPace, getPredictedTimes, getPredictedTime};
