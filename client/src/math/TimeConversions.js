@@ -37,4 +37,30 @@ function distanceToTime(distance, unit, avPace){
     return d
 }
 
-export { stringToNumber, totalTheTime, distanceToTime, totalMinutes, secondsToMinutes };
+function timeGenerator(timeData){
+    let hour;
+    let min;
+    let seconds;
+    let time;
+    if(timeData!==undefined){
+         hour = timeData.hours;
+         min = timeData.minutes;
+         seconds = timeData.seconds;
+        if(hour===""){
+                hour = '00'
+            }
+        if(min===""){
+                min='00'
+            }
+        if(seconds===""){
+                seconds='00'
+            }
+        time = hour + ":" + min + ":" +seconds
+    }
+    else{
+        time = ''
+    }
+    return time;
+}
+
+export { stringToNumber, totalTheTime, distanceToTime, totalMinutes, secondsToMinutes, timeGenerator };
