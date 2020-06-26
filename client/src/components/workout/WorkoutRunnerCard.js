@@ -6,6 +6,17 @@ import WorkoutRepDataCard from './WorkoutRepDataCard';
 export class WorkoutRunnerCard extends Component {
     
     render() {
+        let runnersInWorkout = [];
+        for(const rep in this.props.reps){
+                runnersInWorkout.push(
+                    <React.Fragment>
+                        <WorkoutRepDataCard rep = {rep}></WorkoutRepDataCard>
+                    </React.Fragment>
+                    
+                )
+            }
+        
+        
         console.log(this.props.reps.reps);
         return (
             <Accordion>
@@ -27,8 +38,7 @@ export class WorkoutRunnerCard extends Component {
                 </Card.Header>
                 <Accordion.Collapse eventKey="0">
                 <Card.Body>
-                    <WorkoutRepDataCard></WorkoutRepDataCard>
-                    <WorkoutRepDataCard></WorkoutRepDataCard>
+                    {runnersInWorkout}
                 </Card.Body>
                 </Accordion.Collapse>
             </Card>
