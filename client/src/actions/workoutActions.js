@@ -1,102 +1,142 @@
 import { GET_BLUEPRINTS, GET_ALL_BLUEPRINTS, NEW_BLUEPRINT, SET_BLUEPRINT, ADD_BLUEPRINT_TEAM, NEW_WORKOUT, GET_WORKOUTS, SET_WORKOUT } from './types';
 import cookie from 'react-cookies';
+import fire from "../Fire";
 
 export function getWorkoutBlueprints(selectedTeamUID){
     return async function(dispatch) {
-        await fetch('/api/workouts/blueprints', {
-            method: 'POST',
-            headers: {
-                'content-type' : 'application/json'
-            },
-            body: JSON.stringify({
-                idToken: cookie.load('idToken'),
-                selectedTeamUID
+        fire.auth().onAuthStateChanged(function(user) {
+            if(!user){
+                cookie.remove('mercury-fb-token');
+                return;
+            }
+            user.getIdToken(true).then(async function (idToken) {
+                cookie.save('mercury-fb-token', idToken, {path: "/"});
+
+                await fetch('/api/workouts/blueprints', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        idToken,
+                        selectedTeamUID
+                    })
+                })
+                .then(res => res.json())
+                .then(blueprints =>
+                    dispatch({
+                        type: GET_BLUEPRINTS,
+                        payload: blueprints
+                    }))
+                .catch(err => {
+                    console.log(`error in workoutActions: ${err}`)
+                })
             })
         })
-        .then(res => res.json())
-        .then(
-            blueprints =>
-            dispatch({
-                type: GET_BLUEPRINTS,
-                payload: blueprints
-            }))
-            .catch(err => {
-                console.log(`error in workoutActions: ${err}`)
-            })
     }
 }
 
 export function getAllWorkoutBlueprints(){
     return async function(dispatch) {
-        await fetch('/api/workouts/getallblueprints', {
-            method: 'POST',
-            headers: {
-                'content-type' : 'application/json'
-            },
-            body: JSON.stringify({
-                idToken: cookie.load('idToken')
+        fire.auth().onAuthStateChanged(function(user) {
+            if (!user) {
+                cookie.remove('mercury-fb-token');
+                return;
+            }
+            user.getIdToken(true).then(async function (idToken) {
+                cookie.save('mercury-fb-token', idToken, {path: "/"});
+
+                await fetch('/api/workouts/getallblueprints', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        idToken: cookie.load('idToken')
+                    })
+                })
+                .then(res => res.json())
+                .then(blueprints =>
+                    dispatch({
+                        type: GET_ALL_BLUEPRINTS,
+                        payload: blueprints
+                    }))
+                .catch(err => {
+                    console.log(`error in workoutActions: ${err}`)
+                })
             })
         })
-          .then(res => res.json())
-          .then(blueprints =>
-            dispatch({
-                type: GET_ALL_BLUEPRINTS,
-                payload: blueprints
-            }))
-          .catch(err => {
-              console.log(`error in workoutActions: ${err}`)
-          })
     }
 }
 
 export function newWorkoutBlueprint(blueprintData, selectedTeamUID){
     return async function(dispatch) {
-        await fetch('/api/workouts/newblueprint', {
-            method: 'POST',
-            headers: {
-                'content-type' : 'application/json'
-            },
-            body: JSON.stringify({
-                blueprintData,
-                idToken: cookie.load('idToken'),
-                selectedTeamUID
+        fire.auth().onAuthStateChanged(function(user) {
+            if (!user) {
+                cookie.remove('mercury-fb-token');
+                return;
+            }
+            user.getIdToken(true).then(async function (idToken) {
+                cookie.save('mercury-fb-token', idToken, {path: "/"});
+
+                await fetch('/api/workouts/newblueprint', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        blueprintData,
+                        idToken: cookie.load('idToken'),
+                        selectedTeamUID
+                    })
+                })
+                .then(res => res.json())
+                .then(blueprint =>
+                    dispatch({
+                        type: NEW_BLUEPRINT,
+                        payload: blueprint,
+                        blueprintUID: blueprint.key
+                    }))
+                .catch(err => {
+                    console.log(`error in workoutActions: ${err}`)
+                })
             })
         })
-        .then(res => res.json())
-        .then(blueprint => 
-            dispatch({
-                type: NEW_BLUEPRINT,
-                payload: blueprint,
-                blueprintUID: blueprint.key
-            }))
-            .catch(err => {
-                console.log(`error in workoutActions: ${err}`)
-            })
     }
 }
 
 export function addWorkoutToTeam(blueprintuid, selectedTeamUID){
     return async function(dispatch) {
-        await fetch('/api/workouts/addblueprint', {
-            method: 'POST',
-            headers: {
-                'content-type' : 'application/json'
-            },
-            body: JSON.stringify({
-                blueprintuid,
-                selectedTeamUID,
-                idToken: cookie.load('idToken')
+        fire.auth().onAuthStateChanged(function(user) {
+            if (!user) {
+                cookie.remove('mercury-fb-token');
+                return;
+            }
+            user.getIdToken(true).then(async function (idToken) {
+                cookie.save('mercury-fb-token', idToken, {path: "/"});
+
+                await fetch('/api/workouts/addblueprint', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        blueprintuid,
+                        selectedTeamUID,
+                        idToken: cookie.load('idToken')
+                    })
+                })
+                    .then(res => res.json())
+                    .then(blueprint =>
+                        dispatch({
+                            type: ADD_BLUEPRINT_TEAM,
+                            payload: blueprint
+                        }))
+                    .catch(err => {
+                        console.log(`error in workoutActions: ${err}`)
+                    })
             })
         })
-            .then(res => res.json())
-            .then(blueprint =>
-                dispatch({
-                    type: ADD_BLUEPRINT_TEAM,
-                    payload: blueprint
-                }))
-            .catch(err => {
-                console.log(`error in workoutActions: ${err}`)
-            })
     }
 }
 
@@ -111,27 +151,35 @@ export function setBlueprint(blueprint){
 
 export function newActualWorkout(workoutData, selectedTeamUID){
     return async function(dispatch){
-        await fetch('/api/workouts/newworkout', {
-            method: 'POST',
-            headers: {
-                'content-type' : 'application/json'
-            },
-            body: JSON.stringify({
-                workoutData,
-                idToken: cookie.load('idToken'),
-                selectedTeamUID
+        fire.auth().onAuthStateChanged(function(user) {
+            if (!user) {
+                cookie.remove('mercury-fb-token');
+                return;
+            }
+            user.getIdToken(true).then(async function (idToken) {
+                cookie.save('mercury-fb-token', idToken, {path: "/"});
+
+                await fetch('/api/workouts/newworkout', {
+                    method: 'POST',
+                    headers: {
+                        'content-type' : 'application/json'
+                    },
+                    body: JSON.stringify({
+                        workoutData,
+                        idToken: cookie.load('idToken'),
+                        selectedTeamUID
+                    })
+                })
+                .then(res => res.json())
+                .then(workout => dispatch({
+                        type: NEW_WORKOUT,
+                        payload: workout,
+                        workoutuid: workout.key
+                })).catch(err => {
+                    console.log(`error in workoutActions: ${err}`)
+                })
             })
         })
-        .then(res => res.json())
-        .then(workout => 
-            dispatch({
-                type: NEW_WORKOUT,
-                payload: workout,
-                workoutuid: workout.key
-            }))
-            .catch(err => {
-                console.log(`error in workoutActions: ${err}`)
-            })
     }
 }
 
