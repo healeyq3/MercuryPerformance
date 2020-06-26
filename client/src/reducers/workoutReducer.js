@@ -11,7 +11,11 @@ export default function(state = initialState, action){
         case GET_BLUEPRINTS:
             return {
                 ...state,
-                blueprints: action.payload
+                blueprints: action.payload,
+                location: {
+                    ...state.location,
+                    needsUpdate: false
+                }
             }
         case GET_ALL_BLUEPRINTS:
             return {

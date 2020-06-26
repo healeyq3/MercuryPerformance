@@ -12,10 +12,9 @@ export class Workouts extends Component {
     constructor(props){
         super(props);
         this.state = {
-          show: false,
-          showImport: false,
-          reloaded: false,
-          toWorkoutCreator: false
+            show: false,
+            showImport: false,
+            toWorkoutCreator: false
         }
 
         this.setSelectedBlueprint = this.setSelectedBlueprint.bind(this);
@@ -23,8 +22,8 @@ export class Workouts extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, ss){
+        console.log("Updating component");
         if(prevProps.rehydrated === false){
-            console.log("Workouts need - passing: " + this.props.selectedTeam);
             this.props.getWorkoutBlueprints(this.props.selectedTeam);
         }
     }
@@ -32,8 +31,9 @@ export class Workouts extends Component {
     setShow = e => {
         this.setState({
             toWorkoutCreator: true
-          })
-      }
+        })
+    }
+
     setShowCreateWorkout = e => {
       window.location.href="./workoutcreator"
     }
@@ -52,7 +52,6 @@ export class Workouts extends Component {
     };
 
     importWorkoutBlueprint(blueprintuid){
-        console.log("executing here");
         this.props.addWorkoutToTeam(blueprintuid, this.props.selectedTeam);
         this.setState({
             showImport: false
@@ -144,4 +143,4 @@ const mapStateToProps = function(state){
     }
 }
 
-export default connect(mapStateToProps, { getWorkoutBlueprints, getAllWorkoutBlueprints, setBlueprint, addWorkoutToTeam }) (Workouts)
+export default connect(mapStateToProps, { getWorkoutBlueprints, getAllWorkoutBlueprints, setBlueprint, addWorkoutToTeam }) (Workouts);

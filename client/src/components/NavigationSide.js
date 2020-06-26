@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import cookie from 'react-cookies'
 import fire from '../Fire'
-import {Link, withRouter} from "react-router-dom";
+import {NavLink, withRouter} from "react-router-dom";
 import "../css/navside.css"
 import house from "../resources/mHouse.svg"
 import calendar from "../resources/mCalendar.svg"
 import heartbeat from "../resources/mHeartbeat.svg"
+import PropTypes from "prop-types";
+import { connect } from 'react-redux';
+import { getWorkoutBlueprints } from '../actions/workoutActions';
+import { getTeamEvents } from '../actions/eventActions';
+import { getTeamRunners } from "../actions/runnerActions";
 
 class NavigationSide extends Component {
     constructor(props) {
@@ -14,6 +19,10 @@ class NavigationSide extends Component {
         this.state = {
             gotoLogin: false
         }
+
+        this.updateHome = this.updateHome.bind(this);
+        this.updateWorkouts = this.updateWorkouts.bind(this);
+        this.updateEvents = this.updateEvents.bind(this);
     }
 
     logout = () => {
@@ -22,7 +31,18 @@ class NavigationSide extends Component {
         fire.auth().signOut().then(() => {
             window.location.reload();
         });
+    }
 
+    updateHome(){
+        this.props.getTeamRunners(this.props.selectedTeam);
+    }
+
+    updateWorkouts(){
+        this.props.getWorkoutBlueprints(this.props.selectedTeam);
+    }
+
+    updateEvents(){
+        this.props.getTeamEvents(this.props.selectedTeam);
     }
 
     render() {
@@ -34,19 +54,19 @@ class NavigationSide extends Component {
                 <div className="navigation-side-link-container">
                     <div className="navigation-link-image-container">
                         <img src={house} className="navigation-side-house-img" alt="home"/>
-                        <Link to="/" className="navigation-link">Home</Link>
+                        <NavLink exact to="/" className="navigation-link" onClick={this.updateHome}>Home</NavLink>
                     </div>
                     <div className="navigation-link-image-container">
                         <img src={calendar} className="navigation-side-calendar-img" alt="home"/>
-                        <Link to="/comingsoon" className="navigation-link">Calendar</Link>
+                        <NavLink exact to="/comingsoon" className="navigation-link">Calendar</NavLink>
                     </div>
                     <div className="navigation-link-image-container">
                         <img src={heartbeat} className="navigation-side-heartbeat-img" alt="home"/>
-                        <Link to="/workouts" className="navigation-link">Workouts</Link>
+                        <NavLink exact to="/workouts" className="navigation-link" onClick={this.updateWorkouts}>Workouts</NavLink>
                     </div>
                     <div className="navigation-link-image-container">
                         <img src={house} className="navigation-side-house-img" alt="home"/>
-                        <Link to="/events" className="navigation-link">Events</Link>
+                        <NavLink exact to="/events" className="navigation-link" onClick={this.updateEvents}>Events</NavLink>
                     </div>
                 </div>
             </div>
@@ -54,4 +74,19 @@ class NavigationSide extends Component {
     }
 }
 
-export default withRouter(NavigationSide);
+NavigationSide.propTypes = {
+    selectedTeam: PropTypes.string.isRequired,
+    rehydrated: PropTypes.bool.isRequired,
+    getWorkoutBlueprints: PropTypes.func.isRequired,
+    getTeamEvents: PropTypes.func.isRequired,
+    getTeamRunners: PropTypes.func.isRequired
+}
+
+const mapStateToProps = function(state){
+    return {
+        selectedTeam: state.teams.selectedTeam,
+        rehydrated: state._persist.rehydrated,
+    }
+}
+
+export default withRouter(connect(mapStateToProps, { getWorkoutBlueprints, getTeamEvents, getTeamRunners })(NavigationSide));
