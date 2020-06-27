@@ -36,10 +36,9 @@ export class WorkoutDetails extends Component {
         })
       }
 
-    componentDidUpdate(prevProps){
+    componentDidUpdate(prevProps, prevState, ss){
         if(prevProps.rehydrated === false){
-        console.log("Refreshed");
-        this.props.getActualWorkouts(this.props.selectedTeam, this.props.selectedBlueprint);
+            this.props.getActualWorkouts(this.props.selectedTeam, this.props.selectedBlueprint);
         }
       }
 
