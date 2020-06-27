@@ -12,7 +12,7 @@ export class WorkoutRunnerCard extends Component {
             repItems.push(
                 
                 <React.Fragment>
-                    <WorkoutRepDataCard rep = {this.props.reps[rep]} />
+                    <WorkoutRepDataCard runner = {this.props.runner} rep = {this.props.reps[rep]} />
                 </React.Fragment>
             )  
         }
