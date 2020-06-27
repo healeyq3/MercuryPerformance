@@ -26,7 +26,6 @@ export class AddResultsModal extends Component {
             workoutPace: ''
         }
 
-        this.baseState = this.state;
         const newRunnerKey = Object.keys(this.props.runners)[0]
         this.props.selectRunner(newRunnerKey);
 
