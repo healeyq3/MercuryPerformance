@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { Modal, Form, Button, Row, Col } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import { newTime, selectRunner } from '../../actions/eventActions';
 import { updateRunner } from '../../actions/runnerActions';
 import { connect } from 'react-redux';
 import {  getV02max, getWorkoutPace } from '../../math/V02max';
 import PropTypes from 'prop-types';
-import { stringToNumber } from '../../math/TimeConversions';
+// import { stringToNumber } from '../../math/TimeConversions';
 
 export class AddResultsModal extends Component {
     constructor(props){

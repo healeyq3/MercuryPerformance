@@ -7,7 +7,7 @@ import stdlogo from "../resources/mLogoV2.svg";
 import envelope from "../resources/mEnvelope.svg";
 import lock from "../resources/mLock.svg"
 import person from "../resources/mPerson.svg";
-import {Link, Redirect} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 class CreateAccount extends Component {
     constructor(props) {
