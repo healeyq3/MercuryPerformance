@@ -24,7 +24,7 @@ export class WorkoutDetails extends Component {
 
     setShow = e => {
         this.setState({
-            showNewDate: !this.state.showNewDate1
+            showNewDate: !this.state.showNewDate
         })
     }
 
@@ -47,8 +47,8 @@ export class WorkoutDetails extends Component {
             return <Redirect to='/workoutdatedetails' />
         }
         if(!this.props.selectedTeam || !this.props.selectedBlueprint || !this.props.blueprints[this.props.selectedBlueprint]){
-            // return <Redirect to='/workouts'/>;
-            return null;
+            return <Redirect to='/workouts'/>;
+            // return null;
         }
 
         let cardItems = [];

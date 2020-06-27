@@ -52,7 +52,7 @@ export function getAllWorkoutBlueprints(){
                         'content-type': 'application/json'
                     },
                     body: JSON.stringify({
-                        idToken: cookie.load('idToken')
+                        idToken
                     })
                 })
                 .then(res => res.json())
@@ -86,7 +86,7 @@ export function newWorkoutBlueprint(blueprintData, selectedTeamUID){
                     },
                     body: JSON.stringify({
                         blueprintData,
-                        idToken: cookie.load('idToken'),
+                        idToken,
                         selectedTeamUID
                     })
                 })
@@ -123,7 +123,7 @@ export function addWorkoutToTeam(blueprintuid, selectedTeamUID){
                     body: JSON.stringify({
                         blueprintuid,
                         selectedTeamUID,
-                        idToken: cookie.load('idToken')
+                        idToken
                     })
                 })
                     .then(res => res.json())
