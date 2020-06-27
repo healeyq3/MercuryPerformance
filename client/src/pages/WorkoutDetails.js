@@ -24,7 +24,7 @@ export class WorkoutDetails extends Component {
 
     setShow = e => {
         this.setState({
-            showNewDate: !this.state.showNewDate
+            showNewDate: !this.state.showNewDate1
         })
     }
 

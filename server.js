@@ -47,6 +47,11 @@ app.use("/api/teams", teamBackend);
 app.use("/api/events", eventsBackend);
 app.use('/api/workouts', workoutsBackend);
 
+
+app.get('/*', (req, res) => {
+
+})
+
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
 // catch 404 and forward to error handler

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router} from 'react-router-dom';
 import './App.css';
 import { Provider } from 'react-redux';
 import store from './store';
@@ -10,6 +9,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 
 import NavigationTop from "./components/NavigationTop";
 import MainPage from "./pages/MainPage";
+import { HashRouter } from 'react-router-dom';
 
 class App extends Component {
   render() {
@@ -17,10 +17,10 @@ class App extends Component {
       <DndProvider backend = {HTML5Backend}>
           <Provider store={store}>
           <div className="container">
-            <Router>
+            <HashRouter>
               <NavigationTop/>
               <MainPage/>
-            </Router>
+            </HashRouter>
           </div>
         </Provider>
       </DndProvider>
