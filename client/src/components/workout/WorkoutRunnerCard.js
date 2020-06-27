@@ -20,21 +20,19 @@ export class WorkoutRunnerCard extends Component {
         return (
             <Accordion>
             <Card style = {{ height: '10%', orientation: 'horizontal'}}>
-                <Card.Header>
-                <Row>
+                    <Accordion.Toggle as={Card.Header} variant="link" eventKey="0">
+                    <Row>
                         <Col>
-                        <Accordion.Toggle as={Button} variant="link" eventKey="0">
                         {<Card.Title>{this.props.runner.name}</Card.Title>}
-                        </Accordion.Toggle>
-                        
                         </Col>
-                        <Col></Col>
+                        
+                        
                         <Col>
                         <Button variant = "outline-primary" onClick = {this.props.setShow}>Edit</Button>
                         <Button variant = "outline-secondary" onClick = {this.handleDelete}>🗑</Button>
                         </Col>
                     </Row>
-                </Card.Header>
+                    </Accordion.Toggle>  
                 <Accordion.Collapse eventKey="0">
                 <Card.Body>
                     {repItems}
