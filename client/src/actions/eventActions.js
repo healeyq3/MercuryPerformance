@@ -127,13 +127,14 @@ export function addRunnersToEvent(runnerUidArray, eventuid){
             runnerUidArray
           })
         })
-        .then(res => res.json())
-        .then(runnersAddedObject =>
+        .then(() =>
           dispatch({
             type: RUNNERS_ADDED,
-            payload: runnersAddedObject
-          })
-        );
+            payload: {
+              runnerUidArray,
+              eventuid
+            }
+          }))
       })
     })
   }

@@ -36,10 +36,9 @@ export class WorkoutDetails extends Component {
         })
       }
 
-    componentDidUpdate(prevProps){
+    componentDidUpdate(prevProps, prevState, ss){
         if(prevProps.rehydrated === false){
-        console.log("Refreshed");
-        this.props.getActualWorkouts(this.props.selectedTeam, this.props.selectedBlueprint);
+            this.props.getActualWorkouts(this.props.selectedTeam, this.props.selectedBlueprint);
         }
       }
 
@@ -48,8 +47,8 @@ export class WorkoutDetails extends Component {
             return <Redirect to='/workoutdatedetails' />
         }
         if(!this.props.selectedTeam || !this.props.selectedBlueprint || !this.props.blueprints[this.props.selectedBlueprint]){
-            // return <Redirect to='/workouts'/>;
-            return null;
+            return <Redirect to='/workouts'/>;
+            // return null;
         }
 
         let cardItems = [];

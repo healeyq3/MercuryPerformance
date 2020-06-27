@@ -3,7 +3,7 @@ import { Nav, Card, Col, Modal} from 'react-bootstrap'
 import ExistingWorkoutCard from '../components/workout/ExistingWorkoutCard'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {addWorkoutToTeam, getAllWorkoutBlueprints, getWorkoutBlueprints, setBlueprint} from '../actions/workoutActions';
+import {addWorkoutToTeam, getAllWorkoutBlueprints, getWorkoutBlueprints, setBlueprint, getActualWorkouts} from '../actions/workoutActions';
 import ImportWorkoutDropdown from "../components/workout/ImportWorkoutDropdown";
 import { Redirect } from "react-router-dom";
 import '../css/workouts.css'
@@ -15,7 +15,7 @@ export class Workouts extends Component {
             show: false,
             showImport: false,
             toWorkout: false,
-            toWorkoutCreator: false,
+            gotoCreateWorkout: false,
         }
 
         this.setSelectedBlueprint = this.setSelectedBlueprint.bind(this);
@@ -30,12 +30,14 @@ export class Workouts extends Component {
 
     setShow = e => {
         this.setState({
-            toWorkoutCreator: true
+            gotoCreateWorkout: true
         })
     }
 
     setShowCreateWorkout = e => {
-      window.location.href="./workoutcreator"
+      this.setState({
+          gotoCreateWorkout: true
+      })
     }
 
     setShowImportWorkout = e => {
@@ -58,9 +60,10 @@ export class Workouts extends Component {
         })
     }
 
-    async setSelectedBlueprint(blueprint){
-      await this.props.setBlueprint(blueprint.key);
-      console.log(this.props.selectedBlueprint)
+    setSelectedBlueprint(blueprint){
+      this.props.setBlueprint(blueprint.key);
+      this.props.getActualWorkouts(this.props.selectedTeam, blueprint.key);
+
       this.setState({
           toWorkout: true
       })
@@ -74,7 +77,7 @@ export class Workouts extends Component {
             this.props.history.push('/workouts')
             return <Redirect to='/workoutdetails' />
         }
-        if(this.state.toWorkoutCreator){
+        if(this.state.gotoCreateWorkout){
             this.props.history.push('/workouts')
             return <Redirect to='/workoutcreator' />
         }
@@ -133,7 +136,8 @@ Workouts.propTypes = {
     getWorkoutBlueprints: PropTypes.func.isRequired,
     getAllWorkoutBlueprints: PropTypes.func.isRequired,
     setBlueprint: PropTypes.func.isRequired,
-    addWorkoutToTeam: PropTypes.func.isRequired
+    addWorkoutToTeam: PropTypes.func.isRequired,
+    getActualWorkouts: PropTypes.func.isRequired
 }
 
 const mapStateToProps = function(state){
@@ -147,4 +151,4 @@ const mapStateToProps = function(state){
     }
 }
 
-export default connect(mapStateToProps, { getWorkoutBlueprints, getAllWorkoutBlueprints, setBlueprint, addWorkoutToTeam }) (Workouts);
+export default connect(mapStateToProps, { getWorkoutBlueprints, getAllWorkoutBlueprints, setBlueprint, addWorkoutToTeam, getActualWorkouts }) (Workouts);

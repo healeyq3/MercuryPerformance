@@ -43,7 +43,7 @@ export class MainPage extends Component {
                             <AuthRoute exact path = '/login' component = {Login} rerenderCallback={this.rerenderCallback}/>
                             <AuthRoute3 exact path = '/' component = {Home}/>
                             <AuthRoute3 exact path = '/home' component = {Home}/>
-                            <AuthRoute exact path = '/signup' component = {CreateAccount}/>
+                            <AuthRoute exact path = '/signup' component = {CreateAccount} rerenderCallback={this.rerenderCallback}/>
                             <AuthRoute2 exact path = '/teamselect' component = {TeamSelect}/>
                             <AuthRoute2 exact path = '/comingsoon' component = {ComingSoon} />
                             <AuthRoute3 exact path = '/events' component = {Events}/>

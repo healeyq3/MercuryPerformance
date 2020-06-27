@@ -7,7 +7,7 @@ import stdlogo from "../resources/mLogoV2.svg";
 import envelope from "../resources/mEnvelope.svg";
 import lock from "../resources/mLock.svg"
 import person from "../resources/mPerson.svg";
-import {Link, Redirect} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 class CreateAccount extends Component {
     constructor(props) {
@@ -23,7 +23,6 @@ class CreateAccount extends Component {
             password: '',
             confirm_password: '',
             failedCreateAccount: false,
-            gotoTeamSelect: false
         }
         this.handleChange = this.handleChange.bind(this);
         this.createAccount = this.createAccount.bind(this);
@@ -52,9 +51,7 @@ class CreateAccount extends Component {
                     email: this.state.mercury_email
                 })
             }).then(() => {
-                this.setState({
-                    gotoTeamSelect: true
-                })
+                this.props.rerenderCallback();
             })
         }).catch((error) => {
             console.log(error);
@@ -74,10 +71,6 @@ class CreateAccount extends Component {
     }
     
     render() {
-        if(this.state.gotoTeamSelect){
-            return <Redirect to='/teamselect'/>
-        }
-
         let createButtonClasses = ["login-submit-button"];
         if(this.state.failedCreateAccount){
             createButtonClasses.push("failed-login")

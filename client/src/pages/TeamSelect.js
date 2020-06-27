@@ -24,6 +24,7 @@ class TeamSelect extends React.Component {
   }
 
   componentDidMount() {
+    console.log("Component be mounting");
     this.props.getTeams();
   }
 

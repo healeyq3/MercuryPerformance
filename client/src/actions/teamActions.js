@@ -89,8 +89,8 @@ export function updateTeam(teamUID, toUpdate, newValue){
             'content-type': 'application/json'
           },
           body: JSON.stringify({
-            idToken: cookie.load('idToken'),
-            teamUID: teamUID,
+            idToken,
+            teamUID,
             toUpdate,
             newValue
           })
