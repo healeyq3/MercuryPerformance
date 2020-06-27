@@ -34,7 +34,7 @@ export class WorkoutRunnerCard extends Component {
                     </Row>
                     </Accordion.Toggle>  
                 <Accordion.Collapse eventKey="0">
-                <Card.Body>
+                <Card.Body sm = {4}>
                     {repItems}
                 </Card.Body>
                 </Accordion.Collapse>
