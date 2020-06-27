@@ -46,13 +46,13 @@ function timeGenerator(timeData){
          hour = timeData.hours;
          min = timeData.minutes;
          seconds = timeData.seconds;
-        if(hour===""){
+        if(hour===0){
                 hour = '00'
             }
-        if(min===""){
+        if(min===0){
                 min='00'
             }
-        if(seconds===""){
+        if(seconds===0){
                 seconds='00'
             }
         time = hour + ":" + min + ":" +seconds
