@@ -24,6 +24,20 @@ function totalMinutes(hours, minutes, seconds){
     return toRet
 }
 
+function totalSeconds(timeData){
+    let toReturn = 0;
+    if(timeData.hours !== undefined){
+        toReturn += (3600 * timeData.hours)
+    }
+    if(timeData.minutes !== undefined){
+        toReturn += (60 * timeData.minutes)
+    }
+    if(timeData.seconds !== undefined){
+        toReturn += timeData.seconds
+    }
+    return toReturn;
+}
+
 function distanceToTime(distance, unit, avPace){
     let d = 0.0
     d = distance
@@ -46,13 +60,13 @@ function timeGenerator(timeData){
          hour = timeData.hours;
          min = timeData.minutes;
          seconds = timeData.seconds;
-        if(hour===""){
+        if(hour===0){
                 hour = '00'
             }
-        if(min===""){
+        if(min===0){
                 min='00'
             }
-        if(seconds===""){
+        if(seconds===0){
                 seconds='00'
             }
         time = hour + ":" + min + ":" +seconds
@@ -63,4 +77,4 @@ function timeGenerator(timeData){
     return time;
 }
 
-export { stringToNumber, totalTheTime, distanceToTime, totalMinutes, secondsToMinutes, timeGenerator };
+export { totalSeconds, stringToNumber, totalTheTime, distanceToTime, totalMinutes, secondsToMinutes, timeGenerator };

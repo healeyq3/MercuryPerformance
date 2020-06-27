@@ -85,19 +85,22 @@ export class WorkoutDateDetails extends Component {
 
         return (
             <Container>
-                <Col>
+                
                     <WorkoutNavBar setShowRunner = {this.setShowRunner} setShowResults = {this.setShowResults}/>
                     <br/>
                     <Row>
-                        <Col>
+                        <Col sm = {6}>
                             <Card className = "text-center">
                                 <Card.Header>Runners</Card.Header>
                                 {runnersInWorkout}
                             </Card>
                         </Col>
-                    </Row>
+                    
+                <Col sm = {5}>
+                    <WorkoutDateDetailsCard/>
                 </Col>
-                <WorkoutDateDetailsCard/>
+                
+                </Row>
                 <Row>
                   <Col>
                   <Card className = "text-center">
