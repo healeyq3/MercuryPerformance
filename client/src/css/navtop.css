@@ -39,8 +39,9 @@
 }
 
 .top-bar-widgets-container{
-    width: 20%;
+    width: fit-content;
     min-width: 300px;
+    margin-left: auto;
 }
 
 .top-bar-user-information-container{
@@ -48,7 +49,6 @@
     display: flex;
     align-items: center;
     white-space: nowrap;
-    padding-right: 20px;
 }
 
 .top-bar-triangle-selector{

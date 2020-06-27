@@ -5,6 +5,8 @@ import {withRouter} from "react-router-dom";
 import "../css/navtop.css"
 import logo from '../resources/mLogoV2-White.svg'
 import triangle from '../resources/mTriangleSelector.svg'
+import {Button} from "react-bootstrap";
+import EventsTopBar from "./EventsTopBar";
 
 class NavigationTop extends Component {
     constructor(props) {
@@ -13,15 +15,6 @@ class NavigationTop extends Component {
         this.state = {
             gotoLogin: false
         }
-    }
-
-    logout = () => {
-        cookie.remove('idToken', { path: "/" });
-        cookie.remove('user', { path: "/" });
-        fire.auth().signOut().then(() => {
-            window.location.reload();
-        });
-
     }
     
     render() {
@@ -34,9 +27,10 @@ class NavigationTop extends Component {
                     <img src={logo} alt="logo" className="navbar-logo"/>
                 </div>
                 <div className="main-top-bar-container">
-                    {/*<div className="top-bar-widgets-container">*/}
+                    <EventsTopBar/>
+                    <div className="top-bar-widgets-container">
 
-                    {/*</div>*/}
+                    </div>
                     <div className="top-bar-user-information-container">
                         {/*<img src={logo} className="top-bar-profile-photo" alt="profile-photo"/>*/}
                         <h5 id="top-bar-user-name">John O'Brien</h5>

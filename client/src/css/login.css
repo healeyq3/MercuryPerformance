@@ -148,6 +148,10 @@
     animation-duration: 0.5s;
 }
 
+.login-submit-button.successful-login{
+    background-color: darkgreen;
+}
+
 .login-submit-button:hover:enabled{
     /*background-color: transparent;*/
     border: solid 2px black;

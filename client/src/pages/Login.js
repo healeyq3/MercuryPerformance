@@ -24,6 +24,7 @@ class Login extends Component {
             mercury_email: '',
             password: '',
             failedLogin: false,
+            successfulLogin: false,
         }
     }
 
@@ -37,6 +38,9 @@ class Login extends Component {
         e.preventDefault();
         console.log("Logging in...");
         await fire.auth().signInWithEmailAndPassword(this.state.mercury_email, this.state.password).then(async (u) => {
+            this.setState({
+                successfulLogin: true
+            })
             const idToken = await u.user.getIdToken(false);
 
             cookie.save('mercury-fb-token', idToken, { path: "/", sameSite: "strict", SameSite:"strict" });
@@ -76,6 +80,8 @@ class Login extends Component {
         let loginButtonClasses = ["login-submit-button"];
         if(this.state.failedLogin){
             loginButtonClasses.push("failed-login")
+        } else if(this.state.successfulLogin){
+            loginButtonClasses.push("successful-login")
         }
 
         let emailInputClasses = ["form-input-login", "align-self-center"];

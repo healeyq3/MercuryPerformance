@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getTeamEvents, newEvent, setEvent } from '../actions/eventActions';
 import {Redirect} from 'react-router-dom'
+import '../css/events.css'
 
 export class Events extends Component {
     constructor(props){
@@ -24,7 +25,7 @@ export class Events extends Component {
       })
     }
     
-    componentDidUpdate(prevProps){
+    componentDidUpdate(prevProps, prevState, ss){
       if(prevProps.rehydrated === false){
         this.props.getTeamEvents(this.props.selectedTeam);
       }
@@ -59,9 +60,11 @@ export class Events extends Component {
 
       return (
           <Container fluid>
-              <h2>Events</h2>
-              <Button onClick = {this.setShow}>Add</Button>
-               {cardItems}
+              {/*<h2>Events</h2>*/}
+              {/*<Button onClick = {this.setShow}>Add</Button>*/}
+              <div className="events-card-container">
+                {cardItems}
+              </div>
               <CreateEventModal setShow = {this.setShow} show = {this.state.show} teamUID = {this.props.selectedTeam}/>
           </Container>
       )

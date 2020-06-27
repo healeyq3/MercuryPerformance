@@ -29,9 +29,9 @@ class Home extends Component {
 
   setSelectedRunner(runner){
     this.props.setRunner(runner.key)
-    this.setState({
-      gotoEvents: true
-    })
+    // this.setState({
+    //   gotoEvents: true
+    // })
   }
 
   calculateAverageTeamPace = () => {
