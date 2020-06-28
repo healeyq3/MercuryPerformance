@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { newRunner, getTeamRunners, setRunner } from '../actions/runnerActions';
 import {setTeam, updateTeam} from "../actions/teamActions";
-import  { Container, Row, Col } from 'react-bootstrap'
+import {Container, Row, Col, Button} from 'react-bootstrap'
 import { connect } from 'react-redux';
 import ExistingRunnerCard from '../components/ExistingRunnerCard';
 import  AddRunner from '../components/AddRunner';
@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { getAverageTeamPace } from '../math/AnalysisAlgos';
 import {Redirect} from "react-router-dom";
 import "../css/home.css"
+import "../css/secondarybar.css"
 class Home extends Component {
   constructor(props){
     super(props);
@@ -64,24 +65,29 @@ class Home extends Component {
     }
 
     return (
-        <Container fluid className="home-container">
-            {/*<h2 id = "teamNameHome">{this.props.teams[this.props.selectedTeam].teamName}</h2>*/}
-            <AddRunner teamUID = {this.props.selectedTeam} onSelect = {this.calculateAverageTeamPace}/>
-            <Row>
-              <Col>
-              <h4>Name</h4>
-              </Col>
-              <Col>
-              <h4>Year</h4>
-              </Col>
-              <Col>
-              <h4>V02 Max</h4>
-              </Col>
-              <Col>
-              <h4>Experience</h4>
-              </Col>
-            </Row>
-            {runnerArr}
+        <Container>
+            <div className="secondary-bar-container">
+              <h2 className="secondary-bar-header">Home</h2>
+              <Button className="secondary-bar-button">Create a Runner</Button>
+            </div>
+            {/*<AddRunner teamUID = {this.props.selectedTeam} onSelect = {this.calculateAverageTeamPace}/>*/}
+            <div className="home-container">
+              <Row>
+                <Col>
+                  <h4>Name</h4>
+                </Col>
+                <Col>
+                  <h4>Year</h4>
+                </Col>
+                <Col>
+                  <h4>V02 Max</h4>
+                </Col>
+                <Col>
+                  <h4>Experience</h4>
+                </Col>
+              </Row>
+              {runnerArr}
+            </div>
         </Container>
     )
   }

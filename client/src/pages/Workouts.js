@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Nav, Card, Col, Modal} from 'react-bootstrap'
+import {Nav, Card, Col, Modal, Button, Container} from 'react-bootstrap'
 import ExistingWorkoutCard from '../components/workout/ExistingWorkoutCard'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -7,7 +7,7 @@ import {addWorkoutToTeam, getAllWorkoutBlueprints, getWorkoutBlueprints, setBlue
 import ImportWorkoutDropdown from "../components/workout/ImportWorkoutDropdown";
 import { Redirect } from "react-router-dom";
 import '../css/workouts.css'
-
+import '../css/secondarybar.css'
 export class Workouts extends Component {
     constructor(props){
         super(props);
@@ -93,37 +93,38 @@ export class Workouts extends Component {
             }
         }
         return (
-            <div className="workouts-container">
-                <Col className="team-workouts-card-container">
-                    <Nav fill variant="tabs" className="justify-content-center">
-                        <Nav.Item>
-                            <Nav.Link href = "./">Team Name</Nav.Link>
-                        </Nav.Item>
-                    </Nav>
-                    <Card className = "text-center">
-                        <Card.Header>Team Workouts</Card.Header>
-                        {cardItems}
-                    </Card>
-                </Col>
+          <Container>
+              <div className="secondary-bar-container">
+                  <h2 className="secondary-bar-header">Workouts</h2>
+                  <Button className="secondary-bar-button">Create a Workout</Button>
+              </div>
+              <div className="workouts-container">
+                  <Col className="team-workouts-card-container">
+                      <Card className = "text-center">
+                          <Card.Header>Team Workouts</Card.Header>
+                          {cardItems}
+                      </Card>
+                  </Col>
 
-                <Col className="workout-options-container">
-                    <Card className = "text-center" tag="a" onClick = {this.setShowCreateWorkout} style = {{cursor:"pointer"}}>
-                        <p/>
-                        <Card.Title>New Workout</Card.Title>
+                  <Col className="workout-options-container">
+                      <Card className = "text-center" tag="a" onClick = {this.setShowCreateWorkout} style = {{cursor:"pointer"}}>
+                          <p/>
+                          <Card.Title>New Workout</Card.Title>
 
-                        <p/>
-                    </Card>
-                    <br />
-                    <Card className = "text-center" tag="a" onClick={e => {this.setShowImportWorkout();}} style = {{cursor:"pointer"}}>
-                        <p/>
-                        <Card.Title>Import Workout</Card.Title>
-                        <p/>
-                    </Card>
-                </Col>
-              <Modal show = {this.state.showImport} onHide = {this.showImportModal}>
-                <ImportWorkoutDropdown importWorkoutBlueprint = {this.importWorkoutBlueprint} allBlueprints = {this.props.allBlueprints} blueprints = {this.props.blueprints}/>
-              </Modal>
-            </div>
+                          <p/>
+                      </Card>
+                      <br />
+                      <Card className = "text-center" tag="a" onClick={e => {this.setShowImportWorkout();}} style = {{cursor:"pointer"}}>
+                          <p/>
+                          <Card.Title>Import Workout</Card.Title>
+                          <p/>
+                      </Card>
+                  </Col>
+                <Modal show = {this.state.showImport} onHide = {this.showImportModal}>
+                  <ImportWorkoutDropdown importWorkoutBlueprint = {this.importWorkoutBlueprint} allBlueprints = {this.props.allBlueprints} blueprints = {this.props.blueprints}/>
+                </Modal>
+              </div>
+          </Container>
         )
     }
 }

@@ -6,7 +6,7 @@ import { getTeamRunners } from '../actions/runnerActions';
 import ExistingTeamCard from '../components/ExistingTeamCard';
 import NewTeamCard from '../components/NewTeamCard';
 import CreateTeamModal from '../components/CreateTeamModal';
-import {Row} from 'react-bootstrap';
+import {Button, Container, Row} from 'react-bootstrap';
 import cookie from 'react-cookies';
 import {Redirect} from "react-router-dom";
 import "../css/teamselect.css"
@@ -60,15 +60,21 @@ class TeamSelect extends React.Component {
     }
 
     return (
-      <div className = "teamselect-container">
-        <div className = "teamselect-cardcontainer">
-          <Row className="teamselect-rows">
-            {cardItems}
-            <NewTeamCard className = "teamselect-teamcard" onClick = {this.setShow} />
-          </Row>
-          <CreateTeamModal setShow = {this.setShow} show = {this.state.show} />
+      <Container>
+        <div className="secondary-bar-container">
+          <h2 className="secondary-bar-header">Select a Team</h2>
+          <Button className="secondary-bar-button">Create a Team</Button>
         </div>
-      </div>
+        <div className = "teamselect-container">
+          <div className = "teamselect-cardcontainer">
+            <Row className="teamselect-rows">
+              {cardItems}
+              <NewTeamCard className = "teamselect-teamcard" onClick = {this.setShow} />
+            </Row>
+            <CreateTeamModal setShow = {this.setShow} show = {this.state.show} />
+          </div>
+        </div>
+      </Container>
     );
   }
 }

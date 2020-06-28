@@ -3,7 +3,6 @@
     height: 70px;
     display: flex;
     align-items: center;
-    padding: 15px;
     background-color: #333F63
 }
 
@@ -11,7 +10,7 @@
     padding-left: 30px;
     margin: 0;
     color: #EFEFEF;
-    font: 35px Helvetica Neue, sans-serif;
+    font: 30px Helvetica Neue, sans-serif;
 }
 
 #navigation-top-button-container{
@@ -39,7 +38,6 @@
     max-width: 25%;
     margin-left: auto;
     background-color: rgba(4, 22, 64, 0.3);
-    height: 100%;
     margin-right: 30px;
     border-radius: 38px;
     padding: 10px;
@@ -59,8 +57,8 @@
     object-fit: cover;
 }
 
-#navigation-top-userinfo-name{
-    padding-left: 10px;
+#navigation-top-userinfo-teamname{
+    padding: 0 0 0 10px;
     color: #EFEFEF;
     font: 18px Helvetica Neue, sans-serif;
     margin: 0;

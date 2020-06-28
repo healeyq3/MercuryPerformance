@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import ExistingEventCard from '../components/event/ExistingEventCard'
-import  { Container } from 'react-bootstrap'
+import {Button, Container} from 'react-bootstrap'
 import CreateEventModal from '../components/event/CreateEventModal'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getTeamEvents, newEvent, setEvent } from '../actions/eventActions';
 import {Redirect} from 'react-router-dom'
 import '../css/events.css'
-
+import '../css/secondarybar.css'
 export class Events extends Component {
     constructor(props){
         super(props);
@@ -59,14 +59,16 @@ export class Events extends Component {
   
 
       return (
-          <Container fluid>
-              {/*<h2>Events</h2>*/}
-              {/*<Button onClick = {this.setShow}>Add</Button>*/}
-              <div className="events-card-container">
-                {cardItems}
-              </div>
-              <CreateEventModal setShow = {this.setShow} show = {this.state.show} teamUID = {this.props.selectedTeam}/>
-          </Container>
+        <Container>
+          <div className="secondary-bar-container">
+            <h2 className="secondary-bar-header">Events</h2>
+            <Button className="secondary-bar-button">Create an Event</Button>
+          </div>
+          <div className="events-card-container">
+            {cardItems}
+          </div>
+          <CreateEventModal setShow = {this.setShow} show = {this.state.show} teamUID = {this.props.selectedTeam}/>
+        </Container>
       )
     }
 }

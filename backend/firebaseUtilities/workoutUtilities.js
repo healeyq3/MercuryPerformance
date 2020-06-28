@@ -118,8 +118,7 @@ async function getWorkouts(teamuid, blueprint) {
         console.log('Error in getWorkouts'.red);
         console.log(err);
     })
-    console.log('workout data passed: ');
-    console.log(workouts);
+
     return workouts;
 }
 
