@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import cookie from 'react-cookies'
 import {NavLink, withRouter} from "react-router-dom";
 import "../css/navtop.css"
-// import logo from '../resources/mLogoV2-White.svg'
-import triangle from '../resources/mTriangleSelector.svg';
+import logo from '../resources/mLogoV2.svg'
+// import triangle from '../resources/mTriangleSelector.svg';
 
 class NavigationTop extends Component {
     constructor(props) {
@@ -28,7 +28,8 @@ class NavigationTop extends Component {
                     <NavLink to="/events" className="navigation-top-button">Events</NavLink>
                 </div>
                 <div id="navigation-top-userinfo-container">
-                    user info!
+                    <img src={logo} id="navigation-top-userinfo-photo" alt=""/>
+                    <h2 id="navigation-top-userinfo-name">Pace Boys</h2>
                 </div>
             </div>
         )

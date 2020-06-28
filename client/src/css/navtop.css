@@ -11,6 +11,7 @@
     padding-left: 30px;
     margin: 0;
     color: #EFEFEF;
+    font: 35px Helvetica Neue, sans-serif;
 }
 
 #navigation-top-button-container{
@@ -29,9 +30,38 @@
 }
 
 #navigation-top-userinfo-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
     justify-self: flex-end;
-    width: fit-content;
+    min-width: 150px;
+    max-width: 25%;
     margin-left: auto;
-    background-color: red;
+    background-color: rgba(4, 22, 64, 0.3);
     height: 100%;
+    margin-right: 30px;
+    border-radius: 38px;
+    padding: 10px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+#navigation-top-userinfo-photo{
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+
+    background-color: white;
+
+    object-fit: cover;
+}
+
+#navigation-top-userinfo-name{
+    padding-left: 10px;
+    color: #EFEFEF;
+    font: 18px Helvetica Neue, sans-serif;
+    margin: 0;
 }

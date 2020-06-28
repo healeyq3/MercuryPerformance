@@ -16,9 +16,9 @@
 .main-page{
   position: absolute;
   height: auto;
-  min-height: calc(100vh - 90px);
+  min-height: calc(100vh - 70px);
   width: 100%;
-  top: 90px;
+  top: 70px;
   padding-left: 0;
   background-color: #ecf0f1;
 }
