@@ -1,72 +1,37 @@
 .navigation-top-container{
-    position: fixed;
-    align-self: flex-start;
     width: 100%;
-    max-width: 300px;
-    min-height: 90px;
-    min-width: 100vw;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    z-index: 1;
-}
-
-.logo-container{
-    background-color: #3d4972;
-    max-width: 220px;
-    min-width: 220px;
-    flex-grow: 1;
-
+    height: 70px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    padding: 15px;
+    background-color: #333F63
 }
 
-.navbar-logo{
-    height: 90%;
-    padding-top: 5px;
-}
-
-.main-top-bar-container{
-    height: 100%;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    background-color: #333F63;
-}
-
-.top-bar-widgets-container{
-    width: fit-content;
-    min-width: 300px;
-    margin-left: auto;
-}
-
-.top-bar-user-information-container{
-    width: fit-content;
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
-}
-
-.top-bar-triangle-selector{
-    height: 8%;
-    width: 50px;
-    opacity: 0.5;
-    padding-right: 30px;
-    padding-left: 10px;
-}
-
-.top-bar-profile-photo{
-    height: 75px;
-    max-height: 75px;
-    margin-right: 15px;
-    clip-path: circle();
-    border: 1px solid black;
-}
-
-#top-bar-user-name{
-    font: 20px "Helvetica Neue", sans-serif;
-    padding: 0;
+#navigation-top-header{
+    padding-left: 30px;
     margin: 0;
+    color: #EFEFEF;
+}
+
+#navigation-top-button-container{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: row;
+}
+
+.navigation-top-button{
+    color: #EFEFEF;
+    text-decoration: none;
+    padding: 0 20px;
+    font: 18px Helvetica Neue, sans-serif;
+}
+
+#navigation-top-userinfo-container{
+    justify-self: flex-end;
+    width: fit-content;
+    margin-left: auto;
+    background-color: red;
+    height: 100%;
 }

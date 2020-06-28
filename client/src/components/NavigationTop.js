@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import cookie from 'react-cookies'
-import {withRouter} from "react-router-dom";
+import {NavLink, withRouter} from "react-router-dom";
 import "../css/navtop.css"
 // import logo from '../resources/mLogoV2-White.svg'
 import triangle from '../resources/mTriangleSelector.svg';
@@ -20,10 +20,15 @@ class NavigationTop extends Component {
         }
         return (
             <div className="navigation-top-container">
-                <div className="top-bar-user-information-container">
-                    {/*<img src={logo} className="top-bar-profile-photo" alt="profile-photo"/>*/}
-                    <h5 id="top-bar-user-name">John O'Brien</h5>
-                    <img src={triangle} className="top-bar-triangle-selector" alt="triangle-selector"/>
+                <h1 id="navigation-top-header">Mercury</h1>
+                <div id="navigation-top-button-container">
+                    <NavLink to="/" className="navigation-top-button">Home</NavLink>
+                    <NavLink to="/comingsoon" className="navigation-top-button">Calendar</NavLink>
+                    <NavLink to="/workouts" className="navigation-top-button">Workouts</NavLink>
+                    <NavLink to="/events" className="navigation-top-button">Events</NavLink>
+                </div>
+                <div id="navigation-top-userinfo-container">
+                    user info!
                 </div>
             </div>
         )
