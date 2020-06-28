@@ -77,4 +77,24 @@ function timeGenerator(timeData){
     return time;
 }
 
-export { totalSeconds, stringToNumber, totalTheTime, distanceToTime, totalMinutes, secondsToMinutes, timeGenerator };
+function secondsToFinal(s){
+    let hours = 0;
+    let minutes = 0;
+    let seconds = 0;
+    while(seconds % 3600){
+        hours += 1
+        s = s -3600
+    }
+    while(s % 60){
+        minutes += 1;
+        s = s - 60
+    }
+    let timeData = {
+        hours,
+        minutes,
+        seconds: s
+    }
+    return timeData;
+}
+
+export { secondsToFinal, totalSeconds, stringToNumber, totalTheTime, distanceToTime, totalMinutes, secondsToMinutes, timeGenerator };

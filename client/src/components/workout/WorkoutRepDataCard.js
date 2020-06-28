@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Card, Row, Col } from 'react-bootstrap';
-import {totalSeconds, timeGenerator, stringToNumber, distanceToTime} from '../../math/TimeConversions';
+import {secondsToFinal, totalSeconds, timeGenerator, stringToNumber, distanceToTime} from '../../math/TimeConversions';
 
 export class WorkoutRepDataCard extends Component {
     render() {
@@ -18,7 +18,8 @@ export class WorkoutRepDataCard extends Component {
             let pd = amountOfTime / (wPaceSeconds / (this.props.rep.percent / 100));
             predictedDistance = Math.round((pd) * 100) / 100;
         } else {
-            predictedTime = distanceToTime(this.props.rep.distance, this.props.rep.distanceUnit, (wPaceSeconds / (this.props.rep.percent / 100)))
+            let secondsForRep = distanceToTime(this.props.rep.distance, this.props.rep.distanceUnit, (wPaceSeconds / (this.props.rep.percent / 100)));
+            predictedTime = timeGenerator(secondsToFinal(secondsForRep));
         }
         return (
             <Card style = {{ height: '10%', orientation: 'horizontal'}}>
