@@ -61,7 +61,7 @@ function timeGenerator(timeData){
          min = timeData.minutes;
          seconds = timeData.seconds;
         if(hour===0){
-                hour = '00'
+            hour = '00'
             }
         if(min===0){
                 min='00'
@@ -69,7 +69,14 @@ function timeGenerator(timeData){
         if(seconds===0){
                 seconds='00'
             }
-        time = hour + ":" + min + ":" +seconds
+        if(hour === '00'){
+            console.log("Got to right spot");
+            time = min + ':' + seconds
+        } else{
+            console.log("bad spot");
+            time = hour + ":" + min + ":" +seconds
+        }
+        
     }
     else{
         time = ''
