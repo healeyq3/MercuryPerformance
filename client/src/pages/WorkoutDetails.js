@@ -44,11 +44,12 @@ export class WorkoutDetails extends Component {
 
     render() {
         if(this.state.toWorkoutDate){
+            console.log("Redirecting")
             return <Redirect to='/workoutdatedetails' />
         }
         if(!this.props.selectedTeam || !this.props.selectedBlueprint || !this.props.blueprints[this.props.selectedBlueprint]){
-            return <Redirect to='/workouts'/>;
-            // return null;
+            //return <Redirect to='/workouts'/>;
+             return null;
         }
 
         let cardItems = [];
@@ -62,6 +63,7 @@ export class WorkoutDetails extends Component {
                 )
             }
         }
+        console.log("Blueprint:")
         console.log(this.selectedBlueprint);
         console.log(this.props.selectedTeam);
         return (
