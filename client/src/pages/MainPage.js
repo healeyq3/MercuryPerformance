@@ -36,7 +36,7 @@ export class MainPage extends Component {
 
         return (
             <div className="main-page-container">
-                <NavigationSide rerenderCallback={this.rerenderCallback}/>
+                {/*<NavigationSide rerenderCallback={this.rerenderCallback}/>*/}
                 <Switch>
                     <React.Fragment>
                         <div className={mainPageClasses.join(' ')}>

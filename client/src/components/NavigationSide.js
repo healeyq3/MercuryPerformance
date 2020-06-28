@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import cookie from 'react-cookies'
 import fire from '../Fire'
 import {NavLink, withRouter} from "react-router-dom";
-import "../css/navside.css"
 import house from "../resources/mHouse.svg"
 import calendar from "../resources/mCalendar.svg"
 import heartbeat from "../resources/mHeartbeat.svg"
