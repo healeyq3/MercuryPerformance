@@ -102,20 +102,45 @@ function secondsToFinal(s){ // DONT USE THIS
     return timeData;
 }
 
-function secondsToMinutesAnswer(s){
-    let minutes = 0
+function secondsToMinutesAnswer(s1){
+    let s = s1;
+    let hours = 0;
+    let minutes = 0;
     let seconds = s;
-    minutes = seconds / 60;
-    if(seconds - (minutes *60) !== 1){
-        minutes = Math.trunc(minutes);
-        seconds = seconds - (minutes * 60);
-        seconds = Math.trunc(seconds);
+    if(s >= 3600){
+        hours = s / 3600
+        s = s - (hours * 3600)
+    } if(s >= 60){
+        minutes = s / 60
+        s = s = (minutes * 60)
     }
-    if(minutes < 1){
-        return "" + seconds + " seconds"
-    } else {
-        return '' + minutes + ":" + seconds;
+    seconds = Math.trunc(s);
+    minutes = Math.trunc(minutes);
+    hours = Math.trunc(hours);
+    if (hours < 1){
+        if(minutes < 1){
+            return seconds + " seconds"
+        } else {
+            return minutes + ":" + seconds
+        }
+    } else{
+        if(minutes < 1){
+            return hours + ":00: " + seconds
+        } else {
+            return hours + ':' + minutes + ":" + seconds
+        }
     }
+    // minutes = seconds / 60;
+    // if(seconds - (minutes *60) !== 1){
+    //     minutes = Math.trunc(minutes);
+    //     seconds = seconds - (minutes * 60);
+    //     seconds = Math.trunc(seconds);
+    // }
+    // if(minutes < 1){
+    //     return "" + seconds + " seconds"
+    // } else {
+    //     return '' + minutes + ":" + seconds;
+    // }
     
 }
 
