@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import cookie from 'react-cookies'
-import fire from '../Fire'
 import {withRouter} from "react-router-dom";
 import "../css/navtop.css"
 import logo from '../resources/mLogoV2-White.svg'
 import triangle from '../resources/mTriangleSelector.svg'
-import {Button} from "react-bootstrap";
 import EventsTopBar from "./EventsTopBar";
 
 class NavigationTop extends Component {
