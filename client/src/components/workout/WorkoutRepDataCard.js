@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Card, Row, Col } from 'react-bootstrap';
-import {secondsToFinal, totalSeconds, timeGenerator, stringToNumber, distanceToTime} from '../../math/TimeConversions';
+import {secondsToMinutesAnswer, totalSeconds, timeGenerator, stringToNumber, distanceToTime} from '../../math/TimeConversions';
 
 export class WorkoutRepDataCard extends Component {
     render() {
@@ -8,6 +8,7 @@ export class WorkoutRepDataCard extends Component {
         let wPaceSeconds = stringToNumber(this.props.runner.wPace); //this is a #
         let predictedTime = ''
         let predictedDistance = 0
+        let secondsForRep = 0;
         if(this.props.rep.distanceUnit === undefined){
             timeData = {
                 hours: this.props.rep.hours,
@@ -18,8 +19,8 @@ export class WorkoutRepDataCard extends Component {
             let pd = amountOfTime / (wPaceSeconds / (this.props.rep.percent / 100));
             predictedDistance = Math.round((pd) * 100) / 100;
         } else {
-            let secondsForRep = distanceToTime(this.props.rep.distance, this.props.rep.distanceUnit, (wPaceSeconds / (this.props.rep.percent / 100)));
-            predictedTime = timeGenerator(secondsToFinal(secondsForRep));
+            secondsForRep = distanceToTime(this.props.rep.distance, this.props.rep.distanceUnit, (wPaceSeconds / (this.props.rep.percent / 100)));
+            predictedTime = secondsToMinutesAnswer(secondsForRep);
         }
         return (
             <Card style = {{ height: '10%', orientation: 'horizontal'}}>
@@ -29,7 +30,7 @@ export class WorkoutRepDataCard extends Component {
                             {this.props.rep.distanceUnit !== undefined ? <Card.Title>{this.props.rep.distance} {this.props.rep.distanceUnit} {this.props.rep.type}</Card.Title> : <Card.Title>{timeGenerator(timeData)} {this.props.rep.type}</Card.Title>}
                         </Col>   
                         <Col>
-        {this.props.rep.distanceUnit !== undefined ? <p>Predicted Time: {predictedTime}</p> : <p>Predicted Distance: {predictedDistance}</p>}
+        {this.props.rep.distanceUnit !== undefined ? <p>Predicted Time: {predictedTime}</p> : <p>Predicted Distance: {predictedDistance} miles</p>}
                         </Col>
                     </Row>
                     

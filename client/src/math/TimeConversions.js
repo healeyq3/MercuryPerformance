@@ -77,17 +77,22 @@ function timeGenerator(timeData){
     return time;
 }
 
-function secondsToFinal(s){
+function secondsToFinal(s){ // DONT USE THIS
     let hours = 0;
     let minutes = 0;
     let seconds = 0;
-    while(seconds % 3600){
+    console.log(s);
+    while(s % 3600){
         hours += 1
         s = s -3600
+        console.log(s);
+        console.log(s % 3600);
+        console.log("stuck in hour while")
     }
     while(s % 60){
         minutes += 1;
         s = s - 60
+        console.log("stuck in minute while")
     }
     let timeData = {
         hours,
@@ -97,4 +102,21 @@ function secondsToFinal(s){
     return timeData;
 }
 
-export { secondsToFinal, totalSeconds, stringToNumber, totalTheTime, distanceToTime, totalMinutes, secondsToMinutes, timeGenerator };
+function secondsToMinutesAnswer(s){
+    let minutes = 0
+    let seconds = s;
+    minutes = seconds / 60;
+    if(seconds - (minutes *60) !== 1){
+        minutes = Math.trunc(minutes);
+        seconds = seconds - (minutes * 60);
+        seconds = Math.trunc(seconds);
+    }
+    if(minutes < 1){
+        return "" + seconds + " seconds"
+    } else {
+        return '' + minutes + ":" + seconds;
+    }
+    
+}
+
+export { secondsToMinutesAnswer, secondsToFinal, totalSeconds, stringToNumber, totalTheTime, distanceToTime, totalMinutes, secondsToMinutes, timeGenerator };
