@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ExistingEventCard from '../components/event/ExistingEventCard'
-import  { Container, Button } from 'react-bootstrap'
+import  { Container } from 'react-bootstrap'
 import CreateEventModal from '../components/event/CreateEventModal'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
