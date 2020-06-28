@@ -6,7 +6,7 @@ export class WorkoutRepDataCard extends Component {
     render() {
         let timeData = {}
         let wPaceSeconds = stringToNumber(this.props.runner.wPace); //this is a #
-        // let predictedTime = ''
+        let predictedTime = ''
         let predictedDistance = 0
         let secondsForRep = 0;
         if(this.props.rep.distanceUnit === undefined){
