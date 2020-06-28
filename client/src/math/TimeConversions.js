@@ -84,25 +84,32 @@ function secondsToMinutesAnswer(s1){
     let seconds = s;
     if(s >= 3600){
         hours = s / 3600
+        hours = Math.trunc(hours)
         s = s - (hours * 3600)
     } if(s >= 60){
         minutes = s / 60
-        s = s = (minutes * 60)
+        minutes = Math.trunc(minutes);
+        s = s - (minutes * 60)
     }
     seconds = Math.trunc(s);
-    minutes = Math.trunc(minutes);
-    hours = Math.trunc(hours);
+    //console.log(`Hours: ${hours} Minutes: ${minutes} Seconds ${seconds}`)
+    let secondsAnswer = '';
+    if(seconds < 10){
+        secondsAnswer = "0" + seconds;
+    } else {
+        secondsAnswer = '' + seconds;
+    }
     if (hours < 1){
         if(minutes < 1){
-            return seconds + " seconds"
+            return secondsAnswer + " seconds"
         } else {
-            return minutes + ":" + seconds
+            return minutes + ":" + secondsAnswer
         }
     } else{
         if(minutes < 1){
-            return hours + ":00: " + seconds
+            return hours + ":00: " + secondsAnswer
         } else {
-            return hours + ':' + minutes + ":" + seconds
+            return hours + ':' + minutes + ":" + secondsAnswer
         }
     }
     
