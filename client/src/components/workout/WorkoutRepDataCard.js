@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Card, Row, Col } from 'react-bootstrap';
-import {secondsToMinutesAnswer, totalSeconds, timeGenerator, stringToNumber, distanceToTime} from '../../math/TimeConversions';
+import {secondsToAnswer, totalSeconds, timeGenerator, stringToNumber, distanceToTime} from '../../math/TimeConversions';
 
 export class WorkoutRepDataCard extends Component {
     render() {
@@ -20,7 +20,7 @@ export class WorkoutRepDataCard extends Component {
             predictedDistance = Math.round((pd) * 100) / 100;
         } else {
             secondsForRep = distanceToTime(this.props.rep.distance, this.props.rep.distanceUnit, (wPaceSeconds / (this.props.rep.percent / 100)));
-            predictedTime = secondsToMinutesAnswer(secondsForRep);
+            predictedTime = secondsToAnswer(secondsForRep);
         }
         return (
             <Card style = {{ height: '10%', orientation: 'horizontal'}}>
@@ -30,7 +30,10 @@ export class WorkoutRepDataCard extends Component {
                             {this.props.rep.distanceUnit !== undefined ? <Card.Title>{this.props.rep.distance} {this.props.rep.distanceUnit} {this.props.rep.type}</Card.Title> : <Card.Title>{timeGenerator(timeData)} {this.props.rep.type}</Card.Title>}
                         </Col>   
                         <Col>
-        {this.props.rep.distanceUnit !== undefined ? <p>Predicted Time: {predictedTime}</p> : <p>Predicted Distance: {predictedDistance} miles</p>}
+                            {this.props.rep.distanceUnit !== undefined ? <p>Predicted Time: {predictedTime}</p> : <p>Predicted Distance: {predictedDistance} miles</p>}
+                        </Col>
+                        <Col>
+                            <p>Average Pace: {secondsToAnswer(wPaceSeconds / (this.props.rep.percent / 100))}</p>
                         </Col>
                     </Row>
                     

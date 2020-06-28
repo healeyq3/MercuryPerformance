@@ -84,7 +84,7 @@ function timeGenerator(timeData){
     return time;
 }
 
-function secondsToMinutesAnswer(s1){
+function secondsToAnswer(s1){
     let s = s1;
     let hours = 0;
     let minutes = 0;
@@ -122,4 +122,4 @@ function secondsToMinutesAnswer(s1){
     
 }
 
-export { secondsToMinutesAnswer, totalSeconds, stringToNumber, totalTheTime, distanceToTime, totalMinutes, secondsToMinutes, timeGenerator };
+export { secondsToAnswer, totalSeconds, stringToNumber, totalTheTime, distanceToTime, totalMinutes, secondsToMinutes, timeGenerator };
