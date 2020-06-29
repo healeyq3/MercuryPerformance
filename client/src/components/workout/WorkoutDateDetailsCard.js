@@ -1,17 +1,17 @@
 import React, { Component } from 'react'
 import { Card } from 'react-bootstrap';
+import { getPredictedTimes } from '../../math/AnalysisAlgos';
 
 export class WorkoutDetailsCard extends Component {
     render() {
+
         return (
-            <Card style = {{width: '25%', height: '25%'}}>
+            <Card style = {{width: '40%', height: '20%'}}>
             <Card.Body>
-                <Card.Title>Workout Name</Card.Title>
-                <Card.Subtitle>Location</Card.Subtitle>
+            <Card.Title>{this.props.name}</Card.Title>
                 <p></p>
-                <Card.Subtitle>Date</Card.Subtitle>
+                <Card.Subtitle>{this.props.date}</Card.Subtitle>
                 <p></p>
-        <Card.Subtitle>Distance  Unit</Card.Subtitle>
                 <Card.Link href = './eventdetails' onClick={() => this.props.onSelect(this.props.workout)}>Edit</Card.Link>
             </Card.Body>
             </Card>
