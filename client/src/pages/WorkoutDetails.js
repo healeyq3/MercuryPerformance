@@ -5,7 +5,7 @@ import WorkoutDetailsCard from '../components/workout/WorkoutDetailsCard'
 import ExistingWorkoutGraph from '../components/workout/ExistingWorkoutGraph'
 import { connect } from 'react-redux';
 import WorkoutImplementor from '../components/workout/WorkoutImplementor';
-import { getActualWorkouts, setWorkout } from '../actions/workoutActions'
+import { getActualWorkouts, setWorkout, getWorkoutBlueprints } from '../actions/workoutActions'
 import PropTypes from 'prop-types';
 import {Redirect} from "react-router-dom";
 import WarmupDistancePopover from '../components/workout/WarmupDistancePopover';
@@ -97,7 +97,7 @@ export class WorkoutDetails extends Component {
         })
     }
 
-    movecard = (dragIndex, hoverIndex) => {
+    moveCard = (dragIndex, hoverIndex) => {
         const dragRep = this.state.reps[dragIndex];
         this.setState(
             update(this.state, {
@@ -111,24 +111,27 @@ export class WorkoutDetails extends Component {
         )
     }
 
-    // reset = () => {
-    //      if(this.props.blueprints[this.selectedBlueprint].hasOwnProperty('name')){
-    //         this.setState({
-    //             name: this.props.blueprints[this.selectedBlueprint].name
-    //         })
-    //     }
-    //     if(this.props.blueprints[this.selectedBlueprint].hasOwnProperty('reps')){
-    //         this.setState({
-    //             reps: this.props.blueprints[this.selectedBlueprint].reps
-    //         })
-    //     }
-    // }
+    reset = () => {
+         console.log(this.props.blueprints[this.props.selectedBlueprint]);
+        if(this.props.blueprints[this.props.selectedBlueprint].hasOwnProperty('name')){
+            this.setState({
+                name: this.props.blueprints[this.props.selectedBlueprint].name
+            })
+        }
+        if(this.props.blueprints[this.props.selectedBlueprint].hasOwnProperty('reps')){
+            this.setState({
+                reps: this.props.blueprints[this.props.selectedBlueprint].reps
+            })
+        }
+    }
 
     componentDidUpdate(prevProps, prevState, ss){
         if(prevProps.rehydrated === false){
             this.props.getActualWorkouts(this.props.selectedTeam, this.props.selectedBlueprint);
+            this.props.getWorkoutBlueprints(this.props.selectedTeam);
+            this.reset()
         }
-        // this.reset()
+        
         // if(this.props.blueprints[this.selectedBlueprint].name !== undefined){
         //     this.setState({
         //         name: this.props.blueprints[this.selectedBlueprint].name
@@ -320,4 +323,4 @@ const mapStateToProps = function(state){
     }
 }
 
-export default connect(mapStateToProps, { getActualWorkouts, setWorkout, updateBlueprint, setBlueprint }) (WorkoutDetails)
+export default connect(mapStateToProps, { getWorkoutBlueprints, getActualWorkouts, setWorkout, updateBlueprint, setBlueprint }) (WorkoutDetails)
