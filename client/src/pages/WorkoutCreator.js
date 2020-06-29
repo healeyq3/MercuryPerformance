@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Row, Card, Col, Form, Button } from 'react-bootstrap'
+import { Row, Card, Col, Form, Button, Image } from 'react-bootstrap'
 import WarmupDistancePopover from '../components/workout/WarmupDistancePopover'
 import { CooldownDistancePopover } from '../components/workout/CooldownDistancePopover'
 import RepDistancePopover from '../components/workout/RepDistancePopover'
@@ -13,6 +13,9 @@ import { Redirect } from "react-router-dom";
 import ExistingWorkoutGraph from '../components/workout/ExistingWorkoutGraph';
 import RepsCard from '../components/workout/RepsCard';
 import update from 'immutability-helper'
+import triangle from '../images/square_PNG19.png'
+import tri1 from '../images/vector-triangles-black-and-white-picture-1281057-vector-isosceles-right-triangle-png-2000_2000.png'
+import tri2 from '../images/tri2.png'
 
 export class WorkoutCreator extends Component {
     constructor(props){
@@ -115,6 +118,12 @@ export class WorkoutCreator extends Component {
                             <Form.Group>
                                 <Form.Label>Add Warmup</Form.Label>
                                 </Form.Group>
+                                <Row className = "justify-content-md-center">
+                            <Col xs={5} md={4} className = "justify-content-md-center">
+                                    <Image src = {tri2} thumbnail></Image>
+                                    <p></p>
+                                    </Col>
+                                    </Row>
                                 <Row>
                                 <Col/>
                             <Col>
@@ -129,6 +138,12 @@ export class WorkoutCreator extends Component {
                             <Form.Group>
                                 <Form.Label>Add Rep</Form.Label>
                             </Form.Group>
+                            <Row className = "justify-content-md-center">
+                            <Col xs={5} md={4} className = "justify-content-md-center">
+                                    <Image src = {triangle} thumbnail></Image>
+                                    <p></p>
+                                    </Col>
+                                    </Row>
                             <Row>
                                 <Col/>
                             <Col>
@@ -143,6 +158,12 @@ export class WorkoutCreator extends Component {
                             <Form.Group>
                                 <Form.Label>Add Cooldown</Form.Label>
                             </Form.Group>
+                            <Row className = "justify-content-md-center">
+                            <Col xs={5} md={4} className = "justify-content-md-center">
+                                    <Image src = {tri1} thumbnail></Image>
+                                    <p></p>
+                                    </Col>
+                                    </Row>
                             <Row>
                                 <Col/>
                             <Col>

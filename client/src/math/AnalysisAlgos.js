@@ -34,8 +34,10 @@ function getPredictedTimes(runners, percent, rep){
     let min= 100000;
     let pace = 0;
     for(const runner in runners){
+        console.log(runners[runner])
         if(runners[runner].hasOwnProperty('wPace')){
             pace = stringToNumber(runners[runner].wPace);
+            console.log("AAAA")
             if(max<=pace){
                 max = stringToNumber(runners[runner].wPace);
             }
@@ -46,8 +48,14 @@ function getPredictedTimes(runners, percent, rep){
     }
     max = max/(percent/100)
     min  = min/(percent/100)
+    if(rep.hasOwnProperty('distance')){
     max = distanceToTime(rep.distance, rep.distanceUnit, max)
     min = distanceToTime(rep.distance, rep.distanceUnit, min)
+    }
+    else{
+        max = rep.duration
+        min = rep.duration
+    }
 return max + "-" + min
 }
 

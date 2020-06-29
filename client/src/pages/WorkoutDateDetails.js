@@ -81,8 +81,6 @@ export class WorkoutDateDetails extends Component {
             }
         }
 
-        // console.log(this.props.workouts[this.props.selectedWorkout].reps);
-
         return (
             <Container>
                 
@@ -96,15 +94,12 @@ export class WorkoutDateDetails extends Component {
                             </Card>
                         </Col>
                     
-                
-                
-                </Row>
-                <Row>
-                <Col sm = {5}>
-                    <WorkoutDateDetailsCard/>
-                </Col>
-                  <Col>
-                  <Card className = "text-center">
+                        <Col sm = {5}>
+                            <Row>
+                    <WorkoutDateDetailsCard date = {this.props.workouts[this.props.selectedWorkout].date} name = {this.props.bWorkouts[this.props.selectedBlueprint].name} reps = {this.props.workouts[this.props.selectedWorkout].reps} runners = {this.props.workouts[this.props.selectedWorkout].runners}/>
+                    </Row>
+                    <Row>
+                    <Card className = "text-center" style = {{width: '40%', height: '20%'}}>
                     <Card.Title>Notes</Card.Title>
                     <Form>
                       <Form.Control as ="textarea">
@@ -112,8 +107,9 @@ export class WorkoutDateDetails extends Component {
                       </Form.Control>
                     </Form>
                   </Card>
-                  </Col>
                 </Row>
+              </Col>
+            </Row>
                 <WorkoutAddRunnersModal show = {this.state.showRunner} setShow = {this.setShowRunner} teamUID = {this.props.selectedTeam}/>
                 <AddResultsModal show = {this.state.showResults} setShow = {this.setShowResults}/>
         </Container>
@@ -125,17 +121,21 @@ WorkoutDateDetails.propTypes = {
     resetRunnerAdded: PropTypes.func.isRequired,
     selectedWorkout: PropTypes.string.isRequired,
     runners: PropTypes.object.isRequired,
-    workouts: PropTypes.object.isRequired
+    workouts: PropTypes.object.isRequired,
+    bWorkouts:PropTypes.object.isRequired,
+    selectedBlueprint: PropTypes.string.isRequired
 }
 
 
 const mapStateToProps = function(state){
     return {
         selectedWorkout: state.workouts.selectedWorkout,
+        selectedBlueprint: state.workouts.selectedBlueprint,
         rehydrated: state._persist.rehydrated,
         runners: state.runners.runners,
         hasAddedRunner: state.workouts.hasAddedRunner,
-        workouts: state.workouts.actualWorkouts
+        workouts: state.workouts.actualWorkouts,
+        bWorkouts: state.workouts.blueprints
     }
 }
 
