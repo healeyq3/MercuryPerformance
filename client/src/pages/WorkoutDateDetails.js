@@ -95,14 +95,11 @@ export class WorkoutDateDetails extends Component {
                         </Col>
                     
                         <Col sm = {5}>
+                            <Row>
                     <WorkoutDateDetailsCard date = {this.props.workouts[this.props.selectedWorkout].date} name = {this.props.bWorkouts[this.props.selectedBlueprint].name} reps = {this.props.workouts[this.props.selectedWorkout].reps} runners = {this.props.workouts[this.props.selectedWorkout].runners}/>
-                </Col>
-                
-                </Row>
-                <Row>
-                
-                  <Col>
-                  <Card className = "text-center">
+                    </Row>
+                    <Row>
+                    <Card className = "text-center" style = {{width: '40%', height: '20%'}}>
                     <Card.Title>Notes</Card.Title>
                     <Form>
                       <Form.Control as ="textarea">
@@ -110,8 +107,9 @@ export class WorkoutDateDetails extends Component {
                       </Form.Control>
                     </Form>
                   </Card>
-                  </Col>
                 </Row>
+              </Col>
+            </Row>
                 <WorkoutAddRunnersModal show = {this.state.showRunner} setShow = {this.setShowRunner} teamUID = {this.props.selectedTeam}/>
                 <AddResultsModal show = {this.state.showResults} setShow = {this.setShowResults}/>
         </Container>
