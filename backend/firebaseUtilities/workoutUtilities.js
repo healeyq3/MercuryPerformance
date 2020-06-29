@@ -77,6 +77,24 @@ async function createBlueprint(useruid, teamuid, name, reps){
     return blueprintData;
 }
 
+async function updateBlueprint(name, reps, blueprintuid){
+    const blueprintRef = await database.ref('blueprints/' + blueprintuid);
+
+    const blueprintData = {
+        name, 
+        reps,
+        key: blueprintuid
+    }
+
+    blueprint.set(blueprintData).then(async () => {
+        console.log("Successfully updated blueprint data".green)
+    }) .catch(err => {
+        console.log("Unable to update blueprint".red + name.blue)
+        console.log(err);
+    })
+    return blueprintData;
+}
+
 async function addBlueprintToTeam(teamuid, blueprintuid){
     await database.ref('teams/' + teamuid + '/blueprints').child(blueprintuid).set(blueprintuid)
     .then(() => {

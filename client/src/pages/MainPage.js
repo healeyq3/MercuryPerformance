@@ -15,7 +15,9 @@ import Workouts from "./Workouts";
 import WorkoutDetails from "./WorkoutDetails";
 import WorkoutDateDetails from "./WorkoutDateDetails";
 import WorkoutCreator from "./WorkoutCreator";
+import WorkoutEditor from './WorkoutEditor'
 import cookie from "react-cookies";
+
 
 export class MainPage extends Component {
     constructor(props) {
@@ -52,6 +54,7 @@ export class MainPage extends Component {
                             <AuthRoute3 exact path = '/workoutdetails' component = {WorkoutDetails} />
                             <AuthRoute3 exact path = '/workoutdatedetails' component = {WorkoutDateDetails} />
                             <AuthRoute3 exact path = '/workoutcreator' component = {WorkoutCreator} />
+                            <AuthRoute3 exact path = '/workouteditor' component = {WorkoutEditor} />
                         </div>
                     </React.Fragment>
                 </Switch>
