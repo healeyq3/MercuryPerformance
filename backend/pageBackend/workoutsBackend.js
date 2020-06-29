@@ -92,7 +92,7 @@ async function updateBlueprint(req, res){
     const data = req.body;
     const name = data.blueprintData.name;
     const reps = data.blueprintData.reps;
-    const blueprintuid = data.blueprintData.blueprintuid
+    const blueprintuid = data.blueprintData.blueprintuid;
 
     workoutUtilities.updateBlueprint(name, reps, blueprintuid).then(blueprint => {
         res.setHeader('Content-Type', 'application/json');

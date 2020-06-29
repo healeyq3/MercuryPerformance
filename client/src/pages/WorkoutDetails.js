@@ -112,7 +112,6 @@ export class WorkoutDetails extends Component {
     }
 
     reset = () => {
-         console.log(this.props.blueprints[this.props.selectedBlueprint]);
         if(this.props.blueprints[this.props.selectedBlueprint].hasOwnProperty('name')){
             this.setState({
                 name: this.props.blueprints[this.props.selectedBlueprint].name

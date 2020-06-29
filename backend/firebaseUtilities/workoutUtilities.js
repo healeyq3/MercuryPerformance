@@ -85,7 +85,7 @@ async function updateBlueprint(name, reps, blueprintuid){
         reps,
         key: blueprintuid
     }
-
+    
     blueprint.set(blueprintData).then(async () => {
         console.log("Successfully updated blueprint data".green)
     }) .catch(err => {
@@ -216,3 +216,4 @@ module.exports.createBlueprint = createBlueprint;
 module.exports.createWorkout = createWorkout;
 module.exports.getWorkouts = getWorkouts;
 module.exports.addRunnerToWorkout = addRunnerToWorkout;
+module.exports.updateBlueprint = updateBlueprint;
