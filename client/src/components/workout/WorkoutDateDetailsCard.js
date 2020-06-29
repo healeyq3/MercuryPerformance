@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Card } from 'react-bootstrap';
-import { getPredictedTimes } from '../../math/AnalysisAlgos';
 
 export class WorkoutDetailsCard extends Component {
     render() {
