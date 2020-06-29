@@ -96,12 +96,13 @@ export class WorkoutDateDetails extends Component {
                             </Card>
                         </Col>
                     
-                <Col sm = {5}>
-                    <WorkoutDateDetailsCard/>
-                </Col>
+                
                 
                 </Row>
                 <Row>
+                <Col sm = {5}>
+                    <WorkoutDateDetailsCard/>
+                </Col>
                   <Col>
                   <Card className = "text-center">
                     <Card.Title>Notes</Card.Title>
