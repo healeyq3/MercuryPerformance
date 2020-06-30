@@ -12,9 +12,7 @@ export class ExistingWorkoutCard extends Component {
                         <Col>
                             
                         </Col>
-                        <Col>
-                            <p>Time</p>
-                        </Col>
+                       
                         <Col>
                         <Row>
                             <Button variant = "outline-primary">Edit</Button>
