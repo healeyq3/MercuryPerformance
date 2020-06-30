@@ -15,7 +15,7 @@ export class Workouts extends Component {
             show: false,
             showImport: false,
             toWorkout: false,
-            gotoCreateWorkout: false,
+            gotoCreateWorkout: false
         }
 
         this.setSelectedBlueprint = this.setSelectedBlueprint.bind(this);
@@ -87,7 +87,7 @@ export class Workouts extends Component {
             if(this.props.blueprints.hasOwnProperty(blueprint)){
                 cardItems.push(
                     <React.Fragment key = {blueprint}>
-                        <ExistingWorkoutCard onSelect = {this.setSelectedBlueprint} blueprint = {this.props.blueprints[blueprint]} />
+                        <ExistingWorkoutCard onHit = {this.setGoToEditor} onSelect = {this.setSelectedBlueprint} blueprint = {this.props.blueprints[blueprint]} />
                     </React.Fragment> 
                 )
             }

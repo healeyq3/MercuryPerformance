@@ -1,64 +1,59 @@
 import React, { Component } from 'react'
-import { Row, Card, Col, Form, Button, Image } from 'react-bootstrap'
+import { Row, Card, Col, Form, Button } from 'react-bootstrap'
 import WarmupDistancePopover from '../components/workout/WarmupDistancePopover'
 import { CooldownDistancePopover } from '../components/workout/CooldownDistancePopover'
 import RepDistancePopover from '../components/workout/RepDistancePopover'
 import CooldownDurationPopover from '../components/workout/CooldownDurationPopover'
 import WarmupDurationPopover from '../components/workout/WarmupDurationPopover'
 import RepDurationPopover from '../components/workout/RepDurationPopover'
-import { newWorkoutBlueprint, setBlueprint } from '../actions/workoutActions'
+import { updateBlueprint, setBlueprint } from '../actions/workoutActions'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from "react-router-dom";
 import ExistingWorkoutGraph from '../components/workout/ExistingWorkoutGraph';
 import RepsCard from '../components/workout/RepsCard';
 import update from 'immutability-helper'
-import triangle from '../images/square_PNG19.png'
-import tri1 from '../images/vector-triangles-black-and-white-picture-1281057-vector-isosceles-right-triangle-png-2000_2000.png'
-import tri2 from '../images/tri2.png'
 
-export class WorkoutCreator extends Component {
+export class WorkoutEditor extends Component {
     constructor(props){
         super(props);
         this.state = {
-            name:'',
-            reps:[],
+            name: '',
+            reps: [],
             toWorkoutHome: false,
             show: false
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
-        this.handleEdit = this.handleEdit.bind(this)
+        this.handleEdit = this.handleEdit.bind(this);
     }
 
     setShow = e => {
-        console.log("Called");
         this.setState({
             show: !this.state.show
         })
     }
 
     handleChange(e){
-        console.log("changed");
-        console.log(e.target.value);
-        this.setState({ [e.target.name] : e.target.value});
+        this.setState({[e.target.name] : e.target.value});
     }
 
-    handleCreateWorkout = () => {
-        const workoutData = {
+    handleUpdateWorkout = () => {
+        const blueprintData = {
             name: this.state.name,
-            reps: this.state.reps
+            reps: this.state.reps,
+            blueprintuid: this.props.selectedBlueprint
         }
-        this.props.newWorkoutBlueprint(workoutData, this.props.selectedTeam);
+        this.props.updateBlueprint(blueprintData, this.props.selectedTeam);
         this.setState({
             toWorkoutHome: true
-          })
+        })
     }
 
     handleCreate = (repData) => {
-        let arr = this.state.reps
+        let arr = this.state.reps;
         arr.push(repData)
-        this.setState({reps:arr})
+        this.setState({reps: arr})
     }
 
     handleDelete(index){
@@ -69,8 +64,7 @@ export class WorkoutCreator extends Component {
         })
     }
 
-    handleEdit(rep, index){
-        console.log(this.state)
+    handleEdit(rep, index){ //issue with the state, might be looking for it in reps card?
         let toReturn = this.state.reps;
         toReturn[index] = rep;
         this.setState({
@@ -78,10 +72,7 @@ export class WorkoutCreator extends Component {
         })
     }
 
-    moveCard = (dragIndex, hoverIndex) => {
-        console.log("Called");
-        console.log(dragIndex);
-        console.log(hoverIndex)
+    movecard = (dragIndex, hoverIndex) => {
         const dragRep = this.state.reps[dragIndex];
         this.setState(
             update(this.state, {
@@ -93,17 +84,34 @@ export class WorkoutCreator extends Component {
                 }
             })
         )
-        
     }
 
+    componentDidUpdate(prevProps){
+        if(prevProps.rehydrated === false){
+            if(this.props.blueprints[this.props.selectedBlueprint].name !== undefined){
+                this.setState({
+                    name: this.props.blueprints[this.props.selectedBlueprint].name
+                })
+            }
+            if(this.props.blueprints[this.props.selectedBlueprint].reps !== undefined){
+                this.setState({
+                    reps: this.props.blueprints[this.props.selectedBlueprint].reps
+                })
+            }
+            
+        }
+    }
+    
     render() {
-        if(!this.props.selectedTeam){
+        if(!this.props.selectedTeam || this.props.selectedBlueprint){
             return null;
         }
+
         if(this.state.toWorkoutHome){
-            this.props.history.push('/workoutcreator')
-            return <Redirect to='/workouts' />
-          }
+            this.props.history.push('/workouteditor')
+            return <Redirect to = '/workouts' />
+        }
+        
         return (
             <Row>
                 <Col sm = {4}>
@@ -113,17 +121,11 @@ export class WorkoutCreator extends Component {
                         <Form>
                             <Form.Group>
                                 <Form.Label>Workout Name</Form.Label>
-                                <Form.Control onChange = {this.handleChange} name = "name" type = "text" placeholder = "Enter Workout Name"/>
+                                <Form.Control onChange = {this.handleChange} name = "name" type = "text" value = {this.state.name}/>
                             </Form.Group>
                             <Form.Group>
                                 <Form.Label>Add Warmup</Form.Label>
                                 </Form.Group>
-                                <Row className = "justify-content-md-center">
-                            <Col xs={5} md={4} className = "justify-content-md-center">
-                                    <Image src = {tri2} thumbnail></Image>
-                                    <p></p>
-                                    </Col>
-                                    </Row>
                                 <Row>
                                 <Col/>
                             <Col>
@@ -138,12 +140,6 @@ export class WorkoutCreator extends Component {
                             <Form.Group>
                                 <Form.Label>Add Rep</Form.Label>
                             </Form.Group>
-                            <Row className = "justify-content-md-center">
-                            <Col xs={5} md={4} className = "justify-content-md-center">
-                                    <Image src = {triangle} thumbnail></Image>
-                                    <p></p>
-                                    </Col>
-                                    </Row>
                             <Row>
                                 <Col/>
                             <Col>
@@ -158,12 +154,6 @@ export class WorkoutCreator extends Component {
                             <Form.Group>
                                 <Form.Label>Add Cooldown</Form.Label>
                             </Form.Group>
-                            <Row className = "justify-content-md-center">
-                            <Col xs={5} md={4} className = "justify-content-md-center">
-                                    <Image src = {tri1} thumbnail></Image>
-                                    <p></p>
-                                    </Col>
-                                    </Row>
                             <Row>
                                 <Col/>
                             <Col>
@@ -175,7 +165,7 @@ export class WorkoutCreator extends Component {
                             <Col/>
                             </Row>
                             <p/>
-                            <Button variant = "primary" onClick = {this.handleCreateWorkout}>Create</Button>
+                            <Button variant = "primary" onClick = {this.handleUpdateWorkout}>Update</Button>
                         </Form>
                         </Card.Body>
                     </Card>
@@ -202,10 +192,11 @@ export class WorkoutCreator extends Component {
     }
 }
 
-WorkoutCreator.propTypes = {
+WorkoutEditor.propTypes = {
     selectedTeam: PropTypes.string.isRequired,
     rehydrated: PropTypes.bool.isRequired,
     setBlueprint: PropTypes.func.isRequired,
+    updateBlueprint: PropTypes.func.isRequired,
     teams: PropTypes.object.isRequired
 }
 
@@ -219,4 +210,4 @@ const mapStateToProps = function(state){
     }
 }
 
-export default connect(mapStateToProps, {  newWorkoutBlueprint, setBlueprint }) (WorkoutCreator);
+export default connect(mapStateToProps, { updateBlueprint, setBlueprint }) (WorkoutEditor)

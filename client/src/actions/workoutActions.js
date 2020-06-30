@@ -1,4 +1,4 @@
-import { GET_BLUEPRINTS, GET_ALL_BLUEPRINTS, NEW_BLUEPRINT, SET_BLUEPRINT, ADD_BLUEPRINT_TEAM, NEW_WORKOUT, GET_WORKOUTS, SET_WORKOUT, WORKOUT_RUNNERS_ADDED, RESET_WORKOUT_RUNNER_ADDED } from './types';
+import { GET_BLUEPRINTS, GET_ALL_BLUEPRINTS, NEW_BLUEPRINT, SET_BLUEPRINT, ADD_BLUEPRINT_TEAM, UPDATE_BLUEPRINT, NEW_WORKOUT, GET_WORKOUTS, SET_WORKOUT, WORKOUT_RUNNERS_ADDED, RESET_WORKOUT_RUNNER_ADDED } from './types';
 import cookie from 'react-cookies';
 import fire from "../Fire";
 
@@ -101,6 +101,41 @@ export function newWorkoutBlueprint(blueprintData, selectedTeamUID){
                     console.log(`error in workoutActions: ${err}`)
                 })
             })
+        })
+    }
+}
+
+export function updateBlueprint(blueprintData, teamUID){
+    return async function(dispatch){
+        fire.auth().onAuthStateChanged(function(user) {
+            if(!user) {
+                cookie.remove('mercury-fb-token');
+                return;
+            }
+            user.getIdToken(true).then(async function (idToken) {
+                cookie.save('mercury-fb-token', idToken, { path: '/', sameSite: 'strict', SameSite: 'strict'})
+                console.log("Fetch called");
+                await fetch('api/workouts/updateblueprint', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: 
+                    blueprintData,
+                    idToken,
+                    selectedTeamUID: teamUID
+                })
+            })
+            .then(res => res.json())
+            .then(blueprint => 
+                dispatch({
+                    type: UPDATE_BLUEPRINT,
+                    payload: blueprint,
+                    blueprintUID: blueprint.key
+                }))
+                .catch(err => {
+                    console.log(`error in workoutActions: ${err}`)
+                })
         })
     }
 }
@@ -260,3 +295,4 @@ export function resetRunnerAdded(){
     })
 }
 }
+

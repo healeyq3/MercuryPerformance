@@ -11,7 +11,8 @@ router.post('/newblueprint', newBlueprint);
 router.post('/addblueprint', addBlueprint);
 router.post('/workouts', getWorkouts);
 router.post('/newworkout', newWorkout);
-router.post('/addrunner', addRunner)
+router.post('/addrunner', addRunner);
+router.post('/updateblueprint', updateBlueprint);
 
 module.exports = router;
 
@@ -74,6 +75,32 @@ async function newBlueprint(req, res){
       console.log("Error adding and fetching the new blueprint".red);
       console.log(err);
       res.end("{}");
+    })
+}
+
+async function updateBlueprint(req, res){
+    if(!await authenticatePost(req, res)){
+        res.end("{}")
+        return;
+    }
+
+    if(!await teamUtilities.doesUserOwnTeam(req)){
+        res.end("{}")
+        return;
+    }
+
+    const data = req.body;
+    const name = data.blueprintData.name;
+    const reps = data.blueprintData.reps;
+    const blueprintuid = data.blueprintData.blueprintuid;
+
+    workoutUtilities.updateBlueprint(name, reps, blueprintuid).then(blueprint => {
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify(blueprint));
+    }) .catch(err => {
+        console.log("Error updating and fetching the new blueprint".red);
+        console.log(err);
+        res.end('{}');
     })
 }
 
