@@ -3,24 +3,28 @@ import {Row, Col, Card} from 'react-bootstrap'
 
 export class WorkoutDetailsCard extends Component {
     render() {
+        let time = 0;
+        for(const rep in this.props.workout.reps){
+            if(rep.hasOwnProperty('duration')){
+                time +=rep.duration
+                console.log(time)
+            }
+            else{
+                cardItems.push(
+                        <React.Fragment>
+                        <Card className = "text-center" style = {{ height: '10%', orientation: 'horizontal'}}>
+                        <Card.Title>{rep.type}</Card.Title>
+                        <Card.Subtitle>{rep.distance}</Card.Subtitle>
+                        </Card>
+                        </React.Fragment>
+                    
+                )
+            }
+        }
         return (
             <Card>
-                        <Card.Header className = "text-center">Workout Details</Card.Header>
-                        <Row>
-                            <Col>
-                        <Card className = "text-center">
-                            <Card.Title>Part 1</Card.Title>
-                            <Card.Subtitle>11 minutes</Card.Subtitle>
-                        </Card>
-                        </Col>
-                        <Col>
-                        <Card className = "text-center">
-                            <Card.Title>Part 2</Card.Title>
-                            <Card.Subtitle>12 minutes</Card.Subtitle>
-                        </Card>
-                        </Col>
-                        </Row>
-                    </Card>
+            {cardItems}
+            </Card> 
         )
     }
 }

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Container, Nav, Row, Col, Card, Button, Form } from 'react-bootstrap'
 import WorkoutBlueprintDayCard from '../components/workout/WorkoutBlueprintDayCard'
-import WorkoutDetailsCard from '../components/workout/WorkoutDetailsCard'
 import ExistingWorkoutGraph from '../components/workout/ExistingWorkoutGraph'
 import { connect } from 'react-redux';
 import WorkoutImplementor from '../components/workout/WorkoutImplementor';
@@ -17,6 +16,7 @@ import RepDurationPopover from '../components/workout/RepDurationPopover'
 import { updateBlueprint, setBlueprint } from '../actions/workoutActions'
 import RepsCard from '../components/workout/RepsCard';
 import update from 'immutability-helper'
+import { distanceToTime, secondsToAnswer } from '../math/TimeConversions';
 
 export class WorkoutDetails extends Component {
     constructor(props){
@@ -168,6 +168,44 @@ export class WorkoutDetails extends Component {
                 )
             }
         }
+        let repItems = [];
+        let time;
+        for(const rep in this.props.blueprints[this.props.selectedBlueprint].reps){
+            console.log(rep)
+            if(this.props.blueprints[this.props.selectedBlueprint].reps[rep].minutes!==undefined){
+                repItems.push(
+                    <React.Fragment>
+                        <Card className = "text-center" style = {{ height:'100%', orientation: 'horizontal'}}>
+                        <Row>
+                            <Col>
+                        <Card.Title>{this.props.blueprints[this.props.selectedBlueprint].reps[rep].type}</Card.Title>
+                        </Col>
+                        <Col>
+                        <Card.Title>{this.props.blueprints[this.props.selectedBlueprint].reps[rep].hours}:{this.props.blueprints[this.props.selectedBlueprint].reps[rep].minutes}:{this.props.blueprints[this.props.selectedBlueprint].reps[rep].seconds}</Card.Title>
+                        </Col>
+                        </Row>
+                        </Card>
+                        </React.Fragment>
+                )
+            }
+            else{
+                repItems.push(
+                        <React.Fragment>
+                        <Card className = "text-center" style = {{ height:'100%', orientation: 'horizontal'}}>
+                            <Row>
+                                <Col>
+                        <Card.Title>{this.props.blueprints[this.props.selectedBlueprint].reps[rep].type}</Card.Title>
+                        </Col>
+                        <Col>
+                <Card.Title>{this.props.blueprints[this.props.selectedBlueprint].reps[rep].distance} {this.props.blueprints[this.props.selectedBlueprint].reps[rep].distanceUnit}</Card.Title>
+                        </Col>
+                        </Row>
+                        </Card>
+                        </React.Fragment>
+                    
+                )
+            }
+        }
         return (
             // <Container>
              
@@ -205,7 +243,12 @@ export class WorkoutDetails extends Component {
                     <ExistingWorkoutGraph team = {this.props.teams[this.props.selectedTeam]} reps = {this.props.blueprints[this.props.selectedBlueprint].reps}/>
                     </Row>
                     <Row>
-                        <WorkoutDetailsCard/>
+                    <Col>
+                    <Card className = "text-center">
+                        <Card.Header>Reps</Card.Header>
+                    {repItems}
+                    </Card>
+                    </Col>
                     </Row>
                     </Col>
                     </Row>
@@ -285,10 +328,8 @@ export class WorkoutDetails extends Component {
                     </Card>
                     </Col>
                 </Row>}
-                </React.Fragment>
                 
-                
-            
+           </React.Fragment>
         )
     }
 }
