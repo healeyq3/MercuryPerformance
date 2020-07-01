@@ -120,14 +120,14 @@ export function updateBlueprint(blueprintData, teamUID){
                     headers: {
                         'content-type': 'application/json'
                     },
-                    body: 
-                    blueprintData,
-                    idToken,
-                    selectedTeamUID: teamUID
+                    body: JSON.stringify({
+                        blueprintData,
+                        idToken,
+                        selectedTeamUID: teamUID
+                    })
                 })
-            })
-            .then(res => res.json())
-            .then(blueprint => 
+                .then(res => res.json())
+                .then(blueprint => 
                 dispatch({
                     type: UPDATE_BLUEPRINT,
                     payload: blueprint,
@@ -136,6 +136,7 @@ export function updateBlueprint(blueprintData, teamUID){
                 .catch(err => {
                     console.log(`error in workoutActions: ${err}`)
                 })
+            })
         })
     }
 }

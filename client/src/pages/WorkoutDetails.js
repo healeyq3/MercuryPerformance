@@ -16,7 +16,6 @@ import RepDurationPopover from '../components/workout/RepDurationPopover'
 import { updateBlueprint, setBlueprint } from '../actions/workoutActions'
 import RepsCard from '../components/workout/RepsCard';
 import update from 'immutability-helper'
-import { distanceToTime, secondsToAnswer } from '../math/TimeConversions';
 
 export class WorkoutDetails extends Component {
     constructor(props){
@@ -64,16 +63,26 @@ export class WorkoutDetails extends Component {
     }
 
     handleUpdateWorkout = () => {
-        const blueprintData = {
-            name: this.state.name,
-            reps: this.state.reps,
-            blueprintuid: this.props.selectedBlueprint
+        let blueprintData = {}
+        if(this.props.blueprints[this.props.selectedBlueprint].hasOwnProperty('workouts')){
+            blueprintData = {
+                name: this.state.name,
+                reps: this.state.reps,
+                blueprintuid: this.props.selectedBlueprint,
+                workouts: this.props.blueprints[this.props.selectedBlueprint].workouts
+            }
+        } else {
+            blueprintData = {
+                name: this.state.name,
+                reps: this.state.reps,
+                blueprintuid: this.props.selectedBlueprint
+            }
         }
         console.log(blueprintData);
         this.props.updateBlueprint(blueprintData, this.props.selectedTeam);
-        // this.setState({
-        //     toEditor: false
-        // })
+        this.setState({
+            toEditor: false
+        })
     }
 
     handleCreate = (repData) => {
@@ -169,7 +178,6 @@ export class WorkoutDetails extends Component {
             }
         }
         let repItems = [];
-        let time;
         for(const rep in this.props.blueprints[this.props.selectedBlueprint].reps){
             console.log(rep)
             if(this.props.blueprints[this.props.selectedBlueprint].reps[rep].minutes!==undefined){
@@ -214,10 +222,10 @@ export class WorkoutDetails extends Component {
                     <Container fluid>
                     <Nav fill variant="tabs" className="justify-content-center">
                     <Nav.Item>
-                        <Nav.Link onClick = {() => this.setState(state => ({toEditor: !state.toEditor}))}>Workout Name</Nav.Link>
+                        <Nav.Link onClick = {() => this.setState(state => ({toEditor: false}))}>Workout Name</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link onClick = {() => this.setState(state => ({toEditor: !state.toEditor}))}>Edit Blueprint</Nav.Link>
+                        <Nav.Link onClick = {() => this.setState(state => ({toEditor: true}))}>Edit Blueprint</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
                         <Nav.Link href = "./workouts">Delete</Nav.Link>

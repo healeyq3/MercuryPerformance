@@ -86,7 +86,7 @@ async function updateBlueprint(name, reps, blueprintuid){
         key: blueprintuid
     }
     
-    blueprint.set(blueprintData).then(async () => {
+    blueprintRef.set(blueprintData).then(async () => {
         console.log("Successfully updated blueprint data".green)
     }) .catch(err => {
         console.log("Unable to update blueprint".red + name.blue)
