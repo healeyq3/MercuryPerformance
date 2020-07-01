@@ -15,7 +15,6 @@ export class ExistingWorkoutCard extends Component {
                        
                         <Col>
                         <Row>
-                        <Button variant = "outline-primary">Edit</Button>
                             <Button variant = "outline-secondary">🗑</Button>
                             </Row>
                         </Col>
