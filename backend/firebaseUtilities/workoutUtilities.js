@@ -77,12 +77,13 @@ async function createBlueprint(useruid, teamuid, name, reps){
     return blueprintData;
 }
 
-async function updateBlueprint(name, reps, blueprintuid){
+async function updateBlueprint(name, reps, workouts, blueprintuid){
     const blueprintRef = await database.ref('blueprints/' + blueprintuid);
 
     const blueprintData = {
         name, 
         reps,
+        workouts,
         key: blueprintuid
     }
     
