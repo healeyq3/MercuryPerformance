@@ -71,9 +71,9 @@ export class WorkoutDetails extends Component {
         }
         console.log(blueprintData);
         this.props.updateBlueprint(blueprintData, this.props.selectedTeam);
-        this.setState({
-            toEditor: false
-        })
+        // this.setState({
+        //     toEditor: false
+        // })
     }
 
     handleCreate = (repData) => {
@@ -256,7 +256,7 @@ export class WorkoutDetails extends Component {
                     <Row>
                     <Col sm = {4}>
                         <Card className= "text-center">
-                            <Card.Header>New Workout</Card.Header>
+                            <Card.Header>Edit Workout</Card.Header>
                             <Card.Body>
                             <Form>
                                 <Form.Group>

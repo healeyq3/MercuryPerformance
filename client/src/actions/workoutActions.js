@@ -115,7 +115,7 @@ export function updateBlueprint(blueprintData, teamUID){
             user.getIdToken(true).then(async function (idToken) {
                 cookie.save('mercury-fb-token', idToken, { path: '/', sameSite: 'strict', SameSite: 'strict'})
                 console.log("Fetch called");
-                await fetch('api/workouts/updateblueprint', {
+                await fetch('/api/workouts/updateblueprint', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'
