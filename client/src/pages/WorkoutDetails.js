@@ -69,6 +69,7 @@ export class WorkoutDetails extends Component {
             reps: this.state.reps,
             blueprintuid: this.props.selectedBlueprint
         }
+        console.log(blueprintData);
         this.props.updateBlueprint(blueprintData, this.props.selectedTeam);
         this.setState({
             toEditor: false
@@ -89,7 +90,7 @@ export class WorkoutDetails extends Component {
         })
     }
 
-    handleEdit(rep, index){ //issue with the state, might be looking for it in reps card?
+    handleEdit(rep, index){ 
         let toReturn = this.state.reps;
         toReturn[index] = rep;
         this.setState({
@@ -125,22 +126,21 @@ export class WorkoutDetails extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, ss){
+        console.log("Component Updated");
         if(prevProps.rehydrated === false){
             this.props.getActualWorkouts(this.props.selectedTeam, this.props.selectedBlueprint);
             this.props.getWorkoutBlueprints(this.props.selectedTeam);
-            this.reset()
+            if(this.props.blueprints[this.props.selectedBlueprint].hasOwnProperty('name')){
+                this.setState({
+                    name: this.props.blueprints[this.props.selectedBlueprint].name
+                })
+            }
+            if(this.props.blueprints[this.props.selectedBlueprint].hasOwnProperty('reps')){
+                this.setState({
+                    reps: this.props.blueprints[this.props.selectedBlueprint].reps
+                })
+            }
         }
-        
-        // if(this.props.blueprints[this.selectedBlueprint].name !== undefined){
-        //     this.setState({
-        //         name: this.props.blueprints[this.selectedBlueprint].name
-        //     })
-        // }
-        // if(this.props.blueprints[this.selectedBlueprint].name !== undefined){
-        //     this.setState({
-        //         reps: this.props.blueprints[this.selectedBlueprint].reps
-        //     })
-        // }
       }
 
     render() {
@@ -151,6 +151,10 @@ export class WorkoutDetails extends Component {
         if(!this.props.selectedTeam || !this.props.selectedBlueprint || !this.props.blueprints[this.props.selectedBlueprint]){
             //return <Redirect to='/workouts'/>;
              return null;
+        }
+        if(this.state.reps.length === 0 && this.state.name === ''){
+            console.log("Saw this");
+            this.reset();
         }
 
         let cardItems = [];
@@ -164,16 +168,6 @@ export class WorkoutDetails extends Component {
                 )
             }
         }
-        //  if(this.props.blueprints[this.selectedBlueprint].name !== undefined){
-        //     this.setState({
-        //         name: this.props.blueprints[this.selectedBlueprint].name
-        //     })
-        // }
-        // if(this.props.blueprints[this.selectedBlueprint].name !== undefined){
-        //     this.setState({
-        //         reps: this.props.blueprints[this.selectedBlueprint].reps
-        //     })
-        // }
         return (
             // <Container>
              

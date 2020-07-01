@@ -79,6 +79,7 @@ async function newBlueprint(req, res){
 }
 
 async function updateBlueprint(req, res){
+    console.log("Got to update backend");
     if(!await authenticatePost(req, res)){
         res.end("{}")
         return;
