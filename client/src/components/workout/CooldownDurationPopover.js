@@ -8,7 +8,7 @@ export class CooldownDurationPopover extends Component {
         super(props);
 
         this.state = {
-            type:"cooldown",
+            type:"duration cooldown",
             percent: 0,
             hours: 0,
             minutes:0,
@@ -36,7 +36,7 @@ export class CooldownDurationPopover extends Component {
 
     reset = () => {
         this.setState({
-            type:"cooldown",
+            type:"duration cooldown",
             percent: 0,
             hours: 0,
             minutes:0,

@@ -8,7 +8,7 @@ export class CooldownDistancePopover extends Component {
         super(props);
 
         this.state = {
-            type:"cooldown",
+            type:"distance cooldown",
             percent: 0,
             distance: 0,
             distanceUnit:'',
@@ -34,7 +34,7 @@ export class CooldownDistancePopover extends Component {
 
     reset = () => {
         this.setState({
-            type:"cooldown",
+            type:"distance cooldown",
             percent: 0,
             distance: 0,
             distanceUnit:''

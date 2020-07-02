@@ -8,7 +8,7 @@ export class WarmupDistancePopover extends Component {
         super(props);
 
         this.state = {
-            type:"warmup",
+            type:"distance warmup",
             percent: 0,
             distance: 0,
             distanceUnit:'',
@@ -34,7 +34,7 @@ export class WarmupDistancePopover extends Component {
 
     reset = () => {
         this.setState({
-            type:"warmup",
+            type:"distance warmup",
             percent: 0,
             distance: 0,
             distanceUnit:''

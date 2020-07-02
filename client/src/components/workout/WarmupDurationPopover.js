@@ -8,7 +8,7 @@ export class WarmupDurationPopover extends Component {
         super(props);
 
         this.state = {
-            type:"warmup",
+            type:"duration warmup",
             percent: 0,
             hours: 0,
             minutes:0,
@@ -36,7 +36,7 @@ export class WarmupDurationPopover extends Component {
 
     reset = () => {
         this.setState({
-            type:"warmup",
+            type:"duration warmup",
             percent: 0,
             hours: 0,
             minutes:0,

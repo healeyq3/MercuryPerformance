@@ -8,7 +8,7 @@ export class RepDistancePopover extends Component {
         super(props);
 
         this.state = {
-            type:"Rep",
+            type:"distance rep",
             percent: 0,
             distance: 0,
             distanceUnit:'',
@@ -40,7 +40,7 @@ export class RepDistancePopover extends Component {
                 console.log("Got to first if statement")
                 console.log(this.state.restDistance);
                 const restData = {
-                    type: "Rest",
+                    type: "distance rest",
                     percent: this.state.restV02,
                     distance:this.state.restDistance,
                     distanceUnit:this.state.restDistanceUnit
@@ -50,7 +50,7 @@ export class RepDistancePopover extends Component {
             }
             else if(this.state.restHours!==0 || this.state.restMinutes !==0 || this.state.restSeconds !== 0){
                 const restData = {
-                    type:"Rest",
+                    type:"duration rest",
                     percent: this.state.restV02,
                     hours: this.state.restHours,
                     minutes: this.state.restMinutes,
@@ -69,7 +69,7 @@ export class RepDistancePopover extends Component {
     reset = () => {
         console.log("reset")
         this.setState({
-            type:"Rep",
+            type:"distance rep",
             percent: 0,
             distance: 0,
             distanceUnit:'',

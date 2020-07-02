@@ -8,7 +8,7 @@ export class RepDurationPopover extends Component {
         super(props);
 
         this.state = {
-            type:"rep",
+            type:"duration rep",
             percent: 0,
             hours: 0,
             minutes:0,
@@ -40,7 +40,7 @@ export class RepDurationPopover extends Component {
         for(var i= 0; i<this.state.reps; i++){
             if(this.state.restDistance!==0){
                 const restData = {
-                    type: "Rest",
+                    type: "distance rest",
                     percent: this.state.restV02,
                     distance:this.state.restDistance,
                     distanceUnit:this.state.restDistanceUnit
@@ -50,7 +50,7 @@ export class RepDurationPopover extends Component {
             }
             else if(this.state.restHours!==0 || this.state.restMinutes !==0 || this.state.restSeconds !== 0){
                 const restData = {
-                    type:"Rest",
+                    type:"duration rest",
                     percent: this.state.restV02,
                     hours: this.state.restHours,
                     minutes: this.state.restMinutes,
@@ -68,7 +68,7 @@ export class RepDurationPopover extends Component {
 
     reset = () => {
         this.setState({
-            type:"rep",
+            type:"duration rep",
             percent: 0,
             hours: 0,
             minutes:0,

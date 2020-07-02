@@ -34,6 +34,12 @@ export class WorkoutAddRunnersModal extends Component {
         }
     }
     handleAddRunners = () => {
+        // this.state.runnersToAddToFire.map((runner, i) => {
+        //     let pTimes = [];
+        //     for(rep in this.props.workouts[this.props.selectedWorkout].reps){
+        //         let toAdd = {}
+        //     }
+        // }) I will finish this off once I get home to my monitors...need to fundamentally rework adding runners so they can hold values
         this.props.addRunnersToWorkout(this.state.runnersToAddToFire, this.props.selectedWorkout);
         this.props.setShow();
     }
