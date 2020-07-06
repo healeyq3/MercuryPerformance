@@ -3,43 +3,81 @@ import { Modal, Form, Button } from '../../../node_modules/react-bootstrap'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 import { addRunnersToWorkout } from "../../actions/workoutActions";
+import { secondsToAnswer, totalSeconds, timeGenerator, stringToNumber, distanceToTime } from '../../math/TimeConversions';
 
 export class WorkoutAddRunnersModal extends Component {
     constructor(props){
         super(props);
 
         this.state = {
-            runnersToAddToFire: []
+            runnersToAddToFire: {}
         }
         this.handleChange = this.handleChange.bind(this);
     }
     
     handleChange(e){
         if(e.target.checked === true){
-            let toAdd = e.target.value;
+            let runnerUID = e.target.value;
+            let wPaceSeconds = stringToNumber(this.props.runners[runnerUID].wPace);
+            console.log(`Wpace + ${wPaceSeconds}`);
+            console.log(this.props.workouts[this.props.selectedWorkout].reps);
+            let pTimes = [];
+            let predictedTime = '';
+            let predictedDistance = 0;
+            let secondsForRep = 0;
+            for(const repNumber in this.props.workouts[this.props.selectedWorkout].reps){
+                let rep = this.props.workouts[this.props.selectedWorkout].reps[repNumber];
+                let toAdd = {}
+                if(rep.distanceUnit === undefined){
+                    let timeData = {
+                        hours: rep.hours,
+                        minutes: rep.minutes,
+                        seconds: rep.seconds
+                    }
+                    let amountOfTime = totalSeconds(timeData);
+                    let pd = amountOfTime / (wPaceSeconds / (rep.percent / 100));
+                    predictedDistance = Math.round((pd) * 100) / 100;
+                    toAdd = {
+                        type: rep.type,
+                        totalSeconds: amountOfTime,
+                        predictedDistance: predictedDistance,
+                        averagePace: secondsToAnswer(wPaceSeconds / (rep.percent / 100))
+                    }
+                } else {
+                    secondsForRep = distanceToTime(rep.distance, rep.distanceUnit, (wPaceSeconds / (rep.percent / 100)));
+                    predictedTime = secondsToAnswer(secondsForRep)
+                    toAdd = {
+                        type: rep.type,
+                        predictedSeconds: secondsForRep,
+                        predictedTime: predictedTime,
+                        repDist: rep.distance,
+                        repUnit: rep.distanceUnit,
+                        averagePace: secondsToAnswer(wPaceSeconds / (rep.percent / 100))
+                    }
+                }
+                console.log(rep);
+                pTimes.push(toAdd)
+            }
             if( this.state.runnersToAddToFire.length === 0){
                 this.setState((state) => ({
-                    runnersToAddToFire: [...state.runnersToAddToFire, toAdd]
+                    runnersToAddToFire: {...state.runnersToAddToFire, [runnerUID]: pTimes}
                 }));
             } else {
                 this.setState((state) => ({
-                    runnersToAddToFire: [...state.runnersToAddToFire, toAdd]
+                    runnersToAddToFire: {...state.runnersToAddToFire, [runnerUID]: pTimes}
                 }));
             }
         } else {
-            if(this.state.runnersToAddToFire.includes(e.target.value)){
-                const index = this.state.runnersToAddToFire.indexOf(e.target.value);
-                this.state.runnersToAddToFire.splice(index, 1);
+            if(this.state.runnersToAddToFire.hasOwnProperty(e.target.value)){
+                let toReplace = this.state.runnersToAddToFire
+                delete toReplace[e.target.value]
+                this.setState({
+                    runnersToAddToFire: toReplace
+                })
             }
         }
     }
     handleAddRunners = () => {
-        // this.state.runnersToAddToFire.map((runner, i) => {
-        //     let pTimes = [];
-        //     for(rep in this.props.workouts[this.props.selectedWorkout].reps){
-        //         let toAdd = {}
-        //     }
-        // }) I will finish this off once I get home to my monitors...need to fundamentally rework adding runners so they can hold values
         this.props.addRunnersToWorkout(this.state.runnersToAddToFire, this.props.selectedWorkout);
         this.props.setShow();
     }

@@ -193,18 +193,30 @@ async function addWorkoutToUser(useruid, workoutuid){
 async function addRunnerToWorkout(workoutuid, runnerUidArray){
     let runnersAdded = {};
     const workoutRef = database.ref("workouts/" + workoutuid + "/runners");
-    runnerUidArray.forEach((runneruid) => {
-      //check if runner is already added
-      workoutRef.once("value").then((snapshot) => {
-        if(!snapshot.hasChild(runneruid)) {
-          runnersAdded[runneruid] = {runneruid: runneruid};
-          workoutRef.child("" + runneruid).set({runneruid: runneruid}).then(() => {
-          }).catch(() => {
-            console.log("Error adding runner ".cyan + runneruid + " to ".cyan + workoutuid);
-          })
-        }
-      })
-    });
+    for(const runner in runnerUidArray){
+        workoutRef.once("value").then((snapshot) => {
+            if(!snapshot.hasChild(runner)){
+                runnersAdded[runner] = runnerUidArray[runner];
+                workoutRef.child("" + runner).set(runnerUidArray[runner]).then(() => {
+                }).catch(() => {
+                    console.log("Error adding runner".cyan + runner + " to ".cyan + workoutuid)
+                })
+            }
+        })
+    }
+    
+    // runnerUidArray.forEach((runneruid) => {
+    //   //check if runner is already added
+    //   workoutRef.once("value").then((snapshot) => {
+    //     if(!snapshot.hasChild(runneruid)) {
+    //       runnersAdded[runneruid] = {runneruid: runneruid};
+    //       workoutRef.child("" + runneruid).set({runneruid: runneruid}).then(() => {
+    //       }).catch(() => {
+    //         console.log("Error adding runner ".cyan + runneruid + " to ".cyan + workoutuid);
+    //       })
+    //     }
+    //   })
+    // });
   
     return runnersAdded;
   }

@@ -262,6 +262,7 @@ export function setWorkout(workout){
 }
 
 export function addRunnersToWorkout(runnerUidArray, workoutuid){
+    //runnerUidArray is not actually an array
     return async function(dispatch){
       fire.auth().onAuthStateChanged(function(user) {
         user.getIdToken(true).then(async function (idToken) {
