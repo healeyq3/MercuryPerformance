@@ -197,7 +197,7 @@ async function addRunnerToWorkout(workoutuid, runnerUidArray){
         workoutRef.once("value").then((snapshot) => {
             if(!snapshot.hasChild(runner)){
                 runnersAdded[runner] = runnerUidArray[runner];
-                workoutRef.child("" + runner).set(runnerUidArray[runner]).then(() => {
+                workoutRef.child("" + runner).child("pTimes").set(runnerUidArray[runner]).then(() => {
                 }).catch(() => {
                     console.log("Error adding runner".cyan + runner + " to ".cyan + workoutuid)
                 })
