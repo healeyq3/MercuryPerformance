@@ -195,6 +195,7 @@ async function addRunnerToWorkout(workoutuid, runnerUidArray){
     const workoutRef = database.ref("workouts/" + workoutuid + "/runners");
     for(const runner in runnerUidArray){
         let pTimes = [];
+        let aTimes = [];
         workoutRef.once("value").then((snapshot) => {
             if(!snapshot.hasChild(runner)){
                 // console.log("Next line is the test for the UidArray")
@@ -203,14 +204,32 @@ async function addRunnerToWorkout(workoutuid, runnerUidArray){
                 for(set in runnerUidArray[runner]){
                     pTimes.push(set)
                 }
-                console.log("pTimes: ");
-                console.log(pTimes);
+                for(set in runnerUidArray[runner]){
+                    if(set.predictedDistance !== undefined){
+                        let toAdd = {
+                            mileage: 0
+                        }
+                        aTimes.push(toAdd)
+                    } else {
+                        let toAdd = {
+                            hours: 0,
+                            minutes: 0,
+                            seconds: 0
+                        }
+                        aTimes.push(toAdd)
+                    }
+                }
                 runnersAdded[runner] = {
-                    pTimes: pTimes
+                    pTimes: pTimes,
+                    aTimes: aTimes
                 }
                 workoutRef.child("" + runner).child("pTimes").set(runnerUidArray[runner]).then(() => {
                 }).catch(() => {
-                    console.log("Error adding runner".cyan + runner + " to ".cyan + workoutuid)
+                    console.log("Error adding runner pTimes".cyan + runner + " to ".cyan + workoutuid)
+                })
+                workoutRef.child("" + runner).child("aTimes").set(aTimes).then(() => {
+                }).catch(() => {
+                    console.log("Error adding runner aTimes".cyan + runner + " to ".cyan + workoutuid)
                 })
             }
         })
