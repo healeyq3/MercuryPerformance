@@ -194,9 +194,20 @@ async function addRunnerToWorkout(workoutuid, runnerUidArray){
     let runnersAdded = {};
     const workoutRef = database.ref("workouts/" + workoutuid + "/runners");
     for(const runner in runnerUidArray){
+        let pTimes = [];
         workoutRef.once("value").then((snapshot) => {
             if(!snapshot.hasChild(runner)){
-                runnersAdded[runner] = runnerUidArray[runner];
+                // console.log("Next line is the test for the UidArray")
+                // console.log(runnerUidArray[runner])
+                // runnersAdded[runner] = runnerUidArray[runner];
+                for(set in runnerUidArray[runner]){
+                    pTimes.push(set)
+                }
+                console.log("pTimes: ");
+                console.log(pTimes);
+                runnersAdded[runner] = {
+                    pTimes: pTimes
+                }
                 workoutRef.child("" + runner).child("pTimes").set(runnerUidArray[runner]).then(() => {
                 }).catch(() => {
                     console.log("Error adding runner".cyan + runner + " to ".cyan + workoutuid)
