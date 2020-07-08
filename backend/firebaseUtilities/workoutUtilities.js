@@ -205,10 +205,11 @@ async function addRunnerToWorkout(workoutuid, runnerUidArray){
                     pTimes.push(set)
                 }
                 for(set in runnerUidArray[runner]){
-                    if(set.predictedDistance !== undefined){
+                    if(runnerUidArray[runner][set].predictedDistance !== undefined){
                         let toAdd = {
                             mileage: 0
                         }
+                        console.log("First if statement 4 mileage")
                         aTimes.push(toAdd)
                     } else {
                         let toAdd = {
@@ -216,6 +217,7 @@ async function addRunnerToWorkout(workoutuid, runnerUidArray){
                             minutes: 0,
                             seconds: 0
                         }
+                        console.log("Second if statement 4 time")
                         aTimes.push(toAdd)
                     }
                 }
