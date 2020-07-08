@@ -70,10 +70,8 @@ function timeGenerator(timeData){
                 seconds='00'
             }
         if(hour === '00'){
-            console.log("Got to right spot");
             time = min + ':' + seconds
         } else{
-            console.log("bad spot");
             time = hour + ":" + min + ":" +seconds
         }
         

@@ -16,7 +16,6 @@ export class WorkoutRunnerCard extends Component {
                 </React.Fragment>
             )  
         }
-        console.log(this.props.reps);
         return (
             <Accordion>
             <Card style = {{ height: '10%', orientation: 'horizontal'}}>
@@ -28,7 +27,8 @@ export class WorkoutRunnerCard extends Component {
                         
                         
                         <Col>
-                        <Button variant = "outline-primary" onClick = {this.props.setShow}>Edit</Button>
+                        <Button variant = "outline-primary" onClick = {() => this.props.setShow(this.props.runner.key)}>Add Results</Button>
+                        &nbsp;&nbsp;&nbsp;
                         <Button variant = "outline-secondary" onClick = {this.handleDelete}>🗑</Button>
                         </Col>
                     </Row>
