@@ -202,14 +202,13 @@ async function addRunnerToWorkout(workoutuid, runnerUidArray){
                 // console.log(runnerUidArray[runner])
                 // runnersAdded[runner] = runnerUidArray[runner];
                 for(set in runnerUidArray[runner]){
-                    pTimes.push(set)
+                    pTimes.push(runnerUidArray[runner][set])
                 }
                 for(set in runnerUidArray[runner]){
                     if(runnerUidArray[runner][set].predictedDistance !== undefined){
                         let toAdd = {
                             mileage: 0
                         }
-                        console.log("First if statement 4 mileage")
                         aTimes.push(toAdd)
                     } else {
                         let toAdd = {
@@ -217,10 +216,11 @@ async function addRunnerToWorkout(workoutuid, runnerUidArray){
                             minutes: 0,
                             seconds: 0
                         }
-                        console.log("Second if statement 4 time")
                         aTimes.push(toAdd)
                     }
                 }
+                console.log("pTimes on next liine")
+                console.log(pTimes);
                 runnersAdded[runner] = {
                     pTimes: pTimes,
                     aTimes: aTimes
@@ -236,19 +236,6 @@ async function addRunnerToWorkout(workoutuid, runnerUidArray){
             }
         })
     }
-    
-    // runnerUidArray.forEach((runneruid) => {
-    //   //check if runner is already added
-    //   workoutRef.once("value").then((snapshot) => {
-    //     if(!snapshot.hasChild(runneruid)) {
-    //       runnersAdded[runneruid] = {runneruid: runneruid};
-    //       workoutRef.child("" + runneruid).set({runneruid: runneruid}).then(() => {
-    //       }).catch(() => {
-    //         console.log("Error adding runner ".cyan + runneruid + " to ".cyan + workoutuid);
-    //       })
-    //     }
-    //   })
-    // });
   
     return runnersAdded;
   }
