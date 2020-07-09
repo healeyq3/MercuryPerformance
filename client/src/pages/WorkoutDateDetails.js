@@ -67,7 +67,7 @@ export class WorkoutDateDetails extends Component {
     }
 
     render() {
-        if(!this.props.selectedWorkout || !this.props.workouts){
+        if(!this.props.selectedWorkout || !this.props.workouts || !this.props.runners){
             return null;
         }
 

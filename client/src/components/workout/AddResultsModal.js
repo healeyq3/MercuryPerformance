@@ -57,28 +57,15 @@ export class AddResultsModal extends Component {
 
     reset = () => {
         console.log("Reset called");
-
-        /*if(this.props.workouts[this.props.selectedBlueprint].runners[this.props.selectedBlueprint].hasOwnProperty('time')){
-            initialHours = this.props.workouts[this.props.selectedBlueprint].runners[this.props.selectedBlueprint].time.hours;
-            initialMinutes = this.props.workouts[this.props.selectedBlueprint].runners[this.props.selectedBlueprint].time.minutes;
-            initialSeconds = this.props.workouts[this.props.selectedBlueprint].runners[this.props.selectedBlueprint].time.seconds;
-        }
-        */
         this.setState({
             aTimesLocal: this.props.workouts[this.props.selectedWorkout].runners[this.props.runner].aTimes
         });
         console.log("reset finished");
         console.log(this.state.aTimesLocal)
     }
-    
-    timeData = {
-        hours: 0,
-        minutes: 0,
-        seconds: 0
-    }
 
     render() {
-        if(!this.props.workouts[this.props.selectedWorkout]){
+        if(!this.props.workouts[this.props.selectedWorkout] || !this.props.runners[this.props.runner]){
             return null;
         }
         let repResults = []
@@ -118,9 +105,11 @@ export class AddResultsModal extends Component {
                 )
             }
         })
+        console.log("List of runners on the next line");
+        console.log(this.props.runners)
         return (
             <Modal show = {this.props.show} onHide = {this.props.setShow} onShow = {this.reset} size = 'lg'>
-                <Modal.Header closeButton>{this.props.runner}</Modal.Header>
+                <Modal.Header closeButton>{this.props.runners[this.props.runner].name}</Modal.Header>
                 <Modal.Body>
                     <Form >
                         <Row>
@@ -142,7 +131,8 @@ AddResultsModal.propTypes = {
     workouts: PropTypes.object.isRequired,
     selectedWorkout: PropTypes.string.isRequired,
     rehydrated: PropTypes.bool,
-    updateRunner : PropTypes.func
+    updateRunner : PropTypes.func,
+    runner : PropTypes.string.isRequired
 }
 const mapStateToProps = function(state){
     return {
