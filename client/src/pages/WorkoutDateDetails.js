@@ -85,7 +85,7 @@ export class WorkoutDateDetails extends Component {
             for(const runner in this.props.workouts[this.props.selectedWorkout].runners){
                 if(this.props.workouts[this.props.selectedWorkout].runners.hasOwnProperty(runner)){
                     runnersInWorkout.push(
-                        <React.Fragment>
+                        <React.Fragment key = {runner}>
                             <WorkoutRunnerCard setShow = {this.setShowResultsAndRunner} runner = {this.props.runners[runner]} reps = {this.props.workouts[this.props.selectedWorkout].reps} />
                         </React.Fragment>
                         
