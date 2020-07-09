@@ -13,6 +13,7 @@ router.post('/workouts', getWorkouts);
 router.post('/newworkout', newWorkout);
 router.post('/addrunner', addRunner);
 router.post('/updateblueprint', updateBlueprint);
+router.post('/atimes', sendATimes);
 
 module.exports = router;
 
@@ -198,3 +199,28 @@ async function addRunner(req, res){
       })
     );
   }
+
+async function sendATimes(req, res){
+    if(!await authenticatePost(req, res)){
+        res.end();
+        return;
+    }
+    const data = req.body;
+    const aTimes = data.aTimesArray;
+    const workoutuid = data.workoutuid;
+    const runneruid = data.runneruid
+
+    const aTimesObj = {
+        aTimes,
+        workoutuid,
+        runneruid
+    }
+    console.log("About to send aTimes to databse")
+    workoutUtilities.sendATimes(aTimes, workoutuid, runneruid).then(() => {
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify(aTimesObj))
+    }).catch(err => {
+        console.log(err);
+        res.end('{}')
+    })
+}

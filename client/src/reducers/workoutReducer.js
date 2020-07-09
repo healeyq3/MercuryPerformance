@@ -1,4 +1,4 @@
-import {ADD_BLUEPRINT_TEAM, GET_ALL_BLUEPRINTS, GET_BLUEPRINTS, NEW_BLUEPRINT, UPDATE_BLUEPRINT, SET_BLUEPRINT, NEW_WORKOUT, GET_WORKOUTS, SET_WORKOUT, WORKOUT_RUNNERS_ADDED, RESET_WORKOUT_RUNNER_ADDED} from '../actions/types';
+import {ADD_BLUEPRINT_TEAM, GET_ALL_BLUEPRINTS, GET_BLUEPRINTS, NEW_BLUEPRINT, UPDATE_BLUEPRINT, SET_BLUEPRINT, NEW_WORKOUT, GET_WORKOUTS, SET_WORKOUT, WORKOUT_RUNNERS_ADDED, RESET_WORKOUT_RUNNER_ADDED, SEND_ACTUALTIMES} from '../actions/types';
 
 const initialState = {
     blueprints: {},
@@ -80,6 +80,16 @@ export default function(state = initialState, action){
                 ...state,
                 hasAddedRunner: false
             }
+        case SEND_ACTUALTIMES:
+            const awuid = action.payload.workoutuid;
+            const ruid = action.payload.runneruid;
+            const newState2 = {
+                ...state
+            }
+            newState2.actualWorkouts[awuid].runners[ruid].aTimes = [
+                ...action.payload.aTimes
+            ]
+            return newState2;
         default:
             return state;
     }

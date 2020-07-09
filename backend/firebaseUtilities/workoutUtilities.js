@@ -240,6 +240,16 @@ async function addRunnerToWorkout(workoutuid, runnerUidArray){
     return runnersAdded;
   }
 
+  async function sendATimes(aTimes, workoutuid, runneruid){
+    console.log("Got to sendATimes in workoutUtilities");  
+    await database.ref('workouts/' + workoutuid + '/runners/' + runneruid).child("aTimes").set(aTimes)
+        .then(() => {
+            console.log("Succesfully updated aTimes")
+        }).catch(err => {
+            console.log("Unable to update aTimes ".red + workoutuid.red + ' to '.red + runneruid.red)
+        })
+  }
+
 
 module.exports.getBlueprints = getBlueprints;
 module.exports.addBlueprintToTeam = addBlueprintToTeam;
@@ -249,3 +259,4 @@ module.exports.createWorkout = createWorkout;
 module.exports.getWorkouts = getWorkouts;
 module.exports.addRunnerToWorkout = addRunnerToWorkout;
 module.exports.updateBlueprint = updateBlueprint;
+module.exports.sendATimes = sendATimes;

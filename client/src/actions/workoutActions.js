@@ -1,4 +1,4 @@
-import { GET_BLUEPRINTS, GET_ALL_BLUEPRINTS, NEW_BLUEPRINT, SET_BLUEPRINT, ADD_BLUEPRINT_TEAM, UPDATE_BLUEPRINT, NEW_WORKOUT, GET_WORKOUTS, SET_WORKOUT, WORKOUT_RUNNERS_ADDED, RESET_WORKOUT_RUNNER_ADDED } from './types';
+import { GET_BLUEPRINTS, GET_ALL_BLUEPRINTS, NEW_BLUEPRINT, SET_BLUEPRINT, ADD_BLUEPRINT_TEAM, UPDATE_BLUEPRINT, NEW_WORKOUT, GET_WORKOUTS, SET_WORKOUT, WORKOUT_RUNNERS_ADDED, RESET_WORKOUT_RUNNER_ADDED, SEND_ACTUALTIMES } from './types';
 import cookie from 'react-cookies';
 import fire from "../Fire";
 
@@ -289,6 +289,35 @@ export function addRunnersToWorkout(runnerUidArray, workoutuid){
       })
     }
   }
+
+export function sendActualTimes(aTimesArray, workoutuid, runneruid){
+    return async function(dispatch){
+        fire.auth().onAuthStateChanged(function(user){
+            user.getIdToken(true).then(async function (idToken) {
+                cookie.save('mercury-fb-token', idToken, { path: "/", sameSite: "strict", SameSite: "strict"});
+            await fetch("api/workouts/atimes", {
+                method: 'POST',
+                headers : {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                    idToken,
+                    workoutuid,
+                    aTimesArray,
+                    runneruid
+                })
+            })
+            .then(res => res.json())
+            .then(aTimesObj => 
+                dispatch ({
+                    type: SEND_ACTUALTIMES,
+                    payload: aTimesObj
+                })
+                );
+            })
+        })
+    }
+}
 
 export function resetRunnerAdded(){
     return function(dispatch){

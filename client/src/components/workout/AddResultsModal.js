@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Modal, Form, Button, Row, Col, ButtonGroup } from 'react-bootstrap';
 import { selectRunner } from '../../actions/eventActions';
 import { updateRunner } from '../../actions/runnerActions';
+import { sendActualTimes } from '../../actions/workoutActions';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { decomposedTimeGenerator } from '../../math/TimeConversions';
@@ -16,6 +17,7 @@ export class AddResultsModal extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleMileageChange = this.handleMileageChange.bind(this);
         this.handleHourChange = this.handleHourChange.bind(this);
+        this.handleMinuteChange = this.handleMinuteChange.bind(this);
         this.handleSecondChange = this.handleSecondChange.bind(this);
     }
     
@@ -29,6 +31,7 @@ export class AddResultsModal extends Component {
         this.setState({
             aTimesLocal : toChange
         })
+        console.log(this.state.aTimesLocal)
     }
 
     handleHourChange(e){
@@ -37,6 +40,7 @@ export class AddResultsModal extends Component {
         this.setState({
             aTimesLocal : toChange
         })
+        console.log(this.state.aTimesLocal)
     }
 
     handleMinuteChange(e){
@@ -45,6 +49,7 @@ export class AddResultsModal extends Component {
         this.setState({
             aTimesLocal : toChange
         })
+        console.log(this.state.aTimesLocal)
     }
 
     handleSecondChange(e){
@@ -53,6 +58,13 @@ export class AddResultsModal extends Component {
         this.setState({
             aTimesLocal : toChange
         })
+        console.log(this.state.aTimesLocal)
+    }
+
+    handleSendingATimes = () => {
+        this.props.sendActualTimes(this.state.aTimesLocal, this.props.selectedWorkout, this.props.runner);
+        console.log("Sent aTimesLocal");
+        this.props.setShow();
     }
 
     reset = () => {
@@ -63,6 +75,7 @@ export class AddResultsModal extends Component {
         console.log("reset finished");
         console.log(this.state.aTimesLocal)
     }
+
 
     render() {
         if(!this.props.workouts[this.props.selectedWorkout] || !this.props.runners[this.props.runner]){
@@ -118,7 +131,7 @@ export class AddResultsModal extends Component {
                         </Col>
                         </Row>
                         <Row className = 'justify-content-md-center'>
-                            <Button variant = "outline-secondary" onClick = {this.handleSave}>Save Results</Button>
+                            <Button variant = "outline-secondary" onClick = {this.handleSendingATimes}>Save Results</Button>
                         </Row>
                     </Form>
                 </Modal.Body>
@@ -144,4 +157,4 @@ const mapStateToProps = function(state){
     }
 }
 
-export default connect(mapStateToProps, { selectRunner, updateRunner }) (AddResultsModal);
+export default connect(mapStateToProps, { sendActualTimes, selectRunner, updateRunner }) (AddResultsModal);
