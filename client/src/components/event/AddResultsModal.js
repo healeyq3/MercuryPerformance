@@ -23,12 +23,8 @@ export class AddResultsModal extends Component {
             splitTimeMinutes:0,
             splitTimeSeconds:0,
             v02max: 0,
-            runnerIndex: 0,
             workoutPace: ''
         }
-
-        const newRunnerKey = Object.keys(this.props.runners)[0]
-        this.props.selectRunner(newRunnerKey);
 
         this.handleChange = this.handleChange.bind(this);
         this.handleCalculate = this.handleCalculate.bind(this);
@@ -69,14 +65,14 @@ export class AddResultsModal extends Component {
 
     handleUpdateV02 = () => {
         const newV02 = this.state.v02max;
-        const runner = this.props.selectedRunner;
+        const runner = this.props.runneruid;
         const toUpdate = 'v02'
         this.props.updateRunner(runner, toUpdate, newV02);
     }
 
     handleUpdateWPace = () => {
         const newWPace = this.state.workoutPace;
-        const runner = this.props.selectedRunner;
+        const runner = this.props.runneruid;
         const toUpdate = 'wPace';
         this.props.updateRunner(runner, toUpdate, newWPace);
     }
@@ -114,7 +110,7 @@ export class AddResultsModal extends Component {
         const splitsData = {
             splits: this.state.splits
         }
-        this.props.newTime(timeData, splitsData, this.props.selectedTeam, this.props.selectedEvent, this.props.selectedRunner);//needs to have selectedEventUID, and runnerUID
+        this.props.newTime(timeData, splitsData, this.props.selectedTeam, this.props.selectedEvent, this.props.runneruid);//needs to have selectedEventUID, and runnerUID
     }
 
     reset = () => {
@@ -123,18 +119,18 @@ export class AddResultsModal extends Component {
         let initialHours = 0;
         let initialMinutes = 0;
         let initialSeconds = 0;
-        if(this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].hasOwnProperty('time')){
-            initialHours = this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].time.hours;
-            initialMinutes = this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].time.minutes;
-            initialSeconds = this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].time.seconds;
+        if(this.props.events[this.props.selectedEvent].runners[this.props.runneruid].hasOwnProperty('time')){
+            initialHours = this.props.events[this.props.selectedEvent].runners[this.props.runneruid].time.hours;
+            initialMinutes = this.props.events[this.props.selectedEvent].runners[this.props.runneruid].time.minutes;
+            initialSeconds = this.props.events[this.props.selectedEvent].runners[this.props.runneruid].time.seconds;
         }
         this.setState({
             finalTimeHours : initialHours,
             finalTimeMinutes : initialMinutes,
             finalTimeSeconds : initialSeconds
         });
-        if(this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].hasOwnProperty('splits')){
-            initialReduxSplits = this.props.events[this.props.selectedEvent].runners[this.props.selectedRunner].splits;
+        if(this.props.events[this.props.selectedEvent].runners[this.props.runneruid].hasOwnProperty('splits')){
+            initialReduxSplits = this.props.events[this.props.selectedEvent].runners[this.props.runneruid].splits;
         };
         this.setState({
             splits: initialReduxSplits
@@ -176,17 +172,14 @@ export class AddResultsModal extends Component {
             }
         }
 
-        let selectedRunnerName;
-        Object.keys(this.props.runners).length > 0 ? selectedRunnerName = this.props.runners[this.props.selectedRunner].name : selectedRunnerName = null;
-
-        if(!this.props.runners[this.props.selectedRunner]){
+        if(!this.props.runners[this.props.runneruid]){
             return null;
         }
 
         return (
             <Modal show = {this.props.show} onHide = {this.props.setShow} onShow = {this.reset} size = 'lg'>
             {/* <Modal.Dialog> */} 
-                <Modal.Header closeButton>{selectedRunnerName}</Modal.Header>
+                <Modal.Header closeButton>{this.props.runners[this.props.runneruid].name}</Modal.Header>
                 <Modal.Body>
                     <Form >
                         <Row>
@@ -235,11 +228,11 @@ export class AddResultsModal extends Component {
                                 <br/>
                                     <Row>
                                         <Form.Label>V02max: {this.state.v02max}</Form.Label>
-                                        {this.state.v02max === this.props.runners[this.props.selectedRunner].v02 ? <React.Fragment><h4 style = {{color: 'orange'}}>=</h4></React.Fragment> : this.state.v02max > this.props.runners[this.props.selectedRunner].v02 ? <React.Fragment><h4 style = {{color: 'green'}}>↑</h4><Button variant = 'outline-success' size = 'sm' onClick = {this.handleUpdateV02}>Update</Button></React.Fragment> : <React.Fragment><h4 style = {{color: 'red'}}>↓</h4><Button variant = 'outline-danger' size = 'sm' onClick = {this.handleUpdateV02}>Update</Button></React.Fragment>}
+                                        {this.state.v02max === this.props.runners[this.props.runneruid].v02 ? <React.Fragment><h4 style = {{color: 'orange'}}>=</h4></React.Fragment> : this.state.v02max > this.props.runners[this.props.runneruid].v02 ? <React.Fragment><h4 style = {{color: 'green'}}>↑</h4><Button variant = 'outline-success' size = 'sm' onClick = {this.handleUpdateV02}>Update</Button></React.Fragment> : <React.Fragment><h4 style = {{color: 'red'}}>↓</h4><Button variant = 'outline-danger' size = 'sm' onClick = {this.handleUpdateV02}>Update</Button></React.Fragment>}
                                     </Row>
                                     <Row>
                                         <Form.Label>Workout Pace: {this.state.workoutPace}</Form.Label>
-                                        {stringToNumber(this.state.workoutPace) === stringToNumber(this.props.runners[this.props.selectedRunner].wPace) ? <React.Fragment><h4 style = {{color: 'orange'}}>=</h4></React.Fragment> : stringToNumber(this.state.workoutPace) < stringToNumber(this.props.runners[this.props.selectedRunner].wPace) ? <React.Fragment><h4 style = {{color: 'green'}}>↑</h4><Button variant = 'outline-success' size = 'sm' onClick = {this.handleUpdateWPace}>Update</Button></React.Fragment> : <React.Fragment><h4 style = {{color: 'red'}}>↓</h4><Button variant = 'outline-danger' size = 'sm' onClick = {this.handleUpdateWPace}>Update</Button></React.Fragment>}
+                                        {stringToNumber(this.state.workoutPace) === stringToNumber(this.props.runners[this.props.runneruid].wPace) ? <React.Fragment><h4 style = {{color: 'orange'}}>=</h4></React.Fragment> : stringToNumber(this.state.workoutPace) < stringToNumber(this.props.runners[this.props.runneruid].wPace) ? <React.Fragment><h4 style = {{color: 'green'}}>↑</h4><Button variant = 'outline-success' size = 'sm' onClick = {this.handleUpdateWPace}>Update</Button></React.Fragment> : <React.Fragment><h4 style = {{color: 'red'}}>↓</h4><Button variant = 'outline-danger' size = 'sm' onClick = {this.handleUpdateWPace}>Update</Button></React.Fragment>}
                                     </Row>
                                 </Form.Group>
                             </Form.Group>
@@ -280,7 +273,6 @@ export class AddResultsModal extends Component {
 AddResultsModal.propTypes = {
     selectedEvent: PropTypes.string.isRequired,
     selectedTeam: PropTypes.string,
-    selectedRunner: PropTypes.string,
     runners: PropTypes.object.isRequired,
     events: PropTypes.object.isRequired,
     newTime: PropTypes.func.isRequired,
@@ -292,7 +284,6 @@ const mapStateToProps = function(state){
     return {
         runners: state.runners.runners,
         eventRunners: state.events.runners,
-        selectedRunner: state.events.selectedRunner,
         selectedTeam: state.teams.selectedTeam,
         selectedEvent: state.events.selectedEvent,
         events: state.events.events,

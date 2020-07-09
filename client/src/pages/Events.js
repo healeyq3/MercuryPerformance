@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ExistingEventCard from '../components/event/ExistingEventCard'
-import  { Container } from 'react-bootstrap'
+import  { Container, Button } from 'react-bootstrap'
 import CreateEventModal from '../components/event/CreateEventModal'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -60,8 +60,8 @@ export class Events extends Component {
 
       return (
           <Container fluid>
-              {/*<h2>Events</h2>*/}
-              {/*<Button onClick = {this.setShow}>Add</Button>*/}
+              <h2>Events</h2>
+              <Button onClick = {this.setShow}>Add</Button>
               <div className="events-card-container">
                 {cardItems}
               </div>
