@@ -4,6 +4,7 @@ import { selectRunner } from '../../actions/eventActions';
 import { updateRunner } from '../../actions/runnerActions';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { decomposedTimeGenerator } from '../../math/TimeConversions';
 
 export class AddResultsModal extends Component {
     constructor(props){
@@ -69,6 +70,12 @@ export class AddResultsModal extends Component {
         console.log("reset finished");
         console.log(this.state.aTimesLocal)
     }
+    
+    timeData = {
+        hours: 0,
+        minutes: 0,
+        seconds: 0
+    }
 
     render() {
         if(!this.props.workouts[this.props.selectedWorkout]){
@@ -79,14 +86,25 @@ export class AddResultsModal extends Component {
         this.state.aTimesLocal.map((rep, i) => {
             if(rep.mileage !== undefined){
                 repResults.push(
-                    <React.Fragment key = {i}>
-                        <Form.Control name = {i} value = {this.state.aTimesLocal[i].mileage} onChange = {this.handleMileageChange} type = "text"/>
-                    </React.Fragment>
+                    <Row key = {i}>
+                        <Col>
+                            <Form.Label>{decomposedTimeGenerator(this.props.workouts[this.props.selectedWorkout].reps[i].hours, this.props.workouts[this.props.selectedWorkout].reps[i].minutes, this.props.workouts[this.props.selectedWorkout].reps[i].seconds)} Rep</Form.Label>
+                        </Col>
+                        <Col>
+                            <Form.Control name = {i} value = {this.state.aTimesLocal[i].mileage} onChange = {this.handleMileageChange} type = "text"/>
+                        </Col>
+                        <Col>
+                            <Form.Label>Mile(s)</Form.Label>
+                        </Col>
+                    </Row>
                     
                 )
             } else{
                 repResults.push(
-                    <Row>
+                    <Row key = {i}>
+                        <Col>
+                            <Form.Label>{this.props.workouts[this.props.selectedWorkout].reps[i].distance} {this.props.workouts[this.props.selectedWorkout].reps[i].distanceUnit} Rep:</Form.Label>
+                        </Col>
                         <Col>
                             <Form.Control name = {i} value = {this.state.aTimesLocal[i].hours} onChange = {this.handleHourChange} type = "text"/>
                         </Col>

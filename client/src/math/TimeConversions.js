@@ -82,6 +82,38 @@ function timeGenerator(timeData){
     return time;
 }
 
+function decomposedTimeGenerator(h, m, s){
+    let time;
+    let hour;
+    let min;
+    let seconds;
+    if(h === 0){
+        hour = "00"
+    }
+    else {
+        hour = h
+    }
+    if(m === 0){
+        min = "00"
+    }
+    else {
+        min = m
+    }
+    if(s ===0){
+        seconds = "00"
+    } 
+    else {
+        seconds = s
+    }
+    if(hour === '00'){
+        time = min + ':' + seconds
+    }
+    else {
+        time = hour + ':' + min + ":" + seconds;
+    }
+    return time;
+}
+
 function secondsToAnswer(s1){
     let s = s1;
     let hours = 0;
@@ -120,4 +152,4 @@ function secondsToAnswer(s1){
     
 }
 
-export { secondsToAnswer, totalSeconds, stringToNumber, totalTheTime, distanceToTime, totalMinutes, secondsToMinutes, timeGenerator };
+export { decomposedTimeGenerator, secondsToAnswer, totalSeconds, stringToNumber, totalTheTime, distanceToTime, totalMinutes, secondsToMinutes, timeGenerator };
