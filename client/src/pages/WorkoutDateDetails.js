@@ -61,21 +61,12 @@ export class WorkoutDateDetails extends Component {
         console.log("Finished calling set show results and runner")
     }
 
-    setSelectedRunner = runner => {
-    console.log("Printing runner");
-    console.log(runner);
-    }
-
     render() {
         if(!this.props.selectedWorkout || !this.props.workouts || !this.props.runners){
             return null;
         }
 
         let runnersInWorkout = [];
-
-        if(this.props.workouts[this.props.selectedWorkout].runners){
-            console.log(Object.keys(this.props.workouts[this.props.selectedWorkout].runners).length)
-        }
 
         if(this.props.hasAddedRunner && this.state.runnerCount === Object.keys(this.props.workouts[this.props.selectedWorkout].runners).length){
             this.props.resetRunnerAdded();

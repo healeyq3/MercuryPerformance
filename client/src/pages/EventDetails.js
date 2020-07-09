@@ -24,10 +24,10 @@ export class EventDetails extends Component {
         this.closeResultsModal = this.closeResultsModal.bind(this);
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
+    componentDidUpdate(prevProps) {
       if(prevProps.rehydrated===false){
         console.log(this.props);
-        if(!this.props.events[this.props.selectedEvent] || !this.props.events[this.props.selectedEvent].runners){
+        if(!this.props.events[this.props.selectedEvent].runners){
           return;
         }
         this.setState({
@@ -60,7 +60,7 @@ export class EventDetails extends Component {
     }
 
     render() {
-      if(!this.props.selectedEvent || !this.props.events){
+      if(!this.props.selectedEvent || !this.props.events || !this.props.runners){
           return null;
       }
 
@@ -90,7 +90,7 @@ export class EventDetails extends Component {
 
       return (
           <div>
-              <EventNavBar setShowRunner = {this.setShowRunner} setShowResults = {this.setShowResults}/>
+              <EventNavBar setShowRunner = {this.setShowRunner}/>
               <Row>
                   <Col>
                       <Card className = "text-center">

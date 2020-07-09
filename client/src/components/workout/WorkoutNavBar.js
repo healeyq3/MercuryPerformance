@@ -17,7 +17,7 @@ export class WorkoutNavBar extends Component {
                                 <Nav.Link onClick = {this.props.setShowRunner}>Add Runners</Nav.Link>
                             </Nav.Item>
                             <Nav.Item> 
-                                <Nav.Link onClick = {this.props.setShowResults}>Add Results</Nav.Link>
+                                <Nav.Link href = "./comingsoon">Home</Nav.Link>
                             </Nav.Item>
                             <Nav.Item> 
                                 <Nav.Link href="./comingsoon">Analysis</Nav.Link>
