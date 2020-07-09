@@ -19,8 +19,6 @@ export class WorkoutAddRunnersModal extends Component {
         if(e.target.checked === true){
             let runnerUID = e.target.value;
             let wPaceSeconds = stringToNumber(this.props.runners[runnerUID].wPace);
-            console.log(`Wpace + ${wPaceSeconds}`);
-            console.log(this.props.workouts[this.props.selectedWorkout].reps);
             let pTimes = [];
             let predictedTime = '';
             let predictedDistance = 0;
@@ -55,7 +53,6 @@ export class WorkoutAddRunnersModal extends Component {
                         averagePace: secondsToAnswer(wPaceSeconds / (rep.percent / 100))
                     }
                 }
-                console.log(rep);
                 pTimes.push(toAdd)
             }
             if( this.state.runnersToAddToFire.length === 0){
