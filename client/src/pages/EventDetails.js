@@ -21,6 +21,7 @@ export class EventDetails extends Component {
         }
 
         this.openResultsModal = this.openResultsModal.bind(this);
+        this.closeResultsModal = this.closeResultsModal.bind(this);
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -49,6 +50,12 @@ export class EventDetails extends Component {
       this.setState({
         showResults: true,
         resultsRunneruid: runneruid,
+      })
+    }
+
+    closeResultsModal(){
+      this.setState({
+        showResults: false
       })
     }
 
@@ -96,7 +103,7 @@ export class EventDetails extends Component {
               </Row>
 
               <EventAddRunnersModal show = {this.state.showRunner} setShow = {this.setShowRunner} teamUID = {this.props.selectedTeam}/>
-              <AddResultsModal show = {this.state.showResults} setShow = {this.setShowResults} runneruid={this.state.resultsRunneruid}/>
+              <AddResultsModal show = {this.state.showResults} setShow = {this.closeResultsModal} runneruid={this.state.resultsRunneruid}/>
           </div>
       )
     }
