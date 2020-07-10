@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Col, Row, Card, Form, Container } from 'react-bootstrap'
+import { Col, Row, Card, Button, Container } from 'react-bootstrap'
 import WorkoutNavBar from '../components/workout/WorkoutNavBar'
 import WorkoutDateDetailsCard from '../components/workout/WorkoutDateDetailsCard'
 import WorkoutAddRunnersModal from '../components/workout/WorkoutAddRunnersModal'
@@ -8,6 +8,8 @@ import WorkoutRunnerCard from '../components/workout/WorkoutRunnerCard'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addRunnersToWorkout, resetRunnerAdded } from '../actions/workoutActions';
+import { CSVLink } from 'react-csv';
+import { timeGenerator } from '../math/TimeConversions'
 
 export class WorkoutDateDetails extends Component {
     constructor(props){
@@ -17,7 +19,9 @@ export class WorkoutDateDetails extends Component {
           showResults:false,
           reloaded:false,
           runnerCount: 0,
-          selectedRunner: ''
+          selectedRunner: '',
+          CSVdata : [],
+          downloadShow: false
         }
 
         this.setShowResultsAndRunner = this.setShowResultsAndRunner.bind(this);
@@ -61,8 +65,46 @@ export class WorkoutDateDetails extends Component {
         console.log("Finished calling set show results and runner")
     }
 
+    generateCSV = () => {
+        console.log("Method called")
+        let finalAnswer = [];
+        let headers = [];
+        headers.push("Reps:")
+        for(const r in this.props.workouts[this.props.selectedWorkout].reps){
+            if(this.props.workouts[this.props.selectedWorkout].reps[r].distance !== undefined){
+                headers.push(`${this.props.workouts[this.props.selectedWorkout].reps[r].distance} ${this.props.workouts[this.props.selectedWorkout].reps[r].distanceUnit} @${this.props.workouts[this.props.selectedWorkout].reps[r].percent}%`)
+            } else {
+                const timeData = {
+                    hours: this.props.workouts[this.props.selectedWorkout].reps[r].hours,
+                    minutes: this.props.workouts[this.props.selectedWorkout].reps[r].minutes,
+                    seconds: this.props.workouts[this.props.selectedWorkout].reps[r].seconds
+                }
+                const time = timeGenerator(timeData);
+                headers.push(`${time} @${this.props.workouts[this.props.selectedWorkout].reps[r].percent}%`)
+            }
+        }
+        finalAnswer.push(headers);
+        for(const runneruid in this.props.workouts[this.props.selectedWorkout].runners){
+            let toAdd = [];
+            toAdd.push(this.props.runners[runneruid].name);
+            for(const rep in this.props.workouts[this.props.selectedWorkout].runners[runneruid].pTimes){
+                if(this.props.workouts[this.props.selectedWorkout].runners[runneruid].pTimes[rep].predictedDistance !== undefined){
+                    toAdd.push(`${this.props.workouts[this.props.selectedWorkout].runners[runneruid].pTimes[rep].predictedDistance} miles`)
+                } else {
+                    toAdd.push(`${this.props.workouts[this.props.selectedWorkout].runners[runneruid].pTimes[rep].predictedTime}`)
+                }
+            }
+            finalAnswer.push(toAdd)
+        }
+        this.setState({
+            CSVdata : finalAnswer,
+            downloadShow: true
+        })
+        console.log(finalAnswer);
+    }
+
     render() {
-        if(!this.props.selectedWorkout || !this.props.workouts || !this.props.runners){
+        if(!this.props.selectedWorkout || !this.props.workouts || !this.props.runners || !this.props.bWorkouts){
             return null;
         }
 
@@ -111,6 +153,9 @@ export class WorkoutDateDetails extends Component {
                       </Form.Control>
                     </Form>
                   </Card> */}
+                  <Card style = {{width: '40%', height: '20%'}}>
+                      {this.state.downloadShow ? <CSVLink data = {this.state.CSVdata} filename = {`${this.props.workouts[this.props.selectedWorkout].date}.csv`}>Download File</CSVLink> : <Button onClick = {() => this.generateCSV()}>Generate CSV</Button>}
+                  </Card>
                 </Row>
               </Col>
             </Row>

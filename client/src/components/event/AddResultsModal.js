@@ -255,14 +255,14 @@ export class AddResultsModal extends Component {
                             </Row>
                         </Col>
                         </Row>
-                        {/*<Row className = 'justify-content-md-center'>*/}
+                        <Row className = 'justify-content-md-center'>
                         {/*    <ButtonGroup className = 'mb-2'>*/}
                         {/*        <Button variant = "outline-secondary" onClick = {this.incrementRunnerDown}>⇦</Button>*/}
-                        {/*        <Button variant = "outline-secondary" onClick = {this.handleSave}>Save Results</Button>*/}
+                               <Button variant = "outline-secondary" onClick = {this.handleSave}>Save Results</Button>
                         {/*        <Button variant = "outline-secondary" onClick = {this.incrementRunnerUp}>⇨</Button>*/}
                         {/*    </ButtonGroup>*/}
                         {/*    */}
-                        {/*</Row>*/}
+                        </Row>
                     </Form>
                 </Modal.Body>
              {/*</Modal.Dialog>*/}
