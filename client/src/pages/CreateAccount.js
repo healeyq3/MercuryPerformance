@@ -52,6 +52,12 @@ class CreateAccount extends Component {
                 })
             }).then(() => {
                 this.props.rerenderCallback();
+                var user = fire.auth().currentUser;
+                user.sendEmailVerification().then(() => {
+                    //Email Sent
+                }).catch(err => {
+                    //error occured
+                })
             })
         }).catch((error) => {
             console.log(error);
@@ -61,6 +67,8 @@ class CreateAccount extends Component {
                     setInterval(this.failedCreateAccountReset, 1200)
             })
         });
+        
+
     }
 
     failedCreateAccountReset(){

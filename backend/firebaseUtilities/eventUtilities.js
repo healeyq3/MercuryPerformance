@@ -72,6 +72,12 @@ async function addRunnerToEvent(eventuid, runnerUidArray){
         }).catch(() => {
           console.log("Error adding runner ".cyan + runneruid + " to ".cyan + eventuid);
         })
+        database.ref("runners/" + runneruid + "/events/").child(eventuid).set(eventuid).then(() => {
+          console.log("Successfully added the event " + eventuid.green + " to the runner" + runneruid.green )
+        }).catch(err => {
+          console.log("Un-successfully added the event ".red + eventuid + " to the runner" + runneruid);
+          console.log(err);
+        })
       }
     })
   });

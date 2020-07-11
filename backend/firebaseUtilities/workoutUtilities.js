@@ -233,6 +233,11 @@ async function addRunnerToWorkout(workoutuid, runnerUidArray){
                 }).catch(() => {
                     console.log("Error adding runner aTimes".cyan + runner + " to ".cyan + workoutuid)
                 })
+                database.ref("runners/" + runner + "/workouts").child(workoutuid).set(workoutuid).then(() => {
+                    console.log("Successfully added the workout " + workoutuid.green + " to the runner" + runner.green )
+                }).catch(err => {
+                    console.log("Un-successfully added the event " + workoutuid.red + " to the runner" + runner.red )
+                })
             }
         })
     }
