@@ -14,4 +14,16 @@ async function createUser(useruid, name, email){
   });
 }
 
+async function determineUserType(useruid){
+  const mainUser = await database.ref("users");
+  const runningUser = await database.ref("running user");
+  if(mainUser[useruid]){
+    return "coach";
+  }
+  if(runningUser[useruid]){
+    return "runner";
+  }
+}
+
 module.exports.createUser = createUser;
+module.exports.determineUserType = determineUserType;

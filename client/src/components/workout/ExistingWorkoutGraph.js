@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-// eslint-disable-next-line
-import { Card } from 'react-bootstrap'
 import {
     XYPlot,
     XAxis,
@@ -57,11 +55,11 @@ export class ExistingWorkoutGraph extends Component {
             xDomain={[0, 30+time]}
             yDomain={[0, 130]}
             // xType="time"
-            width={700}
+            width={600}
             height={400}
             // colorType = "linear"
             colorDomain = {[0, 1, 2, 3, 4]}
-            colorRange = {['white','cyan','yellow', 'orange', 'red']}
+            colorRange = {['#ffffff','cyan','yellow', 'orange', 'red']}
             
             
           >

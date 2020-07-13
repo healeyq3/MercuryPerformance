@@ -4,6 +4,7 @@ import { Container, Button, Form, Modal } from "react-bootstrap";
 import { newRunner } from "../actions/runnerActions";
 import AddRunnerV02 from "./AddRunnerV02";
 import { getWorkoutPace, getV02max } from "../math/V02max";
+import '../css/home.css';
 
 export class AddRunner extends React.Component {
   constructor(props) {
@@ -87,8 +88,9 @@ export class AddRunner extends React.Component {
               onClick={(e) => {
                 this.showModal();
               }}
+              className = "button"
             >
-              Add Runner
+              +
             </Button>
           </Form.Group>
         </Form>

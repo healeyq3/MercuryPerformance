@@ -233,33 +233,44 @@ export class WorkoutDetails extends Component {
                     </Nav>
                     </Container>
                 </Row>
-                {this.state.toEditor  === false? <Row>
+                {this.state.toEditor  === false? 
+                    <React.Fragment>
+                    <Row>
                     <Col>
                     <Card className = "text-center">
                         <Card.Header>Workout Dates</Card.Header>
                         {cardItems}
-                    </Card>
-                    <Card className = "text-center" tag="a" onClick = {this.setShow} style = {{cursor:"pointer"}}>
+                        <Card className = "text-center" tag="a" onClick = {this.setShow} style = {{cursor:"pointer"}}>
                         <p/>
                         <Card.Title>New Date</Card.Title>
                         <p/>
                     </Card>
+                    </Card>
+                    
                     <WorkoutImplementor blueprint = {this.props.selectedBlueprint}show={this.state.showNewDate} setShow = {this.setShow} teamUID = {this.props.selectedTeam} reps = {this.props.blueprints[this.props.selectedBlueprint].reps}/>
                     </Col>
                     <Col>
                     <Row>
                     <ExistingWorkoutGraph team = {this.props.teams[this.props.selectedTeam]} reps = {this.props.blueprints[this.props.selectedBlueprint].reps}/>
                     </Row>
-                    <Row>
+                    {/* <Row>
                     <Col>
                     <Card className = "text-center">
                         <Card.Header>Reps</Card.Header>
                     {repItems}
                     </Card>
                     </Col>
-                    </Row>
+                    </Row> */}
                     </Col>
                     </Row>
+                    <Row>
+                        <Col sm = {6}>
+                        <Card className = "text-center">
+                            <Card.Header>Workout Details</Card.Header>
+                        </Card>
+                        </Col>
+                    </Row>
+                    </React.Fragment>
                     :
                     <Row>
                     <Col sm = {4}>

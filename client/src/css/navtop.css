@@ -1,10 +1,10 @@
 .navigation-top-container{
+    background-color: #ffffff;
     position: fixed;
     align-self: flex-start;
-    width: 100%;
-    max-width: 300px;
-    height: 90px;
-    min-height: 90px;
+    width: 100vw;
+    height: 7.5vh;
+    min-height: 7.5vw;
     min-width: 100vw;
     display: flex;
     flex-direction: row;
@@ -13,9 +13,8 @@
 }
 
 .logo-container{
-    background-color: #3d4972;
-    max-width: 220px;
-    min-width: 220px;
+    max-width: 15vw;
+    min-width: 15vw;
     flex-grow: 1;
     height: 100%;
 
@@ -25,8 +24,9 @@
 }
 
 .navbar-logo{
-    height: 90%;
-    padding-top: 5px;
+    height: 95%;
+    padding-top: 1.25vh;
+    padding-bottom: 1.25vh;
 }
 
 .main-top-bar-container{
@@ -45,7 +45,8 @@
 }
 
 .top-bar-user-information-container{
-    width: fit-content;
+    width: 15vw;
+    justify-content: flex-end;
     display: flex;
     align-items: center;
     white-space: nowrap;

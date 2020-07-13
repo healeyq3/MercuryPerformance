@@ -1,12 +1,12 @@
 .navigation-side-container{
     flex-grow: 1;
-    background-color: #333f63;
-    min-width: 220px;
-    max-width: 220px;
-    height: calc(100vh - 90px);
+    background-color: #ffffff;
+    min-width: 15vw;
+    max-width: 15vw;
+    height: calc(100vh - 10vh);
     padding-left: 0;
     position: fixed;
-    top: 90px;
+    top: 10vh;
     display: flex;
     justify-content: flex-start;
 }
@@ -22,9 +22,9 @@
     flex-direction: row;
     align-items: center;
     width: 100%;
-    height: 45px;
-    margin-bottom: 15px;
-    margin-left: 20px;
+    height: 10vh;
+    margin-top: 5vh;
+    margin-left: 7vw;
 }
 
 #navigation-link-select-team{
@@ -38,10 +38,54 @@
 }
 
 .navigation-link{
-    color: white;
+    color: rgb(6, 29, 95);
     font: 16px "Helvetica Neue", sans-serif;
     padding: 0;
     margin: 0;
+}
+
+.navigation-link-home{
+    background-color: #1E5288;
+    mask: url(../resources/mHouse.svg);
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    mask-origin: content-box;
+    -webkit-mask: url(../resources/mHouse.svg);
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+    -webkit-mask-origin: content-box;
+
+    min-width: 8vw;
+}
+
+.navigation-link-workouts{
+    background-color: #dd4940;
+    mask: url(../resources/mDumbbell.svg);
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    mask-origin: content-box;
+    -webkit-mask: url(../resources/mDumbbell.svg);
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+    -webkit-mask-origin: content-box;
+
+    min-width: 8vw;
+}
+
+.navigation-link-events{
+    background-color: #c51515;
+    mask: url(../resources/mHeartbeat.svg);
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    mask-origin: content-box;
+    -webkit-mask: url(../resources/mHeartbeat.svg);
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+    -webkit-mask-origin: content-box;
+
+    width: 100%;
+    /* min-width: 8vw;
+    size: 8vw; */
 }
 
 .navigation-side-house-img{
@@ -63,5 +107,23 @@
     margin-left: 8px;
     margin-right: 5px;
     margin-bottom: 1px;
+}
+
+.navigation-button-styling-workout{
+    border-radius: 10rem;
+    background-color: #c51515;
+    border-color: #c51515;
+}
+
+.navigation-button-styling-events{
+    border-radius: 10rem;
+    background-color: #f3f16b;
+    border-color: #f3f16b;
+}
+
+.navigation-button-styling-home{
+    border-radius: 10rem;
+    background-color: #1E5288;
+    border-color: #1E5288;
 }
 

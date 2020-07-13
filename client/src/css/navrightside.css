@@ -1,0 +1,13 @@
+.navigation-side-container{
+    flex-grow: 1;
+    background-color: #e71515;
+    min-width: 220px;
+    max-width: 220px;
+    height: calc(100vh - 90px);
+    padding-right: 0;
+    position: fixed;
+    top: 90px;
+    display: flex;
+    justify-content: flex-end;
+    align-self: flex-end;
+}

@@ -50,15 +50,16 @@ class CreateAccount extends Component {
                     name: this.state.mercury_name,
                     email: this.state.mercury_email
                 })
-            }).then(() => {
-                this.props.rerenderCallback();
-                var user = fire.auth().currentUser;
-                user.sendEmailVerification().then(() => {
-                    //Email Sent
-                }).catch(err => {
-                    //error occured
-                })
             })
+            // .then(() => {
+            //     this.props.rerenderCallback();
+            //     var user = fire.auth().currentUser;
+            //     user.sendEmailVerification().then(() => {
+            //         //Email Sent
+            //     }).catch(err => {
+            //         //error occured
+            //     })
+            // })
         }).catch((error) => {
             console.log(error);
             this.setState({

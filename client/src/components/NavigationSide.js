@@ -12,13 +12,17 @@ import { getWorkoutBlueprints } from '../actions/workoutActions';
 import { getTeamEvents } from '../actions/eventActions';
 import { getTeamRunners } from "../actions/runnerActions";
 import { getTeams } from "../actions/teamActions";
+import { Button, Image } from 'react-bootstrap';
 
 class NavigationSide extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            gotoLogin: false
+            gotoLogin: false,
+            gotoEvents: false,
+            gotoWorkouts:false,
+            gotoHome:false,
         }
 
         this.updateHome = this.updateHome.bind(this);
@@ -52,30 +56,23 @@ class NavigationSide extends Component {
     render() {
         if(!cookie.load('mercury-fb-token', {path:"/", sameSite: "strict", SameSite:"strict"})){
             return null;
-        }
+        } 
         return (
             <div className="navigation-side-container">
                 <div className="navigation-side-link-container">
                     <div className="navigation-link-container">
-                        <img src={house} className="navigation-side-house-img" alt="home"/>
-                        <NavLink exact to="/" className="navigation-link" onClick={this.updateHome}>Home</NavLink>
+                        <NavLink exact to="/" className="navigation-link-home" onClick={this.updateHome}><span class="text-hide">Home</span></NavLink>
                     </div>
                     <div className="navigation-link-container">
-                        <img src={calendar} className="navigation-side-calendar-img" alt="home"/>
-                        <NavLink exact to="/comingsoon" className="navigation-link">Calendar</NavLink>
+                        <NavLink exact to="/workouts" className="navigation-link-workouts" onClick={this.updateWorkouts}><span class="text-hide">Events</span></NavLink>
                     </div>
                     <div className="navigation-link-container">
-                        <img src={heartbeat} className="navigation-side-heartbeat-img" alt="home"/>
-                        <NavLink exact to="/workouts" className="navigation-link" onClick={this.updateWorkouts}>Workouts</NavLink>
+                        <NavLink exact to="/events" className="navigation-link-events" onClick={this.updateEvents}><span class="text-hide">Workouts</span></NavLink>
                     </div>
-                    <div className="navigation-link-container">
-                        <img src={house} className="navigation-side-house-img" alt="home"/>
-                        <NavLink exact to="/events" className="navigation-link" onClick={this.updateEvents}>Events</NavLink>
-                    </div>
-                    <div className="navigation-link-container" id="navigation-link-select-team">
+                    {/* <div className="navigation-link-container" >
                         <img src={house} className="navigation-side-house-img" alt="home"/>
                         <NavLink exact to="/teamselect" className="navigation-link" onClick={this.updateTeams}>Select Team</NavLink>
-                    </div>
+                    </div> */}
 
                     <div className="navigation-link-container" id="navigation-link-logout">
                         <NavLink exact to="/login" className="navigation-link" onClick={this.logout}>Log Out</NavLink>

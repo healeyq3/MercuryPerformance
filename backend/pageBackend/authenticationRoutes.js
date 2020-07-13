@@ -6,6 +6,7 @@ const authenticationUtilities = require("../firebaseUtilities/authenticationUtil
 
 router.post('/', loginAuthentication);
 router.post('/new', createAccount);
+// router.post('/usertype', userType);
 
 module.exports = router;
 
@@ -39,3 +40,11 @@ async function createAccount(req, res){
         res.end();
     })
 }
+
+// async function userType(req, res){
+//     res.set('Cache-Control', 'public, max-age=300, s-maxage=600');
+//     authenticationUtilities.authenticateToken(req.body.idToken).then((decodedIdToken) => {
+//         req.session.idToken = req.bod.idToken;
+//         req.session.user
+//     })
+// }

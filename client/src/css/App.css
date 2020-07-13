@@ -14,14 +14,17 @@
 }
 
 .main-page{
+  font-family: "Courier New", 'Courier New', Courier, monospace;
   position: absolute;
-  min-height: calc(100vh - 90px);
+  min-height: calc(100vh - 10vh);
   height: auto;
-  width: calc(100vw - 220px);
-  top: 90px;
-  left: 220px;
+  width: calc(100vw - 30vw);
+  top: 10vh;
+  left: 15vw;
+  right: 15vw;
   padding-left: 0;
-  background-color: #ecf0f1;
+  padding-right: 0;
+  background-color: #ffffff;
 }
 
 .main-page.login{

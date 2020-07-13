@@ -11,16 +11,13 @@ export class ExistingRunnerCard extends Component {
                     <Card.Title>{this.props.runner.name}</Card.Title>
                     </Col>
                     <Col>
-                    <p>{this.props.runner.gradYear}</p>
                     </Col>
                     <Col>
-                    <p>{this.props.runner.v02}</p>
+                    <p>{this.props.runner.wPace}</p>
                     </Col>
                     <Col>
                     <p>{this.props.runner.experience}</p>
                     </Col>
-                    <Button variant = "outline-primary" style = {{cursor:"auto"}}>Edit</Button>
-                    <Button variant = "outline-secondary" style = {{cursor:"auto"}}>🗑</Button>
                     </Row>
                 </Card.Body>
             </Card>

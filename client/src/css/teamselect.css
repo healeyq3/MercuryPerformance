@@ -33,3 +33,9 @@
 .teamselect-runnercount{
     font-size: 25px;
 }
+
+.teamselect-button{
+    border-radius: 10rem;
+    background-color: #1E5288;
+    border-color: #1E5288;
+}

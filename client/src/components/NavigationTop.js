@@ -4,7 +4,9 @@ import {withRouter} from "react-router-dom";
 import "../css/navtop.css"
 import logo from '../resources/mLogoV2-White.svg'
 import triangle from '../resources/mTriangleSelector.svg'
-import EventsTopBar from "./EventsTopBar";
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
 
 class NavigationTop extends Component {
     constructor(props) {
@@ -38,6 +40,10 @@ class NavigationTop extends Component {
             </div>
         )
     }
+}
+
+NavigationTop.propTypes = {
+
 }
 
 export default withRouter(NavigationTop);

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Card, Button} from 'react-bootstrap';
+import '../css/teamselect.css'
 
 
 export class AddNewTeam extends Component {
@@ -9,7 +10,7 @@ export class AddNewTeam extends Component {
         <Card className = "teamselect-teamcard">
             <Card.Body>
             <Card.Title>New Team</Card.Title>
-                <Button onClick= {() => this.props.onClick()}>+</Button>
+                <Button className = "teamselect-button" onClick= {() => this.props.onClick()}>+</Button>
             </Card.Body>
         </Card>
         )
