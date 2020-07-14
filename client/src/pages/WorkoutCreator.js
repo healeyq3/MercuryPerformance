@@ -104,7 +104,6 @@ export class WorkoutCreator extends Component {
     handleDelete(index){
         let toReturn = this.state.reps;
         let toDelete = toReturn[index];
-        console.log(toDelete)
         this.deleteInformation(toDelete);
         toReturn.splice(index, 1);
         this.setState({

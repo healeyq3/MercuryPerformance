@@ -96,13 +96,15 @@ async function updateBlueprint(req, res){
     const data = req.body;
     const name = data.blueprintData.name;
     const reps = data.blueprintData.reps;
+    const totalSeconds = data.blueprintData.totalSeconds;
+    const totalDistance = data.blueprintData.totalDistance;
     let workouts = {}
     if(data.blueprintData.workouts !== undefined){
         workouts = data.blueprintData.workouts
     }
     const blueprintuid = data.blueprintData.blueprintuid;
 
-    workoutUtilities.updateBlueprint(name, reps, workouts, blueprintuid).then(blueprint => {
+    workoutUtilities.updateBlueprint(name, reps, workouts, blueprintuid, totalSeconds, totalDistance).then(blueprint => {
         res.setHeader('Content-Type', 'application/json');
         res.end(JSON.stringify(blueprint));
     }) .catch(err => {
