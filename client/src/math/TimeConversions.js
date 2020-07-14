@@ -33,7 +33,7 @@ function totalSeconds(timeData){
         toReturn += (60 * timeData.minutes)
     }
     if(timeData.seconds !== undefined){
-        toReturn += timeData.seconds
+        toReturn += Number(timeData.seconds)
     }
     return toReturn;
 }
@@ -87,6 +87,7 @@ function decomposedTimeGenerator(h, m, s){
     let hour;
     let min;
     let seconds;
+    console.log(s);
     if(h === 0){
         hour = "00"
     }

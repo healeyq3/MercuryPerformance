@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 import { addRunnersToWorkout } from "../../actions/workoutActions";
 import { secondsToAnswer, totalSeconds, timeGenerator, stringToNumber, distanceToTime } from '../../math/TimeConversions';
+import { getDistance2 } from '../../math/V02max';
 
 export class WorkoutAddRunnersModal extends Component {
     constructor(props){
@@ -23,6 +24,11 @@ export class WorkoutAddRunnersModal extends Component {
             let predictedTime = '';
             let predictedDistance = 0;
             let secondsForRep = 0;
+            let total = {
+                totalTime: 0,
+                totalDistance: 0,
+                averagePace: ''
+            }
             for(const repNumber in this.props.workouts[this.props.selectedWorkout].reps){
                 let rep = this.props.workouts[this.props.selectedWorkout].reps[repNumber];
                 let toAdd = {}
@@ -41,6 +47,14 @@ export class WorkoutAddRunnersModal extends Component {
                         predictedDistance: predictedDistance,
                         averagePace: secondsToAnswer(wPaceSeconds / (rep.percent / 100))
                     }
+                    let updatedDistance = total.totalDistance + predictedDistance;
+                    let updatedTime = total.totalTime + amountOfTime;
+                    let updatedAveragePace = secondsToAnswer(updatedTime / updatedDistance);
+                    total = {
+                        totalTime: updatedTime,
+                        totalDistance: updatedDistance,
+                        averagePace: updatedAveragePace
+                    }
                 } else {
                     secondsForRep = distanceToTime(rep.distance, rep.distanceUnit, (wPaceSeconds / (rep.percent / 100)));
                     predictedTime = secondsToAnswer(secondsForRep)
@@ -52,16 +66,30 @@ export class WorkoutAddRunnersModal extends Component {
                         repUnit: rep.distanceUnit,
                         averagePace: secondsToAnswer(wPaceSeconds / (rep.percent / 100))
                     }
+                    let updatedDistance = total.totalDistance + getDistance2(rep.distance, rep.distanceUnit);
+                    let updatedTime = total.totalTime + secondsForRep;
+                    let updatedAveragePace = secondsToAnswer(updatedTime / updatedDistance);
+                    total = {
+                        totalTime: updatedTime,
+                        totalDistance: updatedDistance,
+                        averagePace: updatedAveragePace
+                    }
                 }
                 pTimes.push(toAdd)
             }
+            const information = {
+                pTimes: pTimes,
+                pTotal: total,
+                wPace: this.props.runners[runnerUID].wPace,
+                wV02: this.props.runners[runnerUID].v02
+            }
             if( this.state.runnersToAddToFire.length === 0){
                 this.setState((state) => ({
-                    runnersToAddToFire: {...state.runnersToAddToFire, [runnerUID]: pTimes}
+                    runnersToAddToFire: {...state.runnersToAddToFire, [runnerUID]: information}
                 }));
             } else {
                 this.setState((state) => ({
-                    runnersToAddToFire: {...state.runnersToAddToFire, [runnerUID]: pTimes}
+                    runnersToAddToFire: {...state.runnersToAddToFire, [runnerUID]: information}
                 }));
             }
         } else {

@@ -6,13 +6,13 @@ export class EditPopover extends Component {
     constructor(props){
         super(props);
         this.state ={
-            type: '',
-            percent: 0,
-            distance: 0,
-            distanceUnit: '',
-            hours: 0,
-            minutes: 0,
-            seconds: 0,
+            type: this.props.rep.type,
+            percent: this.props.rep.percent,
+            distance: this.props.rep.distance !== undefined ? this.props.rep.distance : 0,
+            distanceUnit: this.props.rep.distanceUnit !== undefined ? this.props.rep.distanceUnit : '',
+            hours: this.props.rep.hours !== undefined ? this.props.rep.hours : 0,
+            minutes: this.props.rep.minutes !== undefined ? this.props.rep.minutes : 0,
+            seconds: this.props.rep.seconds !== undefined ? this.props.rep.seconds : 0,
             show: false
         }
 
@@ -64,24 +64,28 @@ export class EditPopover extends Component {
                                     placeholder = "% of V02 Max"
                                     name = "percent"
                                     onChange = {this.handleChange}
+                                    value = {this.state.percent}
                                             />
                                 <Form.Control
                                     type = "text"
                                     placeholder = "Hours"
                                     name = "hours"
                                     onChange = {this.handleChange}
+                                    value = {this.state.hours}
                                             />
                                             <Form.Control
                                     type = "text"
                                     placeholder = "Minutes"
                                     name = "minutes"
                                     onChange = {this.handleChange}
+                                    value = {this.state.minutes}
                                             />
                                             <Form.Control
                                     type = "text"
                                     placeholder = "Seconds"
                                     name = "seconds"
                                     onChange = {this.handleChange}
+                                    value = {this.state.seconds}
                                             />
                                 <Row>
                                 <Col>
@@ -99,15 +103,17 @@ export class EditPopover extends Component {
                                     placeholder = "% of V02 Max"
                                     name = "percent"
                                     onChange = {this.handleChange}
+                                    value = {this.state.percent}
                                             />
                                 <Form.Control
                                     type = "text"
                                     placeholder = "Distance"
                                     name = "distance"
                                     onChange = {this.handleChange}
+                                    value = {this.state.distance}
                                             />
                                     
-                                <Form.Control onChange = {this.handleChange} name = "distanceUnit" as = "select">
+                                <Form.Control onChange = {this.handleChange} name = "distanceUnit" as = "select" value = {this.state.distanceUnit}>
                                     <option hidden>Units</option>
                                     <option>Miles</option>
                                     <option>Kilometers</option>

@@ -57,12 +57,14 @@ async function getAllBlueprints(useruid) {
     return blueprints;
 }
 
-async function createBlueprint(useruid, teamuid, name, reps){
+async function createBlueprint(useruid, teamuid, name, reps, totalSeconds, totalDistance){
     const blueprintRef = await database.ref('blueprints').push();
 
     const blueprintData = {
         name,
         reps,
+        totalSeconds,
+        totalDistance,
         key: blueprintRef.key.toString()
     }
 
@@ -201,11 +203,11 @@ async function addRunnerToWorkout(workoutuid, runnerUidArray){
                 // console.log("Next line is the test for the UidArray")
                 // console.log(runnerUidArray[runner])
                 // runnersAdded[runner] = runnerUidArray[runner];
-                for(set in runnerUidArray[runner]){
-                    pTimes.push(runnerUidArray[runner][set])
+                for(set in runnerUidArray[runner].pTimes){
+                    pTimes.push(runnerUidArray[runner].pTimes[set])
                 }
-                for(set in runnerUidArray[runner]){
-                    if(runnerUidArray[runner][set].predictedDistance !== undefined){
+                for(set in runnerUidArray[runner].pTimes){
+                    if(runnerUidArray[runner].pTimes[set].predictedDistance !== undefined){
                         let toAdd = {
                             mileage: 0
                         }
@@ -223,7 +225,10 @@ async function addRunnerToWorkout(workoutuid, runnerUidArray){
                 console.log(pTimes);
                 runnersAdded[runner] = {
                     pTimes: pTimes,
-                    aTimes: aTimes
+                    aTimes: aTimes,
+                    pTotal: runnerUidArray[runner].pTotal,
+                    wPace: runnerUidArray[runner].wPace,
+                    wV02: runnerUidArray[runner].wV02
                 }
                 workoutRef.child("" + runner).child("pTimes").set(runnerUidArray[runner]).then(() => {
                 }).catch(() => {
@@ -232,6 +237,14 @@ async function addRunnerToWorkout(workoutuid, runnerUidArray){
                 workoutRef.child("" + runner).child("aTimes").set(aTimes).then(() => {
                 }).catch(() => {
                     console.log("Error adding runner aTimes".cyan + runner + " to ".cyan + workoutuid)
+                })
+                workoutRef.child("" + runner).child('pTotal').set(runnerUidArray[runner].pTotal).then(() => {
+                }).catch(() => {
+                    console.log("Error adding pTotal to ".red + runner);
+                })
+                workoutRef.child("" + runner).child('wPace').set(runnerUidArray[runner].wPace).then(() => {
+                }).catch(() => {
+                    console.log("Error adding wPace to ".red + runner);
                 })
                 database.ref("runners/" + runner + "/workouts").child(workoutuid).set(workoutuid).then(() => {
                     console.log("Successfully added the workout " + workoutuid.green + " to the runner" + runner.green )

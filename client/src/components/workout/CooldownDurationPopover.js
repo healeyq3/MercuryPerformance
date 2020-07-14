@@ -18,8 +18,6 @@ export class CooldownDurationPopover extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
     handleChange(e){
-        console.log("changed");
-        console.log(e.target.value);
         this.setState({ [e.target.name] : e.target.value});
     }
     handleCreateCooldown = () => {
@@ -30,7 +28,9 @@ export class CooldownDurationPopover extends Component {
             minutes: this.state.minutes,
             seconds:this.state.seconds
         }
-        this.props.addArr(repData);
+        let toAddArr = []
+        toAddArr.push(repData)
+        this.props.addArr(toAddArr);
         this.setState({show: !this.state.show})
     }
 

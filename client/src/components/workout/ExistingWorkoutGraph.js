@@ -53,10 +53,10 @@ export class ExistingWorkoutGraph extends Component {
           
           <XYPlot
             xDomain={[0, 30+time]}
-            yDomain={[0, 130]}
+            yDomain={[0, 120]}
             // xType="time"
             width={600}
-            height={400}
+            height={360}
             // colorType = "linear"
             colorDomain = {[0, 1, 2, 3, 4]}
             colorRange = {['#ffffff','cyan','yellow', 'orange', 'red']}

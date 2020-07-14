@@ -26,7 +26,25 @@ function getDistance(data){
     } else if(data.units === 'Meters'){
         return convertMeToMi(data.distance)
     } else {
+        if(typeof(data.distance) !== "number"){
+            const toReturn = Number(data.distance);
+            return toReturn
+        }
         return data.distance
+    }
+}
+
+function getDistance2(measurement, unit){
+    if(unit === 'Kilometers'){
+        return convertKToM(measurement)
+    } else if(unit === 'Meters'){
+        return convertMeToMi(measurement)
+    } else {
+        if(typeof(measurement) !== "number"){
+            const toReturn = Number(measurement);
+            return toReturn;
+        }
+        return measurement
     }
 }
 
@@ -107,4 +125,4 @@ function getV02(v){
     //console.log(toReturn + "AAAAAA")
     return toReturn;
 }
-export { getWorkoutPace, getV02max, convertMeToMi, convertKToM };
+export { getWorkoutPace, getV02max, convertMeToMi, convertKToM, getDistance2 };

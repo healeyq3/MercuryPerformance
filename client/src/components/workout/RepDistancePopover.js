@@ -24,11 +24,10 @@ export class RepDistancePopover extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
     handleChange(e){
-        console.log("changed");
-        console.log(e.target.value);
         this.setState({ [e.target.name] : e.target.value});
     }
-    handleCreateRep = () => {
+     handleCreateRep = () => {
+        let toAddArr = []
         const repData = {
             type:this.state.type,
             percent: this.state.percent,
@@ -45,8 +44,8 @@ export class RepDistancePopover extends Component {
                     distance:this.state.restDistance,
                     distanceUnit:this.state.restDistanceUnit
                 }
-                this.props.addArr(repData)
-                this.props.addArr(restData)
+                toAddArr.push(repData)
+                toAddArr.push(restData)
             }
             else if(this.state.restHours!==0 || this.state.restMinutes !==0 || this.state.restSeconds !== 0){
                 const restData = {
@@ -56,13 +55,15 @@ export class RepDistancePopover extends Component {
                     minutes: this.state.restMinutes,
                     seconds:this.state.restSeconds,
                 }
-                this.props.addArr(repData)
-                this.props.addArr(restData)
+                toAddArr.push(repData)
+                toAddArr.push(restData)
             }
             else{
-            this.props.addArr(repData)
+                console.log("added")
+             toAddArr.push(repData)
             }
         }
+        this.props.addArr(toAddArr);
         this.setState({show: !this.state.show})
     }
 

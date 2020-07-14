@@ -17,8 +17,6 @@ export class WarmupDistancePopover extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
     handleChange(e){
-        console.log("changed");
-        console.log(e.target.value);
         this.setState({ [e.target.name] : e.target.value});
     }
     handleCreateWarmup = () => {
@@ -28,7 +26,9 @@ export class WarmupDistancePopover extends Component {
             distance:this.state.distance,
             distanceUnit:this.state.distanceUnit
         }
-        this.props.addArr(repData);
+        let toAddArr = []
+        toAddArr.push(repData)
+        this.props.addArr(toAddArr);
         this.setState({show: !this.state.show});
     }
 

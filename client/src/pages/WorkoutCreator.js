@@ -13,9 +13,8 @@ import { Redirect } from "react-router-dom";
 import ExistingWorkoutGraph from '../components/workout/ExistingWorkoutGraph';
 import RepsCard from '../components/workout/RepsCard';
 import update from 'immutability-helper'
-import triangle from '../images/square_PNG19.png'
-import tri1 from '../images/vector-triangles-black-and-white-picture-1281057-vector-isosceles-right-triangle-png-2000_2000.png'
-import tri2 from '../images/tri2.png'
+import { totalSeconds, distanceToTime, secondsToAnswer } from '../math/TimeConversions'
+import { getDistance2 } from '../math/V02max'
 
 export class WorkoutCreator extends Component {
     constructor(props){
@@ -24,11 +23,13 @@ export class WorkoutCreator extends Component {
             name:'',
             reps:[],
             toWorkoutHome: false,
-            show: false
+            show: false,
+            totalTime: 0,
+            totalDistance: 0
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
-        this.handleEdit = this.handleEdit.bind(this)
+        this.handleEdit = this.handleEdit.bind(this);
     }
 
     setShow = e => {
@@ -39,15 +40,15 @@ export class WorkoutCreator extends Component {
     }
 
     handleChange(e){
-        console.log("changed");
-        console.log(e.target.value);
         this.setState({ [e.target.name] : e.target.value});
     }
 
     handleCreateWorkout = () => {
         const workoutData = {
             name: this.state.name,
-            reps: this.state.reps
+            reps: this.state.reps,
+            totalDistance: this.state.totalDistance,
+            totalSeconds: this.state.totalTime
         }
         this.props.newWorkoutBlueprint(workoutData, this.props.selectedTeam);
         this.setState({
@@ -57,24 +58,100 @@ export class WorkoutCreator extends Component {
 
     handleCreate = (repData) => {
         let arr = this.state.reps
-        arr.push(repData)
+        arr.push(...repData)
+        console.log(arr);
         this.setState({reps:arr})
+        this.sumTotal(repData);
+    }
+
+    sumTotal = (reps) => {
+        const teamPace = this.props.teams[this.props.selectedTeam].hasOwnProperty("averageWPace") ? this.props.teams[this.props.selectedTeam].averageWPace : 6.5;
+        console.log("Reps: ")
+        console.log(reps)
+        let updatedTime = 0;
+        let updatedDistance = 0;
+        for (const rep in reps){
+            if(reps[rep].distanceUnit === undefined){
+                console.log("If Reached")
+                let timeData = {
+                    hours: reps[rep].hours,
+                    minutes: reps[rep].minutes,
+                    seconds: reps[rep].seconds
+                }
+                let amountOfTime = totalSeconds(timeData);
+                let pd = amountOfTime / ((teamPace * 60) / (reps[rep].percent / 100));
+                let predictedDistance = Math.round((pd) * 100) / 100;
+                updatedTime = updatedTime +  amountOfTime;
+                updatedDistance = updatedDistance + predictedDistance;
+            } else {
+                console.log("Else reached")
+                let secondsForRep = distanceToTime(reps[rep].distance, reps[rep].distanceUnit, ((teamPace * 60) / (reps[rep].percent / 100)));
+                console.log(secondsForRep)
+                updatedDistance = updatedDistance + getDistance2(reps[rep].distance, reps[rep].distanceUnit);
+                console.log(updatedDistance);
+                updatedTime = updatedTime + secondsForRep
+                console.log(updatedTime, updatedDistance)
+            }
+        }
+        updatedTime = this.state.totalTime + updatedTime;
+        updatedDistance = this.state.totalDistance + updatedDistance;
+        this.setState({
+            totalTime: updatedTime,
+            totalDistance: updatedDistance
+        })
     }
 
     handleDelete(index){
         let toReturn = this.state.reps;
+        let toDelete = toReturn[index];
+        console.log(toDelete)
+        this.deleteInformation(toDelete);
         toReturn.splice(index, 1);
         this.setState({
             reps: toReturn
         })
     }
 
+    deleteInformation = (toDelete) => {
+        console.log("method called")
+        const teamPace = this.props.teams[this.props.selectedTeam].hasOwnProperty("averageWPace") ? this.props.teams[this.props.selectedTeam].averageWPace : 6.5;
+        if(toDelete.distanceUnit === undefined){
+            console.log("if reached")
+            let timeData = {
+                hours: toDelete.hours,
+                minutes: toDelete.minutes,
+                seconds: toDelete.seconds
+            }
+            let timeToDelete = totalSeconds(timeData);
+            let pd = timeToDelete / ((teamPace * 60) / (toDelete.percent / 100));
+            let predictedDistance = Math.round((pd) * 100) / 100;
+            let updatedTime = this.state.totalTime - timeToDelete;
+            let updatedDistance = this.state.totalDistance - predictedDistance;
+            this.setState({
+                totalTime: updatedTime,
+                totalDistance: updatedDistance
+            })
+        } else {
+            console.log('else reached')
+            let secondsForRep = distanceToTime(toDelete.distance, toDelete.distanceUnit, ((teamPace * 60) / (toDelete.percent / 100)));
+            let updatedDistance = this.state.totalDistance - getDistance2(toDelete.distance, toDelete.distanceUnit);
+            let updatedTime = this.state.totalTime - secondsForRep
+            this.setState({
+                totalTime: updatedTime,
+                totalDistance: updatedDistance
+            })
+        }
+        console.log(this.state.totalTime, this.state.totalDistance)
+    }
+
+
+
     handleEdit(rep, index){
         console.log(this.state)
         let toReturn = this.state.reps;
         toReturn[index] = rep;
         this.setState({
-            rep: toReturn
+            reps: toReturn
         })
     }
 
@@ -97,7 +174,7 @@ export class WorkoutCreator extends Component {
     }
 
     render() {
-        if(!this.props.selectedTeam){
+        if(!this.props.selectedTeam || !this.props.teams){
             return null;
         }
         if(this.state.toWorkoutHome){
@@ -120,7 +197,6 @@ export class WorkoutCreator extends Component {
                                 </Form.Group>
                                 <Row className = "justify-content-md-center">
                             <Col xs={5} md={4} className = "justify-content-md-center">
-                                    <Image src = {tri2} thumbnail></Image>
                                     <p></p>
                                     </Col>
                                     </Row>
@@ -140,7 +216,6 @@ export class WorkoutCreator extends Component {
                             </Form.Group>
                             <Row className = "justify-content-md-center">
                             <Col xs={5} md={4} className = "justify-content-md-center">
-                                    <Image src = {triangle} thumbnail></Image>
                                     <p></p>
                                     </Col>
                                     </Row>
@@ -160,7 +235,6 @@ export class WorkoutCreator extends Component {
                             </Form.Group>
                             <Row className = "justify-content-md-center">
                             <Col xs={5} md={4} className = "justify-content-md-center">
-                                    <Image src = {tri1} thumbnail></Image>
                                     <p></p>
                                     </Col>
                                     </Row>
@@ -184,6 +258,16 @@ export class WorkoutCreator extends Component {
                 <ExistingWorkoutGraph team = {this.props.teams[this.props.selectedTeam]} reps = {this.state.reps}></ExistingWorkoutGraph>
                 <br />
                 <Card className = 'text-center'>
+        <Card.Header>
+            <Row>
+                <Col>
+                Total Distance: {Math.round(this.state.totalDistance * 100) / 100} miles
+                </Col>
+                <Col>
+                Total Time: {secondsToAnswer(this.state.totalTime)}
+                </Col>
+            </Row>
+            </Card.Header>
                     {this.state.reps.map((rep, i) => (
                         <RepsCard 
                         rep = {rep}
@@ -197,6 +281,11 @@ export class WorkoutCreator extends Component {
                     ))}
                 </Card>
                 </Col>
+                {/* <Col>
+                    <Card>
+                        <Card.Header>Total Information</Card.Header>
+                    </Card>
+                </Col> */}
             </Row>
         )
     }

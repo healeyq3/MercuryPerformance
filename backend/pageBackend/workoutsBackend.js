@@ -68,8 +68,10 @@ async function newBlueprint(req, res){
     const data = req.body;
     const name = data.blueprintData.name;
     const reps = data.blueprintData.reps;
+    const totalSeconds = data.blueprintData.totalSeconds;
+    const totalDistance = data.blueprintData.totalDistance;
 
-    workoutUtilities.createBlueprint(req.session.useruid, data.selectedTeamUID, name, reps).then(blueprint => {
+    workoutUtilities.createBlueprint(req.session.useruid, data.selectedTeamUID, name, reps, totalSeconds, totalDistance).then(blueprint => {
       res.setHeader('Content-Type', 'application/json');
       res.end(JSON.stringify(blueprint));
     }).catch(err => {
