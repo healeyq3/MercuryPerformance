@@ -37,7 +37,7 @@ function getMedianTeamPace(runners){
             wPaces.push(stringToNumber(runners[runner].wPace))
         }
     }
-    return secondsToMinutes(math.median(wpaces));
+    return secondsToMinutes(median(wPaces));
 
 }
 
@@ -49,7 +49,7 @@ function getMedianTeamV02(runners){
         }
     }
 
-    return math.median(v02s);
+    return median(v02s);
 }
 
 function getPredictedTimes(runners, percent, rep){

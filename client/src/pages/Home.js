@@ -42,8 +42,8 @@ class Home extends Component {
       medianPace: toUpdate1,
       medianV02: toUpdate2
     });
-    this.props.updateTeam(this.props.selectedTeam, "medianWPace", toUpdate);
-    this.props.updateTeam(this.props.selectedTeam, "medianV02max", toUpdate);
+    this.props.updateTeam(this.props.selectedTeam, "medianWPace", toUpdate1);
+    this.props.updateTeam(this.props.selectedTeam, "medianV02max", toUpdate2);
   };
 
   render() {
