@@ -3,7 +3,7 @@ import { Modal, Form, Button } from '../../../node_modules/react-bootstrap'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types';
 import { addRunnersToWorkout } from "../../actions/workoutActions";
-import { secondsToAnswer, totalSeconds, timeGenerator, stringToNumber, distanceToTime } from '../../math/TimeConversions';
+import { secondsToAnswer, totalSeconds, stringToNumber, distanceToTime } from '../../math/TimeConversions';
 import { getDistance2 } from '../../math/V02max';
 
 export class WorkoutAddRunnersModal extends Component {

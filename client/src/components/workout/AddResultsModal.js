@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Modal, Form, Button, Row, Col, ButtonGroup } from 'react-bootstrap';
+import { Modal, Form, Button, Row, Col} from 'react-bootstrap';
 import { selectRunner } from '../../actions/eventActions';
 import { updateRunner } from '../../actions/runnerActions';
 import { sendActualTimes } from '../../actions/workoutActions';
@@ -117,6 +117,7 @@ export class AddResultsModal extends Component {
                     </Row>
                 )
             }
+            return true; //wrote this so the error that said "Expected to return a value in arrow function" would go away
         })
         console.log("List of runners on the next line");
         console.log(this.props.runners)

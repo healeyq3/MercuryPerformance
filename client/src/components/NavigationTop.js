@@ -3,9 +3,7 @@ import cookie from 'react-cookies'
 import {withRouter} from "react-router-dom";
 import "../css/navtop.css"
 import logo from '../resources/mLogoV2-White.svg'
-import triangle from '../resources/mTriangleSelector.svg'
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import triangle from '../resources/mTriangleSelector.svg';
 
 
 class NavigationTop extends Component {

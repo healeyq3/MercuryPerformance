@@ -63,24 +63,24 @@ async function getTeamEvents(teamuid){
 async function addRunnerToEvent(eventuid, runnerUidArray){
   let runnersAdded = {};
   const eventRef = database.ref("events/" + eventuid + "/runners");
-  runnerUidArray.forEach((runneruid) => {
+  for(const runner in runnerUidArray) {
     //check if runner is already added
     eventRef.once("value").then((snapshot) => {
-      if(!snapshot.hasChild(runneruid)) {
-        runnersAdded[runneruid] = {runneruid: runneruid};
-        eventRef.child("" + runneruid).set({runneruid: runneruid}).then(() => {
+      if(!snapshot.hasChild(runner)) {
+        runnersAdded[runner] = runnerUidArray[runner];
+        eventRef.child("" + runner).set(runnerUidArray[runner]).then(() => {
         }).catch(() => {
           console.log("Error adding runner ".cyan + runneruid + " to ".cyan + eventuid);
         })
-        database.ref("runners/" + runneruid + "/events/").child(eventuid).set(eventuid).then(() => {
-          console.log("Successfully added the event " + eventuid.green + " to the runner" + runneruid.green )
+        database.ref("runners/" + runner + "/events/").child(eventuid).set(eventuid).then(() => {
+          console.log("Successfully added the event " + eventuid.green + " to the runner" + runner.green )
         }).catch(err => {
-          console.log("Un-successfully added the event ".red + eventuid + " to the runner" + runneruid);
+          console.log("Un-successfully added the event ".red + eventuid + " to the runner" + runner);
           console.log(err);
         })
       }
     })
-  });
+  };
 
   return runnersAdded;
 }

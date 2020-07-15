@@ -3,16 +3,12 @@ import cookie from 'react-cookies'
 import fire from '../Fire'
 import {NavLink, withRouter} from "react-router-dom";
 import "../css/navside.css"
-import house from "../resources/mHouse.svg"
-import calendar from "../resources/mCalendar.svg"
-import heartbeat from "../resources/mHeartbeat.svg"
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
 import { getWorkoutBlueprints } from '../actions/workoutActions';
 import { getTeamEvents } from '../actions/eventActions';
 import { getTeamRunners } from "../actions/runnerActions";
 import { getTeams } from "../actions/teamActions";
-import { Button, Image } from 'react-bootstrap';
 
 class NavigationSide extends Component {
     constructor(props) {

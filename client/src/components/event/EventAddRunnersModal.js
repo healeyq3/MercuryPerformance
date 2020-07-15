@@ -17,13 +17,17 @@ export class EventAddRunnersModal extends Component {
     handleChange(e){
         if(e.target.checked === true){
             let toAdd = e.target.value;
+            const information = {
+                priorWPace: this.props.runners[e.target.value].wPace,
+                priorV02: this.props.runners[e.target.value].v02
+            }
             if( this.state.runnersToAddToFire.length === 0){
                 this.setState((state) => ({
-                    runnersToAddToFire: [...state.runnersToAddToFire, toAdd]
+                    runnersToAddToFire: {...state.runnersToAddToFire, [toAdd]: information}
                 }));
             } else {
                 this.setState((state) => ({
-                    runnersToAddToFire: [...state.runnersToAddToFire, toAdd]
+                    runnersToAddToFire: {...state.runnersToAddToFire, [toAdd]: information}
                 }));
             }
         } else {

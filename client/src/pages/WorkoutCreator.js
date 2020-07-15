@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Row, Card, Col, Form, Button, Image } from 'react-bootstrap'
+import { Row, Card, Col, Form, Button } from 'react-bootstrap'
 import WarmupDistancePopover from '../components/workout/WarmupDistancePopover'
 import { CooldownDistancePopover } from '../components/workout/CooldownDistancePopover'
 import RepDistancePopover from '../components/workout/RepDistancePopover'
