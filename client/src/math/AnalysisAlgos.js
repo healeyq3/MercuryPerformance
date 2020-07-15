@@ -1,4 +1,5 @@
 import { stringToNumber, secondsToMinutes, distanceToTime } from './TimeConversions';
+import { median } from 'mathjs';
 
 function getAverageTeamPace(runners){
     let totalTime = 0;
@@ -27,6 +28,28 @@ function getPredictedTime(runner, rep){
         t = rep.duration
     }
     return t
+}
+
+function getMedianTeamPace(runners){
+    let wPaces = [];
+    for(const runner in runners){
+        if(runners[runner].hasOwnProperty('wPace')){
+            wPaces.push(stringToNumber(runners[runner].wPace))
+        }
+    }
+    return secondsToMinutes(math.median(wpaces));
+
+}
+
+function getMedianTeamV02(runners){
+    let v02s = []
+    for(const runner in runners){
+        if(runners[runner].hasOwnProperty('v02')){
+            v02s.push(runners[runner].v02)
+        }
+    }
+
+    return math.median(v02s);
 }
 
 function getPredictedTimes(runners, percent, rep){
@@ -59,4 +82,4 @@ function getPredictedTimes(runners, percent, rep){
 return max + "-" + min
 }
 
-export { getAverageTeamPace, getPredictedTimes, getPredictedTime};
+export { getAverageTeamPace, getPredictedTimes, getPredictedTime, getMedianTeamPace, getMedianTeamV02};

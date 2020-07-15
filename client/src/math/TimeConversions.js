@@ -1,8 +1,9 @@
 import { convertKToM, convertMeToMi} from './V02max'
+
 function stringToNumber(prevString) {
     const toSubString = prevString.indexOf(':');
-    const minutes = parseFloat(prevString.substring(0, toSubString));
-    const seconds = parseFloat(prevString.substring(toSubString + 1));
+    const minutes = Number(prevString.substring(0, toSubString));
+    const seconds = Number(prevString.substring(toSubString + 1));
     return(totalTheTime(minutes, seconds));
 }
 

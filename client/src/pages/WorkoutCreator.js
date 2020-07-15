@@ -65,7 +65,7 @@ export class WorkoutCreator extends Component {
     }
 
     sumTotal = (reps) => {
-        const teamPace = this.props.teams[this.props.selectedTeam].hasOwnProperty("averageWPace") ? this.props.teams[this.props.selectedTeam].averageWPace : 6.5;
+        const teamPace = this.props.teams[this.props.selectedTeam].hasOwnProperty("medianWPace") ? this.props.teams[this.props.selectedTeam].medianWPace : 6.5;
         console.log("Reps: ")
         console.log(reps)
         let updatedTime = 0;
@@ -113,7 +113,7 @@ export class WorkoutCreator extends Component {
 
     deleteInformation = (toDelete) => {
         console.log("method called")
-        const teamPace = this.props.teams[this.props.selectedTeam].hasOwnProperty("averageWPace") ? this.props.teams[this.props.selectedTeam].averageWPace : 6.5;
+        const teamPace = this.props.teams[this.props.selectedTeam].hasOwnProperty("medianWPace") ? this.props.teams[this.props.selectedTeam].medianWPace : 6.5;
         if(toDelete.distanceUnit === undefined){
             console.log("if reached")
             let timeData = {

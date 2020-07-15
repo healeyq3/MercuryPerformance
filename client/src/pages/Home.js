@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import ExistingRunnerCard from "../components/ExistingRunnerCard";
 import AddRunner from "../components/AddRunner";
 import PropTypes from "prop-types";
-import { getAverageTeamPace } from "../math/AnalysisAlgos";
+import { getMedianTeamPace, getMedianTeamV02 } from "../math/AnalysisAlgos";
 import { Redirect } from "react-router-dom";
 import "../css/home.css";
 class Home extends Component {
@@ -14,11 +14,12 @@ class Home extends Component {
     super(props);
     this.setSelectedRunner = this.setSelectedRunner.bind(this);
     this.state = {
-      averagePace: 0,
+      medianPace: 0,
       gotoEvents: false,
+      medianV02: 0
     };
 
-    this.calculateAverageTeamPace = this.calculateAverageTeamPace.bind(this);
+    this.calculateTeamMedians = this.calculateTeamMedians.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -34,12 +35,15 @@ class Home extends Component {
     // })
   }
 
-  calculateAverageTeamPace = () => {
-    const toUpdate = getAverageTeamPace(this.props.runners);
+  calculateTeamMedians = () => {
+    const toUpdate1 = getMedianTeamPace(this.props.runners);
+    const toUpdate2 = getMedianTeamV02(this.props.runners);
     this.setState({
-      averagePace: toUpdate,
+      medianPace: toUpdate1,
+      medianV02: toUpdate2
     });
-    this.props.updateTeam(this.props.selectedTeam, "averageWPace", toUpdate);
+    this.props.updateTeam(this.props.selectedTeam, "medianWPace", toUpdate);
+    this.props.updateTeam(this.props.selectedTeam, "medianV02max", toUpdate);
   };
 
   render() {
@@ -78,7 +82,7 @@ class Home extends Component {
               Roster
               </Col>
               <Col className = "home-cardheader-col">
-              <AddRunner teamUID={this.props.selectedTeam} onSelect={this.calculateAverageTeamPace}/>
+              <AddRunner teamUID={this.props.selectedTeam} onSelect={this.calculateTeamMedians}/>
               </Col>
              
             </Row>

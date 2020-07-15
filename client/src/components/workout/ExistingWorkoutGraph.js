@@ -15,7 +15,7 @@ export class ExistingWorkoutGraph extends Component {
       let start = 0;
       let DATA = [];
       let newTime = 0;
-      let averagePace = this.props.team.hasOwnProperty('averageWPace') === true ? this.props.team.averageWPace : 6.5
+      let medianPace = this.props.team.hasOwnProperty('medianWPace') === true ? this.props.team.medianWPace : 6.5
       for(const rep in this.props.reps){
         let t = this.props.reps[rep];
         let c = 0;
@@ -31,7 +31,7 @@ export class ExistingWorkoutGraph extends Component {
         // console.log(t)
         if(t.distanceUnit!==undefined){
           // console.log("Got to the first one")
-          newTime = distanceToTime(t.distance, t.distanceUnit, averagePace /(t.percent/100))
+          newTime = distanceToTime(t.distance, t.distanceUnit, medianPace /(t.percent/100))
           time += newTime
           DATA.push({x0:start, x:time, y:t.percent, color: c})
           
