@@ -1,0 +1,17 @@
+.normal-button {
+    background-color: #1E5288;
+    border-color: #1E5288;
+    border-radius: 10rem;
+}
+
+.good-button {
+    background-color: #1b9e16;
+    border-color: #1b9e16;
+    border-radius: 10rem;
+}
+
+.bad-button {
+    background-color: #d31d1d;
+    border-color: #d31d1d;
+    border-radius: 10rem;
+}

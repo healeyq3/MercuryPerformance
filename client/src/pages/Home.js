@@ -9,6 +9,9 @@ import PropTypes from "prop-types";
 import { getMedianTeamPace, getMedianTeamV02 } from "../math/AnalysisAlgos";
 import { Redirect } from "react-router-dom";
 import "../css/home.css";
+// import moment from 'moment';
+
+
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -54,6 +57,16 @@ class Home extends Component {
     if (this.state.gotoEvents) {
       return <Redirect to="/events" />;
     }
+    
+    const d1 = new Date()
+    const d2 = new Date("2020,07,15")
+    const p1 = d1.getFullYear()
+    const p2 = d1.getMonth() + 1
+    const p3 = d1.getDate()
+    const d3 = new Date(p1 + "," + p2 + "," + p3);
+    console.log(d3);
+    console.log((d2.getTime() - d3.getTime()) / Math.pow(8.64,7));
+    console.log(d2)
 
     let runnerArr = [];
 

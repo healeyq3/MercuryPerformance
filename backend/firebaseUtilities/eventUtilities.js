@@ -3,7 +3,7 @@ const database = firebaseSetup.database;
 
 // -------------- Events ----------------
 
-async function createEvent(teamuid, name, date, location, distance, distanceUnit){
+async function createEvent(teamuid, name, date, location, distance, distanceUnit, priorV02, priorWPace){
   const eventRef = await database.ref("events").push();
 
   const eventData = {
@@ -12,6 +12,8 @@ async function createEvent(teamuid, name, date, location, distance, distanceUnit
     location,
     distance,
     distanceUnit,
+    priorV02,
+    priorWPace,
     key: eventRef.key.toString()
   }
 
@@ -85,7 +87,7 @@ async function addRunnerToEvent(eventuid, runnerUidArray){
   return runnersAdded;
 }
 
-async function newTime(timeData, splitData, eventuid, selectedteamuid, runneruid){
+async function newTime(timeData, splitData, raceV02, raceWPace, eventuid, selectedteamuid, runneruid){
   const eventTimeRef = await database.ref("events/" + eventuid + "/runners/" + runneruid + "/time")
   const eventSplitRef = await database.ref("events/" + eventuid + "/runners/" + runneruid + "/splits")
   await eventTimeRef.set(timeData).catch((error) => {
@@ -96,6 +98,14 @@ async function newTime(timeData, splitData, eventuid, selectedteamuid, runneruid
       console.log(error);
     });
   }
+  await database.ref("events/" + eventuid + "/runners/" + runneruid).child("raceV02").set(raceV02).then(() => {
+  }).catch(() => {
+    console.log("Error changing the raceV02 for the runner ".red + runneruid.red)
+  })
+  await database.ref("events/" + eventuid + "/runners/" + runneruid).child("raceWPace").set(raceWPace).then(() => {
+  }).catch(() => {
+    console.log("Error changing the raceV02 for the runner ".red + runneruid.red)
+  })
 }
 
 async function removeRunnerFromEvent(eventuid, runneruid){

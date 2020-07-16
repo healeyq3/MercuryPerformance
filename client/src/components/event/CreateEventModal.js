@@ -2,6 +2,7 @@ import React, { Component } from '../../../node_modules/react'
 import { Modal, Form, Button, FormControl } from '../../../node_modules/react-bootstrap';
 import { connect } from '../../../node_modules/react-redux';
 import { newEvent } from '../../actions/eventActions';
+import PropTypes from "prop-types";
 
 export class CreateEventModal extends Component {
     constructor(props){
@@ -29,7 +30,9 @@ export class CreateEventModal extends Component {
             date: this.state.date,
             location: this.state.location,
             distance: this.state.distance,
-            distanceUnit: this.state.distanceUnit
+            distanceUnit: this.state.distanceUnit,
+            priorV02: this.props.teams[this.props.selectedTeam].medianV02max,
+            priorWPace: this.props.teams[this.props.selectedTeam].medianWPace
         }
         this.props.newEvent(eventData, this.props.teamUID);//need to pass in selectedTeamUID here
         this.props.setShow();
@@ -82,4 +85,16 @@ export class CreateEventModal extends Component {
     }
 }
 
-export default connect(null, { newEvent }) (CreateEventModal);
+CreateEventModal.propTypes = {
+    teams: PropTypes.object.isRequired,
+    selectedTeam: PropTypes.string.isRequired
+}
+
+const mapStateToProps = function (state) {
+    return {
+        teams: state.teams.teams,
+        selectedTeam: state.teams.selectedTeam
+    }
+}
+
+export default connect(mapStateToProps, { newEvent }) (CreateEventModal);

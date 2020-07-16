@@ -42,7 +42,7 @@ export function newEvent(eventData, selectedTeamUID){
   }
 }
 
-export function newTime(timeData, splitsData, selectedTeamUID, eventUID, runnerUID){
+export function newTime(timeData, splitsData, analysisData, selectedTeamUID, eventUID, runnerUID){
   return async function(dispatch) {
     fire.auth().onAuthStateChanged(function(user) {
       user.getIdToken(true).then(async function (idToken) {
@@ -56,6 +56,7 @@ export function newTime(timeData, splitsData, selectedTeamUID, eventUID, runnerU
           body: JSON.stringify({
             timeData,
             splitsData,
+            analysisData,
             idToken,
             eventUID,
             selectedTeamUID,

@@ -53,6 +53,8 @@ export default function(state = initialState, action) {
         ...newerState.events[eventuid].runners[runneruid].splits,
         ...splitsArray
       }
+      newerState.events[eventuid].runners[runneruid].raceV02 = action.payload.raceV02
+      newerState.events[eventuid].runners[runneruid].raceWPace = action.payload.raceWPace
       return newerState;
     case RUNNERS_ADDED:
       const euid = action.payload.eventuid;

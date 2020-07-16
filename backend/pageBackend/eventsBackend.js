@@ -45,13 +45,15 @@ async function createEvent(req, res){
   const location = data.eventData.location;
   const distance = data.eventData.distance;
   const distanceUnit = data.eventData.distanceUnit;
+  const priorV02 = data.eventData.priorV02;
+  const priorWPace = data.eventData.priorWPace;
 
   if(!await teamUtilities.doesUserOwnTeam(req)){
     res.end("{}");
     return;
   }
 
-  eventUtilities.createEvent(data.selectedTeamUID, name, date, location, distance, distanceUnit).then((event) => {
+  eventUtilities.createEvent(data.selectedTeamUID, name, date, location, distance, distanceUnit, priorV02, priorWPace).then((event) => {
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(event));
   }).catch((error) => {
@@ -81,14 +83,18 @@ async function newTime(req, res){
   const runnerUID = data.runnerUID;
   const selectedTeamUID = data.selectedTeamUID;
   const splitsArray = data.splitsData.splits;
+  const raceV02 = data.analysisData.v02;
+  const raceWPace = data.analysisData.wPace;
 
-  eventUtilities.newTime(timeData, splitsData, eventUID, selectedTeamUID, runnerUID);
+  eventUtilities.newTime(timeData, splitsData, raceV02, raceWPace, eventUID, selectedTeamUID, runnerUID);
 
   const toSend = {
     eventUID,
     runnerUID,
     timeData,
-    splitsArray
+    splitsArray,
+    raceV02,
+    raceWPace
   }
   res.end(JSON.stringify(toSend));
 }
