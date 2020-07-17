@@ -31,6 +31,7 @@ function getPredictedTime(runner, rep){
 }
 
 function getMedianTeamPace(runners){
+    console.log(runners)
     let wPaces = [];
     for(const runner in runners){
         if(runners[runner].hasOwnProperty('wPace')){
@@ -42,6 +43,7 @@ function getMedianTeamPace(runners){
 }
 
 function getMedianTeamV02(runners){
+    console.log(runners);
     let v02s = []
     for(const runner in runners){
         if(runners[runner].hasOwnProperty('v02')){

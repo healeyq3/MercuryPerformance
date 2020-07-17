@@ -1,5 +1,8 @@
 const firebaseSetup = require("./firebaseSetup");
 const database = firebaseSetup.database;
+const runnerUtilities = require('./runnerUtilities');
+const { median } = require('mathjs')
+
 // -------------- Team ----------------
 async function createTeam(useruid, teamName, teamYear, teamLevel){
   const teamRef = await database.ref("teams").push();
@@ -80,8 +83,181 @@ async function updateTeam(teamUID, toUpdate, newValue){
 
 }
 
+
+
+async function getTeamV02(teamuid, date){ //grabs the most updated team V02
+  const teamRunnersRef = database.ref("teams/" + teamuid + "/runners");
+  let runners = {};
+
+  await teamRunnersRef.once("value").then(async (snapshot) => {
+    let runnerArray = [];
+    snapshot.forEach(function(child) {
+      runnerArray.push(child);
+    });
+
+  for (const runner of runnerArray){
+      const value = runner.key;
+      await database.ref("runners/" + value).once("value").then((runnerSnapshot) => {
+        runners[value] = runnerSnapshot.val();
+      });
+    }
+  });
+
+  const teamV02 = await database.ref("teams/" + teamuid + "/v02History");
+  const teamWPace = await database.ref("teams/" + teamuid + "/wPaceHistory");
+  let values = [];
+  let allValues = {};
+  let wValues = [];
+  let allWValues = {};
+  let bestVValues = [];
+  let bestWValues = [];
+
+  for(const runner in runners){
+    if(runners[runner].hasOwnProperty('v02History')){
+      let v02ToAdd = runners[runner].v02History[findClosestDate(runners[runner].v02History, date)]
+      values.push(v02ToAdd);
+      allValues[runner] = v02ToAdd;
+    }
+    if(runners[runner].hasOwnProperty('wPaceHistory')){
+      let wPaceToAdd = stringToNumber(runners[runner].wPaceHistory[findClosestDate(runners[runner].wPaceHistory, date)])
+      wValues.push(wPaceToAdd);
+      allWValues[runner] = wPaceToAdd;
+    }
+    if(runners[runner].hasOwnProperty("v02")){
+      bestVValues.push(runners[runner].v02);
+    }
+    if(runners[runner].hasOwnProperty("wPace")){
+      bestWValues.push(stringToNumber(runners[runner].wPace));
+    }
+  }
+
+  const medianV02 = median(values);
+  const medianWPace = getPaceString(median(wValues))
+  const medianBestV02 = median(bestVValues);
+  const medianBestWPace = secondsToMinutes(median(bestWValues));
+
+  await database.ref("teams/" + teamuid).child("medianV02").set(medianBestV02).then(() => {
+    console.log("Successfully set the median v02 for the team".green);
+  }).catch(err => {
+    console.log("Was unable to set the median v02 for the team".red);
+    console.log(err);
+  })
+
+  await database.ref("teams/" + teamuid).child("medianWPace").set(medianBestWPace).then(() => {
+    console.log("Successfully updated the median wPace for the team".green);
+  }).catch(err => {
+    console.log("Was unable to set the median wPace for the team".red);
+    console.log(err);
+  })
+
+  information = {
+    allValues,
+    medianV02
+  }
+  informationW = {
+    allValues: allWValues,
+    medianWPace
+  }
+  await teamV02.child(date).set(information)
+  .then(() => {
+    console.log("V02 and its history have successfully been updated".green)
+  }
+  )
+  .catch(err => {
+    console.log("Error updating the team's V02 history data in firebase".red)
+    console.log(err);
+  })
+
+  await teamWPace.child(date).set(informationW)
+  .then(() => {
+    console.log("WPace and its history have successfully been updated".green)
+  })
+  .catch(err => {
+    console.log("Error updating the team's WPace history data in firebase".red)
+    console.log(err);
+  })
+
+  let teamToReturn = null;
+  await database.ref('teams/' + teamuid).once('value').then((teamSnapshot) => {
+    teamToReturn = teamSnapshot.val();
+  })
+
+  return teamToReturn;
+}
+
+// ------------ See DateAlgos in the client for more information ---------------
+
+function findClosestDate(historyObject, date){
+  const comparisonDate = fixDateSelector(date);
+  const dates = [];
+  for(const date in historyObject){
+      dates.push(date)
+  }
+  let closest = fixDateSelector(dates[0]);
+  dates.map((date) => {
+      let diff1 = comparisonDate - fixDateSelector(date);
+      let diff2 = comparisonDate - closest;
+      if(diff1 < diff2){
+          closest = fixDateSelector(date)
+      }
+  })
+  return getCleanDate(closest);
+}
+
+function getCleanDate(date){ // turns an actual date into a string representation
+  const p1 = date.getFullYear();
+  const p2 = date.getMonth() + 1;
+  const p3 = date.getDate();
+  const cleanDate = p1 + "-" + p2 + "-" + p3
+  return cleanDate;
+}
+
+function fixDateSelector(date){ // turns a clean string that is used to represent a date into an actual date that can be used for calculations
+  const regex = /-/gi
+  const clean = date.replace(regex, ",");
+  const toReturn = new Date(clean);
+  return toReturn;
+}
+
+// ------------ See TimeConversions in the client for more information ---------------
+function stringToNumber(prevString) {
+  const toSubString = prevString.indexOf(':');
+  const minutes = Number(prevString.substring(0, toSubString));
+  const seconds = Number(prevString.substring(toSubString + 1));
+  return(totalTheTime(minutes, seconds));
+}
+
+function totalTheTime(minutes, seconds) {
+  let toReturn = 0.0;
+  toReturn += minutes * 60;
+  toReturn += seconds;
+  return toReturn;
+}
+
+function secondsToMinutes(seconds){
+  return (seconds / 60);
+}
+
+// ------------ See V02Max in the client for more information ---------------
+function getPaceString(seconds){
+  // eslint-disable-next-line
+  const initialMinutes = seconds / 60;
+  const minutes = Math.trunc(seconds / 60);
+  const minutesAnswer = minutes.toString();
+  const remainingSeconds = Math.trunc(seconds - (60 * minutes));
+  const remainingSecondsAnswer = remainingSeconds.toString();
+  if((seconds - (60 * minutes)) === 0){
+      return minutesAnswer + ":00"
+  } else if(remainingSeconds < 10 && remainingSeconds !== 0){
+      return minutesAnswer + ":0" + remainingSecondsAnswer;
+  } else {
+      return minutesAnswer + ":" + remainingSecondsAnswer;
+  }
+}
+
 module.exports.createTeam = createTeam;
 module.exports.addTeamToUser = addTeamToUser;
 module.exports.getUserTeams = getUserTeams;
 module.exports.doesUserOwnTeam = doesUserOwnTeam;
-module.exports.updateTeam = updateTeam
+module.exports.updateTeam = updateTeam;
+module.exports.getTeamV02 = getTeamV02;

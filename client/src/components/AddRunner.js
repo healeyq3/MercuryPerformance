@@ -5,6 +5,7 @@ import { newRunner } from "../actions/runnerActions";
 import AddRunnerV02 from "./AddRunnerV02";
 import { getWorkoutPace, getV02max } from "../math/V02max";
 import '../css/home.css';
+import { getCleanDate } from '../math/DateAlgos';
 
 export class AddRunner extends React.Component {
   constructor(props) {
@@ -42,6 +43,10 @@ export class AddRunner extends React.Component {
   }
 
   handleAddRunner = () => {
+    const d1 = new Date();
+    console.log(d1);
+    const d2 = getCleanDate(d1);
+    console.log(d2);
     const runnerData = {
       runnerName: this.state.name,
       runnerEmail: this.state.email,
@@ -49,10 +54,11 @@ export class AddRunner extends React.Component {
       runnerGradYear: this.state.gradYear,
       runnerWorkoutPace: this.state.workoutPace,
       runnerV02Max: this.state.v02max,
+      dateAdded: d2
     };
     console.log(runnerData);
     this.props.newRunner(runnerData, this.props.teamUID);
-    this.props.onSelect();
+    this.props.onSelect(d2);
     this.showModal();
   };
 

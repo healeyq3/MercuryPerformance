@@ -46,13 +46,15 @@ async function createRunner(req, res){
   const gradYear = data.runnerData.runnerGradYear;
   const wPace = data.runnerData.runnerWorkoutPace;
   const v02 = data.runnerData.runnerV02Max;
+  const date = data.runnerData.dateAdded;
+  console.log(date);
 
   if(!await teamUtilities.doesUserOwnTeam(req)){
     res.end("{}");
     return;
   }
 
-  runnerUtilities.createRunner(data.selectedTeamUID, name, email, experience, gradYear, wPace, v02).then((runner) => {
+  runnerUtilities.createRunner(data.selectedTeamUID, name, email, experience, gradYear, wPace, v02, date).then((runner) => {
     res.setHeader('Content-Type', 'application/json');
     const runnerJson = JSON.stringify(runner);
     res.end(runnerJson);

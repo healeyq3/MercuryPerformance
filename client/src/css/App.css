@@ -14,7 +14,7 @@
 }
 
 .main-page{
-  font-family: "Courier New", 'Courier New', Courier, monospace;
+  font-family: "Times New Roman", Times, serif;
   position: absolute;
   min-height: calc(100vh - 10vh);
   height: auto;

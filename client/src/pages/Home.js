@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import { newRunner, getTeamRunners, setRunner } from "../actions/runnerActions";
-import { setTeam, updateTeam } from "../actions/teamActions";
+import { setTeam, updateTeam, updateV02 } from "../actions/teamActions";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { connect } from "react-redux";
 import ExistingRunnerCard from "../components/ExistingRunnerCard";
 import AddRunner from "../components/AddRunner";
 import PropTypes from "prop-types";
-import { getMedianTeamPace, getMedianTeamV02 } from "../math/AnalysisAlgos";
 import { Redirect } from "react-router-dom";
 import "../css/home.css";
 // import moment from 'moment';
@@ -38,15 +37,16 @@ class Home extends Component {
     // })
   }
 
-  calculateTeamMedians = () => {
-    const toUpdate1 = getMedianTeamPace(this.props.runners);
-    const toUpdate2 = getMedianTeamV02(this.props.runners);
-    this.setState({
-      medianPace: toUpdate1,
-      medianV02: toUpdate2
-    });
-    this.props.updateTeam(this.props.selectedTeam, "medianWPace", toUpdate1);
-    this.props.updateTeam(this.props.selectedTeam, "medianV02max", toUpdate2);
+  calculateTeamMedians = (date) => {
+    // this.props.updateV02(this.props.selectedTeam, date)
+    // const toUpdate1 = getMedianTeamPace(this.props.runners);
+    // const toUpdate2 = getMedianTeamV02(this.props.runners);
+    // this.setState({
+    //   medianPace: toUpdate1,
+    //   medianV02: toUpdate2
+    // });
+    // this.props.updateTeam(this.props.selectedTeam, "medianWPace", toUpdate1);
+    // this.props.updateTeam(this.props.selectedTeam, "medianV02max", toUpdate2);
   };
 
   render() {
@@ -58,16 +58,6 @@ class Home extends Component {
       return <Redirect to="/events" />;
     }
     
-    const d1 = new Date()
-    const d2 = new Date("2020,07,15")
-    const p1 = d1.getFullYear()
-    const p2 = d1.getMonth() + 1
-    const p3 = d1.getDate()
-    const d3 = new Date(p1 + "," + p2 + "," + p3);
-    console.log(d3);
-    console.log((d2.getTime() - d3.getTime()) / Math.pow(8.64,7));
-    console.log(d2)
-
     let runnerArr = [];
 
     for (const runneruid in this.props.runners) {
@@ -134,4 +124,5 @@ export default connect(mapStateToProps, {
   setRunner,
   setTeam,
   updateTeam,
+  updateV02,
 })(Home);

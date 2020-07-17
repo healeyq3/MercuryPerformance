@@ -8,6 +8,7 @@ const { authenticatePost } = require("../firebaseUtilities/authenticationUtiliti
 router.post('/', getTeams);
 router.post('/new', createTeam);
 router.post('/update', updateTeam);
+router.post('/updateV02', updateV02);
 
 module.exports = router;
 
@@ -66,4 +67,24 @@ teamUtilities.updateTeam(teamUID, toUpdate, newValue).then((team) => {
   console.log(err);
 })
 
+}
+
+async function updateV02(req, res){
+  if(!await authenticatePost(req, res)){
+    res.end();
+    return;
+  }
+
+  const data = req.body;
+  const teamUID = data.teamUID;
+  const date = data.date
+
+  teamUtilities.getTeamV02(teamUID, date).then((team) => {
+    res.setHeader('Content-Type', 'application/json');
+    const teamJson = JSON.stringify(team);
+    res.end(teamJson);
+  }).catch(err => {
+    console.log("Error updating and fetching the team's v02max")
+    console.log(err);
+  })
 }

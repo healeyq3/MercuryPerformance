@@ -1,5 +1,7 @@
 const firebaseSetup = require("./firebaseSetup");
 const database = firebaseSetup.database;
+const teamUtilites = require("./teamUtilities");
+const { median } = require('mathjs');
 
 // -------------- Runners ----------------
 
@@ -25,9 +27,12 @@ async function getTeamRunners(teamuid){
   return runners;
 }
 
-async function createRunner(teamuid, name, email, experience, gradYear, wPace, v02){
+async function createRunner(teamuid, name, email, experience, gradYear, wPace, v02, dateAdded){ //THIS FUNCTION IS WAY TOO INEFFICIENT
   const runnerRef = await database.ref("runners").push();
-
+  v02History = {}
+  v02History[dateAdded] = v02
+  wPaceHistory = {};
+  wPaceHistory[dateAdded] = wPace
   const newRunner = {
     name,
     email,
@@ -35,25 +40,34 @@ async function createRunner(teamuid, name, email, experience, gradYear, wPace, v
     gradYear,
     wPace,
     v02,
+    dateAdded,
+    v02History,
+    wPaceHistory,
     key: runnerRef.key.toString()
   }
 
   runnerRef.set(newRunner).then(() => {
-    addRunnerToTeam(teamuid, runnerRef.key);
+    updatedTeam = addRunnerToTeam(teamuid, runnerRef.key, dateAdded);
+    console.log("Created Runner".green)
   }).catch((err) => {
     console.log("Unable to create runner ".red + name.blue);
     console.log(err.toString());
   });
-
   return newRunner;
+  
 }
 
-async function addRunnerToTeam(teamuid, runneruid){
+async function addRunnerToTeam(teamuid, runneruid, date){
   await database.ref("teams/" + teamuid + "/runners").child(runneruid.toString()).set(runneruid)
-    .catch((err) => {
+  .then(() => {
+    teamUtilites.getTeamV02(teamuid, date);
+    console.log("Added runner".green + runneruid.green +  "to the team".green + teamuid.green)
+  })
+   .catch((err) => {
       console.log("Unable to add runner ".red + runneruid.red +" to ".red);
       console.log(err);
     });
+
 }
 
 async function updateRunner(runnerUID, toUpdate, newValue){

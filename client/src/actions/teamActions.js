@@ -107,3 +107,37 @@ export function updateTeam(teamUID, toUpdate, newValue){
     })
   }
 }
+
+export function updateV02(teamUID, date){
+  return async function(dispatch){
+    fire.auth().onAuthStateChanged(function(user) {
+      if(!user){
+        cookie.remove('mercury-fb-token');
+        return;
+      }
+      user.getIdToken(true).then(async function (idToken) {
+        cookie.save('mercury-fb-token', idToken, { path: "/", sameSite: "strict", SameSite: "strict" });
+
+        await fetch('/api/teams/updateV02', {
+          method: 'POST',
+          headers: {
+            'content-type' : 'application/json'
+          },
+          body: JSON.stringify({
+            idToken,
+            teamUID,
+            date
+          })
+        })
+        .then(res => res.json())
+        .then(team => dispatch({
+          type: UPDATE_TEAM,
+          payload: team,
+          teamUID: team.key
+        })).catch(err => {
+          console.log(err);
+        })
+      })
+    })
+  }
+}
