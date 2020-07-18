@@ -1,9 +1,11 @@
 const firebaseSetup = require("./firebaseSetup");
 const database = firebaseSetup.database;
+const teamUtilies = require('./teamUtilities');
+const { median } = require('mathjs')
 
 // -------------- Events ----------------
 
-async function createEvent(teamuid, name, date, location, distance, distanceUnit, priorV02, priorWPace){
+async function createEvent(teamuid, name, date, location, distance, distanceUnit){
   const eventRef = await database.ref("events").push();
 
   const eventData = {
@@ -12,8 +14,6 @@ async function createEvent(teamuid, name, date, location, distance, distanceUnit
     location,
     distance,
     distanceUnit,
-    priorV02,
-    priorWPace,
     key: eventRef.key.toString()
   }
 
@@ -71,6 +71,7 @@ async function addRunnerToEvent(eventuid, runnerUidArray){
       if(!snapshot.hasChild(runner)) {
         runnersAdded[runner] = runnerUidArray[runner];
         eventRef.child("" + runner).set(runnerUidArray[runner]).then(() => {
+          getEventPriorData(eventuid);
         }).catch(() => {
           console.log("Error adding runner ".cyan + runneruid + " to ".cyan + eventuid);
         })
@@ -83,11 +84,46 @@ async function addRunnerToEvent(eventuid, runnerUidArray){
       }
     })
   };
-
+  getEventPriorData(eventuid);
   return runnersAdded;
 }
 
-async function newTime(timeData, splitData, raceV02, raceWPace, eventuid, selectedteamuid, runneruid){
+async function getEventPriorData(eventuid){
+  const runnersRef = database.ref("events/" + eventuid + "/runners");
+  let runnerArray = []
+  let vValues = [];
+  let wPValues = [];
+
+  await runnersRef.once("value").then(async (snapshot) => {
+    snapshot.forEach(function(child){
+      runnerArray.push(child.val());
+    })
+  })
+  runnerArray.map((runner) => {
+    vValues.push(runner.priorV02)
+    wPValues.push(stringToNumber(runner.priorWPace))
+  })
+
+  priorMedianEventV02 = median(vValues);
+  priorMedianEventWPace = secondsToMinutes(median(wPValues));
+  
+  await database.ref("events/" + eventuid).child("priorMedianEventV02").set(priorMedianEventV02).then(() => {
+    console.log("Successfully updated the prior median v02 for the event".green)
+  }).catch(err => {
+    console.log("Was unable to set the prior median v02 for the event".red);
+    console.log(err);
+  })
+
+  await database.ref("events/" + eventuid).child("priorMedianEventWPace").set(priorMedianEventWPace).then(() => {
+    console.log("Successfully updated the prior median wPace for the event".green)
+  }).catch(err => {
+    console.log("Was unable to set the prior median wPace for the event".red);
+    console.log(err);
+  })
+
+}
+
+async function newTime(timeData, splitData, raceV02, raceWPace, eventuid, selectedteamuid, runneruid, date){
   const eventTimeRef = await database.ref("events/" + eventuid + "/runners/" + runneruid + "/time")
   const eventSplitRef = await database.ref("events/" + eventuid + "/runners/" + runneruid + "/splits")
   await eventTimeRef.set(timeData).catch((error) => {
@@ -99,6 +135,7 @@ async function newTime(timeData, splitData, raceV02, raceWPace, eventuid, select
     });
   }
   await database.ref("events/" + eventuid + "/runners/" + runneruid).child("raceV02").set(raceV02).then(() => {
+    getPostRaceData(eventuid, selectedteamuid, date)
   }).catch(() => {
     console.log("Error changing the raceV02 for the runner ".red + runneruid.red)
   })
@@ -106,6 +143,47 @@ async function newTime(timeData, splitData, raceV02, raceWPace, eventuid, select
   }).catch(() => {
     console.log("Error changing the raceV02 for the runner ".red + runneruid.red)
   })
+}
+
+async function getPostRaceData(eventuid, teamUID, date){
+  const runnersRef = database.ref("events/" + eventuid + "/runners");
+  let runnerArray = []
+  let vValues = [];
+  let wPValues = [];
+
+  await runnersRef.once("value").then(async (snapshot) => {
+    snapshot.forEach(function(child){
+      runnerArray.push(child.val());
+    })
+  })
+  runnerArray.map((runner) => {
+    if(runner.raceV02 !== undefined){
+      vValues.push(runner.raceV02)
+    }
+    if(runner.raceWPace !== undefined){
+      wPValues.push(stringToNumber(runner.raceWPace))
+    }
+  })
+
+  postRaceV02 = median(vValues);
+  postRaceWPace = secondsToMinutes(median(wPValues));
+  
+  await database.ref("events/" + eventuid).child("postRaceV02").set(postRaceV02).then(() => {
+    console.log("Successfully updated the post median v02 for the event".green)
+  }).catch(err => {
+    console.log("Was unable to set the post median v02 for the event".red);
+    console.log(err);
+  })
+
+  await database.ref("events/" + eventuid).child("postRaceWPace").set(postRaceWPace).then(() => {
+    console.log("Successfully updated the post median wPace for the event".green)
+  }).catch(err => {
+    console.log("Was unable to set the post median wPace for the event".red);
+    console.log(err);
+  })
+  console.log(date);
+
+  teamUtilies.getTeamV02(teamUID, date);
 }
 
 async function removeRunnerFromEvent(eventuid, runneruid){
@@ -125,6 +203,14 @@ async function removeRunnerFromEvent(eventuid, runneruid){
   return successfulDelete;
 }
 
+async function refreshEvent(eventuid){
+  let eventToReturn = null;
+  await database.ref("events/" + eventuid).once("value").then(eventSnapshot => {
+    eventToReturn = eventSnapshot.val();
+  })
+  return eventToReturn
+}
+
 async function doesEventBelongToTeam(req){
   const teamuid = req.body.selectedTeamUID;
   const eventuid = req.body.eventuid;
@@ -139,9 +225,30 @@ async function doesEventBelongToTeam(req){
   });
 }
 
+// ------------ See TimeConversions in the client for more information ---------------
+function stringToNumber(prevString) {
+  const toSubString = prevString.indexOf(':');
+  const minutes = Number(prevString.substring(0, toSubString));
+  const seconds = Number(prevString.substring(toSubString + 1));
+  return(totalTheTime(minutes, seconds));
+}
+
+function totalTheTime(minutes, seconds) {
+  let toReturn = 0.0;
+  toReturn += minutes * 60;
+  toReturn += seconds;
+  return toReturn;
+}
+
+function secondsToMinutes(seconds){
+  return (seconds / 60);
+}
+
 module.exports.createEvent = createEvent;
 module.exports.addEventToTeam = addEventToTeam;
 module.exports.getTeamEvents = getTeamEvents;
 module.exports.addRunnerToEvent = addRunnerToEvent;
 module.exports.removeRunnerFromEvent = removeRunnerFromEvent;
 module.exports.newTime = newTime;
+module.exports.getEventPriorData = getEventPriorData;
+module.exports.refreshEvent = refreshEvent;

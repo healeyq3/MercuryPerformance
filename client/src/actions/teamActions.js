@@ -1,4 +1,4 @@
-import {GET_TEAMS, NEW_TEAM, SET_TEAM, UPDATE_TEAM} from './types';
+import {GET_TEAMS, NEW_TEAM, SET_TEAM, UPDATE_TEAM, REFRESH_TEAM} from './types';
 import cookie from 'react-cookies'
 import fire from "../Fire";
 
@@ -135,6 +135,41 @@ export function updateV02(teamUID, date){
           payload: team,
           teamUID: team.key
         })).catch(err => {
+          console.log(err);
+        })
+      })
+    })
+  }
+}
+
+export function refreshTeam(teamUID){
+  console.log("Got into the function")
+  return async function(dispatch){
+    console.log("Got into the return function");
+    fire.auth().onAuthStateChanged(function(user){
+      if(!user){
+        cookie.remove('mercury-fb-token');
+        return;
+      }
+      user.getIdToken(true).then(async function (idToken) {
+        cookie.save('mercury-fb-token', idToken, { path: "/", sameSite: "strict", SameSite: "strict" });
+        console.log("Got to before the fetch")
+        await fetch('api/teams/refreshteam', {
+          method: 'POST',
+          headers : {
+            'content-type' : 'application/json'
+          },
+          body: JSON.stringify({
+            idToken,
+            teamUID
+          })
+        }).then(res => res.json()).then(team => dispatch({
+          type: REFRESH_TEAM,
+          payload: team,
+          teamuid: team.key
+        }))
+        .catch(err => {
+          console.log("Error refreshing");
           console.log(err);
         })
       })

@@ -131,7 +131,9 @@ export class AddResultsModal extends Component {
             wPace: this.state.workoutPace
         }
 
-        this.props.newTime(timeData, splitsData, analysisData, this.props.selectedTeam, this.props.selectedEvent, this.props.runneruid);//needs to have selectedEventUID, and runnerUID
+        const date = this.props.events[this.props.selectedEvent].date;
+
+        this.props.newTime(timeData, splitsData, analysisData, this.props.selectedTeam, this.props.selectedEvent, this.props.runneruid, date);//needs to have selectedEventUID, and runnerUID
         
         if(this.state.updateV02 === true){
             const newV02 = this.state.v02max;

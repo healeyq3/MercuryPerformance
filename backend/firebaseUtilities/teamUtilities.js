@@ -85,7 +85,7 @@ async function updateTeam(teamUID, toUpdate, newValue){
 
 
 
-async function getTeamV02(teamuid, date){ //grabs the most updated team V02
+async function getTeamV02(teamuid, date){ //grabs the most updated team V02, and workout pace
   const teamRunnersRef = database.ref("teams/" + teamuid + "/runners");
   let runners = {};
 
@@ -185,6 +185,15 @@ async function getTeamV02(teamuid, date){ //grabs the most updated team V02
   return teamToReturn;
 }
 
+async function refreshTeam(teamuid){
+  console.log("made it into refreshTeam in firebase")
+  let teamToReturn = null;
+  await database.ref("teams/" + teamuid).once('value').then((teamSnapshot) => {
+    teamToReturn = teamSnapshot.val();
+  })
+  return teamToReturn;
+}
+
 // ------------ See DateAlgos in the client for more information ---------------
 
 function findClosestDate(historyObject, date){
@@ -261,3 +270,4 @@ module.exports.getUserTeams = getUserTeams;
 module.exports.doesUserOwnTeam = doesUserOwnTeam;
 module.exports.updateTeam = updateTeam;
 module.exports.getTeamV02 = getTeamV02;
+module.exports.refreshTeam = refreshTeam;

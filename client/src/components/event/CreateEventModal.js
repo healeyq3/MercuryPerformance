@@ -30,9 +30,7 @@ export class CreateEventModal extends Component {
             date: this.state.date,
             location: this.state.location,
             distance: this.state.distance,
-            distanceUnit: this.state.distanceUnit,
-            priorV02: this.props.teams[this.props.selectedTeam].medianV02max,
-            priorWPace: this.props.teams[this.props.selectedTeam].medianWPace
+            distanceUnit: this.state.distanceUnit
         }
         this.props.newEvent(eventData, this.props.teamUID);//need to pass in selectedTeamUID here
         this.props.setShow();

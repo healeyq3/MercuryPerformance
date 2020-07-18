@@ -3,12 +3,14 @@ export const GET_TEAMS = 'GET_TEAMS';
 export const NEW_TEAM = 'NEW_TEAM';
 export const SET_TEAM = 'SET_TEAM';
 export const UPDATE_TEAM = 'UPDATE_TEAM';
+export const REFRESH_TEAM = 'REFRESH_TEAM';
 
 // ----------- RUNNER ACTIONS ---------------
 export const NEW_RUNNER = 'NEW_RUNNER';
 export const GET_TEAM_RUNNERS = 'GET_TEAM_RUNNERS';
 export const SET_RUNNER = 'SET_RUNNER';
 export const UPDATE_RUNNER  = 'UPDATE_RUNNER';
+export const RESET_HOMERUNNER_ADDED = 'RESET_HOMERUNNER_ADDED';
 
 // ----------- EVENT ACTIONS ---------------
 export const NEW_EVENT = 'NEW_EVENT';
@@ -18,6 +20,7 @@ export const NEW_TIME = 'NEW_TIME';//this may move
 export const RUNNERS_ADDED = 'RUNNERS_ADDED';
 export const SELECT_RUNNER =  'SELECT_RUNNER';
 export const RESET_RUNNER_ADDED = 'RESET_RUNNER_ADDED';
+export const REFRESH_EVENT = 'REFRESH_EVENT';
 
 
 //  ----------- WORKOUT ACTIONS ---------------

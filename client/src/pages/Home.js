@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { newRunner, getTeamRunners, setRunner } from "../actions/runnerActions";
-import { setTeam, updateTeam, updateV02 } from "../actions/teamActions";
+import { newRunner, getTeamRunners, setRunner, resetRunnerAdded } from "../actions/runnerActions";
+import { setTeam, updateTeam, updateV02, refreshTeam } from "../actions/teamActions";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { connect } from "react-redux";
 import ExistingRunnerCard from "../components/ExistingRunnerCard";
@@ -18,36 +18,20 @@ class Home extends Component {
     this.state = {
       medianPace: 0,
       gotoEvents: false,
-      medianV02: 0
+      medianV02: 0,
+      runnerCount: 0
     };
-
-    this.calculateTeamMedians = this.calculateTeamMedians.bind(this);
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  componentDidUpdate(prevProps) {
     if (prevProps.rehydrated === false) {
       this.props.getTeamRunners(this.props.selectedTeam);
-    }
+     } 
   }
 
   setSelectedRunner(runner) {
     this.props.setRunner(runner.key);
-    // this.setState({
-    //   gotoEvents: true
-    // })
   }
-
-  calculateTeamMedians = (date) => {
-    // this.props.updateV02(this.props.selectedTeam, date)
-    // const toUpdate1 = getMedianTeamPace(this.props.runners);
-    // const toUpdate2 = getMedianTeamV02(this.props.runners);
-    // this.setState({
-    //   medianPace: toUpdate1,
-    //   medianV02: toUpdate2
-    // });
-    // this.props.updateTeam(this.props.selectedTeam, "medianWPace", toUpdate1);
-    // this.props.updateTeam(this.props.selectedTeam, "medianV02max", toUpdate2);
-  };
 
   render() {
     if (!this.props.selectedTeam) {
@@ -57,6 +41,12 @@ class Home extends Component {
     if (this.state.gotoEvents) {
       return <Redirect to="/events" />;
     }
+
+    // if(this.props.hasAddedRunner && this.state.runnerCount !== Object.keys(this.props.teams[this.props.selectedTeam].runners.length)){
+    //   this.props.refreshTeam(this.props.selectedTeam)
+    // } else if(this.props.hasAddedRunner && this.state.runnerCount === Object.keys(this.props.teams[this.props.selectedTeam].runners.length)){
+    //   this.props.resetRunnerAdded();
+    // }
     
     let runnerArr = [];
 
@@ -85,7 +75,7 @@ class Home extends Component {
               Roster
               </Col>
               <Col className = "home-cardheader-col">
-              <AddRunner teamUID={this.props.selectedTeam} onSelect={this.calculateTeamMedians}/>
+              <AddRunner teamUID={this.props.selectedTeam}/>
               </Col>
              
             </Row>
@@ -107,6 +97,7 @@ Home.propTypes = {
   runners: PropTypes.object.isRequired,
   selectedRunner: PropTypes.string,
   updateTeam: PropTypes.func.isRequired,
+  hasAddedRunner: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = function (state) {
@@ -115,6 +106,7 @@ const mapStateToProps = function (state) {
     selectedTeam: state.teams.selectedTeam,
     teams: state.teams.teams,
     selectedRunner: state.runners.selectedRunner,
+    hasAddedRunner: state.runners.hasAddedRunner,
     rehydrated: state._persist.rehydrated,
   };
 };
@@ -125,4 +117,6 @@ export default connect(mapStateToProps, {
   setTeam,
   updateTeam,
   updateV02,
+  refreshTeam,
+  resetRunnerAdded
 })(Home);

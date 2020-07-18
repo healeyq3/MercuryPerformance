@@ -1,4 +1,4 @@
-import {ADD_BLUEPRINT_TEAM, GET_TEAMS, NEW_TEAM, SET_TEAM, UPDATE_TEAM} from '../actions/types';
+import {ADD_BLUEPRINT_TEAM, GET_TEAMS, NEW_TEAM, SET_TEAM, UPDATE_TEAM, REFRESH_TEAM} from '../actions/types';
 
 const initialState = {
   teams: {},
@@ -42,6 +42,11 @@ export default function(state = initialState, action) {
       ...state,
       teams: {...state.teams, [action.teamUID]: action.payload}
     }
+    case REFRESH_TEAM:
+      return {
+        ...state,
+        teams: {...state.teams, [action.teamUID]: action.payload}
+      }
     default:
       return state;
   }

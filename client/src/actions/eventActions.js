@@ -5,7 +5,8 @@ import {
   NEW_TIME,
   RUNNERS_ADDED,
   SELECT_RUNNER,
-  RESET_RUNNER_ADDED
+  RESET_RUNNER_ADDED,
+  REFRESH_EVENT
 } from './types';
 import cookie from 'react-cookies'
 import fire from "../Fire";
@@ -42,7 +43,7 @@ export function newEvent(eventData, selectedTeamUID){
   }
 }
 
-export function newTime(timeData, splitsData, analysisData, selectedTeamUID, eventUID, runnerUID){
+export function newTime(timeData, splitsData, analysisData, selectedTeamUID, eventUID, runnerUID, date){
   return async function(dispatch) {
     fire.auth().onAuthStateChanged(function(user) {
       user.getIdToken(true).then(async function (idToken) {
@@ -60,7 +61,8 @@ export function newTime(timeData, splitsData, analysisData, selectedTeamUID, eve
             idToken,
             eventUID,
             selectedTeamUID,
-            runnerUID
+            runnerUID,
+            date
           })
         })
         .then((res) => res.json())
@@ -152,6 +154,40 @@ export function resetRunnerAdded(){
   return function(dispatch){
     dispatch({
       type: RESET_RUNNER_ADDED
+    })
+  }
+}
+
+export function refreshEvent(eventuid){
+  return async function(dispatch){
+    fire.auth().onAuthStateChanged(function(user){
+      if(!user){
+        cookie.remove('mercury-fb-token');
+        return;
+      }
+      user.getIdToken(true).then(async function (idToken) {
+        cookie.save('mercury-fb-token', idToken, { path: "/", sameSite: "strict", SameSite: "strict" });
+
+        await fetch('/api/events/refreshevent', {
+          method: 'POST',
+          headers : {
+            'content-type' : 'application/json'
+          },
+          body: JSON.stringify({
+            idToken,
+            eventuid
+          })
+        })
+        .then(res => res.json())
+        .then(event => dispatch({
+          type: REFRESH_EVENT,
+          payload: event,
+          eventUID: event.key
+        }))
+        .catch(err => {
+          console.log(err);
+        })
+      })
     })
   }
 }

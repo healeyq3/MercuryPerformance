@@ -8,7 +8,8 @@ const teamUtilities = require("../firebaseUtilities/teamUtilities");
 router.post('/', getEvents);
 router.post('/new', createEvent);
 router.post('/addrunner', addRunner);
-router.post('/newtime', newTime);//I don't think this is actually sending it to newTime
+router.post('/newtime', newTime);
+router.post('/refreshevent', refreshEvent);
 
 module.exports = router;
 
@@ -45,15 +46,13 @@ async function createEvent(req, res){
   const location = data.eventData.location;
   const distance = data.eventData.distance;
   const distanceUnit = data.eventData.distanceUnit;
-  const priorV02 = data.eventData.priorV02;
-  const priorWPace = data.eventData.priorWPace;
 
   if(!await teamUtilities.doesUserOwnTeam(req)){
     res.end("{}");
     return;
   }
 
-  eventUtilities.createEvent(data.selectedTeamUID, name, date, location, distance, distanceUnit, priorV02, priorWPace).then((event) => {
+  eventUtilities.createEvent(data.selectedTeamUID, name, date, location, distance, distanceUnit).then((event) => {
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(event));
   }).catch((error) => {
@@ -85,8 +84,9 @@ async function newTime(req, res){
   const splitsArray = data.splitsData.splits;
   const raceV02 = data.analysisData.v02;
   const raceWPace = data.analysisData.wPace;
+  const date = data.date;
 
-  eventUtilities.newTime(timeData, splitsData, raceV02, raceWPace, eventUID, selectedTeamUID, runnerUID);
+  eventUtilities.newTime(timeData, splitsData, raceV02, raceWPace, eventUID, selectedTeamUID, runnerUID, date);
 
   const toSend = {
     eventUID,
@@ -114,4 +114,23 @@ async function addRunner(req, res){
     runnersAdded: runnersAdded,
     eventuid: eventuid
   }));
+}
+
+async function refreshEvent(req, res){
+  if(!await authenticatePost(req, res)){
+    res.end();
+    return;
+  }
+
+  const data = req.body;
+  const euid = data.eventuid;
+
+  eventUtilities.refreshEvent(euid).then(event => {
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify(event));
+  }).catch(err => {
+    console.log("Error refreshing the event".red);
+    console.log(err);
+    res.end("{}");
+  })
 }

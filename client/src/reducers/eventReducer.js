@@ -5,7 +5,8 @@ import {
   NEW_TIME,
   RUNNERS_ADDED,
   SELECT_RUNNER,
-  RESET_RUNNER_ADDED
+  RESET_RUNNER_ADDED,
+  REFRESH_EVENT
 } from '../actions/types';
 
 const initialState = {
@@ -77,6 +78,11 @@ export default function(state = initialState, action) {
       return{
         ...state,
         hasAddedRunner: false
+      }
+    case REFRESH_EVENT:
+      return {
+        ...state,
+        events : {...state.events, [action.eventUID] : action.payload}
       }
     default:
       return state;

@@ -1,4 +1,4 @@
-import { GET_TEAM_RUNNERS, NEW_RUNNER, SET_RUNNER, UPDATE_RUNNER } from './types';
+import { GET_TEAM_RUNNERS, NEW_RUNNER, SET_RUNNER, UPDATE_RUNNER, RESET_HOMERUNNER_ADDED } from './types';
 import cookie from 'react-cookies'
 import fire from "../Fire";
 
@@ -26,7 +26,7 @@ export function getTeamRunners(selectedTeamUID) {
               type: GET_TEAM_RUNNERS,
               payload: runners
             })
-        );
+        )
       })
     })
   }
@@ -56,9 +56,10 @@ export function newRunner(runnerData, selectedTeamUID){
             dispatch({
               type: NEW_RUNNER,
               payload: runner,
-              teamUID: runner.key
+              runneruid: runner.key
             })
-        ).catch((error) => {
+        )
+        .catch((error) => {
           console.log(error);
         })
       })
@@ -108,6 +109,14 @@ export function updateRunner(runnerUID, toUpdate, newValue){
           console.log(err)
         })
       })
+    })
+  }
+}
+
+export function resetRunnerAdded() {
+  return function(dispatch){
+    dispatch({
+      type: RESET_HOMERUNNER_ADDED
     })
   }
 }

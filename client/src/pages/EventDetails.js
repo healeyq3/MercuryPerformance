@@ -6,7 +6,7 @@ import EventDetailsCard from '../components/event/EventDetailsCard'
 import EventAddRunnersModal from '../components/event/EventAddRunnersModal'
 import AddResultsModal from '../components/event/AddResultsModal'
 import PropTypes from 'prop-types';
-import { newTime, addRunnersToEvent, selectRunner, resetRunnerAdded } from '../actions/eventActions';
+import { newTime, addRunnersToEvent, selectRunner, resetRunnerAdded, refreshEvent } from '../actions/eventActions';
 import { connect } from 'react-redux';
 import '../css/eventdetails.css';
 import {Redirect} from 'react-router-dom'
@@ -26,6 +26,7 @@ export class EventDetails extends Component {
 
     componentDidUpdate(prevProps) {
       if(prevProps.rehydrated===false){
+        this.props.refreshEvent(this.props.selectedEvent);
         console.log(this.props);
         if(!this.props.events[this.props.selectedEvent].runners){
           return;
@@ -72,6 +73,7 @@ export class EventDetails extends Component {
 
       if(this.props.hasAddedRunner && this.state.runnerCount === Object.keys(this.props.events[this.props.selectedEvent].runners).length){
         this.props.resetRunnerAdded();
+        // this.props.refreshEvent(this.props.selectedEvent);
         // this.setState({});
       }
 
@@ -132,4 +134,4 @@ const mapStateToProps = function(state){
 }
 
 
-export default connect(mapStateToProps, {newTime, addRunnersToEvent, selectRunner, resetRunnerAdded}) (EventDetails)
+export default connect(mapStateToProps, {newTime, addRunnersToEvent, selectRunner, resetRunnerAdded, refreshEvent }) (EventDetails)
