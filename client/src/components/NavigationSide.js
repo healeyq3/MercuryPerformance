@@ -65,14 +65,6 @@ class NavigationSide extends Component {
                     <div className="navigation-link-container">
                         <NavLink exact to="/events" className="navigation-link-events" onClick={this.updateEvents}><span class="text-hide">Workouts</span></NavLink>
                     </div>
-                    {/* <div className="navigation-link-container" >
-                        <img src={house} className="navigation-side-house-img" alt="home"/>
-                        <NavLink exact to="/teamselect" className="navigation-link" onClick={this.updateTeams}>Select Team</NavLink>
-                    </div> */}
-
-                    <div className="navigation-link-container" id="navigation-link-logout">
-                        <NavLink exact to="/login" className="navigation-link" onClick={this.logout}>Log Out</NavLink>
-                    </div>
                 </div>
             </div>
         )

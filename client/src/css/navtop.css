@@ -35,7 +35,6 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-    background-color: white;
 }
 
 .top-bar-widgets-container{
@@ -46,7 +45,7 @@
 
 .top-bar-user-information-container{
     width: 15vw;
-    justify-content: flex-end;
+    justify-content: center;
     display: flex;
     align-items: center;
     white-space: nowrap;
@@ -72,3 +71,26 @@
     padding: 0;
     margin: 0;
 }
+
+.dropbtn {
+    border-radius: 10rem;
+    background-color: #ffffff;
+    color: #a3a2a2;
+    border-color: #ffffff;
+
+}
+
+.dropbtn :hover {
+    background-color: #ffffff;
+    color: #ffffff;
+}
+
+.navigation-link{
+    color: rgb(6, 29, 95);
+    font: 16px "Helvetica Neue", sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+  
+

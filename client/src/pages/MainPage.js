@@ -17,6 +17,7 @@ import WorkoutDateDetails from "./WorkoutDateDetails";
 import WorkoutCreator from "./WorkoutCreator";
 import WorkoutEditor from './WorkoutEditor'
 import cookie from "react-cookies";
+import NavigationTop from '../components/NavigationTop';
 
 
 export class MainPage extends Component {
@@ -38,6 +39,7 @@ export class MainPage extends Component {
 
         return (
             <div className="main-page-container">
+                <NavigationTop rerenderCallback = {this.rerenderCallback}/>
                 <NavigationSide rerenderCallback={this.rerenderCallback}/>
                 <Switch>
                     <React.Fragment>

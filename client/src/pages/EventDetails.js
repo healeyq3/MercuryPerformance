@@ -95,7 +95,7 @@ export class EventDetails extends Component {
               <EventNavBar setShowRunner = {this.setShowRunner}/>
               <Row>
                   <Col>
-                      <Card className = "text-center">
+                      <Card className = "text-center card-container">
                           <Card.Header>Runners</Card.Header>
                           {runnersInEvent}
                       </Card>

@@ -18,7 +18,7 @@ class App extends Component {
           <Provider store={store}>
           <div className="container">
             <HashRouter>
-              <NavigationTop/>
+              {/* <NavigationTop/> */}
               <MainPage/>
             </HashRouter>
           </div>
