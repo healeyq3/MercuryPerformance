@@ -3,6 +3,7 @@ import { Modal, Form, Button, FormControl } from '../../../node_modules/react-bo
 import { connect } from '../../../node_modules/react-redux';
 import { newEvent } from '../../actions/eventActions';
 import PropTypes from "prop-types";
+import { getCleanDate, fixDateSelector } from '../../math/DateAlgos'
 
 export class CreateEventModal extends Component {
     constructor(props){
@@ -20,9 +21,16 @@ export class CreateEventModal extends Component {
     }
     
     handleChange(e){
-        console.log("changed");
-        console.log(e.target.value);
-        this.setState({ [e.target.name] : e.target.value});
+        if(e.target.name === 'date'){
+            let part1 = fixDateSelector(e.target.value)
+            let part2 = getCleanDate(part1);
+            this.setState({
+                date: part2
+            })
+        } else {
+            this.setState({ [e.target.name] : e.target.value});
+        }
+        
     }
     handleCreateEvent = () => {
         const eventData = {

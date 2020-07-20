@@ -56,7 +56,7 @@ export function newRunner(runnerData, selectedTeamUID){
             dispatch({
               type: NEW_RUNNER,
               payload: runner,
-              runneruid: runner.key
+              runnerUID: runner.key
             })
         )
         .catch((error) => {

@@ -126,6 +126,8 @@ async function getEventPriorData(eventuid){
 async function newTime(timeData, splitData, raceV02, raceWPace, eventuid, selectedteamuid, runneruid, date){
   const eventTimeRef = await database.ref("events/" + eventuid + "/runners/" + runneruid + "/time")
   const eventSplitRef = await database.ref("events/" + eventuid + "/runners/" + runneruid + "/splits")
+  const runnerV02Ref = await database.ref("runners/" + runneruid + "/v02History");
+  const runnerWPaceRef = await database.ref("runners/" + runneruid + "/wPaceHistory");
   await eventTimeRef.set(timeData).catch((error) => {
     console.log(error);
   });
@@ -135,13 +137,22 @@ async function newTime(timeData, splitData, raceV02, raceWPace, eventuid, select
     });
   }
   await database.ref("events/" + eventuid + "/runners/" + runneruid).child("raceV02").set(raceV02).then(() => {
-    getPostRaceData(eventuid, selectedteamuid, date)
   }).catch(() => {
     console.log("Error changing the raceV02 for the runner ".red + runneruid.red)
   })
   await database.ref("events/" + eventuid + "/runners/" + runneruid).child("raceWPace").set(raceWPace).then(() => {
   }).catch(() => {
     console.log("Error changing the raceV02 for the runner ".red + runneruid.red)
+  })
+
+  await runnerV02Ref.child(date).set(raceV02).then(() => {}).catch(err => {
+    console.log("Error updating the runner's v02History" + err)
+  })
+
+  await runnerWPaceRef.child(date).set(raceWPace).then(() => {
+    getPostRaceData(eventuid, selectedteamuid, date)
+  }).catch(err => {
+    console.log("Error updating the runner's wPaceHistory" + err)
   })
 }
 

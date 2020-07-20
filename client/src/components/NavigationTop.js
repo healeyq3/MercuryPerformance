@@ -23,11 +23,11 @@ class NavigationTop extends Component {
         this.updateTeams = this.updateTeams.bind(this);
     }
 
-    componentDidUpdate(prevProps){
-        if(prevProps.rehydrated === false){
-            this.forceUpdate();
-        }
-    }
+    // componentDidUpdate(prevProps){
+    //     if(prevProps.rehydrated === false){
+    //         this.forceUpdate();
+    //     }
+    // }
 
     logout = () => {
         cookie.remove('mercury-fb-token', {path:"/", sameSite: "strict", SameSite:"strict"});
@@ -58,7 +58,7 @@ class NavigationTop extends Component {
                         <Dropdown>
                             <Dropdown.Toggle className = "dropbtn"></Dropdown.Toggle>
                             <Dropdown.Menu>
-                                <Dropdown.Item onClick = {this.logout}>Logout</Dropdown.Item>
+                                <Dropdown.Item><NavLink exact to="/login" className="navigation-link" onClick={this.logout}>Log Out</NavLink></Dropdown.Item>
                                 <Dropdown.Item><NavLink className = "navigation-link" exact to = '/teamselect' onClick = {this.updateTeams}>Select Team</NavLink></Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>

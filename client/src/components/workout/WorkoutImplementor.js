@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Modal, Form, Button } from 'react-bootstrap'
 import { newActualWorkout } from '../../actions/workoutActions';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import { getCleanDate, fixDateSelector } from '../../math/DateAlgos';
 
 export class WorkoutImplementor extends Component {
     constructor(props){
@@ -14,7 +15,16 @@ export class WorkoutImplementor extends Component {
     }
 
     handleChange(e){
-        this.setState({[e.target.name] : e.target.value})
+        if(e.target.name === 'date'){
+            let part1 = fixDateSelector(e.target.value)
+            let part2 = getCleanDate(part1)
+            this.setState({
+                date: part2
+            })
+        } else {
+            this.setState({[e.target.name] : e.target.value})
+        }
+
     }
 
     handleCreate = () => {

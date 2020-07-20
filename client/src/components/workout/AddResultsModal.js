@@ -5,7 +5,8 @@ import { updateRunner } from '../../actions/runnerActions';
 import { sendActualTimes } from '../../actions/workoutActions';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { decomposedTimeGenerator } from '../../math/TimeConversions';
+import { secondsToAnswer, totalSeconds } from '../../math/TimeConversions';
+import { residualStandardDeviation } from '../../math/AnalysisAlgos';
 
 export class AddResultsModal extends Component {
     constructor(props){
@@ -62,18 +63,49 @@ export class AddResultsModal extends Component {
     }
 
     handleSendingATimes = () => {
+        let workoutStats = {
+            resSD : 0,
+            vE : [],
+            repsAdded: 0,
+            workoutStatus : ''
+        }
+        let v1 = [];
+        let rA = 0;
+        for(const rep in this.state.aTimesLocal){
+            if(this.state.aTimesLocal[rep].mileage !== undefined){
+                if(this.state.aTimesLocal[rep].mileage !== 0){
+                    let e = (this.state.aTimesLocal[rep].mileage - this.props.workouts[this.props.selectedWorkout].runners[this.props.runner].pTimesToCompare[rep].predictedMileage) / this.props.workouts[this.props.selectedWorkout].runners[this.props.runner].pTimesToCompare[rep].predictedMileage;
+                    v1.push(e * 100);
+                    rA++;
+                }
+            } else {
+                if(this.state.aTimesLocal[rep].hours !== 0 || this.state.aTimesLocal[rep].minutes !== 0 || this.state.aTimesLocal[rep].seconds !== 0){
+                    let timeData = {
+                        hours: this.state.aTimesLocal[rep].hours,
+                        minutes: this.state.aTimesLocal[rep].minutes,
+                        seconds: this.state.aTimesLocal[rep].seconds
+                    }
+                    let aSeconds = totalSeconds(timeData);
+                    let e = (aSeconds - this.props.workouts[this.props.selectedWorkout].runners[this.props.runner].pTimesToCompare[rep].predictedSeconds) / this.props.workouts[this.props.selectedWorkout].runners[this.props.runner].pTimesToCompare[rep].predictedSeconds
+                    v1.push(e * 100);
+                    rA++
+                }
+            }
+        }
+        if(rA !== 0){
+            workoutStats.resSD = residualStandardDeviation(v1);
+            workoutStats.repsAdded = rA;
+        }
+
         this.props.sendActualTimes(this.state.aTimesLocal, this.props.selectedWorkout, this.props.runner);
         console.log("Sent aTimesLocal");
         this.props.setShow();
     }
 
     reset = () => {
-        console.log("Reset called");
         this.setState({
             aTimesLocal: this.props.workouts[this.props.selectedWorkout].runners[this.props.runner].aTimes
         });
-        console.log("reset finished");
-        console.log(this.state.aTimesLocal)
     }
 
 
@@ -85,37 +117,42 @@ export class AddResultsModal extends Component {
        // Object.keys(this.props.runners).length > 0 ? selectedRunnerName = this.props.runners[this.props.selectedRunner].name : selectedRunnerName = null;
         this.state.aTimesLocal.map((rep, i) => {
             if(rep.mileage !== undefined){
-                repResults.push(
-                    <Row key = {i}>
-                        <Col>
-                            <Form.Label>{decomposedTimeGenerator(this.props.workouts[this.props.selectedWorkout].reps[i].hours, this.props.workouts[this.props.selectedWorkout].reps[i].minutes, this.props.workouts[this.props.selectedWorkout].reps[i].seconds)} Rep</Form.Label>
-                        </Col>
-                        <Col>
-                            <Form.Control name = {i} value = {this.state.aTimesLocal[i].mileage} onChange = {this.handleMileageChange} type = "text"/>
-                        </Col>
-                        <Col>
-                            <Form.Label>Mile(s)</Form.Label>
-                        </Col>
-                    </Row>
-                    
-                )
+                if(rep.type !== "distance rest" && rep.type !== "distance warmup" && rep.type !== 'distance cooldown'){
+                    repResults.push(
+                        <Row key = {i}>
+                            <Col>
+                                <Form.Label>{secondsToAnswer(this.props.workouts[this.props.selectedWorkout].runners[this.props.runner].pTimesToCompare[i].totalSeconds)} Rep</Form.Label>
+                            </Col>
+                            <Col>
+                                <Form.Control name = {i} value = {this.state.aTimesLocal[i].mileage} onChange = {this.handleMileageChange} type = "text"/>
+                            </Col>
+                            <Col>
+                                <Form.Label>Mile(s)</Form.Label>
+                            </Col>
+                        </Row>
+                        
+                    )
+                }
             } else{
-                repResults.push(
-                    <Row key = {i}>
-                        <Col>
-                            <Form.Label>{this.props.workouts[this.props.selectedWorkout].reps[i].distance} {this.props.workouts[this.props.selectedWorkout].reps[i].distanceUnit} Rep:</Form.Label>
-                        </Col>
-                        <Col>
-                            <Form.Control name = {i} value = {this.state.aTimesLocal[i].hours} onChange = {this.handleHourChange} type = "text"/>
-                        </Col>
-                        <Col>
-                            <Form.Control name = {i} value = {this.state.aTimesLocal[i].minutes} onChange = {this.handleMinuteChange} type = "text"/>
-                        </Col>
-                        <Col>
-                            <Form.Control name = {i} value = {this.state.aTimesLocal[i].seconds} onChange = {this.handleSecondChange} type = "text"/>
-                        </Col>
-                    </Row>
-                )
+                if(rep.type !== 'duration rest' && rep.type !== 'duration warmup' && rep.type !== 'duration cooldown'){
+                    repResults.push(
+                        <Row key = {i}>
+                            <Col>
+                                <Form.Label>{this.props.workouts[this.props.selectedWorkout].runners[this.props.runner].pTimesToCompare[i].repDist} {this.props.workouts[this.props.selectedWorkout].runners[this.props.runner].pTimesToCompare[i].repUnit} Rep:</Form.Label>
+                            </Col>
+                            <Col>
+                                <Form.Control name = {i} value = {this.state.aTimesLocal[i].hours} onChange = {this.handleHourChange} type = "text"/>
+                            </Col>
+                            <Col>
+                                <Form.Control name = {i} value = {this.state.aTimesLocal[i].minutes} onChange = {this.handleMinuteChange} type = "text"/>
+                            </Col>
+                            <Col>
+                                <Form.Control name = {i} value = {this.state.aTimesLocal[i].seconds} onChange = {this.handleSecondChange} type = "text"/>
+                            </Col>
+                        </Row>
+                    )
+                }
+                
             }
             return true; //wrote this so the error that said "Expected to return a value in arrow function" would go away
         })

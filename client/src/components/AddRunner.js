@@ -86,7 +86,7 @@ export class AddRunner extends React.Component {
 
   render() {
     return (
-      <Container fluid>
+      <React.Fragment>
         <Form>
           <Form.Group controlId="enter">
             <Button
@@ -165,7 +165,7 @@ export class AddRunner extends React.Component {
             <h3>V02 Max: {this.state.v02max}</h3>
           </Modal.Body>
         </Modal>
-      </Container>
+      </React.Fragment>
     );
   }
 }

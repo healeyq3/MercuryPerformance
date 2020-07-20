@@ -57,13 +57,13 @@ class NavigationSide extends Component {
             <div className="navigation-side-container">
                 <div className="navigation-side-link-container">
                     <div className="navigation-link-container">
-                        <NavLink exact to="/" className="navigation-link-home" onClick={this.updateHome}><span class="text-hide">Home</span></NavLink>
+                        <NavLink exact to="/" className="navigation-link-home" onClick={this.updateHome}><span className="text-hide">Home</span></NavLink>
                     </div>
                     <div className="navigation-link-container">
-                        <NavLink exact to="/workouts" className="navigation-link-workouts" onClick={this.updateWorkouts}><span class="text-hide">Events</span></NavLink>
+                        <NavLink exact to="/workouts" className="navigation-link-workouts" onClick={this.updateWorkouts}><span className="text-hide">Events</span></NavLink>
                     </div>
                     <div className="navigation-link-container">
-                        <NavLink exact to="/events" className="navigation-link-events" onClick={this.updateEvents}><span class="text-hide">Workouts</span></NavLink>
+                        <NavLink exact to="/events" className="navigation-link-events" onClick={this.updateEvents}><span className="text-hide">Workouts</span></NavLink>
                     </div>
                 </div>
             </div>

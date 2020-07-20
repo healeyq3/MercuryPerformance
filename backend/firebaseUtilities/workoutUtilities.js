@@ -200,6 +200,7 @@ async function addRunnerToWorkout(workoutuid, runnerUidArray){
     for(const runner in runnerUidArray){
         let pTimes = [];
         let aTimes = [];
+        let pTimesToCompare = [];
         workoutRef.once("value").then((snapshot) => {
             if(!snapshot.hasChild(runner)){
                 // console.log("Next line is the test for the UidArray")
@@ -209,18 +210,32 @@ async function addRunnerToWorkout(workoutuid, runnerUidArray){
                     pTimes.push(runnerUidArray[runner].pTimes[set])
                 }
                 for(set in runnerUidArray[runner].pTimes){
-                    if(runnerUidArray[runner].pTimes[set].predictedDistance !== undefined){
-                        let toAdd = {
-                            mileage: 0
+                    if(runnerUidArray[runner].pTimes[set].predictedDistance !== undefined){ // Time Rep
+                        if(runnerUidArray[runner].pTimes[set].type !== 'duration rest' && runnerUidArray[runner].pTimes[set].type !== 'duration warmup' && runnerUidArray[runner].pTimes[set].type !== 'duration cooldown'){
+                            let toAdd = {
+                                mileage: 0
+                            }
+                            aTimes.push(toAdd)
+                            pTimesToCompare.push({
+                                predictedMileage: runnerUidArray[runner].pTimes[set].predictedDistance,
+                                totalSeconds: runnerUidArray[runner].pTimes[set].totalSeconds
+                            })
                         }
-                        aTimes.push(toAdd)
-                    } else {
-                        let toAdd = {
-                            hours: 0,
-                            minutes: 0,
-                            seconds: 0
+                    } else { //Distance Rep
+                        if(runnerUidArray[runner].pTimes[set].type !== 'distance rest' && runnerUidArray[runner].pTimes[set].type !== 'distance warmup' && runnerUidArray[runner].pTimes[set].type !== 'distance cooldwon'){
+                            let toAdd = {
+                                hours: 0,
+                                minutes: 0,
+                                seconds: 0
+                            }
+                            aTimes.push(toAdd)
+                            pTimesToCompare.push({
+                                predictedSeconds: runnerUidArray[runner].pTimes[set].predictedSeconds,
+                                repDist: runnerUidArray[runner].pTimes[set].repDist,
+                                repUnit: runnerUidArray[runner].pTimes[set].repUnit
+                            })
                         }
-                        aTimes.push(toAdd)
+                        
                     }
                 }
                 console.log("pTimes on next liine")
@@ -229,10 +244,11 @@ async function addRunnerToWorkout(workoutuid, runnerUidArray){
                     pTimes: pTimes,
                     aTimes: aTimes,
                     pTotal: runnerUidArray[runner].pTotal,
+                    pTimesToCompare: pTimesToCompare,
                     wPace: runnerUidArray[runner].wPace,
                     wV02: runnerUidArray[runner].wV02
                 }
-                workoutRef.child("" + runner).child("pTimes").set(runnerUidArray[runner]).then(() => {
+                workoutRef.child("" + runner).child("pTimes").set(runnerUidArray[runner].pTimes).then(() => {
                 }).catch(() => {
                     console.log("Error adding runner pTimes".cyan + runner + " to ".cyan + workoutuid)
                 })
@@ -247,6 +263,12 @@ async function addRunnerToWorkout(workoutuid, runnerUidArray){
                 workoutRef.child("" + runner).child('wPace').set(runnerUidArray[runner].wPace).then(() => {
                 }).catch(() => {
                     console.log("Error adding wPace to ".red + runner);
+                })
+                workoutRef.child("" + runner).child('wV02').set(runnerUidArray[runner].wV02).then(() => {}).catch(err => {
+                    console.log("Error adding wV02 to ".red + runner);
+                })
+                workoutRef.child("" + runner).child('pTimesToCompare').set(pTimesToCompare).then(() => {}).catch(err => {
+                    console.log("Error adding pTimesToCompare to ".red) + runner
                 })
                 database.ref("runners/" + runner + "/workouts").child(workoutuid).set(workoutuid).then(() => {
                     console.log("Successfully added the workout " + workoutuid.green + " to the runner" + runner.green )

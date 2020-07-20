@@ -7,6 +7,8 @@ import ExistingRunnerCard from "../components/ExistingRunnerCard";
 import AddRunner from "../components/AddRunner";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
+import { V02OnlyGraph } from '../components/AnalysisGraphs/V02OnlyGraph';
+import { fixDateSelector, getCleanDate} from '../math/DateAlgos';
 import "../css/home.css";
 // import moment from 'moment';
 
@@ -19,13 +21,15 @@ class Home extends Component {
       medianPace: 0,
       gotoEvents: false,
       medianV02: 0,
-      runnerCount: 0
+      runnerCount: 0,
+      series: {}
     };
   }
 
+
   componentDidUpdate(prevProps) {
     if (prevProps.rehydrated === false) {
-      this.props.getTeamRunners(this.props.selectedTeam);
+      this.props.getTeamRunners(this.props.selectedTeam)
      } 
   }
 
@@ -42,11 +46,35 @@ class Home extends Component {
       return <Redirect to="/events" />;
     }
 
-    // if(this.props.hasAddedRunner && this.state.runnerCount !== Object.keys(this.props.teams[this.props.selectedTeam].runners.length)){
-    //   this.props.refreshTeam(this.props.selectedTeam)
-    // } else if(this.props.hasAddedRunner && this.state.runnerCount === Object.keys(this.props.teams[this.props.selectedTeam].runners.length)){
-    //   this.props.resetRunnerAdded();
-    // }
+
+
+    let data = [];
+    let dates = [];
+    if(this.props.teams[this.props.selectedTeam].v02History !== undefined){
+      
+      for(const date in this.props.teams[this.props.selectedTeam].v02History){
+        dates.push(new Date(fixDateSelector(date)).getTime())
+      }
+      dates.sort(function(a,b){return a - b});
+      console.log(dates)
+      console.log(this.props.teams[this.props.selectedTeam].v02History)
+      console.log(this.props.teams[this.props.selectedTeam].v02History[getCleanDate(new Date(dates[0]))])
+      for(const date in dates){
+        let toAdd = {
+          x: dates[date],
+          y: this.props.teams[this.props.selectedTeam].v02History[getCleanDate(new Date(dates[date]))].medianV02
+        }
+        data.push(toAdd)
+      }
+    }
+    
+    const series = [
+      {
+        name: "V02 History",
+        data: data
+      }
+    ]
+    console.log(series)
     
     let runnerArr = [];
 
@@ -62,11 +90,12 @@ class Home extends Component {
         );
       }
     }
+      
 
     return (
       <Container fluid className="home-container">
         {/*<h2 id = "teamNameHome">{this.props.teams[this.props.selectedTeam].teamName}</h2>*/}
-        
+        <Row>
         <Col sm = {6}>
         <Card>
           <Card.Header>
@@ -83,6 +112,11 @@ class Home extends Component {
         {runnerArr}
         </Card> 
         </Col>
+        <Col>
+        <V02OnlyGraph series = {series} />
+        </Col>
+        </Row>
+        
         
       </Container>
     );

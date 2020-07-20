@@ -1,5 +1,5 @@
 import { stringToNumber, secondsToMinutes, distanceToTime } from './TimeConversions';
-import { median } from 'mathjs';
+import { median, sum } from 'mathjs';
 
 function getAverageTeamPace(runners){
     let totalTime = 0;
@@ -84,4 +84,24 @@ function getPredictedTimes(runners, percent, rep){
 return max + "-" + min
 }
 
-export { getAverageTeamPace, getPredictedTimes, getPredictedTime, getMedianTeamPace, getMedianTeamV02};
+function residualStandardDeviation(v1) { // Takes in a vector of %E between p and (p^) to determine the residual Standard Deviation
+    let v = [];
+    v1.map(x => {
+        v.push(Math.pow(Math.abs(x), 2))
+    })
+    let s = sum(v)
+    let d = s / v1.length;
+    return Math.sqrt(d);
+}
+
+function determineWorkoutTrend(v1){ // REMEMBER NEGATIVE MEANS OVERSHOT... Takes in a vector of $E between p and (p^) to determine if the runner overtrained or undertrained during that workout
+    if(v1.length === 1 && v1[0] <= -1){
+        return 'over';
+    } else if(v1.length === 1 && v1[0] >= 1){
+        return 'under';
+    } else if(v1[0] <= -15){
+        return 'over';
+    }
+}
+
+export { residualStandardDeviation, getAverageTeamPace, getPredictedTimes, getPredictedTime, getMedianTeamPace, getMedianTeamV02};

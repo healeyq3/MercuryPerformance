@@ -47,7 +47,7 @@ async function createRunner(teamuid, name, email, experience, gradYear, wPace, v
   }
 
   runnerRef.set(newRunner).then(() => {
-    updatedTeam = addRunnerToTeam(teamuid, runnerRef.key, dateAdded);
+    addRunnerToTeam(teamuid, runnerRef.key, dateAdded);
     console.log("Created Runner".green)
   }).catch((err) => {
     console.log("Unable to create runner ".red + name.blue);
