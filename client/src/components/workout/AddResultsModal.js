@@ -13,7 +13,8 @@ export class AddResultsModal extends Component {
         super(props);
 
         this.state = {
-           aTimesLocal: []
+           aTimesLocal: [],
+           addTotal: false
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleMileageChange = this.handleMileageChange.bind(this);
@@ -114,64 +115,86 @@ export class AddResultsModal extends Component {
             return null;
         }
         let repResults = []
-       // Object.keys(this.props.runners).length > 0 ? selectedRunnerName = this.props.runners[this.props.selectedRunner].name : selectedRunnerName = null;
+
         this.state.aTimesLocal.map((rep, i) => {
             if(rep.mileage !== undefined){
-                if(rep.type !== "distance rest" && rep.type !== "distance warmup" && rep.type !== 'distance cooldown'){
-                    repResults.push(
-                        <Row key = {i}>
-                            <Col>
-                                <Form.Label>{secondsToAnswer(this.props.workouts[this.props.selectedWorkout].runners[this.props.runner].pTimesToCompare[i].totalSeconds)} Rep</Form.Label>
-                            </Col>
-                            <Col>
-                                <Form.Control name = {i} value = {this.state.aTimesLocal[i].mileage} onChange = {this.handleMileageChange} type = "text"/>
-                            </Col>
-                            <Col>
-                                <Form.Label>Mile(s)</Form.Label>
-                            </Col>
-                        </Row>
-                        
-                    )
-                }
+                repResults.push(
+                    <Row key = {i}>
+                        <Col>
+                            <Form.Label>{secondsToAnswer(this.props.workouts[this.props.selectedWorkout].runners[this.props.runner].pTimesToCompare[i].totalSeconds)} Rep</Form.Label>
+                        </Col>
+                        <Col>
+                            <Form.Control name = {i} value = {this.state.aTimesLocal[i].mileage} onChange = {this.handleMileageChange} type = "text"/>
+                        </Col>
+                        <Col>
+                            <Form.Label>Mile(s)</Form.Label>
+                        </Col>
+                        {/* { i === 0 ? <React.Fragment></React.Fragment> : 
+                        <Col>
+                        <Button>Enter Total</Button>
+                        </Col>
+                        } */}
+                    </Row>
+                )
             } else{
-                if(rep.type !== 'duration rest' && rep.type !== 'duration warmup' && rep.type !== 'duration cooldown'){
-                    repResults.push(
-                        <Row key = {i}>
-                            <Col>
-                                <Form.Label>{this.props.workouts[this.props.selectedWorkout].runners[this.props.runner].pTimesToCompare[i].repDist} {this.props.workouts[this.props.selectedWorkout].runners[this.props.runner].pTimesToCompare[i].repUnit} Rep:</Form.Label>
-                            </Col>
-                            <Col>
-                                <Form.Control name = {i} value = {this.state.aTimesLocal[i].hours} onChange = {this.handleHourChange} type = "text"/>
-                            </Col>
-                            <Col>
-                                <Form.Control name = {i} value = {this.state.aTimesLocal[i].minutes} onChange = {this.handleMinuteChange} type = "text"/>
-                            </Col>
-                            <Col>
-                                <Form.Control name = {i} value = {this.state.aTimesLocal[i].seconds} onChange = {this.handleSecondChange} type = "text"/>
-                            </Col>
-                        </Row>
-                    )
-                }
+                repResults.push(
+                    <Row key = {i}>
+                        <Col>
+                            <Form.Label>{this.props.workouts[this.props.selectedWorkout].runners[this.props.runner].pTimesToCompare[i].repDist} {this.props.workouts[this.props.selectedWorkout].runners[this.props.runner].pTimesToCompare[i].repUnit} Rep:</Form.Label>
+                        </Col>
+                        <Col>
+                            <Form.Control name = {i} value = {this.state.aTimesLocal[i].hours} onChange = {this.handleHourChange} type = "text"/>
+                        </Col>
+                        <Col>
+                            <Form.Control name = {i} value = {this.state.aTimesLocal[i].minutes} onChange = {this.handleMinuteChange} type = "text"/>
+                        </Col>
+                        <Col>
+                            <Form.Control name = {i} value = {this.state.aTimesLocal[i].seconds} onChange = {this.handleSecondChange} type = "text"/>
+                        </Col>
+                        {/* { i === 0 ? <React.Fragment></React.Fragment> : 
+                        <Col>
+                        <Button>Enter Total</Button>
+                        </Col>
+                        } */}
+                        
+                    </Row>
+                )
                 
             }
             return true; //wrote this so the error that said "Expected to return a value in arrow function" would go away
         })
-        console.log("List of runners on the next line");
-        console.log(this.props.runners)
+
+        this.state.aTimesLocal.map((rep, i) => {
+
+        })
+
+        
+
         return (
             <Modal show = {this.props.show} onHide = {this.props.setShow} onShow = {this.reset} size = 'lg'>
-                <Modal.Header closeButton>{this.props.runners[this.props.runner].name}</Modal.Header>
+                <Modal.Header closeButton>{this.props.runners[this.props.runner].name} | {this.state.addTotal === false ? "Individual Splits" : "Total Results"}</Modal.Header>
                 <Modal.Body>
-                    <Form >
-                        <Row>
-                        <Col>
-                            {repResults}
-                        </Col>
-                        </Row>
-                        <Row className = 'justify-content-md-center'>
-                            <Button variant = "outline-secondary" onClick = {this.handleSendingATimes}>Save Results</Button>
-                        </Row>
-                    </Form>
+                    {this.state.addTotal === false ? 
+                        <React.Fragment>
+                            <Button onClick = {() => {this.setState({addTotal : true})}}>Enter Total</Button>
+                            <Form>
+                                <Row>
+                                <Col>
+                                    {repResults}
+                                </Col>
+                                </Row>
+                                <Row className = 'justify-content-md-center'>
+                                    <Button variant = "outline-secondary" onClick = {this.handleSendingATimes}>Save Results</Button>
+                                </Row>
+                            </Form>
+                        </React.Fragment>
+                        :
+                        <React.Fragment>
+                            <Button onClick = {() => {this.setState({addTotal : false})}}>Enter Splits</Button>
+                        </React.Fragment>
+
+                    }
+                    
                 </Modal.Body>
             </Modal>
         )

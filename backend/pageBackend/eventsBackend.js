@@ -52,7 +52,7 @@ async function createEvent(req, res){
     return;
   }
 
-  eventUtilities.createEvent(data.selectedTeamUID, name, date, location, distance, distanceUnit).then((event) => {
+  eventUtilities.createEvent(data.selectedTeamUID, name, date, location, distance, distanceUnit, req.session.useruid).then((event) => {
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(event));
   }).catch((error) => {

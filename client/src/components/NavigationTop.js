@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import cookie from 'react-cookies'
 import {withRouter, NavLink} from "react-router-dom";
 import "../css/navtop.css"
-import logo from '../resources/mLogoV2-White.svg'
+import logo from '../resources/mLogoV2.svg'
 // import triangle from '../resources/mTriangleSelector.svg';
 import fire from '../Fire'
 import { connect } from 'react-redux';

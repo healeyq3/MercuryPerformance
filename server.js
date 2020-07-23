@@ -27,6 +27,7 @@ const teamBackend = require("./backend/pageBackend/teamBackend");
 const runnerBackend = require("./backend/pageBackend/runnerBackend");
 const eventsBackend = require("./backend/pageBackend/eventsBackend");
 const workoutsBackend = require('./backend/pageBackend/workoutsBackend');
+const calendarBackend = require('./backend/pageBackend/calendarBackend');
 
 app.use(logger("dev"));
 app.use(cors({origin: true}));
@@ -46,6 +47,7 @@ app.use("/api/runners", runnerBackend);
 app.use("/api/teams", teamBackend);
 app.use("/api/events", eventsBackend);
 app.use('/api/workouts', workoutsBackend);
+app.use('/api/calendar', calendarBackend);
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
 

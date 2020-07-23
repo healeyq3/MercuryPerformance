@@ -5,7 +5,7 @@ const { median } = require('mathjs')
 
 // -------------- Events ----------------
 
-async function createEvent(teamuid, name, date, location, distance, distanceUnit){
+async function createEvent(teamuid, name, date, location, distance, distanceUnit, useruid){
   const eventRef = await database.ref("events").push();
 
   const eventData = {
@@ -18,7 +18,8 @@ async function createEvent(teamuid, name, date, location, distance, distanceUnit
   }
 
   eventRef.set(eventData).then(async () => {
-    await addEventToTeam(teamuid, eventRef.key);
+    await addEventToTeam(teamuid, eventRef.key, date, name);
+    await addEventToUser(useruid, eventRef.key, date, name);
   }).catch((err) => {
     console.log("Unable to create event ".red + name.blue);
     console.log(err.toString());
@@ -27,13 +28,33 @@ async function createEvent(teamuid, name, date, location, distance, distanceUnit
   return eventData;
 }
 
-async function addEventToTeam(teamuid, eventuid){
-  await database.ref("teams/" + teamuid.toString() + "/events").child(eventuid.toString()).set(eventuid)
+async function addEventToTeam(teamuid, eventuid, date, name){
+  await database.ref("teams/" + teamuid.toString() + "/events").child(eventuid.toString()).child("date").set(date)
     .then(() => {
     }).catch((err) => {
       console.log("Unable to add event ".red + eventuid.red +" to "+ teamuid.toString().red);
       console.log(err);
     });
+  await database.ref("teams/" + teamuid + "/events/" + eventuid).child("name").set(name).then(() => {})
+  .catch(err => {
+    console.log("error adding the name to the event in its team ref".red)
+    console.log(err)
+  })
+}
+
+async function addEventToUser(useruid, eventuid, date){
+  await database.ref('users/' + useruid + '/events').child(eventuid).child("date").set(date)
+  .then(() => {
+    console.log("Event added to user".green)
+  }).catch(err => {
+    console.log("Unable to add event ".red + eventuid.red + " to " + useruid.red);
+    console.log(err);
+  })
+  await database.ref('users/' + useruid + "/events/" + eventuid).child("name").set(name).then(() => {})
+  .catch(err => {
+    console.log("Error adding name to the event ref in the user")
+    console.log(err);
+  })
 }
 
 async function getTeamEvents(teamuid){

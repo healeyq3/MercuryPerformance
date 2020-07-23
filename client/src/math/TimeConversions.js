@@ -7,7 +7,7 @@ function stringToNumber(prevString) {
     return(totalTheTime(minutes, seconds));
 }
 
-function totalTheTime(minutes, seconds) {
+function totalTheTime(minutes, seconds) { // returns number of seconds per mile
     let toReturn = 0.0;
     toReturn += minutes * 60;
     toReturn += seconds;
@@ -39,7 +39,7 @@ function totalSeconds(timeData){
     return toReturn;
 }
 
-function distanceToTime(distance, unit, avPace){
+function distanceToTime(distance, unit, avPace /* in seconds */){ // returns how much time a distance rep should take, the avPace should have already taken into account the effort for the rep
     let d = 0.0
     d = distance
     if(unit==="Kilometers"){

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getTeams, newTeam, setTeam } from '../actions/teamActions';
 import { getTeamRunners } from '../actions/runnerActions';
+import { getTeamDates } from '../actions/calendarActions';
 import ExistingTeamCard from '../components/ExistingTeamCard';
 import NewTeamCard from '../components/NewTeamCard';
 import CreateTeamModal from '../components/CreateTeamModal';
@@ -30,6 +31,7 @@ class TeamSelect extends React.Component {
 
   setSelectedTeam(team){
     this.props.getTeamRunners(team.key);
+    this.props.getTeamDates(team.key);
     this.props.setTeam(team.key);
     cookie.save('mercury-selectedTeam', team.key, { path: '/', sameSite:"strict", SameSite:"strict"});
     this.setState({
@@ -88,5 +90,5 @@ const mapStateToProps = function(state){
   }
 }
 
-export default connect(mapStateToProps, { getTeams, newTeam, setTeam, getTeamRunners }) (TeamSelect);
+export default connect(mapStateToProps, { getTeams, newTeam, setTeam, getTeamRunners, getTeamDates }) (TeamSelect);
   

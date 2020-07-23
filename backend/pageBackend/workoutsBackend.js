@@ -151,10 +151,11 @@ async function newWorkout(req, res){
     const data = req.body;
     const date = data.workoutData.date;
     const reps = data.workoutData.reps;
-    const blueprint = data.workoutData.blueprint
+    const blueprint = data.workoutData.blueprint;
+    const name = data.workoutData.name;
 
     
-    workoutUtilities.createWorkout(req.session.useruid, data.selectedTeamUID, blueprint, date, reps).then(workout => {
+    workoutUtilities.createWorkout(req.session.useruid, data.selectedTeamUID, blueprint, date, reps, name).then(workout => {
       res.setHeader('Content-Type', 'application/json');
       res.end(JSON.stringify(workout));
     }).catch(err => {

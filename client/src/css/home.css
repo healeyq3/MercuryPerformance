@@ -3,12 +3,17 @@
 } */
 
 .button {
-    background-color: #1E5288;
-    border-color: #1E5288;
-    border-radius: 10rem;
+  background-color: #1e5288;
+  border-color: #1e5288;
+  border-radius: 10rem;
 }
 
-.home-cardheader-col{
+.home-card-header {
+  color-adjust: #1e4288;
+}
+
+/* .home-cardheader-col{
     display: flex;
     align-items: left;
-}
+    background-color: #1E5288;
+} */

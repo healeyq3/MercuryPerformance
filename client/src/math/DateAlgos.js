@@ -22,9 +22,7 @@ function getCleanDate(date){ // turns an actual date into a string representatio
 function fixDateSelector(date){ // turns a clean string that is used to represent a date into an actual date that can be used for calculations
     const regex = /-/gi
     const clean = date.replace(regex, ",");
-    console.log(clean);
     const toReturn = new Date(clean);
-    console.log(toReturn);
     return toReturn;
 }
 

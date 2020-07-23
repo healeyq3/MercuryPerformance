@@ -32,7 +32,7 @@ export class WorkoutAddRunnersModal extends Component {
             for(const repNumber in this.props.workouts[this.props.selectedWorkout].reps){
                 let rep = this.props.workouts[this.props.selectedWorkout].reps[repNumber];
                 let toAdd = {}
-                if(rep.distanceUnit === undefined){
+                if(rep.distanceUnit === undefined){ // time rep
                     let timeData = {
                         hours: rep.hours,
                         minutes: rep.minutes,
@@ -55,7 +55,7 @@ export class WorkoutAddRunnersModal extends Component {
                         totalDistance: updatedDistance,
                         averagePace: updatedAveragePace
                     }
-                } else {
+                } else { // distance rep
                     secondsForRep = distanceToTime(rep.distance, rep.distanceUnit, (wPaceSeconds / (rep.percent / 100)));
                     predictedTime = secondsToAnswer(secondsForRep)
                     toAdd = {

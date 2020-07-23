@@ -31,7 +31,8 @@ export class WorkoutImplementor extends Component {
         const workoutData = {
             date: this.state.date,
             reps: this.props.reps,
-            blueprint: this.props.blueprint
+            blueprint: this.props.blueprint,
+            name: this.props.blueprintName
         }
         this.props.newActualWorkout(workoutData, this.props.teamUID);
         this.props.setShow();

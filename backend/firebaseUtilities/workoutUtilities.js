@@ -146,18 +146,19 @@ async function getWorkouts(teamuid, blueprint) {
     return workouts;
 }
 
-async function createWorkout(useruid, teamuid, blueprint, date, reps){
+async function createWorkout(useruid, teamuid, blueprint, date, reps, name){
     const workoutRef = await database.ref('workouts').push();
 
     const workoutData = {
         date,
         reps,
+        name,
         key: workoutRef.key.toString()
     }
 
     workoutRef.set(workoutData).then(async () => {
-        addWorkoutToTeam(teamuid, workoutRef.key)
-        addWorkoutToUser(useruid, workoutRef.key);
+        addWorkoutToTeam(teamuid, workoutRef.key, date, name)
+        addWorkoutToUser(useruid, workoutRef.key, date, name);
         addWorkoutToBlueprint(blueprint, workoutRef.key)
     }).catch(err => {
         console.log('Unable to create workout'.red + date.blue);
@@ -176,22 +177,32 @@ async function addWorkoutToBlueprint(blueprintuid, workoutuid){
     })
 }
 
-async function addWorkoutToTeam(teamuid, workoutuid){
-    await database.ref('teams/' + teamuid + '/workouts').child(workoutuid).set(workoutuid)
+async function addWorkoutToTeam(teamuid, workoutuid, date, name){
+    await database.ref('teams/' + teamuid + '/workouts').child(workoutuid).child("date").set(date)
     .then(() => {
     }).catch(err => {
         console.log("Unable to add workout ".red + workout.red + ' to '.red + teamuid.toString().red);
         console.log(err);
     })
+    await database.ref("teams/" + teamuid + '/workouts/' + workoutuid).child("name").set(name).then(() => {})
+    .catch(err => {
+        console.log("Unable to add name to the workout in teams".red)
+        console.log(err);
+    })
 }
 
-async function addWorkoutToUser(useruid, workoutuid){
-    await database.ref('users/' + useruid + '/workouts').child(workoutuid).set(workoutuid)
+async function addWorkoutToUser(useruid, workoutuid, date, name){
+    await database.ref('users/' + useruid + '/workouts').child(workoutuid).child("date").set(date)
       .then(() => {
       }).catch(err => {
           console.log("Unable to add workout ".red + workoutuid.red + ' to '.red + useruid.toString().red);
           console.log(err);
       })
+    await database.ref("users/" + useruid + "/workouts/" + workoutuid).child("name").set(name).then(() => {})
+    .catch(err => {
+        console.log("Unable to add name to the workout in users".red);
+        console.log(err);
+    })
 }
 
 async function addRunnerToWorkout(workoutuid, runnerUidArray){
