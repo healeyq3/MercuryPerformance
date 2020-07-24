@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Nova+Round&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@200&display=swap');
+
+.main-container {
+    width: 70vw;
+    height: 15vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background-color: #ffffffee;
+    border-style: solid;
+    border-radius: 2rem;
+    border-color: #ffffffee;
+}
+
+.date-card {
+    width: 9vw;
+    height: 25vh;
+}
+
+.race-text{
+    font-family: 'Mulish', sans-serif;
+}
+
+.workout-text{
+    font-family: 'Mulish', sans-serif;
+}
+
+.date-holder{
+    display: flex;
+    flex-direction: column;
+}
+
+.date-text {
+    font-family: 'Nova Round';
+    text-transform: uppercase;
+}
+
+.date-number-text {
+    font-family: 'Nova Round';
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.race-dot {
+    height: 10px;
+    width: 10px;
+    background-color: #ec1010ee;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .workout-dot {
+    height: 10px;
+    width: 10px;
+    background-color: #4384aaee;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .empty-day {
+      color: #d1d6daee;
+      font-weight: 300;
+      font-family: 'Mulish', sans-serif;
+  }
+

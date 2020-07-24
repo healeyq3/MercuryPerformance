@@ -18,10 +18,12 @@ import AddRunner from "../components/AddRunner";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
 import { V02OnlyGraph } from "../components/AnalysisGraphs/V02OnlyGraph";
-import { fixDateSelector, getCleanDate } from "../math/DateAlgos";
+import { fixDateSelector, getCleanDate, sevenDaySnapshot } from "../math/DateAlgos";
 import { repActualEffortD, residualStandardDeviation } from '../math/AnalysisAlgos';
 import { distanceToTime } from '../math/TimeConversions';
 import "../css/home.css";
+import { isEmptyObject } from "jquery";
+import MainCalendar from "../components/Calendar Components/MainCalendar";
 // import moment from 'moment';
 
 class Home extends Component {
@@ -48,7 +50,7 @@ class Home extends Component {
   }
 
   render() {
-    if (!this.props.selectedTeam) {
+    if (!this.props.selectedTeam || !this.props.workoutDates || !this.props.eventDates) {
       return null;
     }
 
@@ -102,6 +104,9 @@ class Home extends Component {
       <Container fluid className="home-container">
         {/*<h2 id = "teamNameHome">{this.props.teams[this.props.selectedTeam].teamName}</h2>*/}
         <Row>
+          <MainCalendar workouts = {this.props.workoutDates} events = {this.props.eventDates}/>
+        </Row>
+        <Row>
           <Col sm={6}>
             <Card>
               <Card.Header className="home-card-header">
@@ -133,6 +138,8 @@ Home.propTypes = {
   selectedRunner: PropTypes.string,
   updateTeam: PropTypes.func.isRequired,
   hasAddedRunner: PropTypes.bool.isRequired,
+  eventDates: PropTypes.object.isRequired,
+  workoutDates: PropTypes.object.isRequired
 };
 
 const mapStateToProps = function (state) {
@@ -143,6 +150,8 @@ const mapStateToProps = function (state) {
     selectedRunner: state.runners.selectedRunner,
     hasAddedRunner: state.runners.hasAddedRunner,
     rehydrated: state._persist.rehydrated,
+    eventDates: state.calendar.teamEventDates,
+    workoutDates: state.calendar.teamWorkoutDates
   };
 };
 export default connect(mapStateToProps, {
