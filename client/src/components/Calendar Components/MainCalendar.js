@@ -8,6 +8,7 @@ export class MainCalendar extends Component {
 
         const dates = sevenDaySnapshot(this.props.workouts, this.props.events)
         console.log(dates)
+        let counter = 0;
 
         const inCalendar = [];
         for(const date in dates){
@@ -38,15 +39,27 @@ export class MainCalendar extends Component {
                 )
             }
 
-            inCalendar.push(
-            <div className = 'date-card'>
-                <h5 className = 'date-text'>{getDay(dates[date].date)}</h5>
-                <h5 className = 'date-number-text'>{getDate(dates[date].date)}</h5>
-                <div className = "date-holder">
-                    {events}
-                </div>
-            </div>
-            )
+            if(counter === 0){
+                inCalendar.push(
+                    <div className = 'date-card'>
+                        <h5 className = 'date-text'>Today</h5>
+                        <div className = "date-holder">
+                            {events}
+                        </div>
+                    </div>
+                )
+            } else {
+                inCalendar.push(
+                    <div className = 'date-card'>
+                        <h5 className = 'date-text'>{getDay(dates[date].date)}</h5>
+                        <h5 className = 'date-number-text'>{getDate(dates[date].date)}</h5>
+                        <div className = "date-holder">
+                            {events}
+                        </div>
+                    </div>
+                )
+            }
+            counter ++;
         }
         return (
             <div className = 'main-container'>

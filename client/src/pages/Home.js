@@ -108,7 +108,7 @@ class Home extends Component {
         </Row>
         <Row>
           <Col sm={6}>
-            <Card>
+            <Card> {/*  Get Rid of this Card and replace with a div */}
               <Card.Header className="home-card-header">
                 <Row>
                   <Col>Roster</Col>
