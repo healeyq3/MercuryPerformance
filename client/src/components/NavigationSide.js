@@ -65,6 +65,9 @@ class NavigationSide extends Component {
                     <div className="navigation-link-container">
                         <NavLink exact to="/events" className="navigation-link-events" onClick={this.updateWorkouts}><span className="text-hide">Workouts</span></NavLink>
                     </div>
+                    <div className = "navigation-link-container">
+                        <NavLink exact to = "/comingsoon" className = "navigation-link-calendar" onClick = {this.updateHome}><span className = "text-hide">Calendar</span></NavLink>
+                    </div>
                 </div>
             </div>
         )

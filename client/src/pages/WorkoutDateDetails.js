@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import { addRunnersToWorkout, resetRunnerAdded } from '../actions/workoutActions';
 import { CSVLink } from 'react-csv';
 import { timeGenerator } from '../math/TimeConversions'
+import { median } from 'mathjs'
 
 export class WorkoutDateDetails extends Component {
     constructor(props){
@@ -63,6 +64,20 @@ export class WorkoutDateDetails extends Component {
             selectedRunner: selectedRunner
         })
         console.log("Finished calling set show results and runner")
+    }
+
+    calculateTeamAverage = (r, runnerSD) => {
+        let deviations = [];
+        for(const runner in this.props.workouts[this.props.selectedWorkout].runners){
+            if (runner !== r){
+                if(this.props.workouts[this.props.selectedWorkout].runners[runner].workoutStats !== undefined){
+                    deviations.push(this.props.workouts[this.props.selectedWorkout].runners[runner].workoutStats.residualDeviation)
+                }
+            }
+        }
+        deviations.push(runnerSD);
+        let answer = median(deviations);
+        console.log(answer);
     }
 
     generateCSV = () => {
@@ -160,7 +175,7 @@ export class WorkoutDateDetails extends Component {
               </Col>
             </Row>
                 <WorkoutAddRunnersModal show = {this.state.showRunner} setShow = {this.setShowRunner} teamUID = {this.props.selectedTeam}/>
-                <AddResultsModal runner = {this.state.selectedRunner} show = {this.state.showResults} setShow = {this.setShowResults}/>
+                <AddResultsModal runner = {this.state.selectedRunner} calculateTeamAverage = {this.calculateTeamAverage} show = {this.state.showResults} setShow = {this.setShowResults}/>
         </Container>
         )
         }

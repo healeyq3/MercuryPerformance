@@ -18,9 +18,16 @@ import AddRunner from "../components/AddRunner";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
 import { V02OnlyGraph } from "../components/AnalysisGraphs/V02OnlyGraph";
-import { fixDateSelector, getCleanDate, sevenDaySnapshot } from "../math/DateAlgos";
-import { repActualEffortD, residualStandardDeviation } from '../math/AnalysisAlgos';
-import { distanceToTime } from '../math/TimeConversions';
+import {
+  fixDateSelector,
+  getCleanDate,
+  sevenDaySnapshot,
+} from "../math/DateAlgos";
+import {
+  repActualEffortD,
+  residualStandardDeviation,
+} from "../math/AnalysisAlgos";
+import { distanceToTime } from "../math/TimeConversions";
 import "../css/home.css";
 import { isEmptyObject } from "jquery";
 import MainCalendar from "../components/Calendar Components/MainCalendar";
@@ -50,7 +57,11 @@ class Home extends Component {
   }
 
   render() {
-    if (!this.props.selectedTeam || !this.props.workoutDates || !this.props.eventDates) {
+    if (
+      !this.props.selectedTeam ||
+      !this.props.workoutDates ||
+      !this.props.eventDates
+    ) {
       return null;
     }
 
@@ -86,45 +97,64 @@ class Home extends Component {
     ];
 
     let runnerArr = [];
-
+    let counter = 1;
     for (const runneruid in this.props.runners) {
       if (this.props.runners.hasOwnProperty(runneruid)) {
+        let color = '';
+        if(counter % 2 === 0){
+          color = "grey";
+        } else {
+          color = "white"
+        }
         runnerArr.push(
           <React.Fragment key={runneruid}>
             <ExistingRunnerCard
               runner={this.props.runners[runneruid]}
               onSelect={this.setSelectedRunner}
+              color = {color}
             />
           </React.Fragment>
         );
+        counter++;
       }
     }
 
     return (
-      <Container fluid className="home-container">
+      <div className="home-container">
         {/*<h2 id = "teamNameHome">{this.props.teams[this.props.selectedTeam].teamName}</h2>*/}
-        <Row>
-          <MainCalendar workouts = {this.props.workoutDates} events = {this.props.eventDates}/>
-        </Row>
-        <Row>
-          <Col sm={6}>
-            <Card> {/*  Get Rid of this Card and replace with a div */}
-              <Card.Header className="home-card-header">
+        <div className = "calendar-holder">
+          <MainCalendar
+            workouts={this.props.workoutDates}
+            events={this.props.eventDates}
+          />
+        </div>
+        <div className = "second-row">
+            <div className="roster-container">
+              {" "}
+              {/*  Get Rid of this Card and replace with a div */}
+              {/* <Card.Header className="home-card-header">
                 <Row>
                   <Col>Roster</Col>
                   <Col className="home-cardheader-col">
                     <AddRunner teamUID={this.props.selectedTeam} />
                   </Col>
                 </Row>
-              </Card.Header>
+              </Card.Header> */}
+              <div className="roster-header">
+                <div>
+                  <text>Roster</text>
+                </div>
+                <div>
+                  <AddRunner teamUID={this.props.selectedTeam} />
+                </div>
+              </div>
               {runnerArr}
-            </Card>
-          </Col>
-          <Col>
+            </div>
+          <div className = "graph-container">
             <V02OnlyGraph series={series} />
-          </Col>
-        </Row>
-      </Container>
+          </div>
+        </div>
+      </div>
     );
   }
 }
@@ -139,7 +169,7 @@ Home.propTypes = {
   updateTeam: PropTypes.func.isRequired,
   hasAddedRunner: PropTypes.bool.isRequired,
   eventDates: PropTypes.object.isRequired,
-  workoutDates: PropTypes.object.isRequired
+  workoutDates: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = function (state) {
@@ -151,7 +181,7 @@ const mapStateToProps = function (state) {
     hasAddedRunner: state.runners.hasAddedRunner,
     rehydrated: state._persist.rehydrated,
     eventDates: state.calendar.teamEventDates,
-    workoutDates: state.calendar.teamWorkoutDates
+    workoutDates: state.calendar.teamWorkoutDates,
   };
 };
 export default connect(mapStateToProps, {

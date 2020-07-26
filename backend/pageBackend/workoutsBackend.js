@@ -14,6 +14,7 @@ router.post('/newworkout', newWorkout);
 router.post('/addrunner', addRunner);
 router.post('/updateblueprint', updateBlueprint);
 router.post('/atimes', sendATimes);
+router.post('/statistics', updateWorkoutStats);
 
 module.exports = router;
 
@@ -228,4 +229,16 @@ async function sendATimes(req, res){
         console.log(err);
         res.end('{}')
     })
+}
+
+async function updateWorkoutStats(req, res){
+    if(!await authenticatePost(req,res)) {
+        res.end();
+        return;
+    }
+
+    const data = req.body
+    const deviations = data.deviations;
+    const wuid = data.workoutuid;
+
 }

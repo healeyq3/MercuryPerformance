@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { Card, Row, Col } from "react-bootstrap";
+import '../css/home.css'
 
 export class ExistingRunnerCard extends Component {
   render() {
     return (
       <Card
-        style={{ width: "100%", height: "10%", cursor: "pointer" }}
+        className = {"runner-card-" + this.props.color}
         tag="a"
         onClick={() => this.props.onSelect(this.props.runner)}
       >
@@ -17,9 +18,6 @@ export class ExistingRunnerCard extends Component {
             <Col></Col>
             <Col>
               <p>{this.props.runner.wPace}</p>
-            </Col>
-            <Col>
-              <p>{this.props.runner.experience}</p>
             </Col>
           </Row>
         </Card.Body>

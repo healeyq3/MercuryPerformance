@@ -34,7 +34,7 @@ export class MainCalendar extends Component {
             } else {
                 events.push(
                     <div className = "empty-day">
-                        <text>No Upcoming Events</text>
+                        <text>No Scheduled Events</text>
                     </div>
                 )
             }

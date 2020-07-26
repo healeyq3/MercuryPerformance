@@ -1,0 +1,21 @@
+.time-row-container {
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-around; */
+}
+
+.time-row-label {
+   font-weight: 300; 
+}
+
+.time-entry {
+    border-radius: 10rem;
+    width: 5vw;
+}
+
+.time-holder {
+    padding-left: 1vw;
+    padding-bottom: .5vh;
+    display : flex;
+    flex-direction: row;
+}

@@ -27,7 +27,7 @@ export class V02OnlyGraph extends Component {
                 <Chart 
                 options = {this.state.options}
                 series = {this.props.series}
-                width = "500"
+                width = "400"
                 type = 'area'
                 />
             </div>

@@ -88,6 +88,10 @@ function repActualEffortD(distance /* in miles */, timePerformedIn /* in seconds
     return ((distance * workoutPace * 100)/(timePerformedIn))
 }
 
+function repActualEffortT(specifiedTime /* in seconds */, actualDistance /* in miles */, workoutPace){ // this method is for time reps
+    return ((actualDistance * 100 * workoutPace) / (specifiedTime))
+}
+
 function residualStandardDeviation(v1) { // Takes in a vector of %E between p and (p^) to determine the residual Standard Deviation
     let v = [];
     v1.map(x => {
@@ -108,4 +112,4 @@ function determineWorkoutTrend(v1){ // REMEMBER NEGATIVE MEANS OVERSHOT... Takes
     }
 }
 
-export { repActualEffortD, residualStandardDeviation, getAverageTeamPace, getPredictedTimes, getPredictedTime, getMedianTeamPace, getMedianTeamV02};
+export { repActualEffortT, repActualEffortD, residualStandardDeviation, getAverageTeamPace, getPredictedTimes, getPredictedTime, getMedianTeamPace, getMedianTeamV02};

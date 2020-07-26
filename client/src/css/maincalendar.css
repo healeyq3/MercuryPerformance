@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Nova+Round&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap');
 
 .main-container {
     width: 70vw;
@@ -10,21 +11,23 @@
     justify-content: space-around;
     background-color: #ffffffee;
     border-style: solid;
-    border-radius: 2rem;
+    /* border-radius: 2rem; */
     border-color: #ffffffee;
+    overflow: hidden;
 }
 
 .date-card {
     width: 9vw;
     height: 25vh;
+    overflow: hidden;
 }
 
 .race-text{
-    font-family: 'Mulish', sans-serif;
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
 .workout-text{
-    font-family: 'Mulish', sans-serif;
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
 .date-holder{
@@ -35,17 +38,20 @@
 .date-text {
     font-family: 'Nova Round';
     text-transform: uppercase;
+    /* color: #378dbd; */
 }
 
 .date-number-text {
     font-family: 'Nova Round';
     text-transform: uppercase;
     font-weight: 700;
+    font-size: x-large;
+    color: #378dbd;
 }
 
 .race-dot {
-    height: 10px;
-    width: 10px;
+    height: 8px;
+    width: 8px;
     background-color: #ec1010ee;
     border-radius: 50%;
     display: inline-block;

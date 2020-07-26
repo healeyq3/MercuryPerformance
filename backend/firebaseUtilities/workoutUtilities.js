@@ -224,12 +224,15 @@ async function addRunnerToWorkout(workoutuid, runnerUidArray){
                     if(runnerUidArray[runner].pTimes[set].predictedDistance !== undefined){ // Time Rep
                         if(runnerUidArray[runner].pTimes[set].type !== 'duration rest' && runnerUidArray[runner].pTimes[set].type !== 'duration warmup' && runnerUidArray[runner].pTimes[set].type !== 'duration cooldown'){
                             let toAdd = {
-                                mileage: 0
+                                mileage: 0,
+                                percentEffort : 0,
+                                percentOff: 0
                             }
                             aTimes.push(toAdd)
                             pTimesToCompare.push({
                                 predictedMileage: runnerUidArray[runner].pTimes[set].predictedDistance,
-                                totalSeconds: runnerUidArray[runner].pTimes[set].totalSeconds
+                                totalSeconds: runnerUidArray[runner].pTimes[set].totalSeconds,
+                                percentEffort: runnerUidArray[runner].pTimes[set].percentEffort
                             })
                         }
                     } else { //Distance Rep
@@ -237,13 +240,16 @@ async function addRunnerToWorkout(workoutuid, runnerUidArray){
                             let toAdd = {
                                 hours: 0,
                                 minutes: 0,
-                                seconds: 0
+                                seconds: 0,
+                                percentEffort: 0,
+                                percentOff: 0
                             }
                             aTimes.push(toAdd)
                             pTimesToCompare.push({
                                 predictedSeconds: runnerUidArray[runner].pTimes[set].predictedSeconds,
                                 repDist: runnerUidArray[runner].pTimes[set].repDist,
-                                repUnit: runnerUidArray[runner].pTimes[set].repUnit
+                                repUnit: runnerUidArray[runner].pTimes[set].repUnit,
+                                percentEffort: runnerUidArray[runner].pTimes[set].percentEffort
                             })
                         }
                         
