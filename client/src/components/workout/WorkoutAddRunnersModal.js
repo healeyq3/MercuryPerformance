@@ -46,7 +46,7 @@ export class WorkoutAddRunnersModal extends Component {
                         totalSeconds: amountOfTime,
                         predictedDistance: predictedDistance,
                         averagePace: secondsToAnswer(wPaceSeconds / (rep.percent / 100)),
-                        perentEffort : rep.percent
+                        percentEffort : rep.percent
                     }
                     let updatedDistance = total.totalDistance + predictedDistance;
                     let updatedTime = total.totalTime + amountOfTime;

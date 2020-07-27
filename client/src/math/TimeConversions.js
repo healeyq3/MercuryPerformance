@@ -154,4 +154,28 @@ function secondsToAnswer(s1){
     
 }
 
-export { decomposedTimeGenerator, secondsToAnswer, totalSeconds, stringToNumber, totalTheTime, distanceToTime, totalMinutes, secondsToMinutes, timeGenerator };
+function secondsToTimeObject(s1){
+    let s = s1;
+    let hours = 0;
+    let minutes = 0;
+    let seconds = s1;
+    if(s >= 3600){
+        hours = s / 3600
+        hours = Math.trunc(hours);
+        s = s - (hours * 3600)
+    }
+    if(s >= 60){
+        minutes = s / 60
+        minutes = Math.trunc(minutes);
+        s = s - (minutes * 60)
+    }
+    seconds = Math.trunc(s);
+    const toReturn = {
+        hours,
+        minutes,
+        seconds
+    }
+    return toReturn;
+}
+
+export { secondsToTimeObject, decomposedTimeGenerator, secondsToAnswer, totalSeconds, stringToNumber, totalTheTime, distanceToTime, totalMinutes, secondsToMinutes, timeGenerator };
