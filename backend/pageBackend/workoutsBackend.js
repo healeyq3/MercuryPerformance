@@ -197,8 +197,9 @@ async function addRunner(req, res){
     const data = req.body;
     const runnerUidArray = data.runnerUidArray;
     const workoutuid = data.workoutuid;
+    const date = data.date;
   
-    const runnersAdded = await workoutUtilities.addRunnerToWorkout(workoutuid, runnerUidArray);
+    const runnersAdded = await workoutUtilities.addRunnerToWorkout(workoutuid, runnerUidArray, date);
     res.end(JSON.stringify({
         runnersAdded: runnersAdded,
         workoutuid: workoutuid
@@ -214,15 +215,21 @@ async function sendATimes(req, res){
     const data = req.body;
     const aTimes = data.aTimesArray;
     const workoutuid = data.workoutuid;
-    const runneruid = data.runneruid
+    const runneruid = data.runneruid;
+    const aETimes = data.aETimesArray;
+    const workoutStats = data.workoutStats
+    const date = data.date;
+    const team = data.selectedTeam;
 
     const aTimesObj = {
         aTimes,
         workoutuid,
-        runneruid
+        runneruid,
+        aETimes,
+        workoutStats
     }
     console.log("About to send aTimes to databse")
-    workoutUtilities.sendATimes(aTimes, workoutuid, runneruid).then(() => {
+    workoutUtilities.sendATimes(aTimes, aETimes, workoutStats, workoutuid, runneruid, date, team).then(() => {
         res.setHeader('Content-Type', 'application/json');
         res.end(JSON.stringify(aTimesObj))
     }).catch(err => {
@@ -237,8 +244,20 @@ async function updateWorkoutStats(req, res){
         return;
     }
 
-    const data = req.body
-    const deviations = data.deviations;
-    const wuid = data.workoutuid;
+    const data = req.body;
+    const statistics = data.statistics;
+    const workoutuid = data.workoutuid;
+
+    workoutUtilities.updateWorkoutStats(statistics, workoutuid).then(() => {
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify({
+            statistics : statistics,
+            workoutuid : workoutuid
+        })
+        )
+    }).catch(err => {
+        console.log('Error updating the workouts overal stats'.red);
+        console.log(err);
+    })
 
 }

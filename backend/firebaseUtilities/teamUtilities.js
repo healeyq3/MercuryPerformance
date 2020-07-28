@@ -194,6 +194,51 @@ async function refreshTeam(teamuid){
   return teamToReturn;
 }
 
+async function updateTeamWorkoutHistory(date, teamuid, runneruid, workoutuid, totalDistance, resDev){
+  const indRef = "" + workoutuid + runneruid; // this way runners can have more than one workout per day without overwritting old day
+  const toSet = {
+    mileage : totalDistance,
+    resDeviation : resDev
+  }
+  console.log(teamuid)
+  teamMileageRef = await database.ref("teams/" + teamuid + "/mileage/" + date + '/values');
+  await teamMileageRef.child(indRef).set(toSet)
+  .then(() => {
+    console.log("Successfully added the new values to the mileage history".green)
+  }).catch(err => {
+    console.log("Unsuccessfully added the new values to the mileage history".red)
+    console.log(err);
+  })
+  let values = [];
+  await teamMileageRef.once('value').then(async (valueSnapshot) => {
+    valueSnapshot.forEach(function(child) {
+      values.push(child.val());
+    });
+  })
+  let tD = [];
+  let dev = [];
+  values.map(val => {
+    tD.push(val.mileage);
+    dev.push(val.resDeviation)
+  })
+  let medDist = median(tD);
+  let medDev = median(dev);
+  await database.ref("teams/" + teamuid + "/mileage/" + date).child("medDist").set(medDist)
+  .then(() => {
+    console.log("Successfully updated the date's med distance".green)
+  }).catch(err => {
+    console.log("Un-Successfully updated the date's med distance".red);
+    console.log(err);
+  })
+  await database.ref("teams/" + teamuid + "/mileage/" + date).child("medDev").set(medDev)
+  .then(() => {
+    console.log("Successfully updated the date's med deviation".green)
+  }).catch(err => {
+    console.log("Un-Successfully updated the date's med deviation".red);
+    console.log(err);
+  })
+}
+
 // ------------ See DateAlgos in the client for more information ---------------
 
 function findClosestDate(historyObject, date){
@@ -271,3 +316,4 @@ module.exports.doesUserOwnTeam = doesUserOwnTeam;
 module.exports.updateTeam = updateTeam;
 module.exports.getTeamV02 = getTeamV02;
 module.exports.refreshTeam = refreshTeam;
+module.exports.updateTeamWorkoutHistory = updateTeamWorkoutHistory;

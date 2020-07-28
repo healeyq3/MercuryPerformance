@@ -105,7 +105,7 @@ export class WorkoutAddRunnersModal extends Component {
         }
     }
     handleAddRunners = () => {
-        this.props.addRunnersToWorkout(this.state.runnersToAddToFire, this.props.selectedWorkout);
+        this.props.addRunnersToWorkout(this.state.runnersToAddToFire, this.props.selectedWorkout, this.props.workouts[this.props.selectedWorkout].date);
         this.props.setShow();
     }
 

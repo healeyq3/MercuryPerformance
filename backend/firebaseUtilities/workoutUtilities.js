@@ -1,5 +1,6 @@
 const firebaseSetup = require('./firebaseSetup');
 const database = firebaseSetup.database;
+const teamUtilities = require('./teamUtilities');
 
 
 // -------------- Workouts ----------------
@@ -205,7 +206,7 @@ async function addWorkoutToUser(useruid, workoutuid, date, name){
     })
 }
 
-async function addRunnerToWorkout(workoutuid, runnerUidArray){
+async function addRunnerToWorkout(workoutuid, runnerUidArray, date){
     let runnersAdded = {};
     const workoutRef = database.ref("workouts/" + workoutuid + "/runners");
     for(const runner in runnerUidArray){
@@ -326,10 +327,11 @@ async function addRunnerToWorkout(workoutuid, runnerUidArray){
                     console.log("Error adding pETimeToCompare");
                     console.log(err);
                 })
-                database.ref("runners/" + runner + "/workouts").child(workoutuid).set(workoutuid).then(() => {
+                database.ref("runners/" + runner + "/workouts/" + workoutuid).child("date").set(date).then(() => {
                     console.log("Successfully added the workout " + workoutuid.green + " to the runner" + runner.green )
                 }).catch(err => {
-                    console.log("Un-successfully added the event " + workoutuid.red + " to the runner" + runner.red )
+                    console.log("Un-successfully added the workout " + workoutuid.red + " to the runner" + runner.red );
+                    console.log(err);
                 })
             }
         })
@@ -338,14 +340,53 @@ async function addRunnerToWorkout(workoutuid, runnerUidArray){
     return runnersAdded;
   }
 
-  async function sendATimes(aTimes, workoutuid, runneruid){
-    console.log("Got to sendATimes in workoutUtilities");  
+  async function sendATimes(aTimes, aETimes, workoutStats, workoutuid, runneruid, date, team){ 
     await database.ref('workouts/' + workoutuid + '/runners/' + runneruid).child("aTimes").set(aTimes)
         .then(() => {
-            console.log("Succesfully updated aTimes")
+            console.log("Succesfully updated aTimes".green)
         }).catch(err => {
-            console.log("Unable to update aTimes ".red + workoutuid.red + ' to '.red + runneruid.red)
+            console.log("Unable to add aTimes ".red + workoutuid.red + ' to '.red + runneruid.red);
+            console.log(err);
         })
+    await database.ref('workouts/' + workoutuid + '/runners/' + runneruid).child("aETimes").set(aETimes)
+    .then(() => {
+        console.log("Successfully updated aETimes".green)
+    }).catch(err => {
+        console.log("Unable to add aETimes ".red + workoutuid.red + " to ".red + runneruid.red)
+        console.log(err);
+    })
+    await database.ref('workouts/' + workoutuid + '/runners/' + runneruid).child("workoutStats").set(workoutStats)
+    .then(() => {
+        console.log("Successfully updated workoutStats".green)
+    }).catch(err => {
+        console.log("Unable to add workoutStats ".red + workoutuid.red + " to ".red + runneruid.red)
+        console.log(err);
+    })
+    await database.ref("runners/" + runneruid + "/workouts/" + workoutuid).child("distance").set(workoutStats.totalDistance)
+    .then(() => {
+        console.log("Updated the workout's distance under the runner ".green + runneruid)
+    }).catch(err => {
+        console.log("Unable to update the workout's distance under the runner ".red + runneruid);
+        console.log(err);
+    })
+    await database.ref("runners/" + runneruid + "/workouts/" + workoutuid).child("deviation").set(workoutStats.resSD)
+    .then(() => {
+        console.log("Updated the workout's deviation under the runner ".green + runneruid)
+    }).catch(err => {
+        console.log("Unable to update the workout's deviation under the runner ".red + runneruid);
+        console.log(err);
+    })
+    teamUtilities.updateTeamWorkoutHistory(date, team, runneruid, workoutuid, workoutStats.totalDistance, workoutStats.resSD)
+  }
+
+  async function updateWorkoutStats(stats, workoutuid){
+      await database.ref("workouts/" + workoutuid).child("statistics").set(stats)
+      .then(() => {
+          console.log("Successfully updated the workouts statistics".green)
+      }).catch(err => {
+          console.log("Un-Successfully updated the workouts stats".red)
+          console.log(err);
+      })
   }
 
 
@@ -358,3 +399,4 @@ module.exports.getWorkouts = getWorkouts;
 module.exports.addRunnerToWorkout = addRunnerToWorkout;
 module.exports.updateBlueprint = updateBlueprint;
 module.exports.sendATimes = sendATimes;
+module.exports.updateWorkoutStats = updateWorkoutStats;

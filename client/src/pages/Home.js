@@ -11,7 +11,6 @@ import {
   updateV02,
   refreshTeam,
 } from "../actions/teamActions";
-import { Container, Row, Col, Card } from "react-bootstrap";
 import { connect } from "react-redux";
 import ExistingRunnerCard from "../components/ExistingRunnerCard";
 import AddRunner from "../components/AddRunner";
@@ -20,16 +19,9 @@ import { Redirect } from "react-router-dom";
 import { V02OnlyGraph } from "../components/AnalysisGraphs/V02OnlyGraph";
 import {
   fixDateSelector,
-  getCleanDate,
-  sevenDaySnapshot,
+  getCleanDate
 } from "../math/DateAlgos";
-import {
-  repActualEffortD,
-  residualStandardDeviation,
-} from "../math/AnalysisAlgos";
-import { distanceToTime } from "../math/TimeConversions";
 import "../css/home.css";
-import { isEmptyObject } from "jquery";
 import MainCalendar from "../components/Calendar Components/MainCalendar";
 // import moment from 'moment';
 

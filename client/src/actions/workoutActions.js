@@ -261,7 +261,7 @@ export function setWorkout(workout){
     }
 }
 
-export function addRunnersToWorkout(runnerUidArray, workoutuid){
+export function addRunnersToWorkout(runnerUidArray, workoutuid, date){
     //runnerUidArray is not actually an array
     return async function(dispatch){
       fire.auth().onAuthStateChanged(function(user) {
@@ -275,6 +275,7 @@ export function addRunnersToWorkout(runnerUidArray, workoutuid){
             body: JSON.stringify({
               idToken,
               workoutuid,
+              date,
               runnerUidArray
             })
           })
@@ -290,7 +291,7 @@ export function addRunnersToWorkout(runnerUidArray, workoutuid){
     }
   }
 
-export function sendActualTimes(aTimesArray, workoutuid, runneruid){
+export function sendActualTimes(aTimesArray, aETimesArray, workoutStats, workoutuid, runneruid, date, selectedTeam){
     return async function(dispatch){
         fire.auth().onAuthStateChanged(function(user){
             user.getIdToken(true).then(async function (idToken) {
@@ -304,6 +305,10 @@ export function sendActualTimes(aTimesArray, workoutuid, runneruid){
                     idToken,
                     workoutuid,
                     aTimesArray,
+                    aETimesArray,
+                    workoutStats,
+                    date,
+                    selectedTeam,
                     runneruid
                 })
             })
@@ -319,28 +324,28 @@ export function sendActualTimes(aTimesArray, workoutuid, runneruid){
     }
 }
 
-export function updateWorkoutStatistics(workoutuid, deviations){
+export function updateWorkoutStatistics(workoutuid, statistics){
     return async function(dispatch){
         fire.auth().onAuthStateChanged(function(user){
             user.getIdToken(true).then(async function (idToken) {
                 cookie.save('mercury-fb-token', idToken, { path: "/", sameSite: "strict", SameSite: "strict" });
             
-            await fetch("api/workouts/statisics", {
+            await fetch("api/workouts/statistics", {
                 method: 'POST',
                 headers : {
                     'content-type' : 'application/json'
                 },
                 body: JSON.stringify({
                     idToken,
-                    deviations,
+                    statistics,
                     workoutuid
                 })
             })
             .then(res => res.json())
-            .then(statistics => 
+            .then(statObject => 
                 dispatch({
                     type: UPDATE_STATISTICS,
-                    paylaod: statistics
+                    payload: statObject
                 }))
             })
         })
