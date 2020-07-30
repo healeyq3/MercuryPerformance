@@ -16,13 +16,17 @@ import ExistingRunnerCard from "../components/ExistingRunnerCard";
 import AddRunner from "../components/AddRunner";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
-import { V02OnlyGraph } from "../components/AnalysisGraphs/V02OnlyGraph";
+import { V02_DevGraph } from "../components/AnalysisGraphs/V02_DevGraph";
+import { Team_Mileage_Graph } from '../components/AnalysisGraphs/Team_Mileage_Graph';
+import { PracticeColumnChart } from '../components/AnalysisGraphs/PracticeColumnChart'
 import {
   fixDateSelector,
-  getCleanDate
+  getCleanDate,
+  getWeeklyMileage
 } from "../math/DateAlgos";
 import "../css/home.css";
 import MainCalendar from "../components/Calendar Components/MainCalendar";
+import { LineMarkSeries } from "react-vis";
 // import moment from 'moment';
 
 class Home extends Component {
@@ -61,6 +65,35 @@ class Home extends Component {
       return <Redirect to="/events" />;
     }
 
+
+    let dates2 = [];
+    let data2 = [];
+    let data3 = []
+    if(this.props.teams[this.props.selectedTeam].mileage !== undefined){
+      for (const date in this.props.teams[this.props.selectedTeam].mileage){
+        dates2.push(new Date(fixDateSelector(date)).getTime())
+      }
+      dates2.sort(function (a, b) {
+        return a - b;
+      })
+      for (const date in dates2){
+        let toAdd = {
+          x : dates2[date],
+          y : this.props.teams[this.props.selectedTeam].mileage[getCleanDate(new Date(dates2[date]))].medDev
+        }
+        data2.push(toAdd)
+      }
+      let mileageObject = getWeeklyMileage(this.props.teams[this.props.selectedTeam].mileage, dates2);
+      for(const date in mileageObject){
+        let toAdd = {
+          x : Number(date),
+          y : mileageObject[date].mileage
+        }
+        console.log(new Date(Number(date)))
+        data3.push(toAdd);
+      }
+    }
+
     let data = [];
     let dates = [];
     if (this.props.teams[this.props.selectedTeam].v02History !== undefined) {
@@ -79,14 +112,35 @@ class Home extends Component {
         };
         data.push(toAdd);
       }
+      let today = {
+        x : new Date().getTime(),
+        y : this.props.teams[this.props.selectedTeam].v02History[getCleanDate(new Date(dates[dates.length - 1]))].medianV02
+      }
+      data.push(today)
     }
 
     const series = [
       {
         name: "V02 History",
         data: data,
-      },
+        type: 'line'
+      }, {
+        name : 'Dev History',
+        type : 'line',
+        data : data2
+      }
     ];
+    console.log('D# ntea')
+    console.log(data3)
+    console.log(data2)
+    console.log(data)
+    const series2 = [
+      {
+        name : 'Mileage',
+        data : data3,
+        type : 'line'
+      }
+    ]
 
     let runnerArr = [];
     let counter = 1;
@@ -122,16 +176,6 @@ class Home extends Component {
         </div>
         <div className = "second-row">
             <div className="roster-container">
-              {" "}
-              {/*  Get Rid of this Card and replace with a div */}
-              {/* <Card.Header className="home-card-header">
-                <Row>
-                  <Col>Roster</Col>
-                  <Col className="home-cardheader-col">
-                    <AddRunner teamUID={this.props.selectedTeam} />
-                  </Col>
-                </Row>
-              </Card.Header> */}
               <div className="roster-header">
                 <div>
                   <text>Roster</text>
@@ -143,9 +187,12 @@ class Home extends Component {
               {runnerArr}
             </div>
           <div className = "graph-container">
-            <V02OnlyGraph series={series} />
+            <V02_DevGraph series={series} />
           </div>
         </div>
+        <div>
+            <Team_Mileage_Graph series = {series2} />
+          </div>
       </div>
     );
   }

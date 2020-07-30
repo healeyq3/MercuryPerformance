@@ -10,6 +10,7 @@ import { newTime, addRunnersToEvent, selectRunner, resetRunnerAdded, refreshEven
 import { connect } from 'react-redux';
 import '../css/eventdetails.css';
 import {Redirect} from 'react-router-dom'
+import { fixDateSelector } from '../math/DateAlgos'
 
 export class EventDetails extends Component {
     constructor(props){
@@ -48,6 +49,10 @@ export class EventDetails extends Component {
     }
 
     openResultsModal(runneruid){
+      if(fixDateSelector(this.props.events[this.props.selectedEvent].date).getTime() > (new Date()).getTime()){
+        alert("You cannot enter results for an event that has yet to occur")
+        return;
+      }
       this.setState({
         showResults: true,
         resultsRunneruid: runneruid,

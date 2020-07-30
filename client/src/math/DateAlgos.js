@@ -106,17 +106,17 @@ function sevenDaySnapshot(workoutTimeObject, eventTimeObject) { // returns an ob
             }
             if(comparisonDate <= date && date < (comparisonDate + (1 * msDay))){
                 toReturn.d1.events.push(toAdd)
-            } else if(date < (comparisonDate + (2 * msDay))){
+            } else if(comparisonDate <= date && date < (comparisonDate + (2 * msDay))){
                 toReturn.d2.events.push(toAdd)
-            } else if(date < (comparisonDate + (3 * msDay))){
+            } else if(comparisonDate <= date && date < (comparisonDate + (3 * msDay))){
                 toReturn.d3.events.push(toAdd)
-            } else if(date < (comparisonDate + (4 * msDay))){
+            } else if(comparisonDate <= date && date < (comparisonDate + (4 * msDay))){
                 toReturn.d4.events.push(toAdd)
-            } else if(date < (comparisonDate + (5 * msDay))){
+            } else if(comparisonDate <= date && date < (comparisonDate + (5 * msDay))){
                 toReturn.d5.events.push(toAdd)
-            } else if(date < (comparisonDate + (6 * msDay))){
+            } else if(comparisonDate <= date && date < (comparisonDate + (6 * msDay))){
                 toReturn.d6.events.push(toAdd)
-            } else if(date < (comparisonDate + (7 * msDay))){
+            } else if(comparisonDate <= date && date < (comparisonDate + (7 * msDay))){
                 toReturn.d7.events.push(toAdd)
             }
         }
@@ -133,17 +133,17 @@ function sevenDaySnapshot(workoutTimeObject, eventTimeObject) { // returns an ob
             }
             if(comparisonDate <= date && date < (comparisonDate + (1 * msDay))){
                 toReturn.d1.events.push(toAdd)
-            } else if(date < (comparisonDate + (2 * msDay))){
+            } else if(comparisonDate <= date && date < (comparisonDate + (2 * msDay))){
                 toReturn.d2.events.push(toAdd)
-            } else if(date < (comparisonDate + (3 * msDay))){
+            } else if(comparisonDate <= date && date < (comparisonDate + (3 * msDay))){
                 toReturn.d3.events.push(toAdd)
-            } else if(date < (comparisonDate + (4 * msDay))){
+            } else if(comparisonDate <= date && date < (comparisonDate + (4 * msDay))){
                 toReturn.d4.events.push(toAdd)
-            } else if(date < (comparisonDate + (5 * msDay))){
+            } else if(comparisonDate <= date && date < (comparisonDate + (5 * msDay))){
                 toReturn.d5.events.push(toAdd)
-            } else if(date < (comparisonDate + (6 * msDay))){
+            } else if(comparisonDate <= date && date < (comparisonDate + (6 * msDay))){
                 toReturn.d6.events.push(toAdd)
-            } else if(date < (comparisonDate + (7 * msDay))){
+            } else if(comparisonDate <= date && date < (comparisonDate + (7 * msDay))){
                 toReturn.d7.events.push(toAdd)
             }
         }
@@ -197,10 +197,83 @@ function getDay(date){
     return p1;
 }
 
+function getDay2(date){ // assumes it is taking in milliseconds
+    const d = new Date(Number(date));
+    let p1 = d.getDay();
+    if(p1 === 0){
+        p1 = "Sunday"
+    } else if(p1 === 1){
+        p1 = "Monday"
+    } else if(p1 === 2){
+        p1 = "Tuesday"
+    } else if(p1 === 3){
+        p1 = "Wednesday"
+    } else if(p1 === 4){
+        p1 = "Thursday"
+    } else if(p1 === 5){
+        p1 = "Friday"
+    } else if(p1 === 6){
+        p1 = "Saturday"
+    }
+    return p1;
+}
+
 function getDate(date){
     const d = fixDateSelector(date);
     const p = d.getDate();
     return p;
 }
 
-export { getDay, getDate, dayDate, getCleanDate, fixDateSelector, getMostRecentDate, findClosestDate, sevenDaySnapshot }
+function getWeeklyMileage(mileageObject, dates){
+    const msDay = 86400000;
+    let toReturn = {};
+    let toReturnDates = [];
+    let rn = new Date().getTime()
+    let firstSunday = getClosestSunday(dates[0]);
+    for(let i = firstSunday; i <  rn; i += (7 * msDay)){
+        toReturn[i] = {
+            mileage : 0
+        }
+        toReturnDates.push(i)
+    }
+    toReturn[rn] = {
+        mileage : 0
+    }
+    toReturnDates.push(rn);
+    for(const date in dates){
+        let day = 0;
+        if(dates[date] > toReturnDates[toReturnDates.length - 2]){
+            day = toReturnDates[toReturnDates.length - 1]
+        } else {
+            day = getClosestSunday(Number(dates[date]))
+        }
+        toReturn[day].mileage += (Math.round(Number(mileageObject[getCleanDate(new Date(dates[date]))].medDist) * 100) / 100)
+    }
+     return toReturn;
+}
+
+function getClosestSunday(day){
+    const msDay = 86400000;
+    const dayOfWeek = getDay2(day);
+    if(dayOfWeek === 'Sunday'){
+        return day
+    } else if(dayOfWeek === 'Monday'){
+        return (day + (msDay * 6))
+    } else if(dayOfWeek === 'Tuesday'){
+        return (day + (msDay * 5))
+    } 
+    else if(dayOfWeek === 'Wednesday'){
+        return (day + (msDay * 4))
+    } 
+    else if(dayOfWeek === 'Thursday'){
+        return (day + (msDay * 3))
+    }
+    else if(dayOfWeek === 'Friday'){
+        return (day + (msDay * 2))
+    }   
+    else if(dayOfWeek === 'Saturday'){
+        return (day + (msDay * 1))
+    } 
+}
+
+export { getWeeklyMileage, getClosestSunday, getDay, getDate, dayDate, getCleanDate, fixDateSelector, getMostRecentDate, findClosestDate, sevenDaySnapshot }

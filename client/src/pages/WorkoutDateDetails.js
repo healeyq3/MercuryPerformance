@@ -15,6 +15,7 @@ import {
 import { CSVLink } from "react-csv";
 import { timeGenerator } from "../math/TimeConversions";
 import { median } from "mathjs";
+import { fixDateSelector } from "../math/DateAlgos";
 
 export class WorkoutDateDetails extends Component {
   constructor(props) {
@@ -67,6 +68,10 @@ export class WorkoutDateDetails extends Component {
   };
 
   setShowResultsAndRunner(selectedRunner) {
+    if(fixDateSelector(this.props.workouts[this.props.selectedWorkout].date).getTime() > (new Date()).getTime()){
+      alert("You cannot enter results for a workout that has yet to occur");
+      return;
+    }
     this.setState({
       showResults: !this.state.showResults,
       selectedRunner: selectedRunner,

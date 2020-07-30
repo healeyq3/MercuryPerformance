@@ -1,16 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap');
 
-/* .home-container{
-} */
+:root {
+  --primary: #79a6d6
+}
 
-/* .home-container{
+.home-container{
+  display: grid;
 
-} */
+}
+
 
 .button {
-  background-color: #1e5288;
-  border-color: #1e5288;
+  background-color: var(--primary);
+  border-color: var(--primary);
   border-radius: 10rem;
 }
 
