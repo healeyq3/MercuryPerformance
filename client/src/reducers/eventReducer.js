@@ -6,14 +6,21 @@ import {
   RUNNERS_ADDED,
   SELECT_RUNNER,
   RESET_RUNNER_ADDED,
-  REFRESH_EVENT
+  REFRESH_EVENT,
+  NEW_EVENT_HOLDER,
+  SET_EVENT_HOLDER,
+  GET_EVENT_HOLDERS,
+  GET_HOLDER_EVENTS
 } from '../actions/types';
 
 const initialState = {
-  events: {},
+  teamEvents: {},
+  eventHolders: {},
+  holderEvents: {},
   selectedEvent: '',
   selectedRunner: '',
-  hasAddedRunner: false
+  hasAddedRunner: false,
+  selectedEventHolder: ''
 };
 
 export default function(state = initialState, action) {
@@ -23,15 +30,31 @@ export default function(state = initialState, action) {
         ...state,
         events: action.payload
       }
+    case GET_EVENT_HOLDERS:
+      return {
+        ...state,
+        eventHolders: action.payload
+      }
+    case GET_HOLDER_EVENTS:
+      return {
+        ...state,
+        holderEvents: action.payload
+      }
     case NEW_EVENT:
       return {
         ...state,
-        events: {...state.events, [action.eventUID]: action.payload}
+        events: {...state.events, [action.eventUID]: action.payload},
+        holderEvents: {...state.holderEvents, [action.holderUID]: action.payload}
       };
     case SET_EVENT:
       return {
         ...state,
         selectedEvent: action.payload
+      }
+    case SET_EVENT_HOLDER:
+      return {
+        ...state,
+        selectedEventHolder: action.payload
       }
     case NEW_TIME:
       const eventuid = action.payload.eventUID;
@@ -83,6 +106,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         events : {...state.events, [action.eventUID] : action.payload}
+      }
+    case NEW_EVENT_HOLDER:
+      return {
+        ...state,
+        eventHolders: {...state.eventHolders, [action.eventUID]: action.payload}
       }
     default:
       return state;

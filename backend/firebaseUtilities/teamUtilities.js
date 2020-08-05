@@ -194,7 +194,7 @@ async function refreshTeam(teamuid){
   return teamToReturn;
 }
 
-async function updateTeamWorkoutHistory(date, teamuid, runneruid, workoutuid, totalDistance, resDev){
+async function updateTeamWorkoutHistory(date, teamuid, runneruid, workoutuid, totalDistance, resDev){ // I need to check and see if under that key there is => just add here, calculate averages somewhere else
   const indRef = "" + workoutuid + runneruid; // this way runners can have more than one workout per day without overwritting old day
   const toSet = {
     mileage : totalDistance,
@@ -209,6 +209,27 @@ async function updateTeamWorkoutHistory(date, teamuid, runneruid, workoutuid, to
     console.log("Unsuccessfully added the new values to the mileage history".red)
     console.log(err);
   })
+  await getMileageMedians(teamuid, date)
+}
+
+async function updateTeamMileageHistory_Event(date, teamuid, runneruid, eventuid, totalDist){ // just add the distance here => calculate in a different method
+  const indRef = "" + eventuid + runneruid;
+  const toSet = {
+    mileage: totalDist
+  }
+  teamMileageRef = await database.ref("teams/" + teamuid + "/mileage/" + date + "/values");
+  await teamMileageRef.child(indRef).set(toSet)
+  .then(() => {
+    console.log("Successfully added the new values to the mileage history".green)
+  }).catch(err => {
+    console.log("Un-Successfully added the new values to the mileage history".red)
+    console.log(err);
+  })
+  await getMileageMedians(teamuid, date)
+}
+
+async function getMileageMedians(teamuid, date){
+  teamMileageRef = await database.ref("teams/" + teamuid + "/mileage/" + date + "/values");
   let values = [];
   await teamMileageRef.once('value').then(async (valueSnapshot) => {
     valueSnapshot.forEach(function(child) {
@@ -217,12 +238,20 @@ async function updateTeamWorkoutHistory(date, teamuid, runneruid, workoutuid, to
   })
   let tD = [];
   let dev = [];
+  console.log(values);
   values.map(val => {
-    tD.push(val.mileage);
-    dev.push(val.resDeviation)
+    if(val.mileage !== undefined){
+      tD.push(val.mileage);
+    }
+    if(val.resDeviation !== undefined){
+      dev.push(val.resDeviation)
+    } 
   })
   let medDist = median(tD);
-  let medDev = median(dev);
+  let medDev = 0;
+  if(dev.length > 0){
+    medDev = median(dev);
+  }
   await database.ref("teams/" + teamuid + "/mileage/" + date).child("medDist").set(medDist)
   .then(() => {
     console.log("Successfully updated the date's med distance".green)
@@ -317,3 +346,5 @@ module.exports.updateTeam = updateTeam;
 module.exports.getTeamV02 = getTeamV02;
 module.exports.refreshTeam = refreshTeam;
 module.exports.updateTeamWorkoutHistory = updateTeamWorkoutHistory;
+module.exports.updateTeamMileageHistory_Event = updateTeamMileageHistory_Event;
+module.exports.getMileageMedians = getMileageMedians;

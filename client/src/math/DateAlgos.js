@@ -276,4 +276,15 @@ function getClosestSunday(day){
     } 
 }
 
-export { getWeeklyMileage, getClosestSunday, getDay, getDate, dayDate, getCleanDate, fixDateSelector, getMostRecentDate, findClosestDate, sevenDaySnapshot }
+function inBetween(d1, d2){
+    const msDay = 86400000;
+    const first = fixDateSelector(d1).getTime();
+    const last = fixDateSelector(d2).getTime();
+    let answer = [];
+    for(let i = first; i <= last; i += msDay){
+        answer.push(getCleanDate(new Date(i)))
+    }
+    return answer;
+}
+
+export { inBetween, getWeeklyMileage, getClosestSunday, getDay, getDate, dayDate, getCleanDate, fixDateSelector, getMostRecentDate, findClosestDate, sevenDaySnapshot }

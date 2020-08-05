@@ -9,7 +9,7 @@ export class EventAddRunnersModal extends Component {
         super(props);
 
         this.state = {
-            runnersToAddToFire: []
+            runnersToAddToFire: {}
         }
         this.handleChange = this.handleChange.bind(this);
     }
@@ -31,9 +31,12 @@ export class EventAddRunnersModal extends Component {
                 }));
             }
         } else {
-            if(this.state.runnersToAddToFire.includes(e.target.value)){
-                const index = this.state.runnersToAddToFire.indexOf(e.target.value);
-                this.state.runnersToAddToFire.splice(index, 1);
+            if(this.state.runnersToAddToFire.hasOwnProperty(e.target.value)){
+                let toReplace = this.state.runnersToAddToFire
+                delete toReplace[e.target.value]
+                this.setState({
+                    runnersToAddToFire: toReplace
+                })
             }
         }
     }

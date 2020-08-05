@@ -26,7 +26,6 @@ import {
 } from "../math/DateAlgos";
 import "../css/home.css";
 import MainCalendar from "../components/Calendar Components/MainCalendar";
-import { LineMarkSeries } from "react-vis";
 // import moment from 'moment';
 
 class Home extends Component {
@@ -164,6 +163,9 @@ class Home extends Component {
         counter++;
       }
     }
+    runnerArr.push(
+      
+    )
 
     return (
       <div className="home-container">
@@ -174,7 +176,7 @@ class Home extends Component {
             events={this.props.eventDates}
           />
         </div>
-        <div className = "second-row">
+        <section className = "second-row">
             <div className="roster-container">
               <div className="roster-header">
                 <div>
@@ -189,7 +191,7 @@ class Home extends Component {
           <div className = "graph-container">
             <V02_DevGraph series={series} />
           </div>
-        </div>
+        </section>
         <div>
             <Team_Mileage_Graph series = {series2} />
           </div>

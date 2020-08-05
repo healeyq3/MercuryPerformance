@@ -6,10 +6,13 @@ const { authenticatePost } = require("../firebaseUtilities/authenticationUtiliti
 const teamUtilities = require("../firebaseUtilities/teamUtilities");
 
 router.post('/', getEvents);
+router.post('/newholder', createEventHolder);
 router.post('/new', createEvent);
 router.post('/addrunner', addRunner);
 router.post('/newtime', newTime);
 router.post('/refreshevent', refreshEvent);
+router.post('/getholders', getEventHolders);
+router.post('/getholderevents', getHolderEvents);
 
 module.exports = router;
 
@@ -34,6 +37,45 @@ async function getEvents(req, res){
   });
 }
 
+async function getEventHolders(req, res){
+  if(!await authenticatePost(req, res)){
+    res.end();
+    return;
+  }
+
+  const data = req.body;
+  if(!await teamUtilities.doesUserOwnTeam(req)){
+    res.end("{}")
+    return;
+  }
+
+  eventUtilities.getTeamEventHolders(data.selectedTeamUID).then(eventHolders => {
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify(eventHolders));
+  }).catch(err => {
+    console.log("Error grabbing the eventholders")
+    console.log(err);
+    res.end("{}");
+  })
+}
+
+async function getHolderEvents(req, res){
+  if(!await authenticatePost(req, res)){
+    res.end();
+    return;
+  }
+
+  const data = req.body
+
+  eventUtilities.getHolderEvents(data.holderUID).then(events => {
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify(events))
+  }).catch(err => {
+    console.log("Error grabbing the events from the holder")
+    console.log(err);
+  })
+}
+
 async function createEvent(req, res){
   if(!await authenticatePost(req, res)){
     res.end();
@@ -43,7 +85,6 @@ async function createEvent(req, res){
   const data = req.body;
   const name = data.eventData.name;
   const date = data.eventData.date;
-  const location = data.eventData.location;
   const distance = data.eventData.distance;
   const distanceUnit = data.eventData.distanceUnit;
 
@@ -52,7 +93,7 @@ async function createEvent(req, res){
     return;
   }
 
-  eventUtilities.createEvent(data.selectedTeamUID, name, date, location, distance, distanceUnit, req.session.useruid).then((event) => {
+  eventUtilities.createEvent(data.selectedHolder, data.selectedTeamUID, name, date, distance, distanceUnit, req.session.useruid).then((event) => {
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(event));
   }).catch((error) => {
@@ -60,6 +101,45 @@ async function createEvent(req, res){
     console.log(error);
     res.end("{}");
   })
+}
+
+async function createEventHolder(req, res){
+  if(!await authenticatePost(req, res)){
+    res.end();
+    return;
+  }
+
+  const data = req.body;
+  const name = data.eventData.name;
+  const date = data.eventData.date;
+  const date2 = data.eventData.date2;
+  const location = data.eventData.location;
+
+  if(!await teamUtilities.doesUserOwnTeam(req)){
+    res.end('{}');
+    return;
+  }
+
+  if(date2 === undefined){
+    eventUtilities.createEventHolder1(data.selectedTeamUID, name, date, location, req.session.useruid).then(event => {
+      res.setHeader('Content-Type', 'application/json');
+      console.log("Event to return:")
+      res.end(JSON.stringify(event));
+    }).catch(err => {
+      console.log("Error adding and fetching the eventholder (1)")
+      console.log(err);
+      res.end("{}")
+    })
+  } else {
+    eventUtilities.createEventHolder2(data.selectedTeamUID, name, date, date2, location, req.session.useruid).then(event => {
+      res.setHeader('Content-Type', 'application/json');
+      res.end(JSON.stringify(event));
+    }).catch(err => {
+      console.log("Error adding and fetching the eventholder (1)")
+      console.log(err);
+      res.end("{}")
+    })
+  }
 }
 
 

@@ -21,7 +21,10 @@ export const RUNNERS_ADDED = 'RUNNERS_ADDED';
 export const SELECT_RUNNER =  'SELECT_RUNNER';
 export const RESET_RUNNER_ADDED = 'RESET_RUNNER_ADDED';
 export const REFRESH_EVENT = 'REFRESH_EVENT';
-
+export const NEW_EVENT_HOLDER = 'NEW_EVENT_HOLDER';
+export const SET_EVENT_HOLDER = 'SET_EVENT_HOLDER';
+export const GET_EVENT_HOLDERS = 'GET_EVENT_HOLDERS';
+export const GET_HOLDER_EVENTS = 'GET_HOLDER_EVENTS';
 
 //  ----------- WORKOUT ACTIONS ---------------
 export const NEW_BLUEPRINT = 'NEW_BLUEPRINT';

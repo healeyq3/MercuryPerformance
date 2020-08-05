@@ -1,20 +1,20 @@
 const firebaseSetup = require("./firebaseSetup");
 const database = firebaseSetup.database;
 const teamUtilies = require('./teamUtilities');
-const { median } = require('mathjs')
+const { median } = require('mathjs');
 
 // -------------- Events ----------------
 
-async function createEvent(teamuid, name, date, location, distance, distanceUnit, useruid){
+async function createEvent(holderuid, teamuid, name, date, distance, distanceUnit, useruid){
   const eventRef = await database.ref("events").push();
 
   const eventData = {
     name,
     date,
-    location,
     distance,
     distanceUnit,
-    key: eventRef.key.toString()
+    key: eventRef.key.toString(),
+    holder: holderuid
   }
 
   eventRef.set(eventData).then(async () => {
@@ -22,10 +22,78 @@ async function createEvent(teamuid, name, date, location, distance, distanceUnit
     await addEventToUser(useruid, eventRef.key, date, name);
   }).catch((err) => {
     console.log("Unable to create event ".red + name.blue);
-    console.log(err.toString());
+    console.log(err);
   });
+  await database.ref("eventholders/" + holderuid + "/events").child(eventRef.key.toString()).set(eventRef.key.toString()).then(() => {
+    console.log("Successfully added the event to the holder")
+  }).catch(err => {
+    console.log("Error adding the event to the holder")
+    console.log(err);
+  })
 
   return eventData;
+}
+
+async function createEventHolder1(teamuid, name, date, location){
+  const eventHolderRef = await database.ref("eventholders").push();
+
+  const eventData = {
+    name,
+    date,
+    location,
+    key: eventHolderRef.key.toString()
+  }
+  eventHolderRef.set(eventData).then(async () => {
+    await addEventHolderToTeam1(teamuid, eventHolderRef.key, date);
+  }).catch(err => {
+    console.log("Unable to create eventholder".red + name.blue);
+    console.log(err);
+  })
+
+  return eventData;
+}
+
+async function addEventHolderToTeam1(teamuid, eventholderuid, date){
+  await database.ref("teams/" + teamuid.toString() + '/eventholders').child(eventholderuid.toString()).child("date").set(date)
+  .then(() => {
+  }).catch((err) => {
+    console.log("Unable to add eventholder ".red + eventholderuid.red +" to "+ teamuid.toString().red);
+    console.log(err);
+  });
+}
+
+async function createEventHolder2(teamuid, name, date, date2, location){
+  const eventHolderRef = await database.ref("eventholders").push();
+
+  const eventData = {
+    name,
+    date,
+    date2,
+    location,
+    key: eventHolderRef.key.toString()
+  }
+  eventHolderRef.set(eventData).then(async () => {
+    await addEventHolderToTeam2(teamuid, eventHolderRef.key, date, date2);
+  }).catch(err => {
+    console.log("Unable to create eventholder".red + name.blue);
+    console.log(err);
+  })
+  return eventData;
+}
+
+async function addEventHolderToTeam2(teamuid, eventholderuid, date, date2){
+  await database.ref("teams/" + teamuid.toString() + '/eventholders').child(eventholderuid.toString()).child("date").set(date)
+  .then(() => {
+  }).catch((err) => {
+    console.log("Unable to add eventholder ".red + eventholderuid.red +" to "+ teamuid.toString().red);
+    console.log(err);
+  });
+  await database.ref("teams/" + teamuid.toString() + '/eventholders').child(eventholderuid.toString()).child("date").set(date2)
+  .then(() => {
+  }).catch((err) => {
+    console.log("Unable to add eventholder ".red + eventholderuid.red +" to "+ teamuid.toString().red);
+    console.log(err);
+  });
 }
 
 async function addEventToTeam(teamuid, eventuid, date, name){
@@ -42,7 +110,7 @@ async function addEventToTeam(teamuid, eventuid, date, name){
   })
 }
 
-async function addEventToUser(useruid, eventuid, date){
+async function addEventToUser(useruid, eventuid, date, name){
   await database.ref('users/' + useruid + '/events').child(eventuid).child("date").set(date)
   .then(() => {
     console.log("Event added to user".green)
@@ -80,6 +148,59 @@ async function getTeamEvents(teamuid){
     console.log("Error in getTeamEvents".red);
     console.log(error);
   })
+  return events;
+}
+
+async function getTeamEventHolders(teamuid){
+  const teamEventHoldersRef = database.ref("teams/" + teamuid.toString() + "/eventholders");
+  let eventHolders = {};
+
+  await teamEventHoldersRef.once("value").then(async (snapshot) => {
+    let eventHArray = [];
+    snapshot.forEach(function(child) {
+      eventHArray.push(child);
+    });
+
+    for(const eH of eventHArray){
+      const value = eH.key;
+      await database.ref("eventholders/" + value).once("value").then( eHSnapshot => {
+        eventHolders[value] = eHSnapshot.val();
+      }).catch(err => {
+        console.log("Error in getTeamEventHolders - database".red)
+        console.log(err);
+      })
+    }
+  }).catch(err => {
+    console.log("Error in getTeamEventHolders".red)
+    console.log(err);
+  })
+  return eventHolders;
+}
+
+async function getHolderEvents(holderuid){
+  const holderEvents = database.ref("eventholders/" + holderuid + "/events");
+
+  let events = {}
+
+  await holderEvents.once("value").then(async (snapshot) => {
+    let eventArray = [];
+    snapshot.forEach(function(child) {
+      eventArray.push(child)
+    })
+    for(const event of eventArray){
+      const value = event.key;
+      await database.ref("events/" + value).once("value").then( eventSnapshot => {
+        events[value] = eventSnapshot.val();
+      }).catch(err => {
+        console.log("Error in getHolderEvents".red)
+        console.log(err);
+      })
+    }
+  }).catch(err => {
+    console.log("Error in getHolderEvents".red)
+    console.log(err)
+  })
+  console.log(events);
   return events;
 }
 
@@ -145,6 +266,8 @@ async function getEventPriorData(eventuid){
 }
 
 async function newTime(timeData, splitData, raceV02, raceWPace, eventuid, selectedteamuid, runneruid, date){
+  // timeData.distance and timeData.units to find totalMileage
+  
   const eventTimeRef = await database.ref("events/" + eventuid + "/runners/" + runneruid + "/time")
   const eventSplitRef = await database.ref("events/" + eventuid + "/runners/" + runneruid + "/splits")
   const runnerV02Ref = await database.ref("runners/" + runneruid + "/v02History");
@@ -166,15 +289,18 @@ async function newTime(timeData, splitData, raceV02, raceWPace, eventuid, select
     console.log("Error changing the raceV02 for the runner ".red + runneruid.red)
   })
 
-  await runnerV02Ref.child(date).set(raceV02).then(() => {}).catch(err => {
+  await runnerV02Ref.child(date).set(raceV02).then(() => {}).catch(err => { // instead of the date put the eventUID
     console.log("Error updating the runner's v02History" + err)
   })
 
-  await runnerWPaceRef.child(date).set(raceWPace).then(() => {
+  await runnerWPaceRef.child(date).set(raceWPace).then(() => { // instead of the date put the eventUID
     getPostRaceData(eventuid, selectedteamuid, date)
   }).catch(err => {
     console.log("Error updating the runner's wPaceHistory" + err)
   })
+
+  const totalDistance = getDistance2(timeData.distance, timeData.units)
+  await teamUtilies.updateTeamMileageHistory_Event(date, selectedteamuid, runneruid, eventuid, totalDistance);
 }
 
 async function getPostRaceData(eventuid, teamUID, date){
@@ -276,6 +402,21 @@ function secondsToMinutes(seconds){
   return (seconds / 60);
 }
 
+// ------------ See V02max in the client for more information ---------------
+function getDistance2(measurement, unit){
+  if(unit === 'Kilometers'){
+      return convertKToM(measurement)
+  } else if(unit === 'Meters'){
+      return convertMeToMi(measurement)
+  } else {
+      if(typeof(measurement) !== "number"){
+          const toReturn = Number(measurement);
+          return toReturn;
+      }
+      return measurement
+  }
+}
+
 module.exports.createEvent = createEvent;
 module.exports.addEventToTeam = addEventToTeam;
 module.exports.getTeamEvents = getTeamEvents;
@@ -284,3 +425,7 @@ module.exports.removeRunnerFromEvent = removeRunnerFromEvent;
 module.exports.newTime = newTime;
 module.exports.getEventPriorData = getEventPriorData;
 module.exports.refreshEvent = refreshEvent;
+module.exports.createEventHolder1 = createEventHolder1;
+module.exports.createEventHolder2 = createEventHolder2;
+module.exports.getTeamEventHolders = getTeamEventHolders;
+module.exports.getHolderEvents = getHolderEvents;

@@ -18,6 +18,7 @@ import WorkoutCreator from "./WorkoutCreator";
 import WorkoutEditor from './WorkoutEditor'
 import cookie from "react-cookies";
 import NavigationTop from '../components/NavigationTop';
+import EventHolder from './EventHolder';
 
 
 export class MainPage extends Component {
@@ -57,6 +58,7 @@ export class MainPage extends Component {
                             <AuthRoute3 exact path = '/workoutdatedetails' component = {WorkoutDateDetails} />
                             <AuthRoute3 exact path = '/workoutcreator' component = {WorkoutCreator} />
                             <AuthRoute3 exact path = '/workouteditor' component = {WorkoutEditor} />
+                            <AuthRoute3 exact path = '/seasonevents' component = {EventHolder}/>
                         </div>
                     </React.Fragment>
                 </Switch>

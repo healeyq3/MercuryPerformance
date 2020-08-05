@@ -6,7 +6,7 @@ import "../css/navside.css"
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
 import { getWorkoutBlueprints } from '../actions/workoutActions';
-import { getTeamEvents } from '../actions/eventActions';
+import { getEventHolders } from '../actions/eventActions';
 import { getTeamRunners } from "../actions/runnerActions";
 import { getTeams } from "../actions/teamActions";
 
@@ -42,7 +42,7 @@ class NavigationSide extends Component {
     }
 
     updateEvents(){
-        this.props.getTeamEvents(this.props.selectedTeam);
+        this.props.getEventHolders(this.props.selectedTeam);
     }
 
     updateTeams(){
@@ -60,10 +60,10 @@ class NavigationSide extends Component {
                         <NavLink exact to="/" className="navigation-link-home" onClick={this.updateHome}><span className="text-hide">Home</span></NavLink>
                     </div>
                     <div className="navigation-link-container">
-                        <NavLink exact to="/workouts" className="navigation-link-workouts" onClick={this.updateEvents}><span className="text-hide">Events</span></NavLink>
+                        <NavLink exact to="/workouts" className="navigation-link-workouts" onClick={this.updateWorkouts}><span className="text-hide">Events</span></NavLink>
                     </div>
                     <div className="navigation-link-container">
-                        <NavLink exact to="/events" className="navigation-link-events" onClick={this.updateWorkouts}><span className="text-hide">Workouts</span></NavLink>
+                        <NavLink exact to="/seasonevents" className="navigation-link-events" onClick={this.updateEvents}><span className="text-hide">Workouts</span></NavLink>
                     </div>
                     <div className = "navigation-link-container">
                         <NavLink exact to = "/comingsoon" className = "navigation-link-calendar" onClick = {this.updateHome}><span className = "text-hide">Calendar</span></NavLink>
@@ -78,7 +78,6 @@ NavigationSide.propTypes = {
     selectedTeam: PropTypes.string.isRequired,
     rehydrated: PropTypes.bool.isRequired,
     getWorkoutBlueprints: PropTypes.func.isRequired,
-    getTeamEvents: PropTypes.func.isRequired,
     getTeamRunners: PropTypes.func.isRequired,
     getTeams: PropTypes.func.isRequired
 }
@@ -90,4 +89,4 @@ const mapStateToProps = function(state){
     }
 }
 
-export default withRouter(connect(mapStateToProps, { getWorkoutBlueprints, getTeamEvents, getTeamRunners, getTeams })(NavigationSide));
+export default withRouter(connect(mapStateToProps, { getWorkoutBlueprints, getEventHolders, getTeamRunners, getTeams })(NavigationSide));
