@@ -1,7 +1,6 @@
 const firebaseSetup = require("./firebaseSetup");
 const database = firebaseSetup.database;
-const runnerUtilities = require('./runnerUtilities');
-const { median } = require('mathjs')
+const { median } = require('mathjs');
 
 // -------------- Team ----------------
 async function createTeam(useruid, teamName, teamYear, teamLevel){
@@ -114,12 +113,13 @@ async function getTeamV02(teamuid, date){ //grabs the most updated team V02, and
 
   for(const runner in runners){
     if(runners[runner].hasOwnProperty('v02History')){
-      let v02ToAdd = runners[runner].v02History[findClosestDate(runners[runner].v02History, date)]
+      console.log(runners[runner].name)
+      let v02ToAdd = runners[runner].v02History[findClosestDate(runners[runner].v02History, date)].v02;
       values.push(v02ToAdd);
       allValues[runner] = v02ToAdd;
     }
     if(runners[runner].hasOwnProperty('wPaceHistory')){
-      let wPaceToAdd = stringToNumber(runners[runner].wPaceHistory[findClosestDate(runners[runner].wPaceHistory, date)])
+      let wPaceToAdd = stringToNumber(runners[runner].wPaceHistory[findClosestDate(runners[runner].wPaceHistory, date)].wPace)
       wValues.push(wPaceToAdd);
       allWValues[runner] = wPaceToAdd;
     }

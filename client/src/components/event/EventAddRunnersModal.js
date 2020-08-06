@@ -41,7 +41,7 @@ export class EventAddRunnersModal extends Component {
         }
     }
     handleAddRunners = () => {
-        this.props.addRunnersToEvent(this.state.runnersToAddToFire, this.props.selectedEvent);
+        this.props.addRunnersToEvent(this.state.runnersToAddToFire, this.props.selectedEvent, this.props.events[this.props.selectedEvent].date);
         this.props.setShow();
     }
 

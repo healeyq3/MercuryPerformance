@@ -1,6 +1,7 @@
 const firebaseSetup = require("./firebaseSetup");
 const database = firebaseSetup.database;
-const teamUtilies = require('./teamUtilities');
+const teamUtilities = require('./teamUtilities');
+const runnerUtilities = require('./runnerUtilities');
 const { median } = require('mathjs');
 
 // -------------- Events ----------------
@@ -204,7 +205,7 @@ async function getHolderEvents(holderuid){
   return events;
 }
 
-async function addRunnerToEvent(eventuid, runnerUidArray){
+async function addRunnerToEvent(eventuid, runnerUidArray, date){
   let runnersAdded = {};
   const eventRef = database.ref("events/" + eventuid + "/runners");
   for(const runner in runnerUidArray) {
@@ -213,11 +214,10 @@ async function addRunnerToEvent(eventuid, runnerUidArray){
       if(!snapshot.hasChild(runner)) {
         runnersAdded[runner] = runnerUidArray[runner];
         eventRef.child("" + runner).set(runnerUidArray[runner]).then(() => {
-          getEventPriorData(eventuid);
         }).catch(() => {
           console.log("Error adding runner ".cyan + runneruid + " to ".cyan + eventuid);
         })
-        database.ref("runners/" + runner + "/events/").child(eventuid).set(eventuid).then(() => {
+        database.ref("runners/" + runner + "/events/" + eventuid).child("date").set(date).then(() => {
           console.log("Successfully added the event " + eventuid.green + " to the runner" + runner.green )
         }).catch(err => {
           console.log("Un-successfully added the event ".red + eventuid + " to the runner" + runner);
@@ -245,10 +245,14 @@ async function getEventPriorData(eventuid){
     vValues.push(runner.priorV02)
     wPValues.push(stringToNumber(runner.priorWPace))
   })
-
-  priorMedianEventV02 = median(vValues);
-  priorMedianEventWPace = secondsToMinutes(median(wPValues));
-  
+  const priorMedianEventV02 = 0;
+  const priorMedianEventWPace = 0;
+  if(vValues !== undefined){
+    priorMedianEventV02 = median(vValues);
+  }
+  if(wPValues !== undefined){
+    priorMedianEventWPace = secondsToMinutes(median(wPValues));
+  }
   await database.ref("events/" + eventuid).child("priorMedianEventV02").set(priorMedianEventV02).then(() => {
     console.log("Successfully updated the prior median v02 for the event".green)
   }).catch(err => {
@@ -289,18 +293,29 @@ async function newTime(timeData, splitData, raceV02, raceWPace, eventuid, select
     console.log("Error changing the raceV02 for the runner ".red + runneruid.red)
   })
 
-  await runnerV02Ref.child(date).set(raceV02).then(() => {}).catch(err => { // instead of the date put the eventUID
+  await runnerV02Ref.child(date).child("values").child("" + eventuid + runneruid).set(raceV02).then(async function() {
+    await runnerUtilities.medianV02Values(date, runneruid)
+  }).catch(err => { // instead of the date put the eventUID
     console.log("Error updating the runner's v02History" + err)
   })
 
-  await runnerWPaceRef.child(date).set(raceWPace).then(() => { // instead of the date put the eventUID
+  await runnerWPaceRef.child(date).child("values").child("" + eventuid + runneruid).set(raceWPace).then(async function(){ // instead of the date put the eventUID
+    await runnerUtilities.medianWPaceValues(date, runneruid)
     getPostRaceData(eventuid, selectedteamuid, date)
   }).catch(err => {
     console.log("Error updating the runner's wPaceHistory" + err)
   })
 
   const totalDistance = getDistance2(timeData.distance, timeData.units)
-  await teamUtilies.updateTeamMileageHistory_Event(date, selectedteamuid, runneruid, eventuid, totalDistance);
+  await teamUtilities.updateTeamMileageHistory_Event(date, selectedteamuid, runneruid, eventuid, totalDistance);
+  await database.ref("runners/" + runneruid + "/events/" + eventuid).child("mileage").set(totalDistance)
+  .then(() => {
+    console.log("Successfully updated the runner's event mileage".green);
+  }).catch(err => {
+    console.log("Un-Successfully updated the runner's event mileage".red);
+    console.log(err);
+  })
+
 }
 
 async function getPostRaceData(eventuid, teamUID, date){
@@ -341,7 +356,7 @@ async function getPostRaceData(eventuid, teamUID, date){
   })
   console.log(date);
 
-  teamUtilies.getTeamV02(teamUID, date);
+  teamUtilities.getTeamV02(teamUID, date);
 }
 
 async function removeRunnerFromEvent(eventuid, runneruid){

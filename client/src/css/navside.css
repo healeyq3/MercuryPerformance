@@ -141,8 +141,8 @@
     border-color: #1E5288;
 }
 
-@media (max-width : 900){
+@media(max-width : 900px){
     .navigation-side-container{
-        visibility: hidden;
+        display: none;
     }
 }

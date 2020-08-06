@@ -188,8 +188,9 @@ async function addRunner(req, res){
   const data = req.body;
   const runnerUidArray = data.runnerUidArray;
   const eventuid = data.eventuid;
+  const date = data.date;
 
-  const runnersAdded = await eventUtilities.addRunnerToEvent(eventuid, runnerUidArray);
+  const runnersAdded = await eventUtilities.addRunnerToEvent(eventuid, runnerUidArray, date);
   res.end(JSON.stringify({
     runnersAdded: runnersAdded,
     eventuid: eventuid

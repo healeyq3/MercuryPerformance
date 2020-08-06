@@ -217,7 +217,7 @@ export function setEventHolder(eventHolder){
   }
 }
 
-export function addRunnersToEvent(runnerUidArray, eventuid){
+export function addRunnersToEvent(runnerUidArray, eventuid, date){
   return async function(dispatch){
     fire.auth().onAuthStateChanged(function(user) {
       user.getIdToken(true).then(async function (idToken) {
@@ -230,6 +230,7 @@ export function addRunnersToEvent(runnerUidArray, eventuid){
           body: JSON.stringify({
             idToken,
             eventuid,
+            date,
             runnerUidArray
           })
         })
