@@ -16,22 +16,24 @@
 .main-page{
   font-family: "Times New Roman", Times, serif;
   position: absolute;
-  min-height: calc(100vh - 10vh);
+  min-height: calc(100vh - 100px);
   /* height: auto; */
   width: calc(100vw - 30vw);
   top: 10vh;
-  left: 15vw;
-  right: 15vw;
+  left: 200px;
+  right: 200px;
   padding-left: 0;
   padding-right: 0;
   padding-top: 10vh;
   background-color: #ffffff;
+  overflow: hidden;
 }
 
 .main-page.login{
   padding-top: 0vh;
   left:0;
   top:0;
+  right: 0;
 }
 
 /* .main-page-container{
@@ -42,3 +44,10 @@
   padding-left: 0;
   padding-right: 0;
 } */
+
+@media(max-width : 900px){
+  .main-page{
+      right: 50px;
+      left: 50px;
+  }
+}

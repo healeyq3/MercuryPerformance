@@ -3,23 +3,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap');
 
 .main-container {
-    width: 70vw;
-    height: 15vh;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-gap: 20px;
     background-color: #ffffffee;
     border-style: solid;
     /* border-radius: 2rem; */
     border-color: #ffffffee;
-    overflow: hidden;
 }
 
 .date-card {
-    width: 9vw;
-    height: 25vh;
     overflow: hidden;
+    background-color: #571c43;
 }
 
 .race-text{
@@ -69,5 +64,19 @@
       color: #d1d6daee;
       font-weight: 300;
       font-family: 'Mulish', sans-serif;
+  }
+
+  @media(max-width:1000px){
+      .main-container{
+          grid-template-columns: repeat(3, 1fr);
+          grid-gap: 10px;
+      }
+  }
+
+  @media(max-width: 700px){
+      .main-container{
+          grid-template-columns: repeat(2, 1fr);
+          grid-gap: 10px;
+      }
   }
 

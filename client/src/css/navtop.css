@@ -1,100 +1,85 @@
 .navigation-top-container{
     background-color: #ffffff;
     position: fixed;
-    align-self: flex-start;
+    top: 0;
     width: 100vw;
-    height: 7.5vh;
-    min-height: 7.5vw;
     min-width: 100vw;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
+    height: 100px;
     z-index: 1;
+    display: flex;
 }
 
 .logo-container{
-    max-width: 15vw;
-    min-width: 15vw;
-    flex-grow: 1;
-    height: 100%;
-
+    max-width: 200px;
+    min-width: 200px;
+    height: 100px;
+    background-color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .navbar-logo{
-    height: 95%;
-    padding-top: 1.25vh;
-    padding-bottom: 1.25vh;
+    height: 100px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.dropbtn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    font-size: 50px;
+    /* background-color: inherit; */
+}
+
+.dropbtn:hover .dropbtn:focus{
+    color: #5f0202;
+}
+
+.dropshow {
+    display: block;
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropnotshow{
+    display: none
 }
 
 .main-top-bar-container{
     height: 100%;
-    flex-grow: 1;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+    background-color: #1e48be;
 }
 
-.top-bar-widgets-container{
-    width: fit-content;
-    min-width: 300px;
-    margin-left: auto;
-}
-
-.top-bar-user-information-container{
-    width: 15vw;
-    justify-content: center;
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
-}
-
-.top-bar-triangle-selector{
-    height: 8%;
-    opacity: 0.5;
-    padding-right: 30px;
-    padding-left: 10px;
-}
-
-.top-bar-profile-photo{
-    height: 75px;
-    max-height: 75px;
-    margin-right: 15px;
-    clip-path: circle();
-    border: 1px solid black;
-}
-
-#top-bar-user-name{
-    font: 20px "Helvetica Neue", sans-serif;
-    padding: 0;
-    margin: 0;
-}
-
-.dropbtn {
-    border-radius: 10rem;
-    background-color: #ffffff;
-    color: #a3a2a2;
-    border-color: #ffffff;
-
-}
-
-.dropbtn :hover {
-    background-color: #ffffff;
-    color: #ffffff;
-}
 
 .navigation-link{
-    color: rgb(6, 29, 95);
-    font: 16px "Helvetica Neue", sans-serif;
-    padding: 0;
+    color: #1e5288;
+    font: 20px "Helvetica Neue", sans-serif;
+    padding: 12px 16px;
     margin: 0;
+    text-decoration: none;
+    display: block;
+    text-align: left;
 }
 
-@media(max-width : 500px){
+.navigation-link:hover{
+    border-bottom: none;
+    background-color: #ddd;
+}
+
+@media(max-width : 900px){
     .navigation-top-container{
-        visibility: hidden;
+        display: none;
     }
 }
 

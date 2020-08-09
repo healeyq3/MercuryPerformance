@@ -26,6 +26,8 @@ import {
 } from "../math/DateAlgos";
 import "../css/home.css";
 import MainCalendar from "../components/Calendar Components/MainCalendar";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 // import moment from 'moment';
 
 class Home extends Component {

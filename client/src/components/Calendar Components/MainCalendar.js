@@ -41,7 +41,7 @@ export class MainCalendar extends Component {
 
             if(counter === 0){
                 inCalendar.push(
-                    <div className = 'date-card'>
+                    <div>
                         <h5 className = 'date-text'>Today</h5>
                         <div className = "date-holder">
                             {events}
@@ -50,7 +50,7 @@ export class MainCalendar extends Component {
                 )
             } else {
                 inCalendar.push(
-                    <div className = 'date-card'>
+                    <div>
                         <h5 className = 'date-text'>{getDay(dates[date].date)}</h5>
                         <h5 className = 'date-number-text'>{getDate(dates[date].date)}</h5>
                         <div className = "date-holder">

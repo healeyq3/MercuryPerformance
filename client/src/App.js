@@ -16,12 +16,10 @@ class App extends Component {
     return (
       <DndProvider backend = {HTML5Backend}>
           <Provider store={store}>
-          <div className="container">
             <HashRouter>
               {/* <NavigationTop/> */}
               <MainPage/>
             </HashRouter>
-          </div>
         </Provider>
       </DndProvider>
       
