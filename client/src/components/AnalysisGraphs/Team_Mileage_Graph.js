@@ -7,11 +7,67 @@ export class Team_Mileage_Graph extends Component {
     this.state = {
       options: {
         chart: {
+          width: "100%",
+          height: 350,
           id: "line",
+          toolbar: {
+            show: true,
+            tools: {
+              zoom: false,
+              zoomin: true,
+              zoomout: true,
+              reset: false,
+              download: false,
+              selection: false,
+              pan: false,
+            }
+          }
+        },
+        dataLabels : {
+          enabled: false
+        },
+        stroke : {
+          width: [4]
         },
         xaxis: {
           type: "datetime",
         },
+        title: {
+          text: "Weekly Mileage",
+          alight: "left",
+          offsetX: 110
+        },
+        yaxis: [
+          {
+            axisTicks: {
+              show: true
+            },
+            axisBorder: {
+              show: true,
+              color: "#008FFB"
+            },
+            labels: {
+              style: {
+                colors: "#008FFB"
+              }
+            },
+            tooltip: {
+              enabled: true
+            }
+          }
+        ],
+        toolTip: {
+          fixed: {
+            enabled: true,
+            position: "topLeft",
+            offsetY: 30,
+            offsetX: 60
+          }
+        },
+        legend : {
+          horizontalAlign: "left",
+          offsetX: 40
+        }
       },
     };
   }
@@ -22,7 +78,6 @@ export class Team_Mileage_Graph extends Component {
           options={this.state.options}
           series={this.props.series}
           type="line"
-          width="500"
         />
       </div>
     );

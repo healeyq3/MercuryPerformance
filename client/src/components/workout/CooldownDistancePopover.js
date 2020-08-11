@@ -41,6 +41,7 @@ export class CooldownDistancePopover extends Component {
   };
 
   reset = () => {
+    console.log("Reset called");
     this.setState({
       type: "distance cooldown",
       percent: 0,

@@ -17,17 +17,18 @@ import AddRunner from "../components/AddRunner";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
 import { V02_DevGraph } from "../components/AnalysisGraphs/V02_DevGraph";
-import { Team_Mileage_Graph } from '../components/AnalysisGraphs/Team_Mileage_Graph';
-import { PracticeColumnChart } from '../components/AnalysisGraphs/PracticeColumnChart'
+import { Team_Mileage_Graph } from "../components/AnalysisGraphs/Team_Mileage_Graph";
+import { PracticeColumnChart } from "../components/AnalysisGraphs/PracticeColumnChart";
 import {
   fixDateSelector,
   getCleanDate,
-  getWeeklyMileage
+  getWeeklyMileage,
 } from "../math/DateAlgos";
 import "../css/home.css";
 import MainCalendar from "../components/Calendar Components/MainCalendar";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCoffee } from "@fortawesome/free-solid-svg-icons";
+import { Button } from "react-bootstrap";
 // import moment from 'moment';
 
 class Home extends Component {
@@ -66,31 +67,35 @@ class Home extends Component {
       return <Redirect to="/events" />;
     }
 
-
     let dates2 = [];
     let data2 = [];
-    let data3 = []
-    if(this.props.teams[this.props.selectedTeam].mileage !== undefined){
-      for (const date in this.props.teams[this.props.selectedTeam].mileage){
-        dates2.push(new Date(fixDateSelector(date)).getTime())
+    let data3 = [];
+    if (this.props.teams[this.props.selectedTeam].mileage !== undefined) {
+      for (const date in this.props.teams[this.props.selectedTeam].mileage) {
+        dates2.push(new Date(fixDateSelector(date)).getTime());
       }
       dates2.sort(function (a, b) {
         return a - b;
-      })
-      for (const date in dates2){
+      });
+      for (const date in dates2) {
         let toAdd = {
-          x : dates2[date],
-          y : this.props.teams[this.props.selectedTeam].mileage[getCleanDate(new Date(dates2[date]))].medDev
-        }
-        data2.push(toAdd)
+          x: dates2[date],
+          y: this.props.teams[this.props.selectedTeam].mileage[
+            getCleanDate(new Date(dates2[date]))
+          ].medDev,
+        };
+        data2.push(toAdd);
       }
-      let mileageObject = getWeeklyMileage(this.props.teams[this.props.selectedTeam].mileage, dates2);
-      for(const date in mileageObject){
+      let mileageObject = getWeeklyMileage(
+        this.props.teams[this.props.selectedTeam].mileage,
+        dates2
+      );
+      for (const date in mileageObject) {
         let toAdd = {
-          x : Number(date),
-          y : mileageObject[date].mileage
-        }
-        console.log(new Date(Number(date)))
+          x: Number(date),
+          y: mileageObject[date].mileage,
+        };
+        console.log(new Date(Number(date)));
         data3.push(toAdd);
       }
     }
@@ -114,89 +119,87 @@ class Home extends Component {
         data.push(toAdd);
       }
       let today = {
-        x : new Date().getTime(),
-        y : this.props.teams[this.props.selectedTeam].v02History[getCleanDate(new Date(dates[dates.length - 1]))].medianV02
-      }
-      data.push(today)
+        x: new Date().getTime(),
+        y: this.props.teams[this.props.selectedTeam].v02History[
+          getCleanDate(new Date(dates[dates.length - 1]))
+        ].medianV02,
+      };
+      data.push(today);
     }
 
     const series = [
       {
         name: "V02 History",
         data: data,
-        type: 'line'
-      }, {
-        name : 'Dev History',
-        type : 'line',
-        data : data2
-      }
+        type: "line",
+      },
+      {
+        name: "Dev History",
+        type: "line",
+        data: data2,
+      },
     ];
-    console.log('D# ntea')
-    console.log(data3)
-    console.log(data2)
-    console.log(data)
+    console.log("D# ntea");
+    console.log(data3);
+    console.log(data2);
+    console.log(data);
     const series2 = [
       {
-        name : 'Mileage',
-        data : data3,
-        type : 'line'
-      }
-    ]
+        name: "Mileage",
+        data: data3,
+        type: "line",
+      },
+    ];
 
     let runnerArr = [];
     let counter = 1;
     for (const runneruid in this.props.runners) {
       if (this.props.runners.hasOwnProperty(runneruid)) {
-        let color = '';
-        if(counter % 2 === 0){
+        let color = "";
+        if (counter % 2 === 0) {
           color = "grey";
         } else {
-          color = "white"
+          color = "white";
         }
         runnerArr.push(
-          <React.Fragment key={runneruid}>
             <ExistingRunnerCard
               runner={this.props.runners[runneruid]}
               onSelect={this.setSelectedRunner}
-              color = {color}
+              color={color}
             />
-          </React.Fragment>
         );
         counter++;
       }
     }
-    runnerArr.push(
-      
-    )
+    runnerArr.push();
 
     return (
       <div className="home-container">
-        {/*<h2 id = "teamNameHome">{this.props.teams[this.props.selectedTeam].teamName}</h2>*/}
-        <div className = "calendar-holder">
+        <section className="calendar-holder">
           <MainCalendar
             workouts={this.props.workoutDates}
             events={this.props.eventDates}
           />
-        </div>
-        <section className = "second-row">
+        </section>
+        <section className="remaining-page">
+          <div className = "roster-holder">
             <div className="roster-container">
               <div className="roster-header">
-                <div>
-                  <text>Roster</text>
-                </div>
-                <div>
-                  <AddRunner teamUID={this.props.selectedTeam} />
-                </div>
+                <text>Roster</text>
+                <AddRunner teamUID={this.props.selectedTeam} />
               </div>
               {runnerArr}
             </div>
-          <div className = "graph-container">
-            <V02_DevGraph series={series} />
+          </div>
+          <div className = "graphs">
+            <div className = "chart">
+              <V02_DevGraph series={series} />
+            </div>
+            <div className = "chart">
+              <Team_Mileage_Graph series = {series2} />
+            </div>
           </div>
         </section>
-        <div>
-            <Team_Mileage_Graph series = {series2} />
-          </div>
       </div>
     );
   }

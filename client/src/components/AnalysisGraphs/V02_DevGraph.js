@@ -7,9 +7,22 @@ export class V02_DevGraph extends Component {
     this.state = {
       options: {
         chart: {
+          width: "100%",
           height: 350,
           type: "line",
           stacked: false,
+          toolbar: {
+            show: true,
+            tools: {
+              zoom: false,
+              zoomin: true,
+              zoomout: true,
+              reset: false,
+              download: false,
+              selection: false,
+              pan: false,
+            }
+          }
         },
         dataLabels: {
           enabled: false,
@@ -113,8 +126,6 @@ export class V02_DevGraph extends Component {
           options={this.state.options}
           series={this.props.series}
           type="line"
-          height={350}
-          width={750}
         />
       </div>
     );

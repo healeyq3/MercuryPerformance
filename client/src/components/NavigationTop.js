@@ -66,6 +66,8 @@ class NavigationTop extends Component {
 //     document.removeEventListener("mousedown", this.unShow);
 //   }
 
+
+
   render() {
     if (!cookie.load("mercury-fb-token")) {
       return null;
