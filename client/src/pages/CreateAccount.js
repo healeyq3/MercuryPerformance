@@ -126,7 +126,7 @@ class CreateAccount extends Component {
         isEmailValid && isPasswordValid && isNameValid ? disableCreateAccountButton = false : disableCreateAccountButton = true;
 
         return (
-            <Container className = "login-container">
+            <div className = "login-container">
                 <Card className = "login-card-style">
                     <img className="login-logo" src = {stdlogo} alt="logo"/>
                     <h1 className="login-card-header">Create Account</h1>
@@ -182,9 +182,9 @@ class CreateAccount extends Component {
                             </Row>
                         </Col>
                     </Form>
-                    <Link to = "./login" className="create-account-button">Return</Link>
+                    <Link to = "/home" className="create-account-button">Return</Link>
                 </Card>
-            </Container>
+            </div>
         )
     }
 }

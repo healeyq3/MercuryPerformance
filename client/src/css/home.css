@@ -27,7 +27,6 @@
   flex-direction: column;
   width: 20vw;
   min-width: 200px;
-  /* box-shadow: 5px 5px #1e5288; */
 }
 
 .roster-header {
@@ -62,8 +61,6 @@
 }
 
 .runner-card-white{
-  /* width: 100%;
-  height: 75px; */
   cursor: "pointer";
   background-color: #ffffff;
   font-family: 'Roboto Condensed', sans-serif;
@@ -71,8 +68,6 @@
 }
 
 .runner-card-grey{
-  /* width: 100%;
-  height: 75px; */
   cursor: "pointer";
   background-color: #fafafa;
   font-family: 'Roboto Condensed', sans-serif;
@@ -85,19 +80,29 @@
   color: rgb(54, 74, 161);
 }
 
+.graphs {
+  /* background-color: blueviolet; */
+  right: 10px;
+  width: 1700px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .chart {
-  width: 750px;
-  height: 350px;
+  position: relative;
+  left: 20px;
+  right: 20px;
+  width: 700px;
+  height: 400px;
+  /* max-width: 900px; */
   margin-bottom: 145px;
+  /* background-color: aqua; */
 }
 
 
 @media(max-width: 1100px){
   .remaining-page{
-    /* display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    grid-gap: 20px;
-    justify-content: center; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -108,6 +113,21 @@
     order: 2;
     width: 100%;
     background-color: aquamarine;
+    display: flex;
+    justify-content: center;
+  }
+
+  .roster-container{
+    width: 100%;
+  }
+
+  .graphs{
+    max-width: 500px;
+  }
+
+  .chart{
+    max-width: 600px;
+    margin-bottom: 20px;
   }
 }
 
@@ -116,16 +136,19 @@
   .remaining-page{
     justify-content: center;
   }
+
+  .roster-holder{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
   
   .roster-container{
-    width: 50%;
-    position: relative;
-    left: 50px;
-    background-color: aquamarine;
+    width: 100%;
   }
 
   .chart{
-    width: 550px;
+    width: 400px;
   }
 }
 

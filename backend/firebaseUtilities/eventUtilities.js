@@ -295,7 +295,7 @@ async function newTime(timeData, splitData, raceV02, raceWPace, eventuid, select
 
   await runnerV02Ref.child(date).child("values").child("" + eventuid + runneruid).set(raceV02).then(async function() {
     await runnerUtilities.medianV02Values(date, runneruid)
-  }).catch(err => { // instead of the date put the eventUID
+  }).catch(err => { 
     console.log("Error updating the runner's v02History" + err)
   })
 

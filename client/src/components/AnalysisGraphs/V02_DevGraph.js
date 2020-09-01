@@ -51,9 +51,9 @@ export class V02_DevGraph extends Component {
               style: {
                 colors: "#008FFB",
               },
-              formatter: function (val) {
-                return val.toFixed(2);
-              },
+              // formatter: function (val) {
+              //   return val.toFixed(2);
+              // },
             },
             title: {
               text: "V02max",

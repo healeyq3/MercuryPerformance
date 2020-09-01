@@ -27,12 +27,29 @@ async function getTeamRunners(teamuid){
   return runners;
 }
 
-async function createRunner(teamuid, name, email, experience, gradYear, wPace, v02, dateAdded){ //THIS FUNCTION IS WAY TOO INEFFICIENT
+async function createRunner(teamuid, name, email, experience, gradYear, wPace, v02, dateAdded){ 
   const runnerRef = await database.ref("runners").push();
-  v02History = {}
-  v02History[dateAdded] = v02
-  wPaceHistory = {};
-  wPaceHistory[dateAdded] = wPace
+
+  let v02History = {}
+  let v02Values = {
+    values : {
+
+    }
+  }
+  v02Values.values[runnerRef.key.toString()] = v02;
+  console.log("Break")
+  console.log(v02Values);
+  v02History[dateAdded] = v02Values;
+
+  let wPaceHistory = {};
+  let wPaceValues = {
+    values : {
+
+    }
+  };
+  wPaceValues.values[runnerRef.key.toString()] = wPace
+  wPaceHistory[dateAdded] = wPaceValues;
+
   const newRunner = {
     name,
     email,
@@ -53,6 +70,8 @@ async function createRunner(teamuid, name, email, experience, gradYear, wPace, v
     console.log("Unable to create runner ".red + name.blue);
     console.log(err.toString());
   });
+  medianV02Values(dateAdded, runnerRef.key.toString())
+  medianWPaceValues(dateAdded, runnerRef.key.toString())
   return newRunner;
   
 }

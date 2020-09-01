@@ -21,6 +21,7 @@ import NavigationTop from '../components/NavigationTop';
 import NavigationBarSmall from '../components/NavigationBarSmall'
 import EventHolder from './EventHolder';
 import "../css/App.css";
+import RunnerHome from './RunnerHome';
 
 
 export class MainPage extends Component {
@@ -62,6 +63,7 @@ export class MainPage extends Component {
                             <AuthRoute3 exact path = '/workoutcreator' component = {WorkoutCreator} />
                             <AuthRoute3 exact path = '/workouteditor' component = {WorkoutEditor} />
                             <AuthRoute3 exact path = '/seasonevents' component = {EventHolder}/>
+                            <AuthRoute3 exact path = "/runnerhome" component = {RunnerHome}/>
                         </div>
                     </React.Fragment>
                 </Switch>
